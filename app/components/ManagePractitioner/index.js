@@ -17,7 +17,7 @@ import messages from './messages';
 
 function ManagePractitioner(props) {
   const minimumLength = TEXT_MIN_LENGTH;
-  const minimumOrganization = '1';
+  const minimumOrganization = 'ONE';
 
   const {
     onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
@@ -39,6 +39,36 @@ function ManagePractitioner(props) {
     isOcpAdmin,
     initialSearchOrganizationResult,
   };
+
+  const validationSchemaShape = {
+    firstName: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .min(minimumLength, (
+        <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+    lastName: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />))
+      .min(minimumLength, (
+        <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+    identifierType: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    identifierValue: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+  };
+  const validationSchemaOcpAdminForm = yup.object().shape({
+    ...validationSchemaShape,
+    practitionerRoles: yup.array()
+      .required((
+        <FormattedMessage {...messages.validation.minLengthAssociateOrganization} values={{ minimumOrganization }} />)),
+  });
+
+  const validationSchemaOrgAdminForm = yup.object().shape({
+    ...validationSchemaShape,
+    roleCode: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+    specialty: yup.string()
+      .required((<FormattedMessage {...messages.validation.required} />)),
+  });
+
   return (
     <div>
       {((editMode && practitioner) || !editMode) &&
@@ -47,40 +77,7 @@ function ManagePractitioner(props) {
         onSubmit={(values, actions) => {
           onSave(mapFormDataBasedOnRole(values, organizationContext, isOcpAdmin), actions);
         }}
-        validationSchema={yup.object().shape({
-          firstName: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
-            .min(minimumLength, (
-              <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          lastName: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
-            .min(minimumLength, (
-              <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
-          identifierType: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          identifierValue: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
-          practitionerRoles: yup.array()
-            .of(
-              yup.object().shape({
-                organization: yup.object().shape({
-                  reference: yup.string()
-                    .required((<FormattedMessage {...messages.validation.required} />)),
-                }),
-                code: yup.string()
-                  .required((<FormattedMessage {...messages.validation.required} />)),
-                specialty: yup.string()
-                  .required((<FormattedMessage {...messages.validation.required} />)),
-                active: yup.boolean()
-                  .required((<FormattedMessage {...messages.validation.required} />)),
-              }),
-            )
-            .min(minimumOrganization, (
-              <FormattedMessage
-                {...messages.validation.minLengthAssociateOrganization}
-                values={{ minimumOrganization }}
-              />)),
-        })}
+        validationSchema={isOcpAdmin ? validationSchemaOcpAdminForm : validationSchemaOrgAdminForm}
         render={(formikProps) => <ManagePractitionerForm {...formikProps} {...formData} />}
       />
       }
