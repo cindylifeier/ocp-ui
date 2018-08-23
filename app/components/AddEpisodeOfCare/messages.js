@@ -75,10 +75,6 @@ export default defineMessages({
       id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.status',
       defaultMessage: 'Status',
     },
-    programName: {
-      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.programName',
-      defaultMessage: 'Program Name',
-    },
     patientName: {
       id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.hintText.status',
       defaultMessage: 'Patient Name',
@@ -116,10 +112,6 @@ export default defineMessages({
     status: {
       id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.status',
       defaultMessage: 'Status',
-    },
-    programName: {
-      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.programName',
-      defaultMessage: 'Program Name',
     },
     identifier: {
       id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.floatingLabelText.identifier',
