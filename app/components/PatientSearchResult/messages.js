@@ -151,5 +151,9 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.managingOrganization',
       defaultMessage: 'Managing Organization',
     },
+    mrn: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.mrn',
+      defaultMessage: 'MRN',
+    },
   },
 });
