@@ -192,11 +192,7 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
                 }}
               >{appointment.description}</TableRowColumn>
               }
-              <TableRowColumn
-                onClick={() => {
-                  onAppointmentClick(appointment);
-                }}
-              >
+              <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
             </ExpansionTableRow>

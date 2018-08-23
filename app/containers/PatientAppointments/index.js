@@ -44,6 +44,7 @@ import { ASC, DESC } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
+import CommunicationsTableDialog from 'components/CommunicationsTableDialog';
 import {
   acceptPatientAppointment,
   cancelPatientAppointment,
@@ -56,12 +57,14 @@ import reducer from './reducer';
 import saga from './saga';
 import { makeSelectPatientAppointments, makeSelectShowPastAppointments } from './selectors';
 
+
 export class PatientAppointments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
+      open: false,
       columnToSort: '',
       sortDirection: DESC,
     };
@@ -75,6 +78,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.handleAppointmentClick = this.handleAppointmentClick.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   componentDidMount() {
@@ -103,7 +107,12 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
   }
 
   handleAppointmentClick(appointment) {
+    this.setState({ open: true });
     console.log(appointment);
+  }
+
+  handleDialogClose() {
+    this.setState({ open: false });
   }
 
   handleCheck(event, checked) {
@@ -237,6 +246,10 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             }
           </ContentSection>
         </Card>
+        <CommunicationsTableDialog
+          open={this.state.open}
+          handleDialogClose={this.handleDialogClose}
+        ></CommunicationsTableDialog>
       </div>
     );
   }
