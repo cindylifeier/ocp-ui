@@ -9,7 +9,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization, active } = patient;
+  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization, active, mrn } = patient;
 
   let birthSexDisplay = 'Not Available';
   if (!isUndefined(birthSex) && birthSex !== null) {
@@ -96,6 +96,12 @@ function PatientExpansionRowDetails({ patient }) {
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.managingOrganization} />}
             text={organization && organization.display}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.mrn} />}
+            text={mrn}
           />
         </Cell>
       </Grid>

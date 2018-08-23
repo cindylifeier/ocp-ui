@@ -11,9 +11,9 @@ import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePag
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import ContentSection from 'components/ContentSection';
 import FilterSection from 'components/FilterSection';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
-import NoResultsFoundText from 'components/NoResultsFoundText';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
@@ -22,6 +22,7 @@ import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
   CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
@@ -166,7 +167,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
         <Card>
           <PanelToolbar
             {...addNewItem}
-            allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+            allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
             showSearchIcon={false}
             showUploadIcon={false}
             showSettingIcon={false}
