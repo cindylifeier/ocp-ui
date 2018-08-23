@@ -99,7 +99,7 @@ export default ManageLocation;
 
 
 function setFormData(location) {
-  let formData = { address: { countryCode: 'US' } }.address;
+  let formData = { address: { countryCode: 'United States' } }.address;
   if (!isEmpty(location)) {
     formData = merge(
       mapLocationToFiledObject(location, 'name'),
@@ -138,7 +138,7 @@ function mapLocationToAddressFields(location) {
       city: Util.setEmptyStringWhenUndefined(location.address.city),
       stateCode: Util.setEmptyStringWhenUndefined(location.address.stateCode),
       postalCode: Util.setEmptyStringWhenUndefined(location.address.postalCode),
-      countryCode: 'US',
+      countryCode: 'United States',
       use: Util.setEmptyStringWhenUndefined(location.address.use),
     };
   }

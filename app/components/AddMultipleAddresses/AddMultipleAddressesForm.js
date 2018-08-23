@@ -33,9 +33,9 @@ function AddMultipleAddressesForm(props) {
 
   function setInitialValue() {
     if (initialValues) {
-      return merge(initialValues, { address: { countryCode: 'US' } }).address;
+      return merge(initialValues, { address: { countryCode: 'United States' } }).address;
     }
-    return { address: { countryCode: 'US' } }.address;
+    return { address: { countryCode: 'United States' } }.address;
   }
 
   return (
