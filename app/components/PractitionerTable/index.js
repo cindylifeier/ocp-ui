@@ -213,7 +213,7 @@ PractitionerTable.propTypes = {
         use: PropTypes.string,
       })),
       practitionerRoles: PropTypes.array,
-    })).isRequired,
+    })),
   }),
   combineAddress: PropTypes.func.isRequired,
   mapToTelecoms: PropTypes.func.isRequired,

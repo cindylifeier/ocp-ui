@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Util from 'utils/Util';
 import {
   makeSelectPractitionerIdentifierSystems,
   makeSelectProviderRoles,
@@ -26,6 +27,7 @@ import {
 } from 'containers/App/lookupSelectors';
 import {
   EMPTY_STRING,
+  OCP_ADMIN_ROLE_CODE,
   PRACTITIONERIDENTIFIERSYSTEM,
   PROVIDER_ROLE,
   PROVIDER_SPECIALTY,
@@ -34,7 +36,7 @@ import {
   USPSSTATES,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectUser } from 'containers/App/contextSelectors';
 import {
   makeSelectNewPractitionerExists,
   makeSelectNewPractitionerQueryParameters,
@@ -107,7 +109,7 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
   render() {
     const {
       match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles,
-      providerSpecialties, selectedPractitioner, organizations, organizationContext,
+      providerSpecialties, selectedPractitioner, organizations, organizationContext, user: { role },
       newPractitionerExists, newPractitionerQueryParameters,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
@@ -126,7 +128,10 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
         identifier,
       };
     }
-    const formProps = {
+
+    const isOcpAdmin = Util.equalsIgnoreCase(role, OCP_ADMIN_ROLE_CODE);
+
+    const childProps = {
       uspsStates,
       identifierSystems,
       telecomSystems,
@@ -137,6 +142,7 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
       practitioner,
       organizations,
       organizationContext,
+      isOcpAdmin,
       initialNewPractitionerValue,
     };
     return (
@@ -156,7 +162,7 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
             onPageClick={this.handlePageClick}
             onSearch={this.handleSearch}
             initialSearchOrganizationResult={this.initialSearchOrganizationResult}
-            {...formProps}
+            {...childProps}
           />
         </PageContent>
       </Page>
@@ -200,6 +206,9 @@ ManagePractitionerPage.propTypes = {
     logicalId: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
   }),
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }),
   initializeOrganizations: PropTypes.func.isRequired,
   newPractitionerExists: PropTypes.bool,
   newPractitionerQueryParameters: PropTypes.shape({
@@ -220,6 +229,7 @@ const mapStateToProps = createStructuredSelector({
   selectedPractitioner: makeSelectPractitioner(),
   organizations: makeSelectOrganizations(),
   organizationContext: makeSelectOrganization(),
+  user: makeSelectUser(),
   newPractitionerQueryParameters: makeSelectNewPractitionerQueryParameters(),
   newPractitionerExists: makeSelectNewPractitionerExists(),
 });

@@ -22,7 +22,7 @@ function ManagePractitioner(props) {
   const {
     onSave, uspsStates, identifierSystems, telecomSystems, telecomUses,
     providerRoles, providerSpecialties, editMode, practitioner, onPageClick, onSearch,
-    organizations, organizationContext, initialSearchOrganizationResult,
+    organizations, organizationContext, isOcpAdmin, initialSearchOrganizationResult,
     initialNewPractitionerValue,
   } = props;
   const formData = {
@@ -36,6 +36,7 @@ function ManagePractitioner(props) {
     onSearch,
     organizations,
     organizationContext,
+    isOcpAdmin,
     initialSearchOrganizationResult,
   };
   return (
@@ -122,6 +123,7 @@ ManagePractitioner.propTypes = {
     logicalId: PropTypes.string.isRequired,
     active: PropTypes.bool.isRequired,
   }),
+  isOcpAdmin: PropTypes.bool.isRequired,
   initialNewPractitionerValue: PropTypes.any,
 };
 
