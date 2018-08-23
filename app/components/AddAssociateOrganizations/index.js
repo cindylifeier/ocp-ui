@@ -46,7 +46,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
   }
 
   render() {
-    const { onSearch, onChangePage, organizations, roleType, specialtyType, existingOrganizations, practitionerRoles, errors } = this.props;
+    const { onSearch, onChangePage, organizations, roleType, specialtyType, existingOrganizations, errors } = this.props;
     return (
       <div>
         <FormSubtitle margin="1vh 0 0 0">
@@ -92,7 +92,7 @@ class AddAssociateOrganizations extends React.Component { // eslint-disable-line
                 roleType={roleType}
                 specialtyType={specialtyType}
                 errors={errors}
-                practitionerRoles={practitionerRoles}
+                practitionerRoles={existingOrganizations}
               />
             </div>
           )}
@@ -115,7 +115,6 @@ AddAssociateOrganizations.propTypes = {
   existingOrganizations: PropTypes.array,
   roleType: PropTypes.array,
   specialtyType: PropTypes.array,
-  practitionerRoles: PropTypes.array,
   errors: PropTypes.object,
 };
 

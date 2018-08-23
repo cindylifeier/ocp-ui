@@ -67,14 +67,12 @@ class ManagePractitionerForm extends React.Component {
       existingOrganizations: values.practitionerRoles,
       onChangePage: onPageClick,
       initialSearchOrganizationResult,
-      practitionerRoles: values.practitionerRoles,
       errors,
     };
     const addAssociateRoleProps = {
       roleType: providerRoles,
       specialtyType: providerSpecialties,
       organizationContext,
-      practitionerRoles: values.practitionerRoles,
       errors,
     };
     return (

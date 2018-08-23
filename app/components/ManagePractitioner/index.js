@@ -12,7 +12,7 @@ import yup from 'yup';
 
 import { TEXT_MIN_LENGTH } from './constants';
 import ManagePractitionerForm from './ManagePractitionerForm';
-import { setFormData } from './helpers';
+import { initialFormDataBasedOnRole, mapFormDataBasedOnRole } from './helpers';
 import messages from './messages';
 
 function ManagePractitioner(props) {
@@ -43,9 +43,9 @@ function ManagePractitioner(props) {
     <div>
       {((editMode && practitioner) || !editMode) &&
       <Formik
-        initialValues={(setFormData(practitioner, initialNewPractitionerValue)) || { practitionerRoles: [] }}
+        initialValues={(initialFormDataBasedOnRole(practitioner, initialNewPractitionerValue, isOcpAdmin)) || { practitionerRoles: [] }}
         onSubmit={(values, actions) => {
-          onSave(values, actions);
+          onSave(mapFormDataBasedOnRole(values, organizationContext, isOcpAdmin), actions);
         }}
         validationSchema={yup.object().shape({
           firstName: yup.string()
