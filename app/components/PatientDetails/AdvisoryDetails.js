@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
-
-import { CARE_COORDINATOR_ROLE_CODE } from 'containers/App/constants';
-import ShowHideWrapper from 'containers/ShowHideWrapper';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
+
+import { CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PCP_ROLE_CODE } from 'containers/App/constants';
+import ShowHideWrapper from 'containers/ShowHideWrapper';
+import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import AdvisoryDetailsCell from './AdvisoryDetailsCell';
-import StyledAdvisoryTable from './StyledAdvisoryTable';
 import messages from './messages';
+import StyledAdvisoryTable from './StyledAdvisoryTable';
 
 
 const tableColumns = '3fr 1.5fr 1.5fr 2fr 2fr';
@@ -20,7 +20,7 @@ const tableColumns = '3fr 1.5fr 1.5fr 2fr 2fr';
 function AdvisoryDetails({ flags }) {
   return (
     <AdvisoryDetailsCell>
-      <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
+      <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PCP_ROLE_CODE]}>
         <StyledAdvisoryTable>
           <TableHeader columns={tableColumns}>
             <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAuthor} /></TableHeaderColumn>
