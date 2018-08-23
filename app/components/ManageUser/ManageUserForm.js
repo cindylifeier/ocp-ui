@@ -133,13 +133,15 @@ class ManageUserForm extends React.Component {
               fullWidth
               disabled
             >
-              {user && user.practitionerRoles &&
-              user.practitionerRoles.map((practitionerRoles) => (
-                <MenuItem
-                  key={practitionerRoles.organization.reference.split('/').pop()}
-                  value={practitionerRoles.organization.reference.split('/').pop()}
-                  primaryText={practitionerRoles.organization.display}
-                />),
+              {resourceType === 'Patient' &&
+              <MenuItem
+                key={user.organization && user.organization.reference.split('/').pop()}
+                value={user.organization && user.organization.reference.split('/').pop()}
+                primaryText={user.organization && user.organization.display}
+              />
+              }
+              {resourceType === 'Practitioner' && user && user.practitionerRoles && user.practitionerRoles.map((practitionerRole) =>
+                <MenuItem key={practitionerRole.organization.reference} value={practitionerRole.organization.reference.split('/').pop()} primaryText={practitionerRole.organization.display} />,
               )}
             </SelectField>
           </Cell>
