@@ -1,9 +1,9 @@
-import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
-import request from '../../utils/request';
 import { mapParticipantName } from '../../utils/CareTeamUtils';
 import { BASE_CARE_TEAMS_API_URL, getEndpoint } from '../../utils/endpointService';
+import request from '../../utils/request';
 
 const baseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
 
@@ -80,7 +80,7 @@ function mapToBffCareTeam(careTeamData) {
 
   return {
     name: careTeamName,
-    statusCode: status,
+    statusCode: (!isUndefined(status) && status !== null) ? status : 'active',
     subjectId: patientId,
     startDate: (!isUndefined(startDate) && startDate !== null) ? startDate.toLocaleDateString() : null,
     endDate: (!isUndefined(endDate) && endDate !== null) ? endDate.toLocaleDateString() : null,
