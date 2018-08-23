@@ -30,7 +30,7 @@ import {
 import messages from './messages';
 
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const practitionerWorkspace = !isPatientWorkspace && !isPatientDetailsPage;
 
@@ -151,18 +151,52 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               }
             >
               {practitionerWorkspace &&
-              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
+              <TableRowColumn
+                textDecorationLine="underline"
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                  handlePatientNameClick(appointment.patientId);
+                }}
+              >
+                {appointment.patientName}
+              </TableRowColumn>
               }
               {isExpanded &&
-              <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >
+                {mapDisplayFromCode(appointmentTypes, appointment.typeCode)}
+              </TableRowColumn>
               }
-              <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
-              <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
-              <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{appointment.appointmentDate}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{appointment.appointmentDuration}</TableRowColumn>
               {isExpanded &&
-              <TableRowColumn>{appointment.description}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{appointment.description}</TableRowColumn>
               }
-              <TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
             </ExpansionTableRow>
@@ -187,6 +221,7 @@ AppointmentTable.propTypes = {
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
+  onAppointmentClick: PropTypes.func,
   acceptAppointment: PropTypes.func,
   declineAppointment: PropTypes.func,
   tentativeAppointment: PropTypes.func,

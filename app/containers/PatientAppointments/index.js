@@ -74,6 +74,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.tentativeAppointment = this.tentativeAppointment.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
+    this.handleAppointmentClick = this.handleAppointmentClick.bind(this);
   }
 
   componentDidMount() {
@@ -99,6 +100,10 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
   handleSort(columnName) {
     this.setState({ columnToSort: columnName });
     this.setState({ sortDirection: this.state.columnToSort === columnName ? Util.invertSortDirection(this.state.sortDirection) : ASC });
+  }
+
+  handleAppointmentClick(appointment) {
+    console.log(appointment);
   }
 
   handleCheck(event, checked) {
@@ -215,6 +220,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 handleSort={this.handleSort}
                 columnToSort={this.state.columnToSort}
                 sortDirection={this.state.sortDirection}
+                onAppointmentClick={this.handleAppointmentClick}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
