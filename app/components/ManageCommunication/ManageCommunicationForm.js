@@ -20,6 +20,7 @@ import messages from './messages';
 function ManageCommunicationForm(props) {
   const {
     isSubmitting,
+    values,
     dirty,
     isValid,
     communicationStatus,
@@ -27,6 +28,8 @@ function ManageCommunicationForm(props) {
     communicationMedia,
     selectedPatient,
   } = props;
+
+  const notDoneFlag = values.notDone;
 
   const mediumSuggestions = communicationMedia
     .filter((entry) => (entry.code !== null) && (entry.display !== null))
@@ -107,6 +110,7 @@ function ManageCommunicationForm(props) {
             <SelectField
               floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
               name="notDoneReasonCode"
+              disabled={!notDoneFlag}
               fullWidth
             >
               {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
@@ -186,6 +190,7 @@ function ManageCommunicationForm(props) {
 
 ManageCommunicationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  values: PropTypes.object,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   communicationStatus: PropTypes.array.isRequired,
