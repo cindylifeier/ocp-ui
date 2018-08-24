@@ -10,7 +10,6 @@ import { FormattedMessage } from 'react-intl';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
-import { LinearProgress } from 'material-ui-next/Progress';
 
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
@@ -24,6 +23,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
@@ -80,7 +80,7 @@ class PractitionerTable extends React.Component {
             <OrganizationSelectForm handleCloseDialog={this.handleCloseDialog} practitioner={this.state.practitioner} />
           </DialogContent>
         </StyledDialog>
-        {practitionersData.loading && <LinearProgress />}
+        <LinearProgressIndicator loading={practitionersData.loading} />
 
         {!practitionersData.loading && practitionersData.data && practitionersData.data.length === 0 &&
         <NoResultsFoundText><FormattedMessage {...messages.NoPractitionersFound} /></NoResultsFoundText>
