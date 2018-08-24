@@ -4,29 +4,29 @@
  *
  */
 
-import ExpansionTableRow from 'components/ExpansionTableRow';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import NoResultsFoundText from 'components/NoResultsFoundText';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRowColumn from 'components/TableRowColumn';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import find from 'lodash/find';
+
+import sizeMeHOC from 'utils/SizeMeUtils';
 import {
   MANAGE_CARE_TEAM_URL,
   MANAGE_PATIENT_URL,
   MANAGE_TASK_URL,
   MANAGE_USER_REGISTRATION,
 } from 'containers/App/constants';
-import find from 'lodash/find';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-
-import sizeMeHOC from 'utils/SizeMeUtils';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import NavigationIconMenu from 'components/NavigationIconMenu';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRowColumn from 'components/TableRowColumn';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
-import messages from './messages';
 import PatientExpansionRowDetails from './PatientExpansionRowDetails';
+import messages from './messages';
 
 
 function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick) {
@@ -87,24 +87,42 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         role="button"
         tabIndex="0"
       >
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{getFullName(patient)}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {getFullName(patient)}
+        </TableRowColumn>
         {isExpanded &&
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient && patient.mrn}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {patient && patient.mrn}
+        </TableRowColumn>
         }
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{contact}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {contact}
+        </TableRowColumn>
         {isExpanded &&
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{address}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {address}
+        </TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.race && find(usCoreRaces, { code: patient.race }).display}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {patient.race && find(usCoreRaces, { code: patient.race }).display}
+        </TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {patient.ethnicity && find(usCoreEthnicities, { code: patient.ethnicity }).display}
+        </TableRowColumn>
         }
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.birthDate}</TableRowColumn>
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{patient.genderDisplayString}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {patient.birthDate}
+        </TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {patient.genderDisplayString}
+        </TableRowColumn>
         {isExpanded &&
-        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>{getIdentifiers(patient.identifier)}</TableRowColumn>
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {getIdentifiers(patient.identifier)}
+        </TableRowColumn>
         }
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
           {showActionButton &&
@@ -131,24 +149,19 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
 
-  if (loading) {
-    return <RefreshIndicatorLoading />;
-  }
+  return (
+    <div>
+      <LinearProgressIndicator loading={loading} />
 
-  if (error !== false) {
-    return (<NoResultsFoundText><FormattedMessage {...messages.errorMessage} /></NoResultsFoundText>);
-  }
+      {error !== false &&
+      <NoResultsFoundText><FormattedMessage {...messages.errorMessage} /></NoResultsFoundText>
+      }
 
-  if (error !== false) {
-    return (<NoResultsFoundText><FormattedMessage {...messages.noMatchResult} /></NoResultsFoundText>);
-  }
+      {searchResult !== false && searchResult !== null && searchResult.length === 0 &&
+      <NoResultsFoundText><FormattedMessage {...messages.noPatientsFound} /></NoResultsFoundText>
+      }
 
-  if (searchResult !== false && searchResult !== null && searchResult.length === 0) {
-    return (<NoResultsFoundText><FormattedMessage {...messages.noPatientsFound} /></NoResultsFoundText>);
-  }
-
-  if (searchResult !== false && searchResult !== null && searchResult.length !== 0) {
-    return (
+      {searchResult !== false && searchResult !== null && searchResult.length !== 0 &&
       <Table>
         <TableHeader columns={columns} relativeTop={relativeTop}>
           <TableHeaderColumn />
@@ -177,9 +190,9 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
         </TableHeader>
         {displayPatientSearchResult(searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, isExpanded, columns, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick)}
       </Table>
-    );
-  }
-  return null;
+      }
+    </div>
+  );
 }
 
 PatientSearchResult.propTypes = {
