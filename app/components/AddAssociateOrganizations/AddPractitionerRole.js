@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LinearProgress } from 'material-ui-next/Progress';
 import { FormattedMessage } from 'react-intl';
 
 import SearchBar from 'components/SearchBar';
 import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import PractitionerRoleForOrganizationTable from 'components/PractitionerRoleForOrganizationTable';
 import messages from './messages';
 
@@ -17,7 +17,7 @@ function AddPractitionerRole(props) {
   return (
     <div>
       <SearchBar onSearch={onSearch} />
-      {loading && <LinearProgress />}
+      <LinearProgressIndicator loading={loading} />
       {!loading && data && data.length === 0 &&
       <CenterAlign>
         <NoResultsFoundText><FormattedMessage {...messages.noOrganizationsFound} /></NoResultsFoundText>

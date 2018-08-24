@@ -14,7 +14,7 @@ import FilterSection from 'components/FilterSection';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import { getLookupsAction } from 'containers/App/actions';
@@ -174,6 +174,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             showFilterIcon={false}
             onSize={this.handlePanelResize}
           />
+          <LinearProgressIndicator loading={loading} />
           <ContentSection>
             {showPastAppFilter &&
             <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
@@ -191,8 +192,6 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
               </FilterSection>
             </SizedStickyDiv>
             }
-            {loading &&
-            <RefreshIndicatorLoading />}
             {!loading && isEmpty(data) &&
             <NoResultsFoundText>{
               <FormattedMessage {...messages.noUpcomingAppointments} />}</NoResultsFoundText>}
