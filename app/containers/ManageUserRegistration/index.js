@@ -22,7 +22,7 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import reducer from './reducer';
 import saga from './saga';
-import { getGroups, getUser, initializeUserRegistration, saveUser } from './actions';
+import { getGroups, getUser, initializeUserRegistration, saveUser, removeUser } from './actions';
 import { makeSelectGroups, makeSelectUser, makeSelectFhirResource } from './selectors';
 import messages from './messages';
 
@@ -31,6 +31,7 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
   constructor(props) {
     super(props);
     this.handleSave = this.handleSave.bind(this);
+    this.handleRemoveUser = this.handleRemoveUser.bind(this);
   }
 
   componentDidMount() {
@@ -49,6 +50,10 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
     const queryObj = queryString.parse(location.search);
     const resourceType = queryObj.resourceType;
     this.props.onSaveUser(merge(userFormData, { resourceType, resourceId }), () => actions.setSubmitting(false));
+  }
+
+  handleRemoveUser(userId) {
+    this.props.removeUser(userId);
   }
 
   render() {
@@ -71,6 +76,7 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
       resourceType,
       uaaUser,
       organization,
+      handleRemoveUser: this.handleRemoveUser,
     };
     return (
       <Page>
@@ -99,6 +105,7 @@ ManageUserRegistration.propTypes = {
   getGroups: PropTypes.func,
   onSaveUser: PropTypes.func,
   initializeUserRegistration: PropTypes.func,
+  removeUser: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -110,6 +117,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getUser: (resourceType, resourceId) => dispatch(getUser(resourceType, resourceId)),
+    removeUser: (userId) => dispatch(removeUser(userId)),
     getGroups: () => dispatch(getGroups()),
     initializeUserRegistration: () => dispatch(initializeUserRegistration()),
     onSaveUser: (userFormData, handleSubmitting) => dispatch(saveUser(userFormData, handleSubmitting)),

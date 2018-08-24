@@ -47,6 +47,13 @@ export function updateUser(userFormData) {
   });
 }
 
+export function removeUser(userId) {
+  const url = `${baseUsersEndpoint}/${userId}`;
+  return request(url, {
+    method: 'DELETE',
+  });
+}
+
 export function mapToBackendDto(userFormData) {
   const { username, password, resourceType, resourceId, organization, group } = userFormData;
   return {
