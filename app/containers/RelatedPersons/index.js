@@ -20,7 +20,7 @@ import { MANAGE_RELATED_PERSON_URL, PATIENT_ROLE_CODE } from 'containers/App/con
 import { makeSelectPatient } from 'containers/App/contextSelectors';
 import RecordsRange from 'components/RecordsRange';
 import RelatedPersonTable from 'components/RelatedPersonTable';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import InfoSection from 'components/InfoSection';
 import ContentSection from 'components/ContentSection';
 import InlineLabel from 'components/InlineLabel';
@@ -93,6 +93,7 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
           showUploadIcon={false}
           onSize={this.handlePanelResize}
         />
+        <LinearProgressIndicator loading={loading} />
         {isEmpty(patient) && (
           <NoResultsFoundText><FormattedMessage {...messages.noRelatedPersonSelected} /></NoResultsFoundText>)}
         {!isEmpty(patient) && (
@@ -109,7 +110,6 @@ export class RelatedPersons extends React.Component { // eslint-disable-line rea
           }
           {!isEmpty(patient) && !isEmpty(data.elements) && (
             <div>
-              {loading && <RefreshIndicatorLoading />}
               <RelatedPersonTable
                 relativeTop={this.state.panelHeight}
                 relatedPersons={data.elements}

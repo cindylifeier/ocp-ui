@@ -159,8 +159,8 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           showFilterIcon={false}
           onSize={this.handlePanelResize}
         />
+        <LinearProgressIndicator loading={loading} />
         <ContentSection>
-          <LinearProgressIndicator loading={loading} />
           {isEmpty(patientName) ?
             <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText> :
             <SizedStickyDiv onSize={this.handleFilterResize} top={`${this.state.panelHeight}px`}>
