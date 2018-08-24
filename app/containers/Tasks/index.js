@@ -13,7 +13,7 @@ import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import PanelToolbar from 'components/PanelToolbar';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import TaskTable from 'components/TaskTable';
 import { getLookupsAction } from 'containers/App/actions';
@@ -175,6 +175,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
           showFilterIcon={false}
           onSize={this.handlePanelResize}
         />
+        <LinearProgressIndicator loading={loading} />
         {isEmpty(patientName) ?
           <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText>
           :
@@ -197,9 +198,6 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
             </Grid>
           </SizedStickyDiv>
         }
-
-        {loading &&
-        <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(patientName) && !isEmpty(patient.id) && isEmpty(taskList) &&
         <NoResultsFoundText>
