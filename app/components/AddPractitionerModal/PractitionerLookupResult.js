@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Divider from 'material-ui-next/Divider';
-import { LinearProgress } from 'material-ui-next/Progress';
 import uniqueId from 'lodash/uniqueId';
 
 import Table from 'components/Table';
@@ -18,6 +17,7 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import InfoSection from 'components/InfoSection';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import { flattenPractitioner } from './helpers';
@@ -77,7 +77,7 @@ function PractitionerLookupResult(props) {
 
   return (
     <div>
-      {loading && <LinearProgress />}
+      <LinearProgressIndicator loading={loading} />
       {error && !exists &&
       <div>
         <FormattedMessage {...messages.NoExistPractitionerFound} />
