@@ -1,8 +1,8 @@
 /**
-*
-* CoverageTable
-*
-*/
+ *
+ * CoverageTable
+ *
+ */
 
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -16,14 +16,11 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import Table from 'components/Table';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import CoverageRowDetails from './CoverageExpansionRowDetails';
 import messages from './messages';
-import {
-  EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS,
-  SUMMARY_VIEW_WIDTH,
-} from './constants';
+import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
 
 function CoverageTable(props) {
   const { loading, coverageData, handleChangePage } = props;
@@ -33,67 +30,66 @@ function CoverageTable(props) {
 
   return (
     <div>
-      {loading && <RefreshIndicatorLoading />}
-      {(!loading && coverageData.elements &&
-        coverageData.elements.length > 0 ?
-          <div>
-            <Table>
-              <TableHeader columns={columns} relativeTop={props.relativeTop}>
-                <TableHeaderColumn />
-                <TableHeaderColumn><FormattedMessage {...messages.coverage} /></TableHeaderColumn>
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.ID} /></TableHeaderColumn>
-                }
-                <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.beneficiary} /></TableHeaderColumn>
-                }
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.period} /></TableHeaderColumn>
-                }
-                <TableHeaderColumn><FormattedMessage {...messages.subscriber} /></TableHeaderColumn>
-              </TableHeader>
-              {!isEmpty(coverageData.elements) && coverageData.elements.map((coverage) => {
-                const { statusDisplay, beneficiary, subscriber, endDate, startDate, subscriberId, typeDisplay } = coverage;
+      <LinearProgressIndicator loading={loading} />
+      {!loading && isEmpty(coverageData) &&
+      <NoResultsFoundText><FormattedMessage {...messages.noCoverageReason} /></NoResultsFoundText>
+      }
+      {(!loading && coverageData.elements && coverageData.elements.length > 0 &&
+        <div>
+          <Table>
+            <TableHeader columns={columns} relativeTop={props.relativeTop}>
+              <TableHeaderColumn />
+              <TableHeaderColumn><FormattedMessage {...messages.coverage} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.ID} /></TableHeaderColumn>
+              }
+              <TableHeaderColumn><FormattedMessage {...messages.status} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.beneficiary} /></TableHeaderColumn>
+              }
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.period} /></TableHeaderColumn>
+              }
+              <TableHeaderColumn><FormattedMessage {...messages.subscriber} /></TableHeaderColumn>
+            </TableHeader>
+            {!isEmpty(coverageData.elements) && coverageData.elements.map((coverage) => {
+              const { statusDisplay, beneficiary, subscriber, endDate, startDate, subscriberId, typeDisplay } = coverage;
 
-                return (
-                  <ExpansionTableRow
-                    expansionTableRowDetails={<CoverageRowDetails coverage={coverage} />}
-                    columns={columns}
-                    key={coverage.logicalId}
-                    role="button"
-                    tabIndex="0"
-                  >
-                    <TableRowColumn>{ typeDisplay }</TableRowColumn>
-                    {isExpanded &&
-                    <TableRowColumn>{ subscriberId }</TableRowColumn>
-                    }
-                    <TableRowColumn>{ statusDisplay }</TableRowColumn>
-                    {isExpanded &&
-                    <TableRowColumn>{ beneficiary && beneficiary.display }</TableRowColumn>
-                    }
-                    {isExpanded &&
-                    <TableRowColumn> { startDate } - { endDate } </TableRowColumn>
-                    }
-                    <TableRowColumn>{ subscriber && subscriber.display }</TableRowColumn>
-                  </ExpansionTableRow>
-                );
-              })}
-            </Table>
-            <CenterAlignedUltimatePagination
-              currentPage={coverageData.currentPage}
-              totalPages={coverageData.totalNumberOfPages}
-              onChange={handleChangePage}
-              boundaryPagesRange={1}
-              siblingPagesRange={1}
-              hidePreviousAndNextPageLinks={false}
-              hideFirstAndLastPageLinks={false}
-              hideEllipsis={false}
-            />
-          </div> :
-          (
-            <NoResultsFoundText><FormattedMessage {...messages.noCoverageReason} /></NoResultsFoundText>
-          )
+              return (
+                <ExpansionTableRow
+                  expansionTableRowDetails={<CoverageRowDetails coverage={coverage} />}
+                  columns={columns}
+                  key={coverage.logicalId}
+                  role="button"
+                  tabIndex="0"
+                >
+                  <TableRowColumn>{typeDisplay}</TableRowColumn>
+                  {isExpanded &&
+                  <TableRowColumn>{subscriberId}</TableRowColumn>
+                  }
+                  <TableRowColumn>{statusDisplay}</TableRowColumn>
+                  {isExpanded &&
+                  <TableRowColumn>{beneficiary && beneficiary.display}</TableRowColumn>
+                  }
+                  {isExpanded &&
+                  <TableRowColumn> {startDate} - {endDate} </TableRowColumn>
+                  }
+                  <TableRowColumn>{subscriber && subscriber.display}</TableRowColumn>
+                </ExpansionTableRow>
+              );
+            })}
+          </Table>
+          <CenterAlignedUltimatePagination
+            currentPage={coverageData.currentPage}
+            totalPages={coverageData.totalNumberOfPages}
+            onChange={handleChangePage}
+            boundaryPagesRange={1}
+            siblingPagesRange={1}
+            hidePreviousAndNextPageLinks={false}
+            hideFirstAndLastPageLinks={false}
+            hideEllipsis={false}
+          />
+        </div>
       )}
     </div>
   );
