@@ -95,7 +95,7 @@ function ManageCommunicationForm(props) {
           <Grid columns="2fr 2fr" gap="">
             <Cell>
               <TextField
-                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.sender} />}
+                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.creator} />}
                 fullWidth
                 name="sender"
                 disabled
