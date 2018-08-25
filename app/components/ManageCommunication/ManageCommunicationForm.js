@@ -166,7 +166,18 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-        <FormCell top={6} left={1} width={6}>
+        <FormCell top={6} left={1} width={4}>
+          <Grid columns="2fr 2fr" gap="">
+            <Cell>
+              <TextField
+                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.duration} />}
+                fullWidth
+                name="duration"
+              />
+            </Cell>
+          </Grid>
+        </FormCell>
+        <FormCell top={7} left={1} width={6}>
           <TextField
             floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.note} />}
             fullWidth
@@ -176,7 +187,7 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-        <FormCell top={7} left={1} width={6}>
+        <FormCell top={8} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
               <Padding top={35}>
@@ -198,7 +209,7 @@ function ManageCommunicationForm(props) {
             </SelectField>
           </Grid>
         </FormCell>
-        <FormCell top={8} left={1} width={2}>
+        <FormCell top={9} left={1} width={2}>
           <StyledRaisedButton
             fullWidth
             onClick={handleOpen}
@@ -206,7 +217,7 @@ function ManageCommunicationForm(props) {
             <FormattedMessage {...messages.form.addRecipient} />
           </StyledRaisedButton>
         </FormCell>
-        <FormCell top={9} left={1} width={10}>
+        <FormCell top={10} left={1} width={10}>
           {selectedRecipients && selectedRecipients.length > 0 &&
           <Table>
             <TableHeader key={uniqueId()}>
@@ -218,7 +229,7 @@ function ManageCommunicationForm(props) {
           </Table>
           }
         </FormCell>
-        <FormCell top={10} left={1} width={2}>
+        <FormCell top={11} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
               <StyledRaisedButton

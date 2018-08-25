@@ -76,6 +76,10 @@ export default defineMessages({
         id: 'ocpui.containers.ManageCommunication.form.note',
         defaultMessage: 'Note',
       },
+      duration: {
+        id: 'ocpui.containers.ManageCommunication.form.duration',
+        defaultMessage: 'Duration',
+      },
     },
     addRecipient: {
       id: 'ocpui.containers.ManageCommunication.form.addRecipient',
