@@ -8,12 +8,20 @@ export function flattenPractitioner(practitioner) {
     const { name, practitionerRoles, identifiers, telecoms } = practitioner;
     flattenedPractitioner = {
       name: mapToName(name),
+      orgName: mapToOrganizationName(practitionerRoles),
       roles: mapToRoles(practitionerRoles),
       identifiers: mapToIdentifiers(identifiers),
       email: mapToEmail(telecoms),
     };
   }
   return flattenedPractitioner;
+}
+
+function mapToOrganizationName(practitionerRoles) {
+  return practitionerRoles && practitionerRoles
+    .map((role) => role.organization)
+    .map((organization) => organization.display)
+    .pop();
 }
 
 function mapToRoles(practitionerRoles) {

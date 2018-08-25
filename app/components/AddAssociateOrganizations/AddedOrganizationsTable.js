@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import MenuItem from 'material-ui/MenuItem';
 import uniqueId from 'lodash/uniqueId';
 
 import Table from 'components/Table';
@@ -11,12 +10,11 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import CustomErrorText from 'components/CustomErrorText';
 import AutoSuggestionField from 'components/AutoSuggestion';
-import SelectField from 'components/SelectField';
 import messages from './messages';
 
 
 function AddedOrganizationsTable(props) {
-  const tableColumns = 'repeat(4, 1fr)';
+  const tableColumns = '30% 10% 30% 30%';
   const {
     practitionerRoles,
     roleType,
@@ -41,18 +39,19 @@ function AddedOrganizationsTable(props) {
     <Table>
       <TableHeader columns={tableColumns}>
         <TableHeaderColumn><FormattedMessage {...messages.addedOrganizationsTable.tableColumnName} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.addedOrganizationsTable.tableColumnActive} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.addedOrganizationsTable.tableColumnCode} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.addedOrganizationsTable.tableColumnSpecialty} /></TableHeaderColumn>
-        <TableHeaderColumn><FormattedMessage {...messages.addedOrganizationsTable.tableColumnActive} /></TableHeaderColumn>
       </TableHeader>
       {errors && errors.practitionerRoles &&
       <CustomErrorText>{errors.practitionerRoles}</CustomErrorText>
       }
       {practitionerRoles && practitionerRoles.map((practitionerRole, index) => {
-        const { organization } = practitionerRole;
+        const { organization, active } = practitionerRole;
         return (
           <TableRow key={uniqueId()} columns={tableColumns}>
             <TableRowColumn>{organization.display}</TableRowColumn>
+            <TableRowColumn>{active ? 'Active' : 'Inactive'}</TableRowColumn>
             <TableRowColumn>
               <AutoSuggestionField
                 name={`practitionerRoles.${index}.code`}
@@ -70,16 +69,6 @@ function AddedOrganizationsTable(props) {
                 suggestions={specialtySuggestions}
                 {...props}
               />
-            </TableRowColumn>
-            <TableRowColumn>
-              <SelectField
-                fullWidth
-                name={`practitionerRoles.${index}.active`}
-                hintText={<FormattedMessage {...messages.addedOrganizationsTable.activeLabel} />}
-              >
-                <MenuItem value primaryText={<FormattedMessage {...messages.addedOrganizationsTable.activeLabel} />} />
-                <MenuItem value={false} primaryText="Inactive" />
-              </SelectField>
             </TableRowColumn>
           </TableRow>
         );

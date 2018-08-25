@@ -47,10 +47,6 @@ export default defineMessages({
       id: 'ocpui.components.AddedOrganizationsTable.roleTypeLabel',
       defaultMessage: 'Role',
     },
-    activeLabel: {
-      id: 'ocpui.components.AddedOrganizationsTable.activeLabel',
-      defaultMessage: 'Active',
-    },
     specialtyLabel: {
       id: 'ocpui.components.AddedOrganizationsTable.specialtyLabel',
       defaultMessage: 'Specialty',

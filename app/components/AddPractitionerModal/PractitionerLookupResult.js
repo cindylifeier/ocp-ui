@@ -9,7 +9,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import Divider from 'material-ui-next/Divider';
-import { LinearProgress } from 'material-ui-next/Progress';
 import uniqueId from 'lodash/uniqueId';
 
 import Table from 'components/Table';
@@ -18,12 +17,13 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import InfoSection from 'components/InfoSection';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import { flattenPractitioner } from './helpers';
 import messages from './messages';
 
-const columns = 'repeat(4, 1fr) .5fr';
+const columns = '.5fr .6fr  repeat(3, 1fr) .5fr';
 
 function PractitionerLookupResult(props) {
   const { practitionerLookup: { loading, practitioner, exists, error }, isOrgAdmin } = props;
@@ -45,15 +45,17 @@ function PractitionerLookupResult(props) {
         <Table>
           <TableHeader columns={columns}>
             <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnName} /></TableHeaderColumn>
-            <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderRole} /></TableHeaderColumn>
             <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
+            <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnOrgName} /></TableHeaderColumn>
+            <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderRole} /></TableHeaderColumn>
             <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderEmail} /></TableHeaderColumn>
             <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnAction} /></TableHeaderColumn>
           </TableHeader>
           <TableRow key={uniqueId()} columns={columns}>
             <TableRowColumn>{flattenedPractitioner.name}</TableRowColumn>
-            <TableRowColumn>{flattenedPractitioner.roles}</TableRowColumn>
             <TableRowColumn>{flattenedPractitioner.identifiers}</TableRowColumn>
+            <TableRowColumn>{flattenedPractitioner.orgName}</TableRowColumn>
+            <TableRowColumn>{flattenedPractitioner.roles}</TableRowColumn>
             <TableRowColumn>{flattenedPractitioner.email}</TableRowColumn>
             <TableRowColumn>
               <NavigationIconMenu menuItems={menuItems} />
@@ -77,7 +79,7 @@ function PractitionerLookupResult(props) {
 
   return (
     <div>
-      {loading && <LinearProgress />}
+      <LinearProgressIndicator loading={loading} />
       {error && !exists &&
       <div>
         <FormattedMessage {...messages.NoExistPractitionerFound} />
