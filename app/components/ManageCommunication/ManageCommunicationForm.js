@@ -129,34 +129,11 @@ function ManageCommunicationForm(props) {
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.context} />}
                 fullWidth
                 name="episodeOfCareCode"
-                disabled
               />
             </Cell>
           </Grid>
         </FormCell>
         <FormCell top={4} left={1} width={6}>
-          <Grid columns="3fr 3fr" gap="">
-            <Cell>
-              <Padding top={35}>
-                <Checkbox
-                  name="notDone"
-                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
-                >
-                </Checkbox>
-              </Padding>
-            </Cell>
-            <SelectField
-              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
-              name="notDoneReasonCode"
-              fullWidth
-            >
-              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
-                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
-              ))}
-            </SelectField>
-          </Grid>
-        </FormCell>
-        <FormCell top={5} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
               <TextField
@@ -179,7 +156,7 @@ function ManageCommunicationForm(props) {
             </Cell>
           </Grid>
         </FormCell>
-        <FormCell top={6} left={1} width={6}>
+        <FormCell top={5} left={1} width={6}>
           <TextField
             floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.payloadContent} />}
             fullWidth
@@ -189,7 +166,7 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-        <FormCell top={7} left={1} width={6}>
+        <FormCell top={6} left={1} width={6}>
           <TextField
             floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.note} />}
             fullWidth
@@ -199,6 +176,28 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
+        <FormCell top={7} left={1} width={6}>
+          <Grid columns="3fr 3fr" gap="">
+            <Cell>
+              <Padding top={35}>
+                <Checkbox
+                  name="notDone"
+                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
+                >
+                </Checkbox>
+              </Padding>
+            </Cell>
+            <SelectField
+              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
+              name="notDoneReasonCode"
+              fullWidth
+            >
+              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
+                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
+              ))}
+            </SelectField>
+          </Grid>
+        </FormCell>
         <FormCell top={8} left={1} width={2}>
           <StyledRaisedButton
             fullWidth
@@ -207,7 +206,7 @@ function ManageCommunicationForm(props) {
             <FormattedMessage {...messages.form.addRecipient} />
           </StyledRaisedButton>
         </FormCell>
-        <FormCell top={10} left={1} width={10}>
+        <FormCell top={9} left={1} width={10}>
           {selectedRecipients && selectedRecipients.length > 0 &&
           <Table>
             <TableHeader key={uniqueId()}>
@@ -219,8 +218,7 @@ function ManageCommunicationForm(props) {
           </Table>
           }
         </FormCell>
-
-        <FormCell top={11} left={1} width={2}>
+        <FormCell top={10} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
               <StyledRaisedButton
