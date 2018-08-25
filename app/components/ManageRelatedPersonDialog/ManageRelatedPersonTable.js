@@ -7,7 +7,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import { LinearProgress } from 'material-ui-next/Progress';
 import Dialog, { DialogActions, DialogTitle } from 'material-ui-next/Dialog';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
@@ -21,6 +20,7 @@ import CenterAlign from 'components/Align/CenterAlign';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import RecordsRange from 'components/RecordsRange';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import AddRelatedPersonTableRow from './AddRelatedPersonTableRow';
@@ -59,7 +59,7 @@ class ManageRelatedPersonTable extends React.Component {
     const { onAddRelatedPerson, participantRoles, relatedPersonsData } = this.props;
     return (
       <div>
-        {relatedPersonsData.loading && <LinearProgress />}
+        <LinearProgressIndicator loading={relatedPersonsData.loading} />
 
         {!relatedPersonsData.loading && relatedPersonsData.data && relatedPersonsData.data.length === 0 &&
         <CenterAlign>
