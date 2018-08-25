@@ -30,6 +30,14 @@ export default defineMessages({
     id: 'ocpui.components.communicationTable.columnHeaderContactMethod',
     defaultMessage: 'Contact Type',
   },
+  columnHeaderContactNote: {
+    id: 'ocpui.components.communicationTable.columnHeaderContactNote',
+    defaultMessage: 'Note',
+  },
+  columnHeaderContactDuration: {
+    id: 'ocpui.components.communicationTable.columnHeaderContactDuration',
+    defaultMessage: 'Duration',
+  },
   columnHeaderTopic: {
     id: 'ocpui.components.communicationTable.columnHeaderTopic',
     defaultMessage: 'Topic',

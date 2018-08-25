@@ -49,16 +49,19 @@ function CommunicationsTable(props) {
                 }
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
                 {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactNote} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactDuration} /></TableHeaderColumn>
+                }
+                {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
                 }
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTopic} /></TableHeaderColumn>
-                }
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
-                }
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
                 }
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
               </TableHeader>
@@ -70,7 +73,17 @@ function CommunicationsTable(props) {
                     search: `?patientId=${selectedPatient.id}`,
                   },
                 }];
-                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue, sent, lastUpdated, sender } = communication;
+                const {
+                  statusValue,
+                  categoryValue,
+                  context,
+                  mediumValue,
+                  sent,
+                  lastUpdated,
+                  sender,
+                  note,
+                  duration,
+                } = communication;
 
                 return (
                   <ExpansionTableRow
@@ -87,16 +100,19 @@ function CommunicationsTable(props) {
                     }
                     <TableRowColumn>{statusValue}</TableRowColumn>
                     {isExpanded &&
+                    <TableRowColumn>{mediumValue}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{note}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{duration}</TableRowColumn>
+                    }
+                    {isExpanded &&
                     <TableRowColumn>{categoryValue}</TableRowColumn>
                     }
                     {isExpanded &&
                     <TableRowColumn> {context && context.display}</TableRowColumn>
-                    }
-                    {isExpanded &&
-                    <TableRowColumn>{mediumValue}</TableRowColumn>
-                    }
-                    {isExpanded &&
-                    <TableRowColumn>{notDoneReasonValue}</TableRowColumn>
                     }
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
