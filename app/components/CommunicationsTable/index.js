@@ -43,6 +43,7 @@ function CommunicationsTable(props) {
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreator} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
                 }
@@ -59,6 +60,7 @@ function CommunicationsTable(props) {
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
                 }
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(data.elements) && data.elements.map((communication) => {
                 const menuItems = [{
@@ -68,7 +70,7 @@ function CommunicationsTable(props) {
                     search: `?patientId=${selectedPatient.id}`,
                   },
                 }];
-                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue, sent, lastUpdated } = communication;
+                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue, sent, lastUpdated, sender } = communication;
 
                 return (
                   <ExpansionTableRow
@@ -79,6 +81,7 @@ function CommunicationsTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{ sent }</TableRowColumn>
+                    <TableRowColumn>{ sender && sender.display }</TableRowColumn>
                     {isExpanded &&
                     <TableRowColumn>{ lastUpdated }</TableRowColumn>
                     }
