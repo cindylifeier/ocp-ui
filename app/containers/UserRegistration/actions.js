@@ -16,7 +16,7 @@ export function initializeUserRegistration() {
 }
 
 
-export function searchResources(searchType, searchValue, resourceType, includeInactive, currentPage) {
+export function searchResources(searchType, searchValue, resourceType, includeInactive, currentPage, organization) {
   return {
     type: SEARCH_RESOURCES,
     searchType,
@@ -24,6 +24,7 @@ export function searchResources(searchType, searchValue, resourceType, includeIn
     resourceType,
     includeInactive,
     currentPage,
+    organization,
   };
 }
 
