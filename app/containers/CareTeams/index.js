@@ -4,6 +4,31 @@
  *
  */
 
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { Checkbox } from 'material-ui';
+import { Cell, Grid } from 'styled-css-grid';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import uniqueId from 'lodash/uniqueId';
+
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { getLookupsAction } from 'containers/App/actions';
+import {
+  CARE_MANAGER_ROLE_CODE,
+  CARETEAMSTATUS,
+  DEFAULT_START_PAGE_NUMBER,
+  MANAGE_CARE_TEAM_URL,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
+} from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
 import CenterAlign from 'components/Align/CenterAlign';
 import Card from 'components/Card';
 import CareTeamTable from 'components/CareTeamTable';
@@ -16,33 +41,8 @@ import InlineLabel from 'components/InlineLabel';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import PanelToolbar from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import { getLookupsAction } from 'containers/App/actions';
-import {
-  CARE_MANAGER_ROLE_CODE,
-  CARETEAMSTATUS,
-  DEFAULT_START_PAGE_NUMBER,
-  MANAGE_CARE_TEAM_URL,
-  ORGANIZATION_ADMIN_ROLE_CODE,
-  PATIENT_ROLE_CODE,
-} from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
-import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
-import uniqueId from 'lodash/uniqueId';
-import { Checkbox } from 'material-ui';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import { Cell, Grid } from 'styled-css-grid';
-import injectReducer from 'utils/injectReducer';
-
-import injectSaga from 'utils/injectSaga';
 import { getCareTeams, initializeCareTeams } from './actions';
 import { DEFAULT_CARE_TEAM_STATUS_CODE, SUMMARY_VIEW_WIDTH } from './constants';
 import messages from './messages';
@@ -159,6 +159,7 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
           showFilterIcon={false}
           onSize={this.handlePanelResize}
         />
+        <LinearProgressIndicator loading={loading} />
         <ContentSection>
           {isEmpty(patientName) ?
             <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText> :
@@ -183,9 +184,6 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
               </Grid>
             </SizedStickyDiv>
           }
-
-          {loading &&
-          <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
           <NoResultsFoundText><FormattedMessage {...messages.noCareTeamsFound} /></NoResultsFoundText>}

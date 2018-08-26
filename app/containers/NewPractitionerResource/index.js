@@ -12,8 +12,10 @@ import { compose } from 'redux';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import Util from 'utils/Util';
+import { makeSelectUser } from 'containers/App/contextSelectors';
 import { getLookupsAction } from 'containers/App/actions';
-import { PRACTITIONERIDENTIFIERSYSTEM } from 'containers/App/constants';
+import { ORGANIZATION_ADMIN_ROLE_CODE, PRACTITIONERIDENTIFIERSYSTEM } from 'containers/App/constants';
 import { makeSelectPractitionerIdentifierSystems } from 'containers/App/lookupSelectors';
 import AddPractitionerModal from 'components/AddPractitionerModal';
 import { findPractitioner, initializeFindPractitioner } from './actions';
@@ -38,12 +40,14 @@ export class NewPractitionerResource extends React.Component { // eslint-disable
   }
 
   render() {
-    const { modalOpen, onModalClose, identifierSystems, practitionerLookup } = this.props;
+    const { modalOpen, onModalClose, user: { role }, identifierSystems, practitionerLookup } = this.props;
+    const isOrgAdmin = Util.equalsIgnoreCase(role, ORGANIZATION_ADMIN_ROLE_CODE);
     return (
       <div>
         <AddPractitionerModal
           modalOpen={modalOpen}
           onModalClose={onModalClose}
+          isOrgAdmin={isOrgAdmin}
           identifierSystems={identifierSystems}
           practitionerLookup={practitionerLookup}
           onCheckExisting={this.handleCheckExisting}
@@ -59,6 +63,9 @@ NewPractitionerResource.propTypes = {
   getLookUp: PropTypes.func.isRequired,
   initializeFindPractitioner: PropTypes.func.isRequired,
   findPractitioner: PropTypes.func.isRequired,
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
+  }),
   identifierSystems: PropTypes.arrayOf(PropTypes.shape({
     uri: PropTypes.string.isRequired,
     oid: PropTypes.string.isRequired,
@@ -79,6 +86,7 @@ NewPractitionerResource.propTypes = {
 const mapStateToProps = createStructuredSelector({
   practitionerLookup: makeSelectNewPractitionerResource(),
   identifierSystems: makeSelectPractitionerIdentifierSystems(),
+  user: makeSelectUser(),
 });
 
 function mapDispatchToProps(dispatch) {

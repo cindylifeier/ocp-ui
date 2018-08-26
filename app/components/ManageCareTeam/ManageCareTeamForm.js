@@ -1,30 +1,31 @@
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import { Form } from 'formik';
-import MenuItem from 'material-ui/MenuItem';
-import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
-import { Cell, Grid } from 'styled-css-grid';
-
-import Util from 'utils/Util';
-import { mapToPatientName } from 'utils/PatientUtils';
-import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
 import DatePicker from 'components/DatePicker';
-import FormSubtitle from 'components/FormSubtitle';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import GoBackButton from 'components/GoBackButton';
 import ErrorText from 'components/ErrorText';
+import FormSubtitle from 'components/FormSubtitle';
+import GoBackButton from 'components/GoBackButton';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import SelectedParticipants from './SelectedParticipants';
-import messages from './messages';
+import SelectField from 'components/SelectField';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
+import { Form } from 'formik';
+import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
+import { mapToPatientName } from 'utils/PatientUtils';
+
+import Util from 'utils/Util';
 import ManageCareTeamFormGrid from './ManageCareTeamFormGrid';
+import messages from './messages';
+import SelectedParticipants from './SelectedParticipants';
 
 function ManageCareTeamForm(props) {
   const today = new Date();
   const {
+    editMode,
     isSubmitting,
     dirty,
     isValid,
@@ -83,6 +84,7 @@ function ManageCareTeamForm(props) {
               )}
             </SelectField>
           </Cell>
+          {editMode &&
           <Cell area="status">
             <SelectField
               fullWidth
@@ -95,6 +97,7 @@ function ManageCareTeamForm(props) {
               )}
             </SelectField>
           </Cell>
+          }
           <Cell area="episodeOfCare">
             <TextField
               fullWidth
@@ -181,6 +184,7 @@ function ManageCareTeamForm(props) {
 
 ManageCareTeamForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  editMode: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   handleOpen: PropTypes.func.isRequired,

@@ -68,6 +68,10 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerLookupResult.tableHeaderColumnName',
     defaultMessage: 'Name',
   },
+  tableHeaderColumnOrgName: {
+    id: 'ocpui.components.PractitionerLookupResult.tableHeaderColumnOrgName',
+    defaultMessage: 'Associated Organization(s)',
+  },
   tableColumnHeaderRole: {
     id: 'ocpui.components.PractitionerLookupResult.tableColumnHeaderRole',
     defaultMessage: 'Role',
@@ -91,6 +95,10 @@ export default defineMessages({
   edit: {
     id: 'ocpui.components.PractitionerLookupResult.edit',
     defaultMessage: 'Edit',
+  },
+  associateCurrentOrganization: {
+    id: 'ocpui.components.PractitionerLookupResult.associateCurrentOrganization',
+    defaultMessage: 'Associate current organization',
   },
   createButton: {
     id: 'ocpui.components.PractitionerLookupResult.createButton',

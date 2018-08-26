@@ -33,9 +33,9 @@ function AddMultipleAddressesForm(props) {
 
   function setInitialValue() {
     if (initialValues) {
-      return merge(initialValues, { address: { countryCode: 'US' } }).address;
+      return merge(initialValues, { address: { countryCode: 'United States' } }).address;
     }
-    return { address: { countryCode: 'US' } }.address;
+    return { address: { countryCode: 'United States' } }.address;
   }
 
   return (
@@ -59,8 +59,6 @@ function AddMultipleAddressesForm(props) {
           postalCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
-          countryCode: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
