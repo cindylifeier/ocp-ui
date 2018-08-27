@@ -6,7 +6,7 @@ import 'jest-styled-components';
 import 'mock-local-storage';
 import React from 'react';
 
-import { componentMetadata, otherRoleStateMetadata, PatientPage } from '../index';
+import { componentMetadata, defaultRoleStateMetadata, PatientPage } from '../index';
 
 configure({ adapter: new Adapter() });
 
@@ -93,7 +93,7 @@ describe('<PatientPage />', () => {
           containerHeight="75vh"
           containerWidth="95vw"
           componentMetadata={componentMetadata}
-          stateMetadata={otherRoleStateMetadata}
+          stateMetadata={defaultRoleStateMetadata}
         />)).toEqual(true);
     });
   });
