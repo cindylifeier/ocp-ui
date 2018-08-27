@@ -80,7 +80,7 @@ function PractitionerLookupResult(props) {
   return (
     <div>
       <LinearProgressIndicator loading={loading} />
-      {error && !exists &&
+      {error !== false && !exists &&
       <div>
         <FormattedMessage {...messages.NoExistPractitionerFound} />
         {renderCreateNewRecordButton()}
