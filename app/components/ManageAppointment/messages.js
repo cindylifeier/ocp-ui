@@ -16,11 +16,11 @@ export default defineMessages({
   },
   addAppointmentForTitle: {
     id: 'ocpui.components.ManageAppointment.addAppointmentForTitle',
-    defaultMessage: 'Add Appointment for:',
+    defaultMessage: 'Add Appointment for',
   },
   patientName: {
     id: 'ocpui.components.ManageAppointment.patientName',
-    defaultMessage: 'Patient:',
+    defaultMessage: 'Patient',
   },
   participantTitle: {
     id: 'ocpui.components.ManageAppointment.participantTitle',
@@ -28,7 +28,7 @@ export default defineMessages({
   },
   addParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.addParticipantBtnLabel',
-    defaultMessage: 'Add Participant or Service:',
+    defaultMessage: 'Add Participant or Service',
   },
   removeParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.removeParticipantBtnLabel',

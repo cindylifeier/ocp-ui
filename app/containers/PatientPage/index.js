@@ -25,104 +25,7 @@ import { Helmet } from 'react-helmet';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE } from '../App/constants';
-
-export const otherRoleStateMetadata =
-  {
-    settings: {
-      hasHeaders: true,
-      constrainDragToContainer: false,
-      reorderEnabled: true,
-      selectionEnabled: false,
-      popoutWholeStack: false,
-      blockedPopoutsThrowError: true,
-      closePopoutsOnUnload: true,
-      showPopoutIcon: false,
-      showMaximiseIcon: true,
-      showCloseIcon: true,
-      responsiveMode: 'onload',
-      tabOverlapAllowance: 0,
-      reorderOnTabMenuClick: true,
-      tabControlOffset: 10,
-    },
-    dimensions: {
-      borderWidth: 10,
-      minItemHeight: 400,
-      minItemWidth: 200,
-      headerHeight: 30,
-      dragProxyWidth: 300,
-      dragProxyHeight: 200,
-    },
-    labels: {
-      close: 'close',
-      maximise: 'maximise',
-      minimise: 'minimise',
-      popout: 'open in new window',
-      popin: 'pop in',
-      tabDropdown: 'additional tabs',
-    },
-    content: [{
-      type: 'column',
-      content: [
-        {
-          type: 'row',
-          height: 40,
-          content: [
-            {
-              title: 'Patient\'s Tasks',
-              type: 'component',
-              componentName: 'tasks',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Patient\'s Care teams',
-              type: 'component',
-              componentName: 'careTeams',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Patient\'s TO DO',
-              type: 'component',
-              componentName: 'toDos',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-          ],
-        },
-        {
-          type: 'row',
-          height: 60,
-          content: [
-            {
-              title: 'Patient\'s Appointments',
-              type: 'component',
-              componentName: 'appointments',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Patient\'s Communications',
-              type: 'component',
-              componentName: 'communications',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-            {
-              title: 'Patient\'s Coverage',
-              type: 'component',
-              componentName: 'coverage',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-          ],
-        },
-      ],
-    }],
-    isClosable: true,
-    reorderEnabled: true,
-    title: '',
-    openPopouts: [],
-    maximisedItemId: null,
-  };
+import { ORGANIZATION_ADMIN_ROLE_CODE } from '../App/constants';
 
 
 export const orgAdminStateMetadata =
@@ -224,7 +127,7 @@ export const orgAdminStateMetadata =
     maximisedItemId: null,
   };
 
-export const careCorStateMetadata =
+export const defaultRoleStateMetadata =
   {
     settings: {
       hasHeaders: true,
@@ -358,10 +261,8 @@ export class PatientPage extends React.Component { // eslint-disable-line react/
     switch (role) {
       case ORGANIZATION_ADMIN_ROLE_CODE:
         return orgAdminStateMetadata;
-      case CARE_COORDINATOR_ROLE_CODE:
-        return careCorStateMetadata;
       default:
-        return otherRoleStateMetadata;
+        return defaultRoleStateMetadata;
     }
   }
 
