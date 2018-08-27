@@ -3,13 +3,21 @@ import queryString from 'utils/queryString';
 import { BASE_PATIENTS_API_URL, BASE_PRACTITIONERS_API_URL, getEndpoint } from 'utils/endpointService';
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 
-export function searchResources(searchType, searchValue, resourceType, showInactive, page) {
+export function searchResources(searchType, searchValue, resourceType, showInactive, page, organization) {
   const basePractitionerEndpoint = getEndpoint(BASE_PRACTITIONERS_API_URL);
   const basePatientEndpoint = getEndpoint(BASE_PATIENTS_API_URL);
   let params;
   let requestURL;
   if (resourceType === 'Practitioner') {
-    params = queryString({
+    params = organization !== undefined ? queryString({
+      searchType,
+      searchValue,
+      showInactive,
+      size: DEFAULT_PAGE_SIZE,
+      page,
+      showAll: false,
+      organization,
+    }) : queryString({
       searchType,
       searchValue,
       showInactive,
@@ -19,7 +27,15 @@ export function searchResources(searchType, searchValue, resourceType, showInact
     });
     requestURL = `${basePractitionerEndpoint}/search${params}`;
   } else {
-    params = queryString({
+    params = organization !== undefined ? queryString({
+      type: searchType,
+      value: searchValue,
+      showInactive,
+      size: DEFAULT_PAGE_SIZE,
+      page,
+      showAll: false,
+      organization,
+    }) : queryString({
       type: searchType,
       value: searchValue,
       showInactive,

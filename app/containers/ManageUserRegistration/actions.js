@@ -6,7 +6,7 @@
 
 import {
   GET_GROUPS, GET_GROUPS_SUCCESS, GET_GROUPS_ERROR, GET_USER, GET_USER_ERROR,
-  GET_USER_SUCCESS, SAVE_USER, INITIALIZE_USER_REGISTRATION,
+  GET_USER_SUCCESS, SAVE_USER, INITIALIZE_USER_REGISTRATION, REMOVE_USER,
 } from './constants';
 
 export function initializeUserRegistration() {
@@ -63,6 +63,13 @@ export function saveUser(userFormData, handleSubmitting) {
     type: SAVE_USER,
     userFormData,
     handleSubmitting,
+  };
+}
+
+export function removeUser(userId) {
+  return {
+    type: REMOVE_USER,
+    userId,
   };
 }
 
