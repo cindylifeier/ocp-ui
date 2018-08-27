@@ -35,7 +35,7 @@ import {
 import messages from './messages';
 
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const practitionerWorkspace = !isPatientWorkspace && !isPatientDetailsPage;
 
@@ -131,7 +131,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               search: `?patientId=${patientId}&appointmentId=${appointment.logicalId}`,
             },
           } : null;
-          const editAppointmentMenuItem = enableEditAppointment ? {
+          const editAppointmentMenuItem = appointment.canEdit ? {
             primaryText: <FormattedMessage {...messages.editAppointment} />,
             linkTo: `${manageAppointmentUrl}/${appointment.logicalId}`,
           } : null;
@@ -216,10 +216,9 @@ AppointmentTable.propTypes = {
   tentativeAppointment: PropTypes.func,
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
-  enableEditAppointment: PropTypes.bool,
   isPatientWorkspace: PropTypes.bool,
   isPatientDetailsPage: PropTypes.bool,
-  manageAppointmentUrl: PropTypes.string,
+  manageAppointmentUrl: PropTypes.string.isRequired,
   handleSort: PropTypes.func,
   columnToSort: PropTypes.string,
   sortDirection: PropTypes.string,
