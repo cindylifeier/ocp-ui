@@ -46,7 +46,7 @@ function LocationExpansionRowDetails({ location }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetailsLocationType} />}
-            text={physicalType}
+            text={physicalType.display}
           />
         </Cell>
       </Grid>

@@ -4,43 +4,57 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
-import isEqual from 'lodash/isEqual';
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { mapToPatientName } from 'utils/PatientUtils';
-import { CARE_COORDINATOR_ROLE_CODE, MANAGE_COMMUNICATION_URL, MANAGE_TASK_URL, PATIENT_ROLE_CODE, TASK_STATUS, TO_DO_DEFINITION } from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import Card from 'components/Card';
 import CenterAlign from 'components/Align/CenterAlign';
-import InfoSection from 'components/InfoSection';
-import InlineLabel from 'components/InlineLabel';
-import { getPractitionerIdByRole } from 'containers/App/helpers';
-import { Checkbox } from 'material-ui';
-import FilterSection from 'components/FilterSection';
-import NoResultsFoundText from 'components/NoResultsFoundText';
-import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import TaskTable from 'components/TaskTable';
-import PanelToolbar from 'components/PanelToolbar';
-import { Cell, Grid } from 'styled-css-grid';
+import Card from 'components/Card';
 
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
-import { makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
-import { CANCELLED_STATUS_CODE, COMPLETED_STATUS_CODE, FAILED_STATUS_CODE, SUMMARY_VIEW_WIDTH } from 'containers/Tasks/constants';
+import FilterSection from 'components/FilterSection';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import PanelToolbar from 'components/PanelToolbar';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
+import TaskTable from 'components/TaskTable';
 import { getLookupsAction } from 'containers/App/actions';
-import makeSelectTasks from './selectors';
+import {
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  MANAGE_COMMUNICATION_URL,
+  MANAGE_TASK_URL,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
+  TASK_STATUS,
+  TO_DO_DEFINITION,
+} from 'containers/App/constants';
+import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
+import { makeSelectTaskStatuses } from 'containers/App/lookupSelectors';
+import {
+  CANCELLED_STATUS_CODE,
+  COMPLETED_STATUS_CODE,
+  FAILED_STATUS_CODE,
+  SUMMARY_VIEW_WIDTH,
+} from 'containers/Tasks/constants';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import uniqueId from 'lodash/uniqueId';
+import { Checkbox } from 'material-ui';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { Cell, Grid } from 'styled-css-grid';
+import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { mapToPatientName } from 'utils/PatientUtils';
+import { cancelTask, getTasks, initializeTasks } from './actions';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
-import { cancelTask, getTasks, initializeTasks } from './actions';
+import makeSelectTasks from './selectors';
 
 export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -154,13 +168,14 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       <Card minWidth={'auto'}>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
           showFilterIcon={false}
           onSize={this.handlePanelResize}
         />
+        <LinearProgressIndicator loading={loading} />
         {isEmpty(patientName) ?
           <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText>
           :
@@ -183,9 +198,6 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
             </Grid>
           </SizedStickyDiv>
         }
-
-        {loading &&
-        <RefreshIndicatorLoading />}
 
         {!loading && !isEmpty(patientName) && !isEmpty(patient.id) && isEmpty(taskList) &&
         <NoResultsFoundText>

@@ -4,24 +4,25 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import RecordsRange from 'components/RecordsRange';
-import Table from 'components/Table';
-import sizeMeHOC from 'utils/SizeMeUtils';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
+import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import ExpansionTableRow from 'components/ExpansionTableRow';
-import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
   EXPANDED_TABLE_COLUMNS,
   SUMMARIZED_TABLE_COLUMNS,
   SUMMARY_VIEW_WIDTH,
 } from 'components/LocationTable/constants';
-import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import NoResultsFoundText from 'components/NoResultsFoundText';
+import RecordsRange from 'components/RecordsRange';
+import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
+import TableHeaderColumn from 'components/TableHeaderColumn';
+import TableRowColumn from 'components/TableRowColumn';
+import upperFirst from 'lodash/upperFirst';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import sizeMeHOC from 'utils/SizeMeUtils';
 import LocationExpansionRowDetails from './LocationExpansionRowDetails';
 import messages from './messages';
 
@@ -84,7 +85,7 @@ function LocationTable(props) {
                   {isExpanded &&
                   <TableRowColumn>{identifiers}</TableRowColumn>
                   }
-                  <TableRowColumn>{status}</TableRowColumn>
+                  <TableRowColumn>{upperFirst(status)}</TableRowColumn>
                   <TableRowColumn>
                     <NavigationIconMenu menuItems={menuItems} />
                   </TableRowColumn>
@@ -123,7 +124,7 @@ LocationTable.propTypes = {
       managingLocationLogicalId: PropTypes.string,
       logicalId: PropTypes.string.isRequired,
       status: PropTypes.string,
-      physicalType: PropTypes.string,
+      physicalType: PropTypes.object,
       address: PropTypes.shape({
         line1: PropTypes.string,
         line2: PropTypes.string,

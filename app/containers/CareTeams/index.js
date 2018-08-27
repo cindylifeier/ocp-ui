@@ -6,20 +6,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
+import { connect } from 'react-redux';
 import { compose } from 'redux';
-import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
-import isEqual from 'lodash/isEqual';
+import { createStructuredSelector } from 'reselect';
 import { Checkbox } from 'material-ui';
 import { Cell, Grid } from 'styled-css-grid';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import uniqueId from 'lodash/uniqueId';
 
-import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
+import injectSaga from 'utils/injectSaga';
+import { getLookupsAction } from 'containers/App/actions';
 import {
-  CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
   CARETEAMSTATUS,
   DEFAULT_START_PAGE_NUMBER,
@@ -29,27 +29,26 @@ import {
 } from 'containers/App/constants';
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectCareTeamStatuses } from 'containers/App/lookupSelectors';
-import { getLookupsAction } from 'containers/App/actions';
-import PanelToolbar from 'components/PanelToolbar';
-import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import InfoSection from 'components/InfoSection';
-import ContentSection from 'components/ContentSection';
-import InlineLabel from 'components/InlineLabel';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import CareTeamTable from 'components/CareTeamTable';
-import RecordsRange from 'components/RecordsRange';
-import Card from 'components/Card';
 import CenterAlign from 'components/Align/CenterAlign';
+import Card from 'components/Card';
+import CareTeamTable from 'components/CareTeamTable';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
-import NoResultsFoundText from 'components/NoResultsFoundText';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import ContentSection from 'components/ContentSection';
 import FilterSection from 'components/FilterSection';
-import makeSelectCareTeams from './selectors';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
+import InfoSection from 'components/InfoSection';
+import InlineLabel from 'components/InlineLabel';
+import NoResultsFoundText from 'components/NoResultsFoundText';
+import PanelToolbar from 'components/PanelToolbar';
+import RecordsRange from 'components/RecordsRange';
+import LinearProgressIndicator from 'components/LinearProgressIndicator';
+import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import { getCareTeams, initializeCareTeams } from './actions';
 import { DEFAULT_CARE_TEAM_STATUS_CODE, SUMMARY_VIEW_WIDTH } from './constants';
+import messages from './messages';
+import reducer from './reducer';
+import saga from './saga';
+import makeSelectCareTeams from './selectors';
 
 export class CareTeams extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -153,13 +152,14 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
       <Card>
         <PanelToolbar
           addNewItem={addNewItem}
-          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE]}
+          allowedAddNewItemRoles={[ORGANIZATION_ADMIN_ROLE_CODE, CARE_MANAGER_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
           showFilterIcon={false}
           onSize={this.handlePanelResize}
         />
+        <LinearProgressIndicator loading={loading} />
         <ContentSection>
           {isEmpty(patientName) ?
             <NoResultsFoundText><FormattedMessage {...messages.patientNotSelected} /></NoResultsFoundText> :
@@ -184,9 +184,6 @@ export class CareTeams extends React.Component { // eslint-disable-line react/pr
               </Grid>
             </SizedStickyDiv>
           }
-
-          {loading &&
-          <RefreshIndicatorLoading />}
 
           {!loading && !isEmpty(patientName) && (isEmpty(data) || isEmpty(data.elements)) &&
           <NoResultsFoundText><FormattedMessage {...messages.noCareTeamsFound} /></NoResultsFoundText>}

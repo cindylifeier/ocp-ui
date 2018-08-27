@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { Form, Formik } from 'formik';
 import yup from 'yup';
 import { Cell, Grid } from 'styled-css-grid';
+import merge from 'lodash/merge';
 
 import Padding from 'components/Padding';
 import AutoSuggestionField from 'components/AutoSuggestion';
@@ -30,6 +31,13 @@ function AddMultipleAddressesForm(props) {
       label: entry.display,
     }));
 
+  function setInitialValue() {
+    if (initialValues) {
+      return merge(initialValues, { address: { countryCode: 'United States' } }).address;
+    }
+    return { address: { countryCode: 'United States' } }.address;
+  }
+
   return (
     <div>
       <Formik
@@ -40,7 +48,7 @@ function AddMultipleAddressesForm(props) {
           onAddAddress(values);
           handleCloseDialog();
         }}
-        initialValues={{ ...(initialValues || {}).address }}
+        initialValues={setInitialValue()}
         validationSchema={yup.object().shape({
           line1: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -51,8 +59,6 @@ function AddMultipleAddressesForm(props) {
           postalCode: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />))
             .matches(postalCodePattern, (<FormattedMessage {...messages.validation.postalCode} />)),
-          countryCode: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />)),
         })}
         render={({ isSubmitting, dirty, isValid }) => (
           <Form>
@@ -97,27 +103,28 @@ function AddMultipleAddressesForm(props) {
                   fullWidth
                   name="postalCode"
                   hintText={<FormattedMessage {...messages.hintText.postalCode} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.postalCode} />}
                 />
               </Cell>
               <Cell>
                 <TextField
                   fullWidth
                   name="countryCode"
+                  disabled
                   hintText={<FormattedMessage {...messages.hintText.countryCode} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.countryCode} />}
                 />
               </Cell>
               <Cell>
-                <StyledRaisedButton
-                  type="submit"
-                  disabled={!dirty || isSubmitting || !isValid}
-                >
-                  <FormattedMessage {...messages.saveAddressButton} />
-                </StyledRaisedButton>
-                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
-                  <FormattedMessage {...messages.cancelButton} />
-                </StyledFlatButton>
+                <Grid columns={2}>
+                  <StyledRaisedButton
+                    type="submit"
+                    disabled={!dirty || isSubmitting || !isValid}
+                  >
+                    <FormattedMessage {...messages.saveAddressButton} />
+                  </StyledRaisedButton>
+                  <StyledFlatButton type="reset" onClick={handleCloseDialog}>
+                    <FormattedMessage {...messages.cancelButton} />
+                  </StyledFlatButton>
+                </Grid>
               </Cell>
             </Grid>
           </Form>

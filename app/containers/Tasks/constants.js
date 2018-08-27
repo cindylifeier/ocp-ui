@@ -29,4 +29,4 @@ export const COMPLETED_STATUS_CODE = 'completed';
 
 export const DEFAULT_TASK_STATUS_CODE = '';
 
-export const SUMMARY_VIEW_WIDTH = 700; // The width of the panel in pixels
+export const SUMMARY_VIEW_WIDTH = 850; // The width of the panel in pixels

@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 
 import { combineAddress, mapToTelecoms } from 'containers/App/helpers';
-import { MANAGE_PRACTITIONER_URL, OCP_ADMIN_ROLE_CODE,
-  ORGANIZATION_ADMIN_ROLE_CODE,
+import {
   MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL,
+  OCP_ADMIN_ROLE_CODE,
+  ORGANIZATION_ADMIN_ROLE_CODE,
 } from 'containers/App/constants';
+import NewPractitionerResource from 'containers/NewPractitionerResource';
 import PanelToolbar from 'components/PanelToolbar';
 import InfoSection from 'components/InfoSection';
 import PractitionerTable from 'components/PractitionerTable';
@@ -17,20 +19,31 @@ class DefaultViewComponent extends React.Component {
     super(props);
     this.state = {
       relativeTop: 0,
+      modalOpen: false,
     };
     this.onSize = this.onSize.bind(this);
+    this.handleOpenModal = this.handleOpenModal.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   onSize(size) {
     this.setState({ relativeTop: size.height });
   }
 
+  handleOpenModal() {
+    this.setState({ modalOpen: true });
+  }
+
+  handleCloseModal() {
+    this.setState({ modalOpen: false });
+  }
+
   render() {
     const addNewItem = {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
-      linkUrl: MANAGE_PRACTITIONER_URL,
+      onClick: this.handleOpenModal,
     };
-    const { onSearch, flattenPractitionerData, practitionersData } = this.props;
+    const { onSearch, flattenPractitionerData, practitionersData, isOcpAdminRole } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -50,8 +63,12 @@ class DefaultViewComponent extends React.Component {
             combineAddress={combineAddress}
             mapToTelecoms={mapToTelecoms}
             assignLocationUrl={MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL}
+            isOcpAdminRole={isOcpAdminRole}
           />
         </InfoSection>
+        {this.state.modalOpen &&
+        <NewPractitionerResource modalOpen={this.state.modalOpen} onModalClose={this.handleCloseModal} />
+        }
       </div>
     );
   }
@@ -60,6 +77,7 @@ class DefaultViewComponent extends React.Component {
 DefaultViewComponent.propTypes = {
   onSearch: PropTypes.func.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
+  isOcpAdminRole: PropTypes.bool,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -93,7 +111,7 @@ DefaultViewComponent.propTypes = {
         use: PropTypes.string,
       })),
       practitionerRoles: PropTypes.array,
-    })).isRequired,
+    })),
   }),
 };
 

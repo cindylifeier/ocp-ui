@@ -43,6 +43,13 @@ function AddCoverageForm(props) {
   function getDateFromDateTimeStr(dateStr) {
     return dateStr && dateStr.split(',')[0];
   }
+  function getInitialValue() {
+    let coverageObject = {};
+    if (patient) {
+      coverageObject = { coverage: { beneficiary: getPatientFullName(patient) } };
+    }
+    return { ...(initialValues || coverageObject).coverage };
+  }
   return (
     <div>
       <Formik
@@ -63,7 +70,7 @@ function AddCoverageForm(props) {
           onAddCoverage(merge(values, data));
           handleCloseDialog();
         }}
-        initialValues={{ ...(initialValues || { coverage: { beneficiary: getPatientFullName(patient) } }).coverage }}
+        initialValues={getInitialValue()}
         validationSchema={() =>
           yup.lazy((values) => {
             let startDate = new Date();

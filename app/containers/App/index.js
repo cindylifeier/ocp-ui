@@ -46,6 +46,7 @@ import ManageUserRegistration from 'containers/ManageUserRegistration';
 import SmartContextInitializerPage from 'containers/SmartContextInitializerPage/Loadable';
 import UserLoginDetailsPage from 'containers/UserLoginDetailsPage';
 import AssignLocationToPractitionerPage from 'containers/AssignLocationToPractitionerPage';
+import PublicLayoutRoute from 'components/PublicLayoutRoute';
 import saga from './saga';
 import './styles.css';
 
@@ -61,9 +62,9 @@ export function App() {
       <div>
         <Switch>
           <Redirect exact from="/" to="/ocp-ui/login" />
-          <Route exact path="/ocp-ui" component={LoginPage} />
-          <Route path="/ocp-ui/login" component={LoginPage} />
-          <Route path="/ocp-ui/sample-user-login-details" component={UserLoginDetailsPage} />
+          <PublicLayoutRoute exact path="/ocp-ui" component={LoginPage} />
+          <PublicLayoutRoute path="/ocp-ui/login" component={LoginPage} />
+          <PublicLayoutRoute path="/ocp-ui/sample-user-login-details" component={UserLoginDetailsPage} />
           {/* Import all security page MUST put inside Authorization component */}
           <Authentication>
             <Route path="/ocp-ui/workspace-selection" component={WorkspaceSelectionPage} />

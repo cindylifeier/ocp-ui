@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import AddPractitionerRoleForOrganization from '../index';
+// import AddMultipleContacts from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<AddPractitionerRoleForOrganization />', () => {
+describe('<AddMultipleContacts />', () => {
   it('Expect to have unit tests specified', () => {
-    /* expect(true).toEqual(false); */
+    // expect(true).toEqual(false);
   });
 });

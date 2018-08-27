@@ -8,12 +8,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { FieldArray } from 'formik';
-import Dialog from 'material-ui/Dialog';
+import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 
 import FormSubtitle from 'components/FormSubtitle';
 import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
+import StyledDialog from 'components/StyledDialog';
 import AddMultipleTelecomsForm from './AddMultipleTelecomsForm';
 import AddedTelecomsTable from './AddedTelecomsTable';
 import messages from './messages';
@@ -72,20 +73,18 @@ class AddMultipleTelecoms extends React.Component { // eslint-disable-line react
             name="telecoms"
             render={(arrayHelpers) => (
               <div>
-                <Dialog
-                  title="Add Contacts"
-                  modal={false}
-                  open={this.state.isTelecomsDialogOpen}
-                  onRequestClose={this.handleCloseDialog}
-                >
-                  <AddMultipleTelecomsForm
-                    initialValues={this.state.editingTelecom}
-                    onAddTelecom={arrayHelpers.push}
-                    onRemoveTelecom={arrayHelpers.remove}
-                    handleCloseDialog={this.handleCloseDialog}
-                    {...addedTelecomsFormProps}
-                  />
-                </Dialog>
+                <StyledDialog fullWidth open={this.state.isTelecomsDialogOpen}>
+                  <DialogTitle>Add Contact Detail</DialogTitle>
+                  <DialogContent>
+                    <AddMultipleTelecomsForm
+                      initialValues={this.state.editingTelecom}
+                      onAddTelecom={arrayHelpers.push}
+                      onRemoveTelecom={arrayHelpers.remove}
+                      handleCloseDialog={this.handleCloseDialog}
+                      {...addedTelecomsFormProps}
+                    />
+                  </DialogContent>
+                </StyledDialog>
                 <AddedTelecomsTable
                   handleEditTelecom={this.handleEditTelecom}
                   arrayHelpers={arrayHelpers}

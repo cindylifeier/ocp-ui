@@ -52,7 +52,7 @@ export default defineMessages({
   },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.PatientSearchResult.TableColumnHeader.Telecom',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact Detail(s)',
   },
   race: {
     id: 'ocpui.components.PatientSearchResult.race',
@@ -121,11 +121,15 @@ export default defineMessages({
     },
     telecoms: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
-      defaultMessage: 'Contact',
+      defaultMessage: 'Contact Detail(s)',
     },
-    status: {
-      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.status',
-      defaultMessage: 'Status',
+    patientStatus: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.patientStatus',
+      defaultMessage: 'Patient Status',
+    },
+    eocStatus: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.eocStatus',
+      defaultMessage: 'Episode(s) of Care',
     },
     dob: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.dob',
@@ -139,9 +143,17 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.birthSex',
       defaultMessage: 'Birth Gender',
     },
-    activityType: {
-      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activityType',
-      defaultMessage: 'Activity Type',
+    activeTasks: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.activeTasks',
+      defaultMessage: 'Active Tasks',
+    },
+    managingOrganization: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.managingOrganization',
+      defaultMessage: 'Managing Organization',
+    },
+    mrn: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.mrn',
+      defaultMessage: 'MRN',
     },
   },
 });

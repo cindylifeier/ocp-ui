@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   tableColumnHeaderOrganization: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Organization',
-    defaultMessage: 'Organization',
+    defaultMessage: 'Name',
   },
   tableColumnHeaderAddress: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Address',
@@ -16,7 +16,7 @@ export default defineMessages({
   },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Telecom',
-    defaultMessage: 'Contact',
+    defaultMessage: 'Contact Detail(s)',
   },
   tableColumnHeaderId: {
     id: 'ocpui.components.OrganizationTable.TableColumnHeader.Id',
@@ -65,5 +65,23 @@ export default defineMessages({
   noOrganizationsFound: {
     id: 'ocpui.components.OrganizationTable.noOrganizationsFound',
     defaultMessage: 'No organizations found.',
+  },
+  contactsTable: {
+    tableHeaderName: {
+      id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.name',
+      defaultMessage: 'Name Of Personnel',
+    },
+    tableHeaderPurpose: {
+      id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.purpose',
+      defaultMessage: 'Purpose',
+    },
+    tableHeaderAddress: {
+      id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.address',
+      defaultMessage: 'Address',
+    },
+    tableHeaderTelecoms: {
+      id: 'ocpui.components.OrganizationTable.ExpansionRowDetails.telecoms',
+      defaultMessage: 'Contact Detail(s)',
+    },
   },
 });

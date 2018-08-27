@@ -17,6 +17,7 @@ function SelectedParticipants(props) {
   const {
     selectedParticipants,
     removeParticipant,
+    getReferenceTypeFromReference,
   } = props;
 
   const handleRemoveParticipant = (participant) => {
@@ -38,11 +39,11 @@ function SelectedParticipants(props) {
       {selectedParticipants && selectedParticipants.length > 0 ?
         selectedParticipants.map((participant) => (
           <TableRow key={uniqueId()}>
-            <TableRowColumn>{participant.name}</TableRowColumn>
-            <TableRowColumn>{upperFirst(participant.memberType)}</TableRowColumn>
-            <TableRowColumn>{upperFirst(participant.participationType.display)}</TableRowColumn>
-            <TableRowColumn>{startCase(camelCase(participant.required.display))}</TableRowColumn>
-            <TableRowColumn>{startCase(camelCase(participant.status.display))}</TableRowColumn>
+            <TableRowColumn>{participant.display}</TableRowColumn>
+            <TableRowColumn>{upperFirst(getReferenceTypeFromReference(participant.reference))}</TableRowColumn>
+            <TableRowColumn>{upperFirst(participant.participationTypeDisplay)}</TableRowColumn>
+            <TableRowColumn>{startCase(camelCase(participant.participantRequiredDisplay))}</TableRowColumn>
+            <TableRowColumn>{upperFirst(participant.participationStatusDisplay)}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
                 <FormattedMessage {...messages.removeParticipantBtnLabel} />
@@ -62,6 +63,7 @@ function SelectedParticipants(props) {
 
 SelectedParticipants.propTypes = {
   removeParticipant: PropTypes.func.isRequired,
+  getReferenceTypeFromReference: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,
 };
 

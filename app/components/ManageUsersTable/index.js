@@ -17,7 +17,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import messages from './messages';
 
-const columns = 'repeat(2,1fr) 200px';
+const columns = 'repeat(3,1fr) 0.3fr';
 
 function ManageUsersTable(props) {
   const { users, onEditAssignRoles, onOpenResetPasswordModal } = props;
@@ -25,6 +25,7 @@ function ManageUsersTable(props) {
     <Table>
       <TableHeader columns={columns}>
         <TableHeaderColumn><FormattedMessage {...messages.userName} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.role} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.permissionGroup} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.action} /></TableHeaderColumn>
       </TableHeader>
@@ -36,10 +37,13 @@ function ManageUsersTable(props) {
           primaryText: <FormattedMessage {...messages.menuItemResetPassword} />,
           onClick: () => onOpenResetPasswordModal(user),
         }];
-        const permissionGroupName = user.displayName && user.displayName.split('.').pop();
+        const { givenName, familyName, displayName, role } = user;
+        const roleDisplay = role && role.map((roleCode) => roleCode.display).join('\n');
+        const permissionGroupName = displayName && displayName.split('.').pop();
         return (
           <TableRow key={user.id} columns={columns}>
-            <TableRowColumn>{user.givenName} {user.familyName}</TableRowColumn>
+            <TableRowColumn>{givenName} {familyName}</TableRowColumn>
+            <TableRowColumn>{roleDisplay}</TableRowColumn>
             <TableRowColumn>{Util.deCamelize(permissionGroupName)}</TableRowColumn>
             <TableRowColumn><NavigationIconMenu menuItems={menuItems} /></TableRowColumn>
           </TableRow>
@@ -55,6 +59,7 @@ ManageUsersTable.propTypes = {
     givenName: PropTypes.string,
     familyName: PropTypes.string,
     displayName: PropTypes.string.isRequired,
+    role: PropTypes.array,
   })).isRequired,
   onEditAssignRoles: PropTypes.func.isRequired,
   onOpenResetPasswordModal: PropTypes.func.isRequired,

@@ -16,7 +16,6 @@ import uniqueId from 'lodash/uniqueId';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import PublicHeader from 'components/PublicHeader';
 import InfoSection from 'components/InfoSection';
 import { getUserLoginDetails } from './actions';
 import makeSelectUserLoginDetailsPage from './selectors';
@@ -50,24 +49,21 @@ export class UserLoginDetailsPage extends React.Component { // eslint-disable-li
           <meta name="description" content="Sample User Login Details page of Omnibus Care Plan application" />
         </Helmet>
         {data && data.encodedPdf ?
-          <div>
-            <PublicHeader />
-            <InfoSection margin="10px 0">
-              <Document
-                loading={<LinearProgress />}
-                file={`data:application/pdf;base64,${data.encodedPdf}`}
-                onLoadSuccess={this.onDocumentLoadSuccess}
-              >
-                {
-                  Array.from(
-                    new Array(this.state.numPages),
-                    (el, index) => (
-                      <Page key={uniqueId()} pageNumber={index + 1} scale={2} renderMode="svg" />
-                    ))
-                }
-              </Document>
-            </InfoSection>
-          </div> : <LinearProgress />
+          <InfoSection margin="10px 0">
+            <Document
+              loading={<LinearProgress />}
+              file={`data:application/pdf;base64,${data.encodedPdf}`}
+              onLoadSuccess={this.onDocumentLoadSuccess}
+            >
+              {
+                Array.from(
+                  new Array(this.state.numPages),
+                  (el, index) => (
+                    <Page key={uniqueId()} pageNumber={index + 1} scale={2} renderMode="svg" />
+                  ))
+              }
+            </Document>
+          </InfoSection> : <LinearProgress />
         }
       </div>
     );

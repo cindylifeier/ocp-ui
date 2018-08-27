@@ -46,7 +46,7 @@ export default defineMessages({
       },
       notDone: {
         id: 'ocpui.containers.ManageCommunication.form.notDone',
-        defaultMessage: 'Communications did not occur.',
+        defaultMessage: 'Communication did not occur',
       },
       topic: {
         id: 'ocpui.containers.ManageCommunication.form.topic',
@@ -54,7 +54,7 @@ export default defineMessages({
       },
       notDoneReason: {
         id: 'ocpui.containers.ManageCommunication.form.notDoneReason',
-        defaultMessage: 'Reason',
+        defaultMessage: 'Reason why communication did not occur',
       },
       category: {
         id: 'ocpui.containers.ManageCommunication.form.category',

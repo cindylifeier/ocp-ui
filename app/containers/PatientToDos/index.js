@@ -4,37 +4,44 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import isEmpty from 'lodash/isEmpty';
 import Card from 'components/Card';
-import { CARE_COORDINATOR_ROLE_CODE, DATE_RANGE, MANAGE_TASK_URL, TO_DO_DEFINITION } from 'containers/App/constants';
-import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
-import { compose } from 'redux';
-import { cancelToDos, getFilterToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
+import H3 from 'components/H3';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
+import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
+import StyledFlatButton from 'components/StyledFlatButton';
+import ToDoList from 'components/ToDoList';
+import { getLookupsAction } from 'containers/App/actions';
+import {
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  DATE_RANGE,
+  MANAGE_TASK_URL,
+  ORGANIZATION_ADMIN_ROLE_CODE,
+  TO_DO_DEFINITION,
+} from 'containers/App/constants';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { getPractitionerIdByRole } from 'containers/App/helpers';
+import { makeSelectToDoFilterDateRanges } from 'containers/App/lookupSelectors';
+import { cancelToDos, getFilterToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
 import {
   makeSelectPatientToDoMainTask,
   makeSelectPatientToDos,
   makeSelectSearchLoading,
 } from 'containers/PatientToDos/selectors';
-import ToDoList from 'components/ToDoList';
-import { getLookupsAction } from 'containers/App/actions';
-import { makeSelectToDoFilterDateRanges } from 'containers/App/lookupSelectors';
-import H3 from 'components/H3';
-import StyledFlatButton from 'components/StyledFlatButton';
+import isEmpty from 'lodash/isEmpty';
 import Dialog from 'material-ui/Dialog';
-import injectSaga from 'utils/injectSaga';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
-import { getPractitionerIdByRole } from 'containers/App/helpers';
+import injectSaga from 'utils/injectSaga';
+import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 
 export class PatientToDos extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -130,7 +137,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
         <PanelToolbar
           addNewItem={addNewItem}
           showToDoSpecificFilters
-          allowedAddNewItemRoles={CARE_COORDINATOR_ROLE_CODE}
+          allowedAddNewItemRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE]}
           filterField={filterField}
           onFilter={this.handleFilter}
           showUploadIcon={false}

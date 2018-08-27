@@ -16,10 +16,7 @@ import PropTypes from 'prop-types';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import PageContent from 'components/PageContent';
-import ManagePractitioner from 'components/ManagePractitioner';
+import Util from 'utils/Util';
 import {
   makeSelectPractitionerIdentifierSystems,
   makeSelectProviderRoles,
@@ -30,6 +27,7 @@ import {
 } from 'containers/App/lookupSelectors';
 import {
   EMPTY_STRING,
+  OCP_ADMIN_ROLE_CODE,
   PRACTITIONERIDENTIFIERSYSTEM,
   PROVIDER_ROLE,
   PROVIDER_SPECIALTY,
@@ -38,6 +36,15 @@ import {
   USPSSTATES,
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
+import { makeSelectOrganization, makeSelectUser } from 'containers/App/contextSelectors';
+import {
+  makeSelectNewPractitionerExists,
+  makeSelectNewPractitionerQueryParameters,
+} from 'containers/NewPractitionerResource/selectors';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import PageContent from 'components/PageContent';
+import ManagePractitioner from 'components/ManagePractitioner';
 import {
   getOrganizations,
   getPractitioner,
@@ -47,13 +54,8 @@ import {
 } from './actions';
 import reducer from './reducer';
 import saga from './saga';
+import { makeSelectOrganizations, makeSelectPractitioner } from './selectors';
 import messages from './messages';
-import {
-  makeSelectCurrentPage,
-  makeSelectOrganizations,
-  makeSelectPractitioner,
-  makeSelectTotalNumberOfPages,
-} from './selectors';
 
 export class ManagePractitionerPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -106,17 +108,30 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
 
   render() {
     const {
-      match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles, providerSpecialties, selectedPractitioner,
-      organizations,
-      currentPage,
-      totalNumberOfPages,
+      match, uspsStates, identifierSystems, telecomSystems, telecomUses, providerRoles,
+      providerSpecialties, selectedPractitioner, organizations, organizationContext, user: { role },
+      newPractitionerExists, newPractitionerQueryParameters,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let practitioner = null;
     if (editMode && selectedPractitioner) {
       practitioner = selectedPractitioner;
     }
-    const formProps = {
+
+    let initialNewPractitionerValue;
+    if (!editMode && newPractitionerQueryParameters) {
+      const { firstName, lastName, identifierType, identifier } = newPractitionerQueryParameters;
+      initialNewPractitionerValue = !newPractitionerExists && {
+        firstName,
+        lastName,
+        identifierType,
+        identifier,
+      };
+    }
+
+    const isOcpAdmin = Util.equalsIgnoreCase(role, OCP_ADMIN_ROLE_CODE);
+
+    const childProps = {
       uspsStates,
       identifierSystems,
       telecomSystems,
@@ -126,8 +141,9 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
       editMode,
       practitioner,
       organizations,
-      currentPage,
-      totalNumberOfPages,
+      organizationContext,
+      isOcpAdmin,
+      initialNewPractitionerValue,
     };
     return (
       <Page>
@@ -146,7 +162,7 @@ export class ManagePractitionerPage extends React.Component { // eslint-disable-
             onPageClick={this.handlePageClick}
             onSearch={this.handleSearch}
             initialSearchOrganizationResult={this.initialSearchOrganizationResult}
-            {...formProps}
+            {...childProps}
           />
         </PageContent>
       </Page>
@@ -177,13 +193,30 @@ ManagePractitionerPage.propTypes = {
   onSaveForm: PropTypes.func,
   initializeManagePractitioner: PropTypes.func,
   getOrganizations: PropTypes.func.isRequired,
-  currentPage: PropTypes.number.isRequired,
-  totalNumberOfPages: PropTypes.number.isRequired,
   organizations: PropTypes.shape({
     data: PropTypes.array.isRequired,
     loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+  }),
+  organizationContext: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    identifiers: PropTypes.array,
+    addresses: PropTypes.array,
+    logicalId: PropTypes.string.isRequired,
+    active: PropTypes.bool.isRequired,
+  }),
+  user: PropTypes.shape({
+    role: PropTypes.string.isRequired,
   }),
   initializeOrganizations: PropTypes.func.isRequired,
+  newPractitionerExists: PropTypes.bool,
+  newPractitionerQueryParameters: PropTypes.shape({
+    firstName: PropTypes.string,
+    lastName: PropTypes.string,
+    identifierType: PropTypes.string,
+    identifier: PropTypes.string,
+  }),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -195,8 +228,10 @@ const mapStateToProps = createStructuredSelector({
   providerSpecialties: makeSelectProviderSpecialties(),
   selectedPractitioner: makeSelectPractitioner(),
   organizations: makeSelectOrganizations(),
-  currentPage: makeSelectCurrentPage(),
-  totalNumberOfPages: makeSelectTotalNumberOfPages(),
+  organizationContext: makeSelectOrganization(),
+  user: makeSelectUser(),
+  newPractitionerQueryParameters: makeSelectNewPractitionerQueryParameters(),
+  newPractitionerExists: makeSelectNewPractitionerExists(),
 });
 
 function mapDispatchToProps(dispatch) {

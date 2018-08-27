@@ -29,6 +29,11 @@ ShallowWrapper {
         ],
       }
     }
+    user={
+      Object {
+        "role": "patientRole",
+      }
+    }
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -118,37 +123,47 @@ ShallowWrapper {
                       Object {
                         "content": Array [
                           Object {
-                            "componentName": "tasks",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Patient's Tasks",
-                            "type": "component",
+                            "content": Array [
+                              Object {
+                                "content": Array [
+                                  Object {
+                                    "componentName": "tasks",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Patient's Tasks",
+                                    "type": "component",
+                                  },
+                                  Object {
+                                    "componentName": "toDos",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Patient's TO DO",
+                                    "type": "component",
+                                  },
+                                ],
+                                "type": "stack",
+                              },
+                            ],
+                            "type": "column",
                           },
-                          Object {
-                            "componentName": "careTeams",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Patient's Care teams",
-                            "type": "component",
-                          },
-                          Object {
-                            "componentName": "toDos",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Patient's TO DO",
-                            "type": "component",
-                          },
-                        ],
-                        "height": 40,
-                        "type": "row",
-                      },
-                      Object {
-                        "content": Array [
                           Object {
                             "componentName": "appointments",
                             "isClosable": true,
                             "reorderEnabled": true,
                             "title": "Patient's Appointments",
+                            "type": "component",
+                          },
+                        ],
+                        "height": 50,
+                        "type": "row",
+                      },
+                      Object {
+                        "content": Array [
+                          Object {
+                            "componentName": "careTeams",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Patient's Care teams",
                             "type": "component",
                           },
                           Object {
@@ -166,7 +181,7 @@ ShallowWrapper {
                             "type": "component",
                           },
                         ],
-                        "height": 60,
+                        "height": 50,
                         "type": "row",
                       },
                     ],
@@ -333,37 +348,47 @@ ShallowWrapper {
                         Object {
                           "content": Array [
                             Object {
-                              "componentName": "tasks",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's Tasks",
-                              "type": "component",
+                              "content": Array [
+                                Object {
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "tasks",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's Tasks",
+                                      "type": "component",
+                                    },
+                                    Object {
+                                      "componentName": "toDos",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's TO DO",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "type": "stack",
+                                },
+                              ],
+                              "type": "column",
                             },
-                            Object {
-                              "componentName": "careTeams",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's Care teams",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "toDos",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's TO DO",
-                              "type": "component",
-                            },
-                          ],
-                          "height": 40,
-                          "type": "row",
-                        },
-                        Object {
-                          "content": Array [
                             Object {
                               "componentName": "appointments",
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "Patient's Appointments",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 50,
+                          "type": "row",
+                        },
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "careTeams",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Patient's Care teams",
                               "type": "component",
                             },
                             Object {
@@ -381,7 +406,7 @@ ShallowWrapper {
                               "type": "component",
                             },
                           ],
-                          "height": 60,
+                          "height": 50,
                           "type": "row",
                         },
                       ],
@@ -510,37 +535,47 @@ ShallowWrapper {
                       Object {
                         "content": Array [
                           Object {
-                            "componentName": "tasks",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Patient's Tasks",
-                            "type": "component",
+                            "content": Array [
+                              Object {
+                                "content": Array [
+                                  Object {
+                                    "componentName": "tasks",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Patient's Tasks",
+                                    "type": "component",
+                                  },
+                                  Object {
+                                    "componentName": "toDos",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Patient's TO DO",
+                                    "type": "component",
+                                  },
+                                ],
+                                "type": "stack",
+                              },
+                            ],
+                            "type": "column",
                           },
-                          Object {
-                            "componentName": "careTeams",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Patient's Care teams",
-                            "type": "component",
-                          },
-                          Object {
-                            "componentName": "toDos",
-                            "isClosable": true,
-                            "reorderEnabled": true,
-                            "title": "Patient's TO DO",
-                            "type": "component",
-                          },
-                        ],
-                        "height": 40,
-                        "type": "row",
-                      },
-                      Object {
-                        "content": Array [
                           Object {
                             "componentName": "appointments",
                             "isClosable": true,
                             "reorderEnabled": true,
                             "title": "Patient's Appointments",
+                            "type": "component",
+                          },
+                        ],
+                        "height": 50,
+                        "type": "row",
+                      },
+                      Object {
+                        "content": Array [
+                          Object {
+                            "componentName": "careTeams",
+                            "isClosable": true,
+                            "reorderEnabled": true,
+                            "title": "Patient's Care teams",
                             "type": "component",
                           },
                           Object {
@@ -558,7 +593,7 @@ ShallowWrapper {
                             "type": "component",
                           },
                         ],
-                        "height": 60,
+                        "height": 50,
                         "type": "row",
                       },
                     ],
@@ -696,37 +731,47 @@ ShallowWrapper {
                         Object {
                           "content": Array [
                             Object {
-                              "componentName": "tasks",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's Tasks",
-                              "type": "component",
+                              "content": Array [
+                                Object {
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "tasks",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's Tasks",
+                                      "type": "component",
+                                    },
+                                    Object {
+                                      "componentName": "toDos",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's TO DO",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "type": "stack",
+                                },
+                              ],
+                              "type": "column",
                             },
-                            Object {
-                              "componentName": "careTeams",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's Care teams",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "toDos",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's TO DO",
-                              "type": "component",
-                            },
-                          ],
-                          "height": 40,
-                          "type": "row",
-                        },
-                        Object {
-                          "content": Array [
                             Object {
                               "componentName": "appointments",
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "Patient's Appointments",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 50,
+                          "type": "row",
+                        },
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "careTeams",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Patient's Care teams",
                               "type": "component",
                             },
                             Object {
@@ -744,7 +789,7 @@ ShallowWrapper {
                               "type": "component",
                             },
                           ],
-                          "height": 60,
+                          "height": 50,
                           "type": "row",
                         },
                       ],
@@ -911,37 +956,47 @@ ShallowWrapper {
                           Object {
                             "content": Array [
                               Object {
-                                "componentName": "tasks",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Patient's Tasks",
-                                "type": "component",
+                                "content": Array [
+                                  Object {
+                                    "content": Array [
+                                      Object {
+                                        "componentName": "tasks",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "Patient's Tasks",
+                                        "type": "component",
+                                      },
+                                      Object {
+                                        "componentName": "toDos",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "Patient's TO DO",
+                                        "type": "component",
+                                      },
+                                    ],
+                                    "type": "stack",
+                                  },
+                                ],
+                                "type": "column",
                               },
-                              Object {
-                                "componentName": "careTeams",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Patient's Care teams",
-                                "type": "component",
-                              },
-                              Object {
-                                "componentName": "toDos",
-                                "isClosable": true,
-                                "reorderEnabled": true,
-                                "title": "Patient's TO DO",
-                                "type": "component",
-                              },
-                            ],
-                            "height": 40,
-                            "type": "row",
-                          },
-                          Object {
-                            "content": Array [
                               Object {
                                 "componentName": "appointments",
                                 "isClosable": true,
                                 "reorderEnabled": true,
                                 "title": "Patient's Appointments",
+                                "type": "component",
+                              },
+                            ],
+                            "height": 50,
+                            "type": "row",
+                          },
+                          Object {
+                            "content": Array [
+                              Object {
+                                "componentName": "careTeams",
+                                "isClosable": true,
+                                "reorderEnabled": true,
+                                "title": "Patient's Care teams",
                                 "type": "component",
                               },
                               Object {
@@ -959,7 +1014,7 @@ ShallowWrapper {
                                 "type": "component",
                               },
                             ],
-                            "height": 60,
+                            "height": 50,
                             "type": "row",
                           },
                         ],
@@ -1088,37 +1143,47 @@ ShallowWrapper {
                         Object {
                           "content": Array [
                             Object {
-                              "componentName": "tasks",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's Tasks",
-                              "type": "component",
+                              "content": Array [
+                                Object {
+                                  "content": Array [
+                                    Object {
+                                      "componentName": "tasks",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's Tasks",
+                                      "type": "component",
+                                    },
+                                    Object {
+                                      "componentName": "toDos",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's TO DO",
+                                      "type": "component",
+                                    },
+                                  ],
+                                  "type": "stack",
+                                },
+                              ],
+                              "type": "column",
                             },
-                            Object {
-                              "componentName": "careTeams",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's Care teams",
-                              "type": "component",
-                            },
-                            Object {
-                              "componentName": "toDos",
-                              "isClosable": true,
-                              "reorderEnabled": true,
-                              "title": "Patient's TO DO",
-                              "type": "component",
-                            },
-                          ],
-                          "height": 40,
-                          "type": "row",
-                        },
-                        Object {
-                          "content": Array [
                             Object {
                               "componentName": "appointments",
                               "isClosable": true,
                               "reorderEnabled": true,
                               "title": "Patient's Appointments",
+                              "type": "component",
+                            },
+                          ],
+                          "height": 50,
+                          "type": "row",
+                        },
+                        Object {
+                          "content": Array [
+                            Object {
+                              "componentName": "careTeams",
+                              "isClosable": true,
+                              "reorderEnabled": true,
+                              "title": "Patient's Care teams",
                               "type": "component",
                             },
                             Object {
@@ -1136,7 +1201,7 @@ ShallowWrapper {
                               "type": "component",
                             },
                           ],
-                          "height": 60,
+                          "height": 50,
                           "type": "row",
                         },
                       ],

@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.containers.AssignLocationToPractitionerPage.header',
-    defaultMessage: 'Assign Location to practitioner',
+    defaultMessage: 'Assign Location to Practitioner',
   },
   organizationNotSelected: {
     id: 'ocpui.containers.AssignLocationToPractitionerPage.organizationNotSelected',

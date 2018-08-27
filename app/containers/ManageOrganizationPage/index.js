@@ -11,13 +11,10 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Form, Formik } from 'formik';
-import yup from 'yup';
-import MenuItem from 'material-ui/MenuItem';
-import { Cell, Grid } from 'styled-css-grid';
 
 import injectSaga from 'utils/injectSaga';
 import {
+  CONTACTPURPOSE,
   ORGANIZATIONIDENTIFIERSYSTEM,
   ORGANIZATIONSTATUS,
   TELECOMSYSTEM,
@@ -26,6 +23,7 @@ import {
 } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
 import {
+  makeSelectContactPurpose,
   makeSelectOrganizationIdentifierSystems,
   makeSelectOrganizationStatuses,
   makeSelectTelecomSystems,
@@ -34,50 +32,17 @@ import {
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { getOrganization } from 'containers/App/contextActions';
-import GoBackButton from 'components/GoBackButton';
-import TextField from 'components/TextField';
-import SelectField from 'components/SelectField';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
-import StyledRaisedButton from 'components/StyledRaisedButton';
 import PageContent from 'components/PageContent';
-import FormSubtitle from 'components/FormSubtitle';
-import AddMultipleAddresses from 'components/AddMultipleAddresses';
-import AddMultipleTelecoms from 'components/AddMultipleTelecoms';
-import saga from './saga';
-import messages from './messages';
+import ManageOrganization from 'components/ManageOrganization';
 import { createOrganization, updateOrganization } from './actions';
-import ManageOrganizationFormGrid from './ManageOrganizationFormGrid';
-import ManageOrganizationFormCell from './ManageOrganizationFormCell';
+import saga from './saga';
+import { mapToFrontendContacts } from './helpers';
+import messages from './messages';
 
-const minimumNumberOfAddresses = 1;
-const minimumNumberOfTelecoms = 1;
 
 export class ManageOrganizationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-  static validationSchemaShape = {
-    name: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    addresses: yup.array()
-      .required((<FormattedMessage {...messages.validation.required} />))
-      .min(minimumNumberOfAddresses, (
-        <FormattedMessage {...messages.validation.minAddresses} values={{ minimumNumberOfAddresses }} />)),
-    telecoms: yup.array()
-      .required((<FormattedMessage {...messages.validation.required} />))
-      .min(minimumNumberOfTelecoms, (
-        <FormattedMessage {...messages.validation.minTelecoms} values={{ minimumNumberOfTelecoms }} />)),
-    identifierSystem: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-    identifierValue: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-  };
-  static validationSchemaCreate = yup.object().shape(ManageOrganizationPage.validationSchemaShape);
-
-  static validationSchemaUpdate = yup.object().shape({
-    ...ManageOrganizationPage.validationSchemaShape,
-    status: yup.string()
-      .required((<FormattedMessage {...messages.validation.required} />)),
-  });
-
   constructor(props) {
     super(props);
     this.handleSubmitCreate = this.handleSubmitCreate.bind(this);
@@ -105,7 +70,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
   }
 
   render() {
-    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, organization } = this.props;
+    const { match: { params: { id } }, uspsStates, organizationIdentifierSystems, organizationStatuses, telecomSystems, telecomUses, contactPurposes, organization } = this.props;
     let initialValues = {};
     let editingOrganization = null;
     // if id in the route exists but no initial data to edit
@@ -118,6 +83,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
         identifiers: [{ system: identifierSystem, value: identifierValue }],
         addresses,
         telecoms,
+        contacts,
         active,
       } = editingOrganization;
       initialValues = {
@@ -127,6 +93,7 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
         identifierValue,
         telecoms,
         addresses,
+        contacts: mapToFrontendContacts(contacts),
       };
     }
 
@@ -144,108 +111,18 @@ export class ManageOrganizationPage extends React.Component { // eslint-disable-
               <FormattedMessage {...messages.createModeTitle} />}
           />
           <PageContent>
-            <Formik
-              validationSchema={id ? ManageOrganizationPage.validationSchemaUpdate : ManageOrganizationPage.validationSchemaCreate}
+            <ManageOrganization
+              id={id}
               initialValues={initialValues}
-              onSubmit={editingOrganization ? this.handleSubmitUpdate : this.handleSubmitCreate}
-              render={(props) => {
-                const { isSubmitting, dirty, isValid, errors, values } = props;
-                const addAddressesProps = {
-                  uspsStates,
-                  errors,
-                  addresses: values.addresses,
-                };
-                const addTelecomsProps = {
-                  telecomSystems,
-                  telecomUses,
-                  errors,
-                  telecoms: values.telecoms,
-                };
-                return (
-                  <Form>
-                    <ManageOrganizationFormGrid columns={12}>
-                      <ManageOrganizationFormCell width={12}>
-                        <FormSubtitle margin="1vh 0 0 0">
-                          <FormattedMessage {...messages.subtitle} />
-                        </FormSubtitle>
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell left={1} width={4}>
-                        <TextField
-                          name="name"
-                          floatingLabelText={<FormattedMessage {...messages.form.name} />}
-                          fullWidth
-                        />
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell left={5} width={3}>
-                        <Grid columns="1fr 2fr" gap="">
-                          <Cell>
-                            <SelectField
-                              floatingLabelText={<FormattedMessage {...messages.form.identifierSystem} />}
-                              name="identifierSystem"
-                              fullWidth
-                            >
-                              {organizationIdentifierSystems && organizationIdentifierSystems.map(({ uri, display }) => (
-                                <MenuItem
-                                  key={uri}
-                                  value={uri}
-                                  primaryText={display}
-                                />))}
-                            </SelectField>
-                          </Cell>
-                          <Cell>
-                            <TextField
-                              floatingLabelText={<FormattedMessage {...messages.form.identifierValue} />}
-                              fullWidth
-                              name="identifierValue"
-                            />
-                          </Cell>
-                        </Grid>
-                      </ManageOrganizationFormCell>
-                      {id &&
-                      <ManageOrganizationFormCell left={8} width={2}>
-                        <SelectField
-                          floatingLabelText={<FormattedMessage {...messages.form.status} />}
-                          fullWidth
-                          name="status"
-                        >
-                          {organizationStatuses && organizationStatuses.map(({ code, display }) => (
-                            <MenuItem
-                              key={code.toString()}
-                              value={code.toString()}
-                              primaryText={display}
-                            />))}
-                        </SelectField>
-                      </ManageOrganizationFormCell>}
-                      <ManageOrganizationFormCell width={12}>
-                        <AddMultipleAddresses{...addAddressesProps} />
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell width={12}>
-                        <AddMultipleTelecoms {...addTelecomsProps} />
-                      </ManageOrganizationFormCell>
-                      <ManageOrganizationFormCell top={5} left={1} width={4}>
-                        <Grid columns={2}>
-                          <Cell>
-                            <StyledRaisedButton
-                              fullWidth
-                              type="submit"
-                              disabled={!dirty || isSubmitting || !isValid}
-                            >
-                              {isSubmitting ?
-                                <FormattedMessage {...messages.form.savingButton} /> :
-                                <FormattedMessage {...messages.form.saveButton} />}
-                            </StyledRaisedButton>
-                          </Cell>
-                          <Cell>
-                            <GoBackButton
-                              label={<FormattedMessage {...messages.form.cancelButton} />}
-                            />
-                          </Cell>
-                        </Grid>
-                      </ManageOrganizationFormCell>
-                    </ManageOrganizationFormGrid>
-                  </Form>
-                );
-              }}
+              editingOrganization={editingOrganization}
+              uspsStates={uspsStates}
+              organizationIdentifierSystems={organizationIdentifierSystems}
+              organizationStatuses={organizationStatuses}
+              telecomSystems={telecomSystems}
+              telecomUses={telecomUses}
+              contactPurposes={contactPurposes}
+              onSubmitCreate={this.handleSubmitCreate}
+              onSubmitUpdate={this.handleSubmitUpdate}
             />
           </PageContent>
         </div>
@@ -279,6 +156,12 @@ ManageOrganizationPage.propTypes = {
     display: PropTypes.string.isRequired,
   })),
   telecomUses: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.string.isRequired,
+    system: PropTypes.string,
+    display: PropTypes.string,
+    definition: PropTypes.string,
+  })),
+  contactPurposes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string,
     display: PropTypes.string,
@@ -322,12 +205,13 @@ const mapStateToProps = createStructuredSelector({
   organizationStatuses: makeSelectOrganizationStatuses(),
   telecomSystems: makeSelectTelecomSystems(),
   telecomUses: makeSelectTelecomUses(),
+  contactPurposes: makeSelectContactPurpose(),
   organization: makeSelectOrganization(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, TELECOMUSE, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
+    getLookups: () => dispatch(getLookupsAction([USPSSTATES, TELECOMSYSTEM, TELECOMUSE, CONTACTPURPOSE, ORGANIZATIONIDENTIFIERSYSTEM, ORGANIZATIONSTATUS])),
     createOrganization: (organization, callback) => dispatch(createOrganization(organization, callback)),
     updateOrganization: (id, organization, callback) => dispatch(updateOrganization(id, organization, callback)),
     getOrganization: (logicalId) => dispatch(getOrganization(logicalId)),

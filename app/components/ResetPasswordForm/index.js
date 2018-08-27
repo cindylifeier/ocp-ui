@@ -71,7 +71,7 @@ function ResetPasswordForm(props) {
                     fullWidth
                     disabled={!dirty || isSubmitting || !isValid}
                   >
-                    <FormattedMessage {...messages.saveButton} />
+                    <FormattedMessage {...messages.submitButton} />
                   </StyledRaisedButton>
                   <StyledFlatButton fullWidth onClick={onCloseDialog}>
                     <FormattedMessage {...messages.cancelButton} />

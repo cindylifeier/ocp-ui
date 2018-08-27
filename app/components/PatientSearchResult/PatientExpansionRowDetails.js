@@ -1,14 +1,24 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import isUndefined from 'lodash/isUndefined';
+import toLower from 'lodash/toLower';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
 import messages from './messages';
 
 function PatientExpansionRowDetails({ patient }) {
-  const { addresses, name, identifier, telecoms, active, birthDate, genderCode, birthSex, activityTypes } = patient;
+  const { addresses, name, identifier, telecoms, episodeOfCares, birthDate, genderDisplayString, birthSex, activityTypes, organization, active, mrn } = patient;
+
+  let birthSexDisplay = 'Not Available';
+  if (!isUndefined(birthSex) && birthSex !== null) {
+    if (toLower(birthSex) === 'f' || toLower(birthSex) === 'female') {
+      birthSexDisplay = 'Female';
+    } else if (toLower(birthSex) === 'm' || toLower(birthSex) === 'male') {
+      birthSexDisplay = 'Male';
+    }
+  }
 
   return (
     <InfoSection>
@@ -39,7 +49,7 @@ function PatientExpansionRowDetails({ patient }) {
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.status} />}
+            label={<FormattedMessage {...messages.expansionRowDetails.patientStatus} />}
             text={active ?
               <FormattedMessage {...messages.active} /> :
               <FormattedMessage {...messages.inactive} />
@@ -55,22 +65,43 @@ function PatientExpansionRowDetails({ patient }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.gender} />}
-            text={genderCode}
+            text={genderDisplayString}
           />
         </Cell>
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetails.birthSex} />}
-            text={birthSex}
+            text={birthSexDisplay}
           />
         </Cell>
         <Cell>
           <TextLabelGroup
-            label={<FormattedMessage {...messages.expansionRowDetails.activityType} />}
+            label={<FormattedMessage {...messages.expansionRowDetails.eocStatus} />}
+            text={episodeOfCares && episodeOfCares.map((eoc) => (
+                `${eoc.typeDisplay} - ${eoc.statusDisplay}`
+              ),
+            ).join('\n ')}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.activeTasks} />}
             text={activityTypes && activityTypes.map((type) => (
-                `${type}  `
-              )
-            )}
+                `${type}`
+              ),
+            ).join('\n ')}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.managingOrganization} />}
+            text={organization && organization.display}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetails.mrn} />}
+            text={mrn}
           />
         </Cell>
       </Grid>
@@ -87,7 +118,7 @@ PatientExpansionRowDetails.propTypes = {
     addresses: PropTypes.string,
     telecoms: PropTypes.string,
     birthDate: PropTypes.string,
-    genderCode: PropTypes.string,
+    genderDisplayString: PropTypes.string,
     birthSex: PropTypes.string,
     activityTypes: PropTypes.array,
   }).isRequired,

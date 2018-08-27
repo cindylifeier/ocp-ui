@@ -5,7 +5,7 @@ import request from 'utils/request';
 export default function getAppointmentsApi(query) {
   const params = queryString(query);
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
-  const requestURL = `${baseEndpoint}/search-with-no-pagination${params}`;
+  const requestURL = `${baseEndpoint}/not-declined-and-not-paginated${params}`;
   return request(requestURL);
 }
 

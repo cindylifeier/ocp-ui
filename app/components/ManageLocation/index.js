@@ -68,7 +68,7 @@ ManageLocation.propTypes = {
     logicalId: PropTypes.string.isRequired,
     managingLocationLogicalId: PropTypes.string,
     status: PropTypes.string,
-    physicalType: PropTypes.string,
+    physicalType: PropTypes.object,
     name: PropTypes.string,
     address: PropTypes.shape({
       line1: PropTypes.string,
@@ -99,18 +99,26 @@ export default ManageLocation;
 
 
 function setFormData(location) {
-  let formData = null;
+  let formData = { address: { countryCode: 'United States' } }.address;
   if (!isEmpty(location)) {
     formData = merge(
       mapLocationToFiledObject(location, 'name'),
       mapLocationToFiledObject(location, 'status'),
-      mapLocationToFiledObject(location, 'physicalType'),
+      mapLocationToFieldObject(location, 'physicalType', 'code'),
       mapLocationToFiledObject(location, 'managingLocationLogicalId'),
       mapLocationToAddressFields(location),
       mapLocationToIdentifierFields(location),
       mapLocationToTelecomFields(location));
   }
   return Util.pickByIdentity(formData);
+}
+
+function mapLocationToFieldObject(location, fieldName, key) {
+  const fieldObject = {};
+  if (!isUndefined(location[fieldName]) && !isUndefined(location[fieldName][key])) {
+    fieldObject[fieldName] = Util.setEmptyStringWhenUndefined(location[fieldName][key]);
+  }
+  return fieldObject;
 }
 
 function mapLocationToFiledObject(location, fieldName) {
@@ -130,7 +138,7 @@ function mapLocationToAddressFields(location) {
       city: Util.setEmptyStringWhenUndefined(location.address.city),
       stateCode: Util.setEmptyStringWhenUndefined(location.address.stateCode),
       postalCode: Util.setEmptyStringWhenUndefined(location.address.postalCode),
-      countryCode: Util.setEmptyStringWhenUndefined(location.address.countryCode),
+      countryCode: 'United States',
       use: Util.setEmptyStringWhenUndefined(location.address.use),
     };
   }

@@ -10,9 +10,9 @@ export default defineMessages({
     id: 'ocpui.components.ResetPasswordForm.userFullNameLabel',
     defaultMessage: 'User Name',
   },
-  saveButton: {
-    id: 'ocpui.components.ResetPasswordForm.saveButton',
-    defaultMessage: 'Save',
+  submitButton: {
+    id: 'ocpui.components.ResetPasswordForm.submitButton',
+    defaultMessage: 'Submit',
   },
   cancelButton: {
     id: 'ocpui.components.ResetPasswordForm.cancelButton',

@@ -4,20 +4,20 @@
  *
  */
 
-import React from 'react';
-import yup from 'yup';
-import PropTypes from 'prop-types';
 import { Formik } from 'formik';
-import find from 'lodash/find';
-import Util from 'utils/Util';
-import { getPatientName } from 'utils/PatientUtils';
 import { isUndefined } from 'lodash';
+import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import merge from 'lodash/merge';
+import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import { getPatientName } from 'utils/PatientUtils';
+import Util from 'utils/Util';
+import yup from 'yup';
+import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
-import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 
 
 function ManageCommunication(props) {
@@ -28,13 +28,9 @@ function ManageCommunication(props) {
     communicationNotDoneReasons,
     communicationMedia,
     episodeOfCares,
-    handleOpen,
-    selectedRecipients,
-    handleRemoveRecipient,
     selectedPatient,
     communication,
     practitioner,
-    initialSelectedRecipients,
     editMode,
     selectedTask,
     selectedAppointment,
@@ -46,12 +42,8 @@ function ManageCommunication(props) {
     communicationNotDoneReasons,
     communicationMedia,
     episodeOfCares,
-    handleOpen,
-    selectedRecipients,
-    handleRemoveRecipient,
     selectedPatient,
     practitioner,
-    initialSelectedRecipients,
     datePickerMode,
   };
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
@@ -59,13 +51,13 @@ function ManageCommunication(props) {
 
 
   function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories, episodeOfCareList) {
-    let formData = null;
     let subjectData = null;
     let senderData = null;
     let communicationData = null;
     let topicData = null;
     let categoryData = null;
     let episodeOfCareData = null;
+    let formData = null;
     if (!isEmpty(patient)) {
       subjectData = merge(
         mapToParticipantName(patient, 'subject'),
@@ -168,7 +160,6 @@ function ManageCommunication(props) {
                               episodeOfCareList,
                               patient,
                               currentPractitioner,
-                              recipients,
                               task,
                               appointment,
                               sentTime) {
@@ -205,7 +196,6 @@ function ManageCommunication(props) {
       sender: createReferenceObject(currentPractitioner, PRACTITIONER), // TODO get this dynamically
       context: episodeOfCare,
       definition: createEmptyReference(),
-      recipient: recipients, // TODO change to recipients
     };
 
     if (task) {
@@ -288,11 +278,10 @@ function ManageCommunication(props) {
           episodeOfCares,
           selectedPatient,
           practitioner,
-          selectedRecipients,
           selectedTask,
           selectedAppointment,
-          sentDateTime
-          );
+          sentDateTime,
+        );
         onSave(communicationToBeSubmitted, actions);
       }}
       validationSchema={
@@ -307,6 +296,10 @@ function ManageCommunication(props) {
               <FormattedMessage {...messages.validation.textAreaMaxLength} values={{ textAreaMaxLength }} />))
             .min(textAreaMinLength, (
               <FormattedMessage {...messages.validation.textAreaMinLength} values={{ textAreaMinLength }} />)),
+          notDone: yup.bool(),
+          notDoneReasonCode: yup.string()
+            .when('notDone', { is: true, then: yup.string().required((<FormattedMessage {...messages.validation.required} />)), otherwise: yup.string() },
+            ),
         })
       }
       render={(formikProps) => <ManageCommunicationForm {...formikProps} {...propsFromContainer} />}
@@ -316,17 +309,13 @@ function ManageCommunication(props) {
 
 ManageCommunication.propTypes = {
   onSave: PropTypes.func.isRequired,
-  handleOpen: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
-  selectedRecipients: PropTypes.array,
-  initialSelectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
   communication: PropTypes.object,
-  handleRemoveRecipient: PropTypes.func.isRequired,
   practitioner: PropTypes.object,
   editMode: PropTypes.bool,
   selectedTask: PropTypes.object,

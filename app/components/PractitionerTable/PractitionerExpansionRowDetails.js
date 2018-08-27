@@ -5,10 +5,11 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import { mapToOrganizationName } from './helpers';
 import messages from './messages';
 
 function PractitionerExpansionRowDetails({ practitioner }) {
-  const { addresses, name, identifiers, telecoms, active } = practitioner;
+  const { addresses, name, identifiers, telecoms, active, practitionerRoles } = practitioner;
   return (
     <InfoSection>
       <Grid columns={'60% 40%'} justifyContent="space-between">
@@ -43,6 +44,12 @@ function PractitionerExpansionRowDetails({ practitioner }) {
               <FormattedMessage {...messages.active} /> :
               <FormattedMessage {...messages.inactive} />
             }
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionRowDetailsOrg} />}
+            text={mapToOrganizationName(practitionerRoles)}
           />
         </Cell>
       </Grid>

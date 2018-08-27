@@ -4,7 +4,6 @@
  *
  */
 
-import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderUnderConstructionComponent from 'components/UnderConstruction/render';
@@ -18,6 +17,7 @@ import {
   PCP_ROLE_CODE,
 } from 'containers/App/constants';
 import { makeSelectUser } from 'containers/App/contextSelectors';
+import renderCalendarComponent from 'containers/AppointmentsCalendar/render';
 import renderCommunicationsComponent from 'containers/Communications/render';
 import renderHealthcareServicesComponent from 'containers/HealthcareServices/render';
 import renderLocationsComponent from 'containers/Locations/render';
@@ -134,7 +134,7 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 100,
           content: [{
-            title: 'Practitioners',
+            title: 'Practitioners / Resources',
             type: 'component',
             componentName: 'practitioners',
             isClosable: true,
@@ -191,41 +191,67 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
 
   static careManagerLayout = {
     ...baseLayout,
-    content: [{
-      type: 'column',
-      content: [
-        {
-          type: 'row',
-          content: [
-            {
+    content: [
+      {
+        type: 'column',
+        content: [
+          {
+            type: 'row',
+            content: [{
+              type: 'column',
+              content: [{
+                type: 'stack',
+                content: [
+                  {
+                    title: 'TO DO',
+                    type: 'component',
+                    componentName: 'toDos',
+                    isClosable: true,
+                    reorderEnabled: true,
+                  },
+                  {
+                    title: 'Upcoming tasks',
+                    type: 'component',
+                    componentName: 'upcomingTasks',
+                    isClosable: true,
+                    reorderEnabled: true,
+                  },
+                ],
+              }],
+            }, {
               title: 'Upcoming Appointments',
               type: 'component',
               componentName: 'upcomingAppointments',
               isClosable: true,
               reorderEnabled: true,
-            }, {
-              title: 'Patients',
-              type: 'component',
-              componentName: 'patients',
-              isClosable: true,
-              reorderEnabled: true,
             },
-          ],
-        }, {
-          type: 'row',
-          height: 60,
-          content: [
-            {
-              title: 'Calendar',
-              type: 'component',
-              componentName: 'calendar',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-          ],
-        },
-      ],
-    }],
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                title: 'CALENDAR',
+                type: 'component',
+                componentName: 'calendar',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                title: 'PATIENTS',
+                type: 'component',
+                componentName: 'patients',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 
   static careCoordinatorLayout = {
@@ -236,26 +262,34 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         content: [
           {
             type: 'row',
-            content: [
-              {
-                title: 'TO DO',
-                type: 'component',
-                componentName: 'toDos',
-                isClosable: true,
-                reorderEnabled: true,
-              }, {
-                title: 'Upcoming Appointments',
-                type: 'component',
-                componentName: 'upcomingAppointments',
-                isClosable: true,
-                reorderEnabled: true,
-              }, {
-                title: 'Upcoming tasks',
-                type: 'component',
-                componentName: 'upcomingTasks',
-                isClosable: true,
-                reorderEnabled: true,
-              },
+            content: [{
+              type: 'column',
+              content: [{
+                type: 'stack',
+                content: [
+                  {
+                    title: 'TO DO',
+                    type: 'component',
+                    componentName: 'toDos',
+                    isClosable: true,
+                    reorderEnabled: true,
+                  },
+                  {
+                    title: 'Upcoming tasks',
+                    type: 'component',
+                    componentName: 'upcomingTasks',
+                    isClosable: true,
+                    reorderEnabled: true,
+                  },
+                ],
+              }],
+            }, {
+              title: 'Upcoming Appointments',
+              type: 'component',
+              componentName: 'upcomingAppointments',
+              isClosable: true,
+              reorderEnabled: true,
+            },
             ],
           }, {
             type: 'row',
