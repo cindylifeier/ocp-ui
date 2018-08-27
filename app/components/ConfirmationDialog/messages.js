@@ -12,7 +12,7 @@ export default defineMessages({
   },
   dialogButtonLabelSubmit: {
     id: 'ocpui.components.ConfirmationDialog.dialogButtonLabelSubmit',
-    defaultMessage: 'Submit',
+    defaultMessage: 'Remove',
   },
   dialogButtonLabelCancel: {
     id: 'ocpui.components.ConfirmationDialog.dialogButtonLabelCancel',
