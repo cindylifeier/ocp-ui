@@ -14,7 +14,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import StyledDialog from 'components/StyledDialog';
-import { MANAGE_PRACTITIONER_URL } from 'containers/App/constants';
+import { MANAGE_PRACTITIONER_URL, MANAGE_USER_REGISTRATION } from 'containers/App/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import Table from 'components/Table';
@@ -56,7 +56,7 @@ class PractitionerTable extends React.Component {
   }
 
   render() {
-    const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, manageUserEnabled, assignLocationUrl, isOcpAdminRole } = this.props;
+    const { relativeTop, practitionersData, size, flattenPractitionerData, combineAddress, mapToTelecoms, manageUserEnabled, assignLocationUrl, isOcpAdminRole, organization } = this.props;
     const { setSelectedPractitioner } = practitionersData;
     const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_PANEL_WIDTH);
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
@@ -108,17 +108,18 @@ class PractitionerTable extends React.Component {
               const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
               let menuItems;
               if (manageUserEnabled) {
-                menuItems = [{
+                menuItems = organization === undefined ? [{
                   primaryText: <FormattedMessage {...messages.manageUser} />,
                   onClick: () => this.handleOpenDialog(practitioner),
-                }];
-              } else if (isOcpAdminRole) {
-                menuItems = [{
-                  primaryText: <FormattedMessage {...messages.edit} />,
-                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                }] : [{
+                  primaryText: <FormattedMessage {...messages.manageUser} />,
+                  linkTo: `${MANAGE_USER_REGISTRATION}/${practitioner.logicalId}?resourceType=Practitioner&orgId=${organization}`,
                 }];
               } else {
-                menuItems = [{
+                menuItems = isOcpAdminRole ? [{
+                  primaryText: <FormattedMessage {...messages.edit} />,
+                  linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
+                }] : [{
                   primaryText: <FormattedMessage {...messages.edit} />,
                   linkTo: `${MANAGE_PRACTITIONER_URL}/${practitioner.logicalId}`,
                 }, {
@@ -219,6 +220,7 @@ PractitionerTable.propTypes = {
   mapToTelecoms: PropTypes.func.isRequired,
   manageUserEnabled: PropTypes.bool,
   isOcpAdminRole: PropTypes.bool,
+  organization: PropTypes.string,
 };
 
 export default sizeMeHOC(PractitionerTable);

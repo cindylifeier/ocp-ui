@@ -5,8 +5,8 @@ import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
 import { getGroups } from 'containers/PermissionsGroups/api';
-import { GET_GROUPS, GET_USER, SAVE_USER } from './constants';
-import { getFhirResource, getUser, saveUser, updateUser } from './api';
+import { GET_GROUPS, GET_USER, SAVE_USER, REMOVE_USER } from './constants';
+import { getFhirResource, getUser, saveUser, updateUser, removeUser } from './api';
 import { getGroupsError, getGroupsSuccess, getUserError, getUserSuccess } from './actions';
 
 export function* getUserSaga(action) {
@@ -34,6 +34,16 @@ export function* saveUserSaga(action) {
   } catch (err) {
     yield put(showNotification(`Failed to create user: ${getErrorDetail(err, action.userFormData.username)}`));
     yield call(action.handleSubmitting);
+  }
+}
+
+export function* removeUserSaga(action) {
+  try {
+    yield call(removeUser, action.userId);
+    yield put(showNotification('Successfully remove user account'));
+    yield put(goBack());
+  } catch (err) {
+    yield put(showNotification('Failed to remove user, please try again'));
   }
 }
 
@@ -72,6 +82,9 @@ export function* watchSaveUserSaga() {
   yield takeLatest(SAVE_USER, saveUserSaga);
 }
 
+export function* watchRemoveUserSaga() {
+  yield takeLatest(REMOVE_USER, removeUserSaga);
+}
 
 /**
  * Root saga manages watcher lifecycle
@@ -81,5 +94,6 @@ export default function* rootSaga() {
     watchGetUserSaga(),
     watchSaveUserSaga(),
     watchGetGroupsSaga(),
+    watchRemoveUserSaga(),
   ]);
 }

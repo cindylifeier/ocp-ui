@@ -7,7 +7,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet';
 
-import renderManageUsersComponent from 'containers/ManageUsers/render';
+import renderUserRegistration from 'containers/UserRegistration/render';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 
@@ -70,7 +70,7 @@ export const initialStateMetadata =
   };
 
 export const componentMetadata = [
-  { name: 'userManagement', text: 'userManagement', factoryMethod: renderManageUsersComponent },
+  { name: 'userManagement', text: 'userManagement', factoryMethod: renderUserRegistration },
 ];
 
 export class ManageUsersPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
