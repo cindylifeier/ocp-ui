@@ -11,7 +11,7 @@ const selectCommunicationDomain = (state) => state.get('communications');
 
 const makeSelectCommunications = () => createSelector(
   selectCommunicationDomain,
-  (substate) => substate.toJS(),
+  (substate) => substate && substate.toJS(),
 );
 
 export default makeSelectCommunications;

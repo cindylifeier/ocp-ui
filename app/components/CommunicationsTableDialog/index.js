@@ -21,11 +21,23 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
     const {
       open,
       handleDialogClose,
-      communicationsData,
       relativeTop,
       handlePageClick,
+      data,
+      selectedPatient,
+      manageCommunicationBaseUrl,
+      // loading,
     } = this.props;
-
+    const newData = data;
+    newData.loading = false;
+    const communicationTableData = {
+      loading: false,
+      data: newData,
+      selectedPatient,
+      relativeTop,
+      handlePageClick,
+      manageCommunicationBaseUrl,
+    };
 
     return (
       <div>
@@ -38,11 +50,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
             {<FormattedMessage {...messages.addCoverageDialogTitle} />}
           </DialogHeader>
 
-          <CommunicationsTable
-            relativeTop={relativeTop}
-            communicationsData={communicationsData}
-            handleChangePage={handlePageClick}
-          ></CommunicationsTable>
+          <CommunicationsTable {...communicationTableData}></CommunicationsTable>
           <Grid columns="repeat(2, 1fr)">
             <Cell>
               <StyledFlatButton type="reset" onClick={handleDialogClose}>
@@ -58,10 +66,14 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
 
 CommunicationsTableDialog.propTypes = {
   open: PropTypes.bool,
+  // loading: PropTypes.bool,
   handleDialogClose: PropTypes.func,
-  communicationsData: PropTypes.object,
+  // communications: PropTypes.object,
   relativeTop: PropTypes.number,
   handlePageClick: PropTypes.func,
+  data: PropTypes.object,
+  selectedPatient: PropTypes.object,
+  manageCommunicationBaseUrl: PropTypes.string,
 };
 
 export default CommunicationsTableDialog;
