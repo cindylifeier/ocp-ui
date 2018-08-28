@@ -41,12 +41,14 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     super(props);
     this.state = {
       cannotEditModalOpen: false,
+      cannotEditOutlookAppointmentModalOpen: false,
       confirmEditModalOpen: false,
       loginModalOpen: false,
       editAppointmentURL: '',
       patientId: '',
     };
     this.handleCloseCannotEditDialog = this.handleCloseCannotEditDialog.bind(this);
+    this.handleCloseCannotEditOutlookDialog = this.handleCloseCannotEditOutlookDialog.bind(this);
     this.handleCloseConfirmEditDialog = this.handleCloseConfirmEditDialog.bind(this);
     this.handleCloseLoginDialog = this.handleCloseLoginDialog.bind(this);
     this.handleDoubleClickEvent = this.handleDoubleClickEvent.bind(this);
@@ -69,11 +71,13 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
   handleDoubleClickEvent(appointment, patientId) {
     if (appointment.isOutlookAppointment) {
-      this.setState({ cannotEditModalOpen: true });
-    } else {
+      this.setState({ cannotEditOutlookAppointmentModalOpen: true });
+    } else if (appointment.canEdit) {
       this.setState({ editAppointmentURL: appointment.editUrl });
       this.setState({ patientId });
       this.setState({ confirmEditModalOpen: true });
+    } else {
+      this.setState({ cannotEditModalOpen: true });
     }
   }
 
@@ -88,6 +92,10 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
 
   handleCloseCannotEditDialog() {
     this.setState({ cannotEditModalOpen: false });
+  }
+
+  handleCloseCannotEditOutlookDialog() {
+    this.setState({ cannotEditOutlookAppointmentModalOpen: false });
   }
 
   handleCloseConfirmEditDialog() {
@@ -146,6 +154,33 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
           handleDoubleClickEvent={this.handleDoubleClickEvent}
           tooltipAccessor={this.showTooltip}
         />
+
+        <div>
+          <StyledDialog
+            open={this.state.cannotEditOutlookAppointmentModalOpen}
+            fullWidth
+          >
+            <DialogTitle>
+              <FormattedMessage {...messages.dialogTitleOpenEvent} />
+            </DialogTitle>
+            <DialogContent>
+              <Grid columns={1} alignContent="space-between">
+                <Cell>
+                  <FormattedMessage {...messages.cannotEditOutlookAppointment} />
+                </Cell>
+                <Cell>
+                  <HorizontalAlignment position={'end'}>
+                    <StyledRaisedButton
+                      onClick={this.handleCloseCannotEditOutlookDialog}
+                    >
+                      <FormattedMessage {...messages.dialogButtonLabelOk} />
+                    </StyledRaisedButton>
+                  </HorizontalAlignment>
+                </Cell>
+              </Grid>
+            </DialogContent>
+          </StyledDialog>
+        </div>
 
         <div>
           <StyledDialog

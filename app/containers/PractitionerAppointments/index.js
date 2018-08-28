@@ -12,19 +12,20 @@ import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import InfoSection from 'components/InfoSection';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
 import RecordsRange from 'components/RecordsRange';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
 import StyledDialog from 'components/StyledDialog';
-import NoResultsFoundText from 'components/NoResultsFoundText';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
   APPOINTMENT_TYPE,
   DEFAULT_START_PAGE_NUMBER,
+  MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
   PATIENTS_URL,
 } from 'containers/App/constants';
@@ -53,7 +54,7 @@ import {
   getPractitionerAppointments,
   tentativePractitionerAppointment,
 } from './actions';
-import { MONTH, MONTH_DISPLAY, DEFAULT, DEFAULT_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
+import { DEFAULT, DEFAULT_DISPLAY, MONTH, MONTH_DISPLAY, TODAY, TODAY_DISPLAY, WEEK, WEEK_DISPLAY } from './constants';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
@@ -178,6 +179,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
 
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
+    const manageAppointmentUrl = MANAGE_APPOINTMENT_URL;
     const filterDateOptions = [
       { value: TODAY, display: TODAY_DISPLAY },
       { value: WEEK, display: WEEK_DISPLAY },
@@ -236,6 +238,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
                 declineAppointment={this.declineAppointment}
                 tentativeAppointment={this.tentativeAppointment}
                 communicationBaseUrl={communicationBaseUrl}
+                manageAppointmentUrl={manageAppointmentUrl}
                 relativeTop={this.state.panelHeight + this.state.filterHeight}
                 handleSort={this.handleSort}
                 columnToSort={this.state.columnToSort}
