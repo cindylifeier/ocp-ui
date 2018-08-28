@@ -146,7 +146,7 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
               expansionTableRowDetails={
                 <AppointmentExpansionRowDetails
                   participants={appointment.participant}
-                  appointmentType={appointmentType.display}
+                  appointmentType={appointmentType && appointmentType.display}
                 />
               }
             >
@@ -205,7 +205,8 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
 
 function mapDisplayFromCode(appointmentLookup, key) {
   if (key) {
-    return find(appointmentLookup, { code: key }).display;
+    const appointment = find(appointmentLookup, { code: key });
+    return appointment && appointment.display;
   }
   return key;
 }

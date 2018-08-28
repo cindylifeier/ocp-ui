@@ -133,7 +133,7 @@ ToDoAccordion.propTypes = {
   isPractitioner: PropTypes.bool.isRequired,
   taskBaseUrl: PropTypes.string,
   patientId: PropTypes.string,
-  description: PropTypes.string.isRequired,
+  description: PropTypes.string,
   dueDate: PropTypes.string,
   patientName: PropTypes.string,
   status: PropTypes.string.isRequired,
