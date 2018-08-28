@@ -20,6 +20,7 @@ import InfoSection from 'components/InfoSection';
 import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import StyledRaisedButton from 'components/StyledRaisedButton';
+import StyledText from 'components/StyledText';
 import { flattenPractitioner } from './helpers';
 import messages from './messages';
 
@@ -54,7 +55,9 @@ function PractitionerLookupResult(props) {
           <TableRow key={uniqueId()} columns={columns}>
             <TableRowColumn>{flattenedPractitioner.name}</TableRowColumn>
             <TableRowColumn>{flattenedPractitioner.identifiers}</TableRowColumn>
-            <TableRowColumn>{flattenedPractitioner.orgName}</TableRowColumn>
+            <TableRowColumn>
+              <StyledText>{flattenedPractitioner.orgName}</StyledText>
+            </TableRowColumn>
             <TableRowColumn>{flattenedPractitioner.roles}</TableRowColumn>
             <TableRowColumn>{flattenedPractitioner.email}</TableRowColumn>
             <TableRowColumn>

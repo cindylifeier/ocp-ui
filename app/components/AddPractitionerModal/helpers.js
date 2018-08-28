@@ -1,6 +1,7 @@
 import { mapToEmail, mapToIdentifiers, mapToName } from 'containers/App/helpers';
 import { NEW_LINE_CHARACTER } from 'containers/App/constants';
 import isEmpty from 'lodash/isEmpty';
+import uniq from 'lodash/uniq';
 
 export function flattenPractitioner(practitioner) {
   let flattenedPractitioner = null;
@@ -18,10 +19,11 @@ export function flattenPractitioner(practitioner) {
 }
 
 function mapToOrganizationName(practitionerRoles) {
-  return practitionerRoles && practitionerRoles
+  const organizations = practitionerRoles && practitionerRoles
     .map((role) => role.organization)
-    .map((organization) => organization.display)
-    .pop();
+    .map((organization) => organization.display);
+  return uniq(organizations)
+    .join(NEW_LINE_CHARACTER);
 }
 
 function mapToRoles(practitionerRoles) {
