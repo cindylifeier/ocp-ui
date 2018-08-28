@@ -12,12 +12,15 @@ import {
   getPatientAppointmentsSuccess,
   tentativePatientAppointmentError,
   tentativePatientAppointmentSuccess,
+  getCommunicationsByAppointmentSuccess,
+  getCommunicationsByAppointmentError,
 } from './actions';
 import getPatientAppointmentsApi, {
   acceptAppointment,
   cancelAppointment,
   declineAppointment,
   tentativelyAcceptAppointment,
+  getCommunicationsByAppointment,
 } from './api';
 import {
   ACCEPT_PATIENT_APPOINTMENT,
@@ -25,6 +28,7 @@ import {
   DECLINE_PATIENT_APPOINTMENT,
   GET_PATIENT_APPOINTMENTS,
   TENTATIVE_PATIENT_APPOINTMENT,
+  GET_COMMUNICATIONS_BY_APPOINTMENT,
 } from './constants';
 
 function getErrorMessage(err) {
@@ -79,6 +83,17 @@ export function* getPatientAppointmentsSaga({ query: { showPastAppointments, pag
   } catch (err) {
     const errMsg = getErrorMessage(err);
     yield put(getPatientAppointmentsError(err));
+    yield put(showNotification(errMsg));
+  }
+}
+
+export function* getCommunicationsByAppointmentSaga({ patient, appointmentId, pageNumber }) {
+  try {
+    const communications = yield call(getCommunicationsByAppointment, patient, appointmentId, pageNumber);
+    yield put(getCommunicationsByAppointmentSuccess(communications));
+  } catch (err) {
+    const errMsg = getErrorMessage(err);
+    yield put(getCommunicationsByAppointmentError(err));
     yield put(showNotification(errMsg));
   }
 }
@@ -276,6 +291,10 @@ export function* watchTentativelyAcceptPatientAppointmentSagaSaga() {
   yield takeLatest(TENTATIVE_PATIENT_APPOINTMENT, tentativelyAcceptPatientAppointmentSaga);
 }
 
+export function* watchGetCommunicationsByAppointmentSaga() {
+  yield takeLatest(GET_COMMUNICATIONS_BY_APPOINTMENT, getCommunicationsByAppointmentSaga);
+}
+
 // Individual exports for testing
 export default function* defaultSaga() {
   yield all([
@@ -284,5 +303,6 @@ export default function* defaultSaga() {
     watchAcceptPatientAppointmentSaga(),
     watchDeclinePatientAppointmentSaga(),
     watchTentativelyAcceptPatientAppointmentSagaSaga(),
+    watchGetCommunicationsByAppointmentSaga(),
   ]);
 }

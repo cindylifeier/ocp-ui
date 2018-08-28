@@ -17,12 +17,18 @@ import {
   LOADING,
   STATUS_CODE_CANCELLED,
   TENTATIVE_PATIENT_APPOINTMENT_SUCCESS,
+  GET_COMMUNICATIONS_BY_APPOINTMENT,
+  GET_COMMUNICATIONS_BY_APPOINTMENT_SUCCESS,
+  GET_COMMUNICATIONS_BY_APPOINTMENT_ERROR,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
   query: null,
   showPastAppointments: false,
+  communicationLoading: false,
+  communicationError: false,
+  communications: null,
 });
 
 function patientAppointmentsReducer(state = initialState, action) {
@@ -55,6 +61,17 @@ function patientAppointmentsReducer(state = initialState, action) {
       const data = state.get(DATA).toJS();
       return state.set(DATA, fromJS(data));
     }
+    case GET_COMMUNICATIONS_BY_APPOINTMENT:
+      return state.set('communicationLoading', true);
+    case GET_COMMUNICATIONS_BY_APPOINTMENT_SUCCESS:
+      return state
+        .set('communicationError', false)
+        .set('communicationLoading', false)
+        .set('communications', fromJS((action.communications) || {}));
+    case GET_COMMUNICATIONS_BY_APPOINTMENT_ERROR:
+      return state
+        .set('communicationError', action.error)
+        .set('communicationLoading', false);
     default:
       return state;
   }

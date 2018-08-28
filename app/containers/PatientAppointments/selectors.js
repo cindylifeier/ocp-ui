@@ -19,6 +19,11 @@ const makeSelectPatientAppointments = () => createSelector(
   (substate) => substate && substate.toJS()
 );
 
+const makeSelectCommunicationsByAppointment = () => createSelector(
+  selectPatientAppointmentsDomain,
+  (substate) => substate && substate.get('communications'),
+);
+
 const makeSelectShowPastAppointments = () => createSelector(
   selectPatientAppointmentsDomain,
   (substate) => substate && substate.get('showPastAppointments'),
@@ -28,4 +33,5 @@ export {
   selectPatientAppointmentsDomain,
   makeSelectPatientAppointments,
   makeSelectShowPastAppointments,
+  makeSelectCommunicationsByAppointment,
 };

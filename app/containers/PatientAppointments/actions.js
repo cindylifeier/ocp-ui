@@ -22,6 +22,9 @@ import {
   TENTATIVE_PATIENT_APPOINTMENT,
   TENTATIVE_PATIENT_APPOINTMENT_ERROR,
   TENTATIVE_PATIENT_APPOINTMENT_SUCCESS,
+  GET_COMMUNICATIONS_BY_APPOINTMENT,
+  GET_COMMUNICATIONS_BY_APPOINTMENT_SUCCESS,
+  GET_COMMUNICATIONS_BY_APPOINTMENT_ERROR,
 } from './constants';
 
 export function initializePatientAppointments() {
@@ -139,3 +142,29 @@ export function tentativePatientAppointmentError(error) {
     error,
   };
 }
+
+export function getCommunicationsByAppointment(patient, appointmentId, pageNumber) {
+  return {
+    type: GET_COMMUNICATIONS_BY_APPOINTMENT,
+    patient,
+    pageNumber,
+    appointmentId,
+  };
+}
+
+
+export function getCommunicationsByAppointmentSuccess(communications) {
+  return {
+    type: GET_COMMUNICATIONS_BY_APPOINTMENT_SUCCESS,
+    communications,
+  };
+}
+
+
+export function getCommunicationsByAppointmentError(error) {
+  return {
+    type: GET_COMMUNICATIONS_BY_APPOINTMENT_ERROR,
+    error,
+  };
+}
+
