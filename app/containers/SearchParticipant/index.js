@@ -4,48 +4,49 @@
  *
  */
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-import { Form, Formik } from 'formik';
-import yup from 'yup';
-import PropTypes from 'prop-types';
-import find from 'lodash/find';
-import uniqueId from 'lodash/uniqueId';
-import MenuItem from 'material-ui/MenuItem';
 import ActionSearch from '@material-ui/icons/Search';
-import { Cell, Grid } from 'styled-css-grid';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
-import { mapSearchParticipantName } from 'utils/CareTeamUtils';
-import TextField from 'components/TextField';
+import DatePickerWithoutBlur from 'components/DatePickerWithoutBlur';
+import FormSubtitle from 'components/FormSubtitle';
 import SelectField from 'components/SelectField';
+import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
+import StyledFlatButton from 'components/StyledFlatButton';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 import Table from 'components/Table';
+import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import TableHeader from 'components/TableHeader';
-import DatePickerWithoutBlur from 'components/DatePickerWithoutBlur';
-import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import FormSubtitle from 'components/FormSubtitle';
-import StyledFlatButton from 'components/StyledFlatButton';
+import TextField from 'components/TextField';
 import WideDialog from 'components/WideDialog';
-import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
-import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { getLookupsAction } from 'containers/App/actions';
+import { DATE_PICKER_MODE, PARTICIPANTROLE, PARTICIPANTTYPE } from 'containers/App/constants';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
-import reducer from './reducer';
-import saga from './saga';
-import messages from './messages';
+import { makeSelectParticipantRoles, makeSelectParticipantTypes } from 'containers/App/lookupSelectors';
+import { Form, Formik } from 'formik';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import { Cell, Grid } from 'styled-css-grid';
+import { mapSearchParticipantName } from 'utils/CareTeamUtils';
+import injectReducer from 'utils/injectReducer';
+
+import injectSaga from 'utils/injectSaga';
+import yup from 'yup';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
-import { makeSelectSearchParticipantResults } from './selectors';
+import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
+import messages from './messages';
 import ParticipantName from './ParticipantName';
 import ParticipantSearchContainer from './ParticipantSearchContainer';
-import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
+import reducer from './reducer';
+import saga from './saga';
+import { makeSelectSearchParticipantResults } from './selectors';
 
 const COLUMNS = '1fr 2fr 1fr 1fr .5fr';
 
@@ -111,8 +112,8 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
           const role = find(this.props.participantRoles, { code: roleCode });
           const smallParticipant = {
             roleCode,
-            startDate: startDate.toLocaleDateString(),
-            endDate: endDate.toLocaleDateString(),
+            startDate: (!isUndefined(startDate) && startDate !== null) ? startDate.toLocaleDateString() : null,
+            endDate: (!isUndefined(endDate) && endDate !== null) ? endDate.toLocaleDateString() : null,
             roleDisplay: role.display,
             roleSystem: role.system,
             memberId: participant.member.id,
@@ -135,7 +136,6 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
               endDate: yup.date()
-                .required((<FormattedMessage {...messages.validation.required} />))
                 .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
             });
           })}

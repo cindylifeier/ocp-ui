@@ -33,6 +33,7 @@ function ManageCareTeam(props) {
   const minimumLength = TEXT_MIN_LENGTH;
   const propsFromContainer = {
     patient,
+    editMode,
     careTeamCategories,
     careTeamReasons,
     careTeamStatuses,
@@ -66,13 +67,11 @@ function ManageCareTeam(props) {
                     <FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
                 category: yup.string()
                   .required((<FormattedMessage {...messages.validation.required} />)),
-                status: yup.string()
-                  .required((<FormattedMessage {...messages.validation.required} />)),
+                status: yup.string(),
                 startDate: yup.date()
                   .required((<FormattedMessage {...messages.validation.required} />))
                   .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
                 endDate: yup.date()
-                  .required((<FormattedMessage {...messages.validation.required} />))
                   .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
               });
             })}

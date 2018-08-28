@@ -144,6 +144,7 @@ export class PanelToolbar extends React.Component {
         {this.state.isShowSearchBar &&
         <SearchBar
           onSearch={onSearch}
+          minimumLength={0}
           searchField={searchField}
           showToDoSpecificFilters={showToDoSpecificFilters}
           showUserRegistrationRoleSelection={showUserRegistrationRoleSelection}

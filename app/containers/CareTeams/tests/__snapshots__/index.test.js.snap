@@ -121,7 +121,6 @@ ShallowWrapper {
             Array [
               "ORGADMIN",
               "CAREMNGR",
-              "171M00000X",
             ]
           }
           onSize={[Function]}
@@ -129,6 +128,9 @@ ShallowWrapper {
           showSearchIcon={false}
           showSettingIcon={false}
           showUploadIcon={false}
+        />,
+        <LinearProgressIndicator
+          loading={false}
         />,
         <ContentSection__ContentSection
           fontSize="12px"
@@ -237,13 +239,23 @@ ShallowWrapper {
           "allowedAddNewItemRoles": Array [
             "ORGADMIN",
             "CAREMNGR",
-            "171M00000X",
           ],
           "onSize": [Function],
           "showFilterIcon": false,
           "showSearchIcon": false,
           "showSettingIcon": false,
           "showUploadIcon": false,
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "loading": false,
         },
         "ref": null,
         "rendered": null,
@@ -294,7 +306,6 @@ ShallowWrapper {
                 </Cell__Cell>
               </Grid__Grid>
             </SizeMe(StickyDiv__StickyDiv)>,
-            false,
             false,
             <styled.div>
               <SizeMe(CareTeamTable)
@@ -585,7 +596,6 @@ ShallowWrapper {
             "type": [Function],
           },
           false,
-          false,
           Object {
             "instance": null,
             "key": undefined,
@@ -731,7 +741,6 @@ ShallowWrapper {
               Array [
                 "ORGADMIN",
                 "CAREMNGR",
-                "171M00000X",
               ]
             }
             onSize={[Function]}
@@ -739,6 +748,9 @@ ShallowWrapper {
             showSearchIcon={false}
             showSettingIcon={false}
             showUploadIcon={false}
+          />,
+          <LinearProgressIndicator
+            loading={false}
           />,
           <ContentSection__ContentSection
             fontSize="12px"
@@ -847,13 +859,23 @@ ShallowWrapper {
             "allowedAddNewItemRoles": Array [
               "ORGADMIN",
               "CAREMNGR",
-              "171M00000X",
             ],
             "onSize": [Function],
             "showFilterIcon": false,
             "showSearchIcon": false,
             "showSettingIcon": false,
             "showUploadIcon": false,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "loading": false,
           },
           "ref": null,
           "rendered": null,
@@ -904,7 +926,6 @@ ShallowWrapper {
                   </Cell__Cell>
                 </Grid__Grid>
               </SizeMe(StickyDiv__StickyDiv)>,
-              false,
               false,
               <styled.div>
                 <SizeMe(CareTeamTable)
@@ -1194,7 +1215,6 @@ ShallowWrapper {
               },
               "type": [Function],
             },
-            false,
             false,
             Object {
               "instance": null,

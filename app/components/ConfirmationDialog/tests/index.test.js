@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import AddPractitionerRoleForOrganization from '../index';
+// import ConfirmationDialog from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<AddPractitionerRoleForOrganization />', () => {
+describe('<ConfirmationDialog />', () => {
   it('Expect to have unit tests specified', () => {
-    /* expect(true).toEqual(false); */
+    /* expect(true).toEqual(false);*/
   });
 });

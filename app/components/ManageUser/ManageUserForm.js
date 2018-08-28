@@ -12,6 +12,7 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import GoBackButton from 'components/GoBackButton';
+import ConfirmationDialog from 'components/ConfirmationDialog';
 import FormSubtitle from 'components/FormSubtitle';
 import ResetPassword from 'containers/ResetPassword';
 import ManageUserFormGrid from './ManageUserFormGrid';
@@ -24,9 +25,13 @@ class ManageUserForm extends React.Component {
     super(props);
     this.state = {
       resetPasswordModalOpen: false,
+      removeUserModalOpen: false,
     };
     this.handleOpenResetPasswordModal = this.handleOpenResetPasswordModal.bind(this);
     this.handleCloseResetPasswordModal = this.handleCloseResetPasswordModal.bind(this);
+    this.handleOpenRemoveUserModal = this.handleOpenRemoveUserModal.bind(this);
+    this.handleCloseRemoveUserModal = this.handleCloseRemoveUserModal.bind(this);
+    this.handleRemoveUser = this.handleRemoveUser.bind(this);
   }
 
   handleOpenResetPasswordModal() {
@@ -37,6 +42,23 @@ class ManageUserForm extends React.Component {
 
   handleCloseResetPasswordModal() {
     this.setState({ resetPasswordModalOpen: false });
+  }
+
+  handleOpenRemoveUserModal() {
+    this.setState({
+      removeUserModalOpen: true,
+    });
+  }
+
+  handleCloseRemoveUserModal() {
+    this.setState({ removeUserModalOpen: false });
+  }
+
+  handleRemoveUser() {
+    this.setState({
+      removeUserModalOpen: false,
+    });
+    this.props.handleRemoveUser(this.props.uaaUser[0].id);
   }
 
   render() {
@@ -120,6 +142,19 @@ class ManageUserForm extends React.Component {
               user={uaaUser && uaaUser[0]}
             />
           </Cell>}
+          {isEditing &&
+          <Cell area="removeUser">
+            <StyledRaisedButton onClick={() => this.handleOpenRemoveUserModal()}>
+              Remove user
+            </StyledRaisedButton>
+            <ConfirmationDialog
+              dialogOpen={this.state.removeUserModalOpen}
+              handleCloseDialog={this.handleCloseRemoveUserModal}
+              handleSubmit={this.handleRemoveUser}
+              title={<FormattedMessage {...messages.confirmRemoveUserTitle} />}
+              message={<FormattedMessage {...messages.confirmRemoveUserMessage} />}
+            />
+          </Cell>}
           <Cell area="assignPermissionGroupSubtitle">
             <FormSubtitle margin="0">
               <FormattedMessage {...messages.assignPermissionGroupSubtitle} />
@@ -133,13 +168,15 @@ class ManageUserForm extends React.Component {
               fullWidth
               disabled
             >
-              {user && user.practitionerRoles &&
-              user.practitionerRoles.map((practitionerRoles) => (
-                <MenuItem
-                  key={practitionerRoles.organization.reference.split('/').pop()}
-                  value={practitionerRoles.organization.reference.split('/').pop()}
-                  primaryText={practitionerRoles.organization.display}
-                />),
+              {resourceType === 'Patient' &&
+              <MenuItem
+                key={user.organization && user.organization.reference.split('/').pop()}
+                value={user.organization && user.organization.reference.split('/').pop()}
+                primaryText={user.organization && user.organization.display}
+              />
+              }
+              {resourceType === 'Practitioner' && user && user.practitionerRoles && user.practitionerRoles.map((practitionerRole) =>
+                <MenuItem key={practitionerRole.organization.reference} value={practitionerRole.organization.reference.split('/').pop()} primaryText={practitionerRole.organization.display} />,
               )}
             </SelectField>
           </Cell>
@@ -194,6 +231,7 @@ ManageUserForm.propTypes = {
   uaaUser: PropTypes.array,
   groups: PropTypes.array,
   resourceType: PropTypes.string,
+  handleRemoveUser: PropTypes.func,
 };
 
 export default ManageUserForm;

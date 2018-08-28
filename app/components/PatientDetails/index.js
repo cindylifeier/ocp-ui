@@ -4,27 +4,32 @@
  *
  */
 
-import React from 'react';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Flag from '@material-ui/icons/Flag';
+import PatientBannerSection from 'components/PatientBannerSection';
+import StyledFlatButton from 'components/StyledFlatButton';
+import StyledIconButton from 'components/StyledIconButton';
+import StyledText from 'components/StyledText';
+import StyledTooltip from 'components/StyledTooltip';
+import UserAvatar from 'components/UserAvatar';
+import {
+  CARE_COORDINATOR_ROLE_CODE,
+  CARE_MANAGER_ROLE_CODE,
+  MANAGE_PATIENT_URL,
+  PCP_ROLE_CODE,
+} from 'containers/App/constants';
+
+import ShowHideWrapper from 'containers/ShowHideWrapper';
+import upperFirst from 'lodash/upperFirst';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Link } from 'react-router-dom';
 import { Cell, Grid } from 'styled-css-grid';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import Flag from '@material-ui/icons/Flag';
-import upperFirst from 'lodash/upperFirst';
-
-import ShowHideWrapper from 'containers/ShowHideWrapper';
-import UserAvatar from 'components/UserAvatar';
-import { CARE_COORDINATOR_ROLE_CODE, MANAGE_PATIENT_URL } from 'containers/App/constants';
-import StyledText from 'components/StyledText';
-import StyledFlatButton from 'components/StyledFlatButton';
-import StyledIconButton from 'components/StyledIconButton';
-import StyledTooltip from 'components/StyledTooltip';
-import PatientBannerSection from 'components/PatientBannerSection';
-import StyledExpansionDetails from './StyledExpansionDetails';
 import ExpansionDetails from './ExpansionDetails';
 import messages from './messages';
+import StyledExpansionDetails from './StyledExpansionDetails';
 
 class PatientDetails extends React.Component {
   constructor(props) {
@@ -70,7 +75,7 @@ class PatientDetails extends React.Component {
           </Cell>
           <Cell middle>
             <StyledText>
-              <FormattedMessage {...messages.contacts} />
+              <FormattedMessage {...messages.phone} />
               <StyledText whiteSpace fontWeight="700">
                 {phones}
               </StyledText>
@@ -78,7 +83,7 @@ class PatientDetails extends React.Component {
           </Cell>
           {flags.length > 0 &&
           <Cell middle>
-            <ShowHideWrapper allowedRoles={CARE_COORDINATOR_ROLE_CODE}>
+            <ShowHideWrapper allowedRoles={[CARE_COORDINATOR_ROLE_CODE, CARE_MANAGER_ROLE_CODE, PCP_ROLE_CODE]}>
               <StyledFlatButton color="primary" component={Link} to={`${MANAGE_PATIENT_URL}/${id}`}>
                 <StyledIconButton size="small" svgIconSize="large" disableIconHover>
                   <Flag />

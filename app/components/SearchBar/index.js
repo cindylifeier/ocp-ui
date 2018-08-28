@@ -79,7 +79,6 @@ function SearchBar(props) {
         }}
         validationSchema={yup.object().shape({
           searchValue: yup.string()
-            .required((<FormattedMessage {...messages.validation.required} />))
             .min(minimumLength, (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
           searchType: yup.string()
             .required((<FormattedMessage {...messages.validation.required} />)),
@@ -92,8 +91,8 @@ function SearchBar(props) {
 }
 
 SearchBar.propTypes = {
-  minimumLength: PropTypes.number,
   onSearch: PropTypes.func.isRequired,
+  minimumLength: PropTypes.number.isRequired,
   showToDoSpecificFilters: PropTypes.bool,
   showUserRegistrationRoleSelection: PropTypes.bool,
   searchField: PropTypes.shape({

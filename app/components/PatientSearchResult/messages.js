@@ -123,6 +123,10 @@ export default defineMessages({
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.telecoms',
       defaultMessage: 'Contact Detail(s)',
     },
+    patientStatus: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.patientStatus',
+      defaultMessage: 'Patient Status',
+    },
     eocStatus: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.eocStatus',
       defaultMessage: 'Episode(s) of Care',
@@ -146,6 +150,10 @@ export default defineMessages({
     managingOrganization: {
       id: 'ocpui.components.PatientSearchResult.expansionRowDetails.managingOrganization',
       defaultMessage: 'Managing Organization',
+    },
+    mrn: {
+      id: 'ocpui.components.PatientSearchResult.expansionRowDetails.mrn',
+      defaultMessage: 'MRN',
     },
   },
 });

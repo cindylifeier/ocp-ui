@@ -12,6 +12,11 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import find from 'lodash/find';
+import ActionCheckCircle from 'material-ui/svg-icons/action/check-circle';
+import NotInterested from 'material-ui/svg-icons/av/not-interested';
+import HelpOutline from 'material-ui/svg-icons/action/help-outline';
+import HighlightOff from 'material-ui/svg-icons/action/highlight-off';
+import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
 import DownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import UpArrow from 'material-ui/svg-icons/navigation/arrow-drop-up';
 import PropTypes from 'prop-types';
@@ -30,7 +35,7 @@ import {
 import messages from './messages';
 
 
-function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, enableEditAppointment, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const practitionerWorkspace = !isPatientWorkspace && !isPatientDetailsPage;
 
@@ -48,6 +53,23 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
     return (Util.equalsIgnoreCase(sortDirection, ASC) ? <UpArrow /> : <DownArrow />);
   }
 
+  function getMyResponseIcon(appointment) {
+    if (appointment.requesterParticipationStatusCode === 'accepted') {
+      return <ActionCheckCircle />;
+    }
+    if (appointment.requesterParticipationStatusCode === 'declined') {
+      return <HighlightOff />;
+    }
+    if (appointment.requesterParticipationStatusCode === 'tentative') {
+      return <HelpOutline />;
+    }
+    if (appointment.requesterParticipationStatusCode === 'needs-action') {
+      return <AlertErrorOutline />;
+    }
+    return <NotInterested />;
+  }
+
+
   function createTableHeaders() {
     const columns = getColumns();
     const sortingEnabledColumnHeaders = [
@@ -61,6 +83,7 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn />
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderMyResponse} /></TableHeaderColumn>
         {practitionerWorkspace &&
         <TableHeaderColumn onClick={() => handleSort(sortingEnabledColumnHeaders[0])}>
           <FormattedMessage {...messages.columnHeaderPatientName} />
@@ -108,7 +131,7 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
               search: `?patientId=${patientId}&appointmentId=${appointment.logicalId}`,
             },
           } : null;
-          const editAppointmentMenuItem = enableEditAppointment ? {
+          const editAppointmentMenuItem = appointment.canEdit ? {
             primaryText: <FormattedMessage {...messages.editAppointment} />,
             linkTo: `${manageAppointmentUrl}/${appointment.logicalId}`,
           } : null;
@@ -150,6 +173,7 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
                 />
               }
             >
+              <TableRowColumn>{getMyResponseIcon(appointment)}</TableRowColumn>
               {practitionerWorkspace &&
               <TableRowColumn
                 textDecorationLine="underline"
@@ -224,7 +248,7 @@ AppointmentTable.propTypes = {
   tentativeAppointment: PropTypes.func,
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
-  enableEditAppointment: PropTypes.bool,
+  // enableEditAppointment: PropTypes.bool,
   isPatientWorkspace: PropTypes.bool,
   isPatientDetailsPage: PropTypes.bool,
   manageAppointmentUrl: PropTypes.string,

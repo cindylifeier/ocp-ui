@@ -1,22 +1,20 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import { Form, Formik } from 'formik';
-import yup from 'yup';
-import { Cell, Grid } from 'styled-css-grid';
-import MenuItem from 'material-ui/MenuItem';
-import find from 'lodash/find';
-import merge from 'lodash/merge';
-import uniqueId from 'lodash/uniqueId';
+import DatePicker from 'components/DatePicker';
+import SelectField from 'components/SelectField';
+import StyledFlatButton from 'components/StyledFlatButton';
+import StyledRaisedButton from 'components/StyledRaisedButton';
 
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
-import StyledRaisedButton from 'components/StyledRaisedButton';
-import StyledFlatButton from 'components/StyledFlatButton';
-import DatePicker from 'components/DatePicker';
-import SelectField from 'components/SelectField';
+import { Form, Formik } from 'formik';
+import find from 'lodash/find';
+import merge from 'lodash/merge';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
+import yup from 'yup';
 import messages from './messages';
-import { PROGRAM_NAME_MAP_ARRAY, DEFAULT_PROGRAM_NAME_KEY } from './constants';
 
 function AddEpisodeOfCareForm(props) {
   const {
@@ -29,13 +27,6 @@ function AddEpisodeOfCareForm(props) {
     episodeOfCareType,
   } = props;
   const today = new Date();
-  let initialEpisodeOfCare = {
-    programName: DEFAULT_PROGRAM_NAME_KEY,
-  };
-  if (initialValues) {
-    initialEpisodeOfCare = initialValues.episodeOfCare;
-    initialEpisodeOfCare.programName = DEFAULT_PROGRAM_NAME_KEY;
-  }
   return (
     <div>
       <Formik
@@ -58,7 +49,6 @@ function AddEpisodeOfCareForm(props) {
 
           handleCloseDialog();
         }}
-        initialValues={initialEpisodeOfCare}
         validationSchema={() =>
           yup.lazy((values) => {
             let defaultStartDate = new Date();
@@ -96,22 +86,7 @@ function AddEpisodeOfCareForm(props) {
                   )}
                 </SelectField>
               </Cell>
-              <Cell>
-                <SelectField
-                  fullWidth
-                  name={'programName'}
-                  hintText={<FormattedMessage {...messages.hintText.programName} />}
-                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.programName} />}
-                >
-                  {PROGRAM_NAME_MAP_ARRAY && PROGRAM_NAME_MAP_ARRAY.map((program) =>
-                    (<MenuItem
-                      key={uniqueId()}
-                      value={program.key}
-                      primaryText={program.display}
-                    />),
-                  )}
-                </SelectField>
-              </Cell>
+              <Cell></Cell>
               <Cell>
                 <SelectField
                   fullWidth

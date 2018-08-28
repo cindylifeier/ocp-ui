@@ -25,6 +25,10 @@ export default defineMessages({
     id: 'ocpui.components.AppointmentTable.PatientName',
     defaultMessage: 'Patient',
   },
+  columnHeaderMyResponse: {
+    id: 'ocpui.components.AppointmentTable.columnHeaderMyResponse',
+    defaultMessage: 'My Response',
+  },
   columnHeaderAction: {
     id: 'ocpui.components.AppointmentTable.columnHeaderAction',
     defaultMessage: 'Action',

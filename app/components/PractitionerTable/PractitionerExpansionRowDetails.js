@@ -5,6 +5,7 @@ import { Cell, Grid } from 'styled-css-grid';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import { mapToOrganizationName } from './helpers';
 import messages from './messages';
 
 function PractitionerExpansionRowDetails({ practitioner }) {
@@ -48,10 +49,7 @@ function PractitionerExpansionRowDetails({ practitioner }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionRowDetailsOrg} />}
-            text={practitionerRoles && practitionerRoles.map((prac) => (
-                `${prac.organization.display}`
-              )
-            ).join('\n ')}
+            text={mapToOrganizationName(practitionerRoles)}
           />
         </Cell>
       </Grid>

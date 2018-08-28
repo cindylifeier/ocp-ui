@@ -1,17 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'formik';
-import Util from 'utils/Util';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
 import { uniqueId } from 'lodash';
 import MenuItem from 'material-ui/MenuItem';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRowColumn from 'components/TableRowColumn';
-import TableRow from 'components/TableRow';
-import { getRoleName } from 'utils/CommunicationUtils';
 import FormGrid from 'components/FormGrid';
 import FormCell from 'components/FormCell';
 import Checkbox from 'components/Checkbox';
@@ -27,20 +20,16 @@ import messages from './messages';
 function ManageCommunicationForm(props) {
   const {
     isSubmitting,
+    values,
     dirty,
     isValid,
     communicationStatus,
     communicationNotDoneReasons,
     communicationMedia,
-    handleOpen,
-    selectedRecipients,
-    handleRemoveRecipient,
     selectedPatient,
-    initialSelectedRecipients,
   } = props;
-  const handleRemoveSelectedRecipient = (check, reference) => {
-    handleRemoveRecipient(check, reference);
-  };
+
+  const notDoneFlag = values.notDone;
 
   const mediumSuggestions = communicationMedia
     .filter((entry) => (entry.code !== null) && (entry.display !== null))
@@ -48,33 +37,6 @@ function ManageCommunicationForm(props) {
       value: entry.code,
       label: entry.display,
     }));
-
-  function createRecipientTableRows() {
-    return selectedRecipients && selectedRecipients.map((recipient) => (
-      <TableRow key={uniqueId()}>
-        <TableRowColumn>
-          {recipient.display}
-        </TableRowColumn>
-        <TableRowColumn>
-          {getRoleName(recipient.reference)}
-        </TableRowColumn>
-        <TableRowColumn>
-          <StyledRaisedButton onClick={() => handleRemoveSelectedRecipient(false, recipient.reference)}>
-            <FormattedMessage {...messages.form.removeRecipient} />
-          </StyledRaisedButton>
-        </TableRowColumn>
-      </TableRow>
-    ));
-  }
-
-  function isDirty(formState, recipients, initialRecipients) {
-    let isFormDirty = formState;
-    const identityOfArray = 'reference';
-    if (!Util.isUnorderedArraysEqual(recipients, initialRecipients, identityOfArray)) {
-      isFormDirty = true;
-    }
-    return isFormDirty;
-  }
 
   function getPatientName(patient) {
     let patientName = '';
@@ -136,6 +98,29 @@ function ManageCommunicationForm(props) {
         <FormCell top={4} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
+              <Padding top={35}>
+                <Checkbox
+                  name="notDone"
+                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
+                >
+                </Checkbox>
+              </Padding>
+            </Cell>
+            <SelectField
+              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
+              name="notDoneReasonCode"
+              disabled={!notDoneFlag}
+              fullWidth
+            >
+              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
+                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
+              ))}
+            </SelectField>
+          </Grid>
+        </FormCell>
+        <FormCell top={5} left={1} width={6}>
+          <Grid columns="3fr 3fr" gap="">
+            <Cell>
               <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.subject} />}
                 fullWidth
@@ -187,54 +172,13 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-        <FormCell top={8} left={1} width={6}>
-          <Grid columns="3fr 3fr" gap="">
-            <Cell>
-              <Padding top={35}>
-                <Checkbox
-                  name="notDone"
-                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
-                >
-                </Checkbox>
-              </Padding>
-            </Cell>
-            <SelectField
-              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
-              name="notDoneReasonCode"
-              fullWidth
-            >
-              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
-                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
-              ))}
-            </SelectField>
-          </Grid>
-        </FormCell>
-        <FormCell top={9} left={1} width={2}>
-          <StyledRaisedButton
-            fullWidth
-            onClick={handleOpen}
-          >
-            <FormattedMessage {...messages.form.addRecipient} />
-          </StyledRaisedButton>
-        </FormCell>
-        <FormCell top={10} left={1} width={10}>
-          {selectedRecipients && selectedRecipients.length > 0 &&
-          <Table>
-            <TableHeader key={uniqueId()}>
-              <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderName} />}</TableHeaderColumn>
-              <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderRole} />}</TableHeaderColumn>
-              <TableHeaderColumn>{<FormattedMessage {...messages.recipientTableHeaderAction} />}</TableHeaderColumn>
-            </TableHeader>
-            {createRecipientTableRows()}
-          </Table>
-          }
-        </FormCell>
-        <FormCell top={11} left={1} width={2}>
+
+        <FormCell top={8} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
               <StyledRaisedButton
                 type="submit"
-                disabled={!isDirty(dirty, selectedRecipients, initialSelectedRecipients) || isSubmitting || !isValid}
+                disabled={!dirty || isSubmitting || !isValid}
               >
                 {isSubmitting ?
                   <FormattedMessage {...messages.form.savingButton} /> :
@@ -256,16 +200,13 @@ function ManageCommunicationForm(props) {
 
 ManageCommunicationForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
+  values: PropTypes.object,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   communicationStatus: PropTypes.array.isRequired,
-  initialSelectedRecipients: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
-  handleOpen: PropTypes.func.isRequired,
-  selectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
-  handleRemoveRecipient: PropTypes.func.isRequired,
 };
 
 export default ManageCommunicationForm;

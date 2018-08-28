@@ -28,13 +28,9 @@ function ManageCommunication(props) {
     communicationNotDoneReasons,
     communicationMedia,
     episodeOfCares,
-    handleOpen,
-    selectedRecipients,
-    handleRemoveRecipient,
     selectedPatient,
     communication,
     practitioner,
-    initialSelectedRecipients,
     editMode,
     selectedTask,
     selectedAppointment,
@@ -46,12 +42,8 @@ function ManageCommunication(props) {
     communicationNotDoneReasons,
     communicationMedia,
     episodeOfCares,
-    handleOpen,
-    selectedRecipients,
-    handleRemoveRecipient,
     selectedPatient,
     practitioner,
-    initialSelectedRecipients,
     datePickerMode,
   };
   const textAreaMaxLength = TEXT_AREA_MAX_LENGTH;
@@ -59,13 +51,13 @@ function ManageCommunication(props) {
 
 
   function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories, episodeOfCareList) {
-    let formData = null;
     let subjectData = null;
     let senderData = null;
     let communicationData = null;
     let topicData = null;
     let categoryData = null;
     let episodeOfCareData = null;
+    let formData = null;
     if (!isEmpty(patient)) {
       subjectData = merge(
         mapToParticipantName(patient, 'subject'),
@@ -169,7 +161,6 @@ function ManageCommunication(props) {
                               episodeOfCareList,
                               patient,
                               currentPractitioner,
-                              recipients,
                               task,
                               appointment,
                               sentTime) {
@@ -208,7 +199,6 @@ function ManageCommunication(props) {
       sender: createReferenceObject(currentPractitioner, PRACTITIONER), // TODO get this dynamically
       context: episodeOfCare,
       definition: createEmptyReference(),
-      recipient: recipients, // TODO change to recipients
     };
 
     if (task) {
@@ -291,7 +281,6 @@ function ManageCommunication(props) {
           episodeOfCares,
           selectedPatient,
           practitioner,
-          selectedRecipients,
           selectedTask,
           selectedAppointment,
           sentDateTime,
@@ -323,17 +312,13 @@ function ManageCommunication(props) {
 
 ManageCommunication.propTypes = {
   onSave: PropTypes.func.isRequired,
-  handleOpen: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
   communicationMedia: PropTypes.array.isRequired,
   episodeOfCares: PropTypes.array.isRequired,
-  selectedRecipients: PropTypes.array,
-  initialSelectedRecipients: PropTypes.array,
   selectedPatient: PropTypes.object.isRequired,
   communication: PropTypes.object,
-  handleRemoveRecipient: PropTypes.func.isRequired,
   practitioner: PropTypes.object,
   editMode: PropTypes.bool,
   selectedTask: PropTypes.object,

@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   addParticipantOrServiceDialogTitle: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.addParticipantOrServiceDialogTitle',
-    defaultMessage: 'Add appointment for:',
+    defaultMessage: 'Add appointment for',
   },
   serviceTabLabel: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.serviceTabLabel',

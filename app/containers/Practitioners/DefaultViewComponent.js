@@ -43,7 +43,7 @@ class DefaultViewComponent extends React.Component {
       labelName: <FormattedMessage {...messages.buttonLabelCreateNew} />,
       onClick: this.handleOpenModal,
     };
-    const { onSearch, flattenPractitionerData, practitionersData } = this.props;
+    const { onSearch, flattenPractitionerData, practitionersData, isOcpAdminRole } = this.props;
     return (
       <div>
         <PanelToolbar
@@ -63,6 +63,7 @@ class DefaultViewComponent extends React.Component {
             combineAddress={combineAddress}
             mapToTelecoms={mapToTelecoms}
             assignLocationUrl={MANAGE_ASSIGN_LOCATION_TO_PRACTITIONER_URL}
+            isOcpAdminRole={isOcpAdminRole}
           />
         </InfoSection>
         {this.state.modalOpen &&
@@ -76,6 +77,7 @@ class DefaultViewComponent extends React.Component {
 DefaultViewComponent.propTypes = {
   onSearch: PropTypes.func.isRequired,
   flattenPractitionerData: PropTypes.func.isRequired,
+  isOcpAdminRole: PropTypes.bool,
   practitionersData: PropTypes.shape({
     loading: PropTypes.bool.isRequired,
     currentPage: PropTypes.number.isRequired,
@@ -109,7 +111,7 @@ DefaultViewComponent.propTypes = {
         use: PropTypes.string,
       })),
       practitionerRoles: PropTypes.array,
-    })).isRequired,
+    })),
   }),
 };
 
