@@ -87,6 +87,7 @@ function ManageCommunication(props) {
         mapToFormField(currentCommunication, 'notDoneReasonCode'),
         mapToFormField(currentCommunication, 'payloadContent'),
         mapToFormField(currentCommunication, 'note'),
+        mapToFormField(currentCommunication, 'duration'),
         mapToFormField(currentCommunication, 'mediumCode'),
         getEpisodeOfCareCodeReference(currentCommunication, 'context'),
         mapToTopicFromCommunication(currentCommunication),
@@ -181,6 +182,7 @@ function ManageCommunication(props) {
       payloadContent,
       note,
       episodeOfCareCode,
+      duration,
     } = values;
     const status = find(statusList, { code: statusCode });
     const category = find(categories, { code: 'instruction' });
@@ -192,15 +194,16 @@ function ManageCommunication(props) {
       note,
       payloadContent,
       notDone,
+      duration,
       sent: sentTime,
       statusCode,
-      statusValue: status.display,
-      categoryCode: category.code,
+      statusValue: status && status.display,
+      categoryCode: category && category.code,
       categoryValue: categoryDisplay,
       notDoneReasonCode,
       notDoneReasonValue: notDoneReason ? notDoneReason.display : '',
       mediumCode,
-      mediumValue: medium.display, // TODO fix tipo in key
+      mediumValue: medium && medium.display, // TODO fix tipo in key
       subject: createReferenceObject(patient, PATIENT),
       sender: createReferenceObject(currentPractitioner, PRACTITIONER), // TODO get this dynamically
       context: episodeOfCare,
