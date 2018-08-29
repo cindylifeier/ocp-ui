@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Cell } from 'styled-css-grid';
+import isEmpty from 'lodash/isEmpty';
 
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
@@ -48,7 +49,7 @@ function OrganizationExpansionRowDetails({ organization }) {
           />
         </Cell>
       </ExpansionRowDetailsGrid>
-      {contacts &&
+      {!isEmpty(contacts) &&
       <ContactsTable contacts={contacts} />
       }
     </InfoSection>
