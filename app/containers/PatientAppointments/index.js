@@ -169,8 +169,8 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const manageAppointmentUrl = MANAGE_APPOINTMENT_URL;
     const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses, communications, patient } = this.props;
-    console.log(communications);
-    console.log(patient);
+    // console.log(communications);
+    // console.log(patient);
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
     const addNewItem = {
@@ -253,6 +253,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
         </Card>
 
         <CommunicationsTableDialog
+          isLoading={false}
           open={this.state.open}
           handleDialogClose={this.handleDialogClose}
           data={communications}

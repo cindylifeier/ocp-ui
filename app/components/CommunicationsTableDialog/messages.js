@@ -10,9 +10,9 @@ export default defineMessages({
     id: 'ocpui.components.CommunicationsTableDialog.addCoverageDialogCancelBtnLabel',
     defaultMessage: 'Cancel',
   },
-  addCoverageDialogTitle: {
-    id: 'ocpui.components.CommunicationsTableDialog.addCoverageDialogTitle',
-    defaultMessage: 'Coverage',
+  communicationDialogTitle: {
+    id: 'ocpui.components.CommunicationsTableDialog.communicationDialogTitle',
+    defaultMessage: 'Related Communication',
   },
   saveButton: {
     id: 'ocpui.components.CommunicationsTableDialog.saveButton',

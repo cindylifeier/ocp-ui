@@ -12,8 +12,8 @@ import DialogHeader from 'components/DialogHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import CommunicationsTable from 'components/CommunicationsTable';
 import { Cell, Grid } from 'styled-css-grid';
+import isEmpty from 'lodash/isEmpty';
 import messages from './messages';
-
 
 class CommunicationsTableDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
 
@@ -26,13 +26,12 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
       data,
       selectedPatient,
       manageCommunicationBaseUrl,
-      // loading,
+      isLoading,
     } = this.props;
-    const newData = data;
-    newData.loading = false;
+    const loading = !isEmpty(isLoading) ? isLoading : false;
     const communicationTableData = {
-      loading: false,
-      data: newData,
+      loading,
+      data,
       selectedPatient,
       relativeTop,
       handlePageClick,
@@ -47,7 +46,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
           autoScrollBodyContent
         >
           <DialogHeader>
-            {<FormattedMessage {...messages.addCoverageDialogTitle} />}
+            {<FormattedMessage {...messages.communicationDialogTitle} />}
           </DialogHeader>
 
           <CommunicationsTable {...communicationTableData}></CommunicationsTable>
@@ -66,7 +65,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
 
 CommunicationsTableDialog.propTypes = {
   open: PropTypes.bool,
-  // loading: PropTypes.bool,
+  isLoading: PropTypes.bool,
   handleDialogClose: PropTypes.func,
   // communications: PropTypes.object,
   relativeTop: PropTypes.number,
