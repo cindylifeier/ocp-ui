@@ -6,8 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Dialog from 'material-ui/Dialog';
-import AddParticipantOrServiceForm from 'components/AddParticipantOrServiceDialog/AddParticipantOrServiceForm';
+import { FormattedMessage } from 'react-intl';
+import { DialogContent, DialogTitle } from 'material-ui-next';
+
+import StyledDialog from 'components/StyledDialog';
+import AddParticipantOrServiceForm from './AddParticipantOrServiceForm';
+import messages from './messages';
 
 
 class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -39,15 +43,14 @@ class AddParticipantOrServiceDialog extends React.Component { // eslint-disable-
     };
 
     return (
-      <div>
-        <Dialog
-          modal={false}
-          open={open}
-          autoScrollBodyContent
-        >
-          <AddParticipantOrServiceForm {...addParticipantOrServiceProps}></AddParticipantOrServiceForm>
-        </Dialog>
-      </div>
+      <StyledDialog maxWidth="md" fullWidth open={open}>
+        <DialogTitle>
+          <FormattedMessage {...messages.addParticipantOrServiceDialogTitle} />
+        </DialogTitle>
+        <DialogContent>
+          <AddParticipantOrServiceForm {...addParticipantOrServiceProps} />
+        </DialogContent>
+      </StyledDialog>
     );
   }
 }

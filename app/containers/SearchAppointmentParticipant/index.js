@@ -3,7 +3,17 @@
  * SearchAppointmentParticipant
  *
  */
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
+import { createStructuredSelector } from 'reselect';
+import isEmpty from 'lodash/isEmpty';
+import isEqual from 'lodash/isEqual';
+import find from 'lodash/find';
 
+import injectSaga from 'utils/injectSaga';
+import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_PARTICIPANT_REQUIRED,
@@ -11,38 +21,24 @@ import {
   APPOINTMENT_PARTICIPATION_STATUS,
   APPOINTMENT_PARTICIPATION_TYPE,
 } from 'containers/App/constants';
-import {
-  // makeSelectAppointmentParticipantTypes,
-  makeSelectAppointmentParticipationRequired,
-  // makeSelectAppointmentParticipationTypes,
-} from 'containers/App/lookupSelectors';
+import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
+import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
+import { getLogicalIdFromReference } from 'containers/App/helpers';
+import AddParticipantOrServiceDialog from 'components/AddParticipantOrServiceDialog';
 import {
   addAppointmentParticipants,
-  initializeSearchAppointmentParticipant,
-  getHealthcareServiceReferences,
   getCareTeamReferences,
+  getHealthcareServiceReferences,
   getLocationReferences,
   getPractitionerReferences,
-} from 'containers/SearchAppointmentParticipant/actions';
-import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
-import find from 'lodash/find';
-import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { connect } from 'react-redux';
-import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
-import AddParticipantOrServiceDialog from 'components/AddParticipantOrServiceDialog/index';
-import injectReducer from 'utils/injectReducer';
-import { getLogicalIdFromReference } from 'containers/App/helpers';
+  initializeSearchAppointmentParticipant,
+} from './actions';
 import {
   makeSelectCareTeamReferences,
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
-} from 'containers/SearchAppointmentParticipant/selectors';
-import injectSaga from 'utils/injectSaga';
+} from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
@@ -169,7 +165,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     };
 
     return (
-      <AddParticipantOrServiceDialog {...addParticipantOrServiceProps}> </AddParticipantOrServiceDialog>
+      <AddParticipantOrServiceDialog {...addParticipantOrServiceProps} />
     );
   }
 }
@@ -197,8 +193,6 @@ SearchAppointmentParticipant.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  // participantTypes: makeSelectAppointmentParticipantTypes(),
-  // participationTypes: makeSelectAppointmentParticipationTypes(),
   patient: makeSelectPatient(),
   organization: makeSelectOrganization(),
   healthcareServices: makeSelectHealthcareServiceReferences(),
