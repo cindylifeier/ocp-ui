@@ -137,7 +137,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     }
     const colorLabelArray = [
       { key: 0, label: 'Accepted', color: '#009688' },
-      { key: 1, label: 'Tentative', color: '#9FE3CB' },
+      { key: 1, label: 'Tentative', color: '#9868b9' },
       { key: 2, label: 'Needs Action', color: '#E3999D' },
       { key: 3, label: 'Outlook Appointment (Accepted or Tentative)', color: '#2D7BC0' },
       { key: 4, label: 'Outlook Appointment (Not Responded Yet)', color: '#CDE6F7' },
