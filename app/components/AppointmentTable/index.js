@@ -173,7 +173,11 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
                 />
               }
             >
-              <TableRowColumn>{getMyResponseIcon(appointment)}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{getMyResponseIcon(appointment)}</TableRowColumn>
               {practitionerWorkspace &&
               <TableRowColumn
                 textDecorationLine="underline"
