@@ -21,8 +21,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
     const {
       open,
       handleDialogClose,
-      relativeTop,
-      handlePageClick,
+      handleChangePage,
       data,
       selectedPatient,
       manageCommunicationBaseUrl,
@@ -33,8 +32,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
       loading,
       data,
       selectedPatient,
-      relativeTop,
-      handlePageClick,
+      handleChangePage,
       manageCommunicationBaseUrl,
     };
 
@@ -68,8 +66,8 @@ CommunicationsTableDialog.propTypes = {
   isLoading: PropTypes.bool,
   handleDialogClose: PropTypes.func,
   // communications: PropTypes.object,
-  relativeTop: PropTypes.number,
-  handlePageClick: PropTypes.func,
+  // relativeTop: PropTypes.number,
+  handleChangePage: PropTypes.func,
   data: PropTypes.object,
   selectedPatient: PropTypes.object,
   manageCommunicationBaseUrl: PropTypes.string,

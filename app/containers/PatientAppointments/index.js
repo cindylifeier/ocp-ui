@@ -85,6 +85,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.handleAppointmentRowClick = this.handleAppointmentRowClick.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleCommunicationPageClick = this.handleCommunicationPageClick.bind(this);
   }
 
   componentDidMount() {
@@ -105,6 +106,10 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
   handlePageClick(page) {
     this.props.getUpcomingAppointments({ pageNumber: page });
+  }
+
+  handleCommunicationPageClick(page) {
+    console.log(page);
   }
 
   handleSort(columnName) {
@@ -258,6 +263,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
           handleDialogClose={this.handleDialogClose}
           data={communications}
           selectedPatient={patient}
+          handleChangePage={this.handleCommunicationPageClick}
           manageCommunicationBaseUrl={communicationBaseUrl}
         ></CommunicationsTableDialog>
 
