@@ -8,19 +8,23 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   addParticipantOrServiceDialogTitle: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.addParticipantOrServiceDialogTitle',
-    defaultMessage: 'Add appointment for',
+    defaultMessage: 'Add Participant Details',
+  },
+  inOrgTabLabel: {
+    id: 'ocpui.containers.AddParticipantOrServiceDialog.inOrgTabLabel',
+    defaultMessage: 'Inside Organization',
+  },
+  outOfOrgTabLabel: {
+    id: 'ocpui.containers.AddParticipantOrServiceDialog.outOfOrgTabLabel',
+    defaultMessage: 'Out Of Organization',
+  },
+  locationTabLabel: {
+    id: 'ocpui.containers.AddParticipantOrServiceDialog.locationTabLabel',
+    defaultMessage: 'Location',
   },
   serviceTabLabel: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.serviceTabLabel',
     defaultMessage: 'Service',
-  },
-  careTeamTabLabel: {
-    id: 'ocpui.containers.AddParticipantOrServiceDialog.careTeamTabLabel',
-    defaultMessage: 'Care Team',
-  },
-  nonCareTeamTabLabel: {
-    id: 'ocpui.containers.AddParticipantOrServiceDialog.nonCareTeamTabLabel',
-    defaultMessage: 'Non-Care Team',
   },
   saveButton: {
     id: 'ocpui.containers.AddParticipantOrServiceDialog.saveButton',
@@ -43,18 +47,6 @@ export default defineMessages({
       id: 'ocpui.components.AddParticipantOrServiceDialog.validation.invalid',
       defaultMessage: 'Invalid value',
     },
-    minStartDate: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.validation.minStartDate',
-      defaultMessage: 'Start date field must be later than today',
-    },
-    minEndDate: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.validation.minEndDate',
-      defaultMessage: 'End date field must be later than Start date field',
-    },
-    checkParticipants: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.validation.checkParticipants',
-      defaultMessage: 'At least one participant must be selected',
-    },
   },
   hintText: {
     selectService: {
@@ -69,25 +61,9 @@ export default defineMessages({
       id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectPractitioner',
       defaultMessage: 'Select Practitioner',
     },
-    selectedCareTeam: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectedCareTeam',
-      defaultMessage: 'Select Care Team',
-    },
-    serviceName: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.serviceName',
-      defaultMessage: 'Enter service',
-    },
-    locationName: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.locationName',
-      defaultMessage: 'Enter location',
-    },
-    practitionerName: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.practitionerName',
-      defaultMessage: 'Enter practitioner name',
-    },
-    selectPractitionerRequired: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectPractitionerRequired',
-      defaultMessage: 'Required',
+    selectPractitionerAttendance: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.hintText.selectPractitionerAttendance',
+      defaultMessage: 'Attendance',
     },
   },
   floatingLabelText: {
@@ -103,25 +79,9 @@ export default defineMessages({
       id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectPractitioner',
       defaultMessage: 'Select Practitioner',
     },
-    selectedCareTeam: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectedCareTeam',
-      defaultMessage: 'Select Care Team',
-    },
-    serviceName: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.serviceName',
-      defaultMessage: 'Enter service',
-    },
-    locationName: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.locationName',
-      defaultMessage: 'Enter location',
-    },
-    practitionerName: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.practitionerName',
-      defaultMessage: 'Enter practitioner name',
-    },
-    selectPractitionerRequired: {
-      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectPractitionerRequired',
-      defaultMessage: 'Required',
+    selectPractitionerAttendance: {
+      id: 'ocpui.components.AddParticipantOrServiceDialog.floatingLabelText.selectPractitionerAttendance',
+      defaultMessage: 'Attendance',
     },
   },
 });
