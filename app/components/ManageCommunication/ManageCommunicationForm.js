@@ -98,29 +98,6 @@ function ManageCommunicationForm(props) {
         <FormCell top={4} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
-              <Padding top={35}>
-                <Checkbox
-                  name="notDone"
-                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
-                >
-                </Checkbox>
-              </Padding>
-            </Cell>
-            <SelectField
-              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
-              name="notDoneReasonCode"
-              disabled={!notDoneFlag}
-              fullWidth
-            >
-              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
-                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
-              ))}
-            </SelectField>
-          </Grid>
-        </FormCell>
-        <FormCell top={5} left={1} width={6}>
-          <Grid columns="3fr 3fr" gap="">
-            <Cell>
               <TextField
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.subject} />}
                 fullWidth
@@ -172,8 +149,30 @@ function ManageCommunicationForm(props) {
             rowsMax={8}
           />
         </FormCell>
-
-        <FormCell top={8} left={1} width={2}>
+        <FormCell top={8} left={1} width={6}>
+          <Grid columns="3fr 3fr" gap="">
+            <Cell>
+              <Padding top={35}>
+                <Checkbox
+                  name="notDone"
+                  label={<FormattedMessage {...messages.form.floatingLabelText.notDone} />}
+                >
+                </Checkbox>
+              </Padding>
+            </Cell>
+            <SelectField
+              floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.notDoneReason} />}
+              name="notDoneReasonCode"
+              disabled={!notDoneFlag}
+              fullWidth
+            >
+              {communicationNotDoneReasons && communicationNotDoneReasons.map((communicationNotDoneReason) => (
+                <MenuItem key={uniqueId()} value={communicationNotDoneReason.code} primaryText={communicationNotDoneReason.display} />
+              ))}
+            </SelectField>
+          </Grid>
+        </FormCell>
+        <FormCell top={9} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
               <StyledRaisedButton
