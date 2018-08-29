@@ -20,7 +20,7 @@ export default defineMessages({
   },
   cancelButton: {
     id: 'ocpui.components.CommunicationsTableDialog.cancelButton',
-    defaultMessage: 'Cancel',
+    defaultMessage: 'Close',
   },
   addCoverageDialogSaveBtnLabel: {
     id: 'ocpui.components.CommunicationsTableDialog.addCoverageDialogSaveBtnLabel',

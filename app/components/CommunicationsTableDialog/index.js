@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
+import WideDialog from 'components/WideDialog';
 import DialogHeader from 'components/DialogHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import CommunicationsTable from 'components/CommunicationsTable';
@@ -28,7 +28,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
       isLoading,
     } = this.props;
     const loading = !isEmpty(isLoading) ? isLoading : false;
-    const communicationTableData = {
+    const communicationsData = {
       loading,
       data,
       selectedPatient,
@@ -38,8 +38,8 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
 
     return (
       <div>
-        <Dialog
-          modal={false}
+        <WideDialog
+          modal
           open={open}
           autoScrollBodyContent
         >
@@ -47,7 +47,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
             {<FormattedMessage {...messages.communicationDialogTitle} />}
           </DialogHeader>
 
-          <CommunicationsTable {...communicationTableData}></CommunicationsTable>
+          <CommunicationsTable communicationsData={communicationsData}></CommunicationsTable>
           <Grid columns="repeat(2, 1fr)">
             <Cell>
               <StyledFlatButton type="reset" onClick={handleDialogClose}>
@@ -55,7 +55,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
               </StyledFlatButton>
             </Cell>
           </Grid>
-        </Dialog>
+        </WideDialog>
       </div>
     );
   }
@@ -65,8 +65,6 @@ CommunicationsTableDialog.propTypes = {
   open: PropTypes.bool,
   isLoading: PropTypes.bool,
   handleDialogClose: PropTypes.func,
-  // communications: PropTypes.object,
-  // relativeTop: PropTypes.number,
   handleChangePage: PropTypes.func,
   data: PropTypes.object,
   selectedPatient: PropTypes.object,
