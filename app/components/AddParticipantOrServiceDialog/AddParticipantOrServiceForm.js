@@ -5,6 +5,7 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import Tabs from 'material-ui-next/Tabs/Tabs';
 import Tab from 'material-ui-next/Tabs/Tab';
+import AppBar from 'material-ui-next/AppBar';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
@@ -12,7 +13,6 @@ import TextField from 'components/TextField';
 import SelectField from 'components/SelectField';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
-import TabContainer from './TabContainer';
 import AddParticipantORServiceFormGrid from './AddParticipantOrServiceDialogGrid';
 import messages from './messages';
 
@@ -24,7 +24,7 @@ class AddParticipantOrServiceForm extends React.Component {
       tabIndex: 0,
       isHcServiceDisabled: true,
       isLocationDisabled: true,
-      isPractitionertDisabled: true,
+      isPractitionerDisabled: true,
       isCareTeamDisabled: true,
       isRequiredDisabled: true,
       isRequiredSelected: false,
@@ -65,9 +65,9 @@ class AddParticipantOrServiceForm extends React.Component {
   handleLocationChanged(locationReference) {
     const { handleSelectPractitioner } = this.props;
     if (locationReference) {
-      this.setState({ isPractitionertDisabled: false });
+      this.setState({ isPractitionerDisabled: false });
     } else {
-      this.setState({ isPractitionertDisabled: true });
+      this.setState({ isPractitionerDisabled: true });
     }
     handleSelectPractitioner(locationReference);
   }
@@ -114,8 +114,8 @@ class AddParticipantOrServiceForm extends React.Component {
     }
   }
 
-  handleCareTeamTabServiceChanged(serviceference) {
-    if (serviceference) {
+  handleCareTeamTabServiceChanged(serviceReference) {
+    if (serviceReference) {
       this.setState({
         isLocationDisabled: false,
       });
@@ -126,8 +126,8 @@ class AddParticipantOrServiceForm extends React.Component {
     }
   }
 
-  handleCareTeamTabLocationChanged(serviceference) {
-    if (serviceference) {
+  handleCareTeamTabLocationChanged(serviceReference) {
+    if (serviceReference) {
       this.setState({
         isLocationSelected: true,
       });
@@ -142,7 +142,7 @@ class AddParticipantOrServiceForm extends React.Component {
     const {
       isHcServiceDisabled,
       isLocationDisabled,
-      isPractitionertDisabled,
+      isPractitionerDisabled,
       isCareTeamDisabled,
       isRequiredDisabled,
       isRequiredSelected,
@@ -151,7 +151,7 @@ class AddParticipantOrServiceForm extends React.Component {
 
     let disabled = true;
     if (this.state.tabIndex === 0) {
-      disabled = isHcServiceDisabled || isLocationDisabled || isPractitionertDisabled || isRequiredDisabled || !isRequiredSelected;
+      disabled = isHcServiceDisabled || isLocationDisabled || isPractitionerDisabled || isRequiredDisabled || !isRequiredSelected;
     } else if (this.state.tabIndex === 1) {
       disabled = isCareTeamDisabled || isRequiredDisabled || isLocationDisabled || isHcServiceDisabled || !isLocationSelected;
     }
@@ -189,126 +189,84 @@ class AddParticipantOrServiceForm extends React.Component {
             <Form>
               <AddParticipantORServiceFormGrid gap="1vw">
                 <Cell area="serviceCareTeamNonCareTeamTab">
-                  <Tabs
-                    value={tabIndex}
-                    onChange={(event, index) => {
-                      resetForm();
-                      this.handleTabChange(event, index);
-                    }}
-                  >
-                    <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
-                    <Tab label={<FormattedMessage {...messages.careTeamTabLabel} />} />
-                    <Tab label={<FormattedMessage {...messages.nonCareTeamTabLabel} />} disabled />
-                  </Tabs>
+                  <AppBar position="sticky" color="default">
+                    <Tabs
+                      value={tabIndex}
+                      onChange={(event, index) => {
+                        resetForm();
+                        this.handleTabChange(event, index);
+                      }}
+                      indicatorColor="primary"
+                      textColor="primary"
+                      fullWidth
+                    >
+                      <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
+                      <Tab label={<FormattedMessage {...messages.careTeamTabLabel} />} />
+                      <Tab label={<FormattedMessage {...messages.nonCareTeamTabLabel} />} disabled />
+                    </Tabs>
+                  </AppBar>
                   {tabIndex === 0 &&
-                  <TabContainer>
-                    <Grid columns={4}>
-                      <Cell>
-                        <SelectField
-                          fullWidth
-                          name="service"
-                          onChange={this.handleServiceChanged}
-                          hintText={<FormattedMessage {...messages.hintText.selectService} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
-                        >
-                          {healthcareServices && healthcareServices.map((service) =>
-                            (<MenuItem
-                              key={service.reference}
-                              value={service.reference}
-                              primaryText={service.display}
-                            />),
-                          )}
-                        </SelectField>
-                        {this.state.isServiceRequired &&
-                        <div>Required</div>
-                        }
-                      </Cell>
-                      <Cell>
-                        <SelectField
-                          fullWidth
-                          name="location"
-                          disabled={this.state.isLocationDisabled}
-                          onChange={this.handleLocationChanged}
-                          hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
-                        >
-                          {locations && locations.map((location) =>
-                            (<MenuItem
-                              key={location.reference}
-                              value={location.reference}
-                              primaryText={location.display}
-                            />),
-                          )}
-                        </SelectField>
-                      </Cell>
-                      <Cell>
-                        <SelectField
-                          fullWidth
-                          name="practitioner"
-                          disabled={this.state.isPractitionertDisabled}
-                          onChange={this.handlePractitionerChanged}
-                          hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
-                        >
-                          {practitioners && practitioners.map((entry) =>
-                            (<MenuItem
-                              key={entry.reference}
-                              value={entry.reference}
-                              primaryText={entry.display}
-                            />),
-                          )}
-                        </SelectField>
-                      </Cell>
-                      <Cell>
-                        <Cell>
-                          <SelectField
-                            fullWidth
-                            name="required"
-                            disabled={this.state.isRequiredDisabled}
-                            onChange={this.handleRequiredChanged}
-                            hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
-                            floatingLabelText={
-                              <FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
-                          >
-                            {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
-                              (<MenuItem
-                                key={entry.code}
-                                value={entry.code}
-                                primaryText={entry.display}
-                              />),
-                            )}
-                          </SelectField>
-                        </Cell>
-                      </Cell>
-                    </Grid>
-                  </TabContainer>
-                  }
-                  {tabIndex === 1 &&
-                  <TabContainer>
-                    <Grid columns={4}>
-                      <Cell>
-                        <SelectField
-                          fullWidth
-                          name="careTeam"
-                          onChange={this.handleCareTeamTabCareTeamChanged}
-                          hintText={<FormattedMessage {...messages.hintText.selectedCareTeam} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectedCareTeam} />}
-                        >
-                          {careTeams && careTeams.map((careTeam) =>
-                            (<MenuItem
-                              key={careTeam.reference}
-                              value={careTeam.reference}
-                              primaryText={careTeam.display}
-                            />),
-                          )}
-                        </SelectField>
-                      </Cell>
+                  <Grid columns={4}>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="service"
+                        onChange={this.handleServiceChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectService} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
+                      >
+                        {healthcareServices && healthcareServices.map((service) =>
+                          (<MenuItem
+                            key={service.reference}
+                            value={service.reference}
+                            primaryText={service.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="location"
+                        disabled={this.state.isLocationDisabled}
+                        onChange={this.handleLocationChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
+                      >
+                        {locations && locations.map((location) =>
+                          (<MenuItem
+                            key={location.reference}
+                            value={location.reference}
+                            primaryText={location.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="practitioner"
+                        disabled={this.state.isPractitionerDisabled}
+                        onChange={this.handlePractitionerChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
+                      >
+                        {practitioners && practitioners.map((entry) =>
+                          (<MenuItem
+                            key={entry.reference}
+                            value={entry.reference}
+                            primaryText={entry.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                    <Cell>
                       <Cell>
                         <SelectField
                           fullWidth
                           name="required"
                           disabled={this.state.isRequiredDisabled}
-                          onChange={this.handleCareTeamTabRequiredChanged}
+                          onChange={this.handleRequiredChanged}
                           hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
                           floatingLabelText={
                             <FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
@@ -322,74 +280,112 @@ class AddParticipantOrServiceForm extends React.Component {
                           )}
                         </SelectField>
                       </Cell>
-                      <Cell>
-                        <SelectField
-                          fullWidth
-                          name="service"
-                          disabled={this.state.isHcServiceDisabled}
-                          onChange={this.handleCareTeamTabServiceChanged}
-                          hintText={<FormattedMessage {...messages.hintText.selectService} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
-                        >
-                          {healthcareServices && healthcareServices.map((service) =>
-                            (<MenuItem
-                              key={service.reference}
-                              value={service.reference}
-                              primaryText={service.display}
-                            />),
-                          )}
-                        </SelectField>
-                      </Cell>
-                      <Cell>
-                        <SelectField
-                          fullWidth
-                          name="location"
-                          disabled={this.state.isLocationDisabled}
-                          onChange={this.handleCareTeamTabLocationChanged}
-                          hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
-                        >
-                          {locations && locations.map((location) =>
-                            (<MenuItem
-                              key={location.reference}
-                              value={location.reference}
-                              primaryText={location.display}
-                            />),
-                          )}
-                        </SelectField>
-                      </Cell>
-                    </Grid>
-                  </TabContainer>
+                    </Cell>
+                  </Grid>
+                  }
+                  {tabIndex === 1 &&
+                  <Grid columns={4}>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="careTeam"
+                        onChange={this.handleCareTeamTabCareTeamChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectedCareTeam} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectedCareTeam} />}
+                      >
+                        {careTeams && careTeams.map((careTeam) =>
+                          (<MenuItem
+                            key={careTeam.reference}
+                            value={careTeam.reference}
+                            primaryText={careTeam.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="required"
+                        disabled={this.state.isRequiredDisabled}
+                        onChange={this.handleCareTeamTabRequiredChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectPractitionerRequired} />}
+                        floatingLabelText={
+                          <FormattedMessage {...messages.floatingLabelText.selectPractitionerRequired} />}
+                      >
+                        {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
+                          (<MenuItem
+                            key={entry.code}
+                            value={entry.code}
+                            primaryText={entry.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="service"
+                        disabled={this.state.isHcServiceDisabled}
+                        onChange={this.handleCareTeamTabServiceChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectService} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
+                      >
+                        {healthcareServices && healthcareServices.map((service) =>
+                          (<MenuItem
+                            key={service.reference}
+                            value={service.reference}
+                            primaryText={service.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                    <Cell>
+                      <SelectField
+                        fullWidth
+                        name="location"
+                        disabled={this.state.isLocationDisabled}
+                        onChange={this.handleCareTeamTabLocationChanged}
+                        hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
+                      >
+                        {locations && locations.map((location) =>
+                          (<MenuItem
+                            key={location.reference}
+                            value={location.reference}
+                            primaryText={location.display}
+                          />),
+                        )}
+                      </SelectField>
+                    </Cell>
+                  </Grid>
                   }
                   {tabIndex === 2 &&
-                  <TabContainer>
-                    <Grid columns={3}>
-                      <Cell>
-                        <TextField
-                          fullWidth
-                          name="practitionerName"
-                          hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
-                        />
-                      </Cell>
-                      <Cell>
-                        <TextField
-                          fullWidth
-                          name="locationName"
-                          hintText={<FormattedMessage {...messages.hintText.locationName} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.locationName} />}
-                        />
-                      </Cell>
-                      <Cell>
-                        <TextField
-                          fullWidth
-                          name="serviceName"
-                          hintText={<FormattedMessage {...messages.hintText.serviceName} />}
-                          floatingLabelText={<FormattedMessage {...messages.floatingLabelText.serviceName} />}
-                        />
-                      </Cell>
-                    </Grid>
-                  </TabContainer>
+                  <Grid columns={3}>
+                    <Cell>
+                      <TextField
+                        fullWidth
+                        name="practitionerName"
+                        hintText={<FormattedMessage {...messages.hintText.practitionerName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.practitionerName} />}
+                      />
+                    </Cell>
+                    <Cell>
+                      <TextField
+                        fullWidth
+                        name="locationName"
+                        hintText={<FormattedMessage {...messages.hintText.locationName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.locationName} />}
+                      />
+                    </Cell>
+                    <Cell>
+                      <TextField
+                        fullWidth
+                        name="serviceName"
+                        hintText={<FormattedMessage {...messages.hintText.serviceName} />}
+                        floatingLabelText={<FormattedMessage {...messages.floatingLabelText.serviceName} />}
+                      />
+                    </Cell>
+                  </Grid>
                   }
                 </Cell>
                 <Cell area="buttonGroup">
