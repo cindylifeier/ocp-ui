@@ -21,7 +21,7 @@ const makeSelectPatientAppointments = () => createSelector(
 
 const makeSelectCommunicationsByAppointment = () => createSelector(
   selectPatientAppointmentsDomain,
-  (substate) => substate && substate.get('communications'),
+  (substate) => substate && substate.get('communications').toJS(),
 );
 
 const makeSelectShowPastAppointments = () => createSelector(
