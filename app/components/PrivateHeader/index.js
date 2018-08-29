@@ -30,6 +30,7 @@ import {
 } from 'containers/App/constants';
 import ChangePassword from 'containers/ChangePassword';
 import Logout from 'containers/Logout';
+import ShowHideWrapper from 'containers/ShowHideWrapper';
 import isUndefined from 'lodash/isUndefined';
 import Menu, { MenuItem } from 'material-ui-next/Menu';
 import FlatButton from 'material-ui/FlatButton';
@@ -177,6 +178,12 @@ class PrivateHeader extends React.Component {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
+          <ShowHideWrapper allowedRoles={[ORGANIZATION_ADMIN_ROLE_CODE]}>
+            <MenuItem>
+              <FormattedMessage {...messages.organizationDetails} />
+            </MenuItem>
+          </ShowHideWrapper>
+
           <MenuItem
             onClick={() => {
               this.handleClose();
