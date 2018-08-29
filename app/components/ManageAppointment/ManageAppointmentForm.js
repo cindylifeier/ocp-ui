@@ -92,6 +92,7 @@ class ManageAppointmentForm extends React.Component {
       handleDialogOpen,
     } = this.props;
     const selectedParticipantsProps = {
+      handleDialogOpen,
       selectedParticipants,
       removeParticipant,
       getReferenceTypeFromReference,
@@ -115,20 +116,6 @@ class ManageAppointmentForm extends React.Component {
                 </InlineLabel>
                 <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
               </InfoSection>
-            </Cell>
-            <Cell area="addParticipant">
-              <StyledRaisedButton
-                fullWidth
-                onClick={() => {
-                  handleDialogOpen();
-                }
-                }
-              >
-                <FormattedMessage {...messages.addParticipantBtnLabel} />
-              </StyledRaisedButton>
-            </Cell>
-            <Cell area="selectedParticipants">
-              <SelectedParticipants {...selectedParticipantsProps} />
             </Cell>
             <Cell area="appointmentType">
               <SelectField
@@ -161,6 +148,9 @@ class ManageAppointmentForm extends React.Component {
                   />),
                 )}
               </SelectField>
+            </Cell>
+            <Cell area="addParticipant">
+              <SelectedParticipants {...selectedParticipantsProps} />
             </Cell>
             <Cell area="date">
               <DatePicker
@@ -198,7 +188,6 @@ class ManageAppointmentForm extends React.Component {
                 ''
               }
             </Cell>
-
             <Cell area="description">
               <TextField
                 fullWidth
@@ -207,7 +196,6 @@ class ManageAppointmentForm extends React.Component {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
               />
             </Cell>
-
             {editMode &&
             <Cell area="appointmentStatus">
               <SelectField
@@ -226,7 +214,6 @@ class ManageAppointmentForm extends React.Component {
               </SelectField>
             </Cell>
             }
-
             <Cell area="buttonGroup">
               <Grid columns={2}>
                 <Cell>

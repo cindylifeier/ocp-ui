@@ -15,6 +15,7 @@ import messages from './messages';
 
 function SelectedParticipants(props) {
   const {
+    handleDialogOpen,
     selectedParticipants,
     removeParticipant,
     getReferenceTypeFromReference,
@@ -25,43 +26,49 @@ function SelectedParticipants(props) {
   };
 
   return (
-    <Table>
-      <TableHeader>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
-        <TableHeaderColumn>{
-          <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRequired} />}</TableHeaderColumn>
-        <TableHeaderColumn>{
-          <FormattedMessage {...messages.participantTableHeaderParticipationStatus} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-      </TableHeader>
-      {selectedParticipants && selectedParticipants.length > 0 ?
-        selectedParticipants.map((participant) => (
-          <TableRow key={uniqueId()}>
-            <TableRowColumn>{participant.display}</TableRowColumn>
-            <TableRowColumn>{upperFirst(getReferenceTypeFromReference(participant.reference))}</TableRowColumn>
-            <TableRowColumn>{upperFirst(participant.participationTypeDisplay)}</TableRowColumn>
-            <TableRowColumn>{startCase(camelCase(participant.participantRequiredDisplay))}</TableRowColumn>
-            <TableRowColumn>{upperFirst(participant.participationStatusDisplay)}</TableRowColumn>
+    <div>
+      <StyledRaisedButton onClick={() => handleDialogOpen()}>
+        <FormattedMessage {...messages.addParticipantBtnLabel} />
+      </StyledRaisedButton>
+      <Table margin="10px 0px">
+        <TableHeader>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderType} />}</TableHeaderColumn>
+          <TableHeaderColumn>{
+            <FormattedMessage {...messages.participantTableHeaderParticipationType} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRequired} />}</TableHeaderColumn>
+          <TableHeaderColumn>{
+            <FormattedMessage {...messages.participantTableHeaderParticipationStatus} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+        </TableHeader>
+        {selectedParticipants && selectedParticipants.length > 0 ?
+          selectedParticipants.map((participant) => (
+            <TableRow key={uniqueId()}>
+              <TableRowColumn>{participant.display}</TableRowColumn>
+              <TableRowColumn>{upperFirst(getReferenceTypeFromReference(participant.reference))}</TableRowColumn>
+              <TableRowColumn>{upperFirst(participant.participationTypeDisplay)}</TableRowColumn>
+              <TableRowColumn>{startCase(camelCase(participant.participantRequiredDisplay))}</TableRowColumn>
+              <TableRowColumn>{upperFirst(participant.participationStatusDisplay)}</TableRowColumn>
+              <TableRowColumn>
+                <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
+                  <FormattedMessage {...messages.removeParticipantBtnLabel} />
+                </StyledRaisedButton>
+              </TableRowColumn>
+            </TableRow>
+          )) :
+          <TableRow>
             <TableRowColumn>
-              <StyledRaisedButton onClick={() => handleRemoveParticipant(participant)}>
-                <FormattedMessage {...messages.removeParticipantBtnLabel} />
-              </StyledRaisedButton>
+              <span><FormattedMessage {...messages.noParticipantAdded} /></span>
             </TableRowColumn>
           </TableRow>
-        )) :
-        <TableRow>
-          <TableRowColumn>
-            <span><FormattedMessage {...messages.noParticipantAdded} /></span>
-          </TableRowColumn>
-        </TableRow>
-      }
-    </Table>
+        }
+      </Table>
+    </div>
   );
 }
 
 SelectedParticipants.propTypes = {
+  handleDialogOpen: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   getReferenceTypeFromReference: PropTypes.func.isRequired,
   selectedParticipants: PropTypes.array,

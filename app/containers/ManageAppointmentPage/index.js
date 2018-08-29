@@ -3,62 +3,41 @@
  * ManageAppointmentPage
  *
  */
-
-import ManageAppointment from 'components/ManageAppointment';
-import Page from 'components/Page';
-import PageHeader from 'components/PageHeader';
-import { getLookupsAction } from 'containers/App/actions';
-import {
-  APPOINTMENT_STATUS,
-  APPOINTMENT_TYPE,
-  APPOINTMENT_PARTICIPANT_REQUIRED,
-} from 'containers/App/constants';
-import {
-  makeSelectPatient,
-  makeSelectUser,
-  makeSelectOrganization,
-} from 'containers/App/contextSelectors';
-import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
-import find from 'lodash/find';
-import {
-  makeSelectAppointmentStatuses,
-  makeSelectAppointmentTypes,
-  makeSelectAppointmentParticipationRequired,
-} from 'containers/App/lookupSelectors';
-import isUndefined from 'lodash/isUndefined';
-import merge from 'lodash/merge';
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import find from 'lodash/find';
+import isUndefined from 'lodash/isUndefined';
+import merge from 'lodash/merge';
+
 import injectReducer from 'utils/injectReducer';
-import {
-  getLogicalIdFromReference,
-  getReferenceTypeFromReference,
-} from 'containers/App/helpers';
+import { getLogicalIdFromReference, getReferenceTypeFromReference } from 'containers/App/helpers';
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
+import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
+import { removeAppointmentParticipant } from 'containers/SearchAppointmentParticipant/actions';
+import { makeSelectAppointment } from 'containers/ManageAppointmentPage/selectors';
+import { APPOINTMENT_PARTICIPANT_REQUIRED, APPOINTMENT_STATUS, APPOINTMENT_TYPE } from 'containers/App/constants';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import {
-  makeSelectSelectedAppointmentParticipants,
-} from 'containers/SearchAppointmentParticipant/selectors';
-import {
-  removeAppointmentParticipant,
-} from 'containers/SearchAppointmentParticipant/actions';
-import {
-  makeSelectAppointment,
-} from 'containers/ManageAppointmentPage/selectors';
-import {
-  getAppointment,
-  saveAppointment,
-  initializeManageAppointment,
-} from './actions';
+  makeSelectAppointmentParticipationRequired,
+  makeSelectAppointmentStatuses,
+  makeSelectAppointmentTypes,
+} from 'containers/App/lookupSelectors';
+import ManageAppointment from 'components/ManageAppointment';
+import Page from 'components/Page';
+import PageHeader from 'components/PageHeader';
+import { getLookupsAction } from 'containers/App/actions';
+import { getAppointment, initializeManageAppointment, saveAppointment } from './actions';
 import { mapToEditParticipants } from './api';
-import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
+import messages from './messages';
 
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -89,6 +68,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
   componentWillUnmount() {
     this.props.initializeManageAppointment();
   }
+
   handleSave(appointmentFormData, actions) {
     const patientId = this.props.patient.id;
     const practitionerId = (this.props.user && this.props.user.fhirResource) ? this.props.user.fhirResource.logicalId : null;
@@ -229,9 +209,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
           removeParticipant={this.handleRemoveParticipant}
           handleOpen={this.handleOpen}
         />
-        <SearchAppointmentParticipant
-          {...searchParticipantProps}
-        ></SearchAppointmentParticipant>
+        <SearchAppointmentParticipant{...searchParticipantProps} />
       </Page>
     );
   }
