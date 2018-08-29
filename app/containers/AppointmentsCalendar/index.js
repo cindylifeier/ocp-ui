@@ -5,6 +5,7 @@
  */
 
 import Calendar from 'components/Calendar';
+import ColorLegend from 'components/ColorLegend';
 import HorizontalAlignment from 'components/HorizontalAlignment';
 import LoginButtonCell from 'components/Login/LoginButtonCell';
 import LoginFieldGrid from 'components/Login/LoginFieldGrid';
@@ -13,6 +14,7 @@ import StyledDialog from 'components/StyledDialog';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import { getLookupsAction } from 'containers/App/actions';
+import upperFirst from 'lodash/upperFirst';
 
 import { APPOINTMENT_STATUS, APPOINTMENT_TYPE, MANAGE_APPOINTMENT_URL } from 'containers/App/constants';
 import { getPatient, refreshPatient } from 'containers/App/contextActions';
@@ -113,12 +115,12 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
   showTooltip(appointment) {
     const title = appointment.title;
     const organizerName = appointment.organizerName;
-    const myResponse = appointment.myResponse;
+    const myResponse = upperFirst(appointment.myResponse);
     if (!appointment.isOutlookAppointment) {
       const patientName = appointment.patientName;
       const participantNames = appointment.allParticipantNames.join(', ');
-      const status = (appointment.status ? (appointment.status.charAt(0).toUpperCase().concat(appointment.status.slice(1))) : '');
-      return `\n Title: ${title} \n Status: ${status} \n My Response: ${myResponse} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
+      const status = (appointment.status ? upperFirst(appointment.status) : '');
+      return `\n Title: ${title} \n Appointment Status: ${status} \n My Response: ${myResponse} \n Organizer: ${organizerName} \n Patient Name: ${patientName} \n Participants: ${participantNames}`;
     }
     const required = appointment.requiredParticipantNames.join(', ');
     const optional = appointment.optionalParticipantNames.join(', ');
@@ -133,18 +135,30 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
     if (isEmpty(outlookData)) {
       outlookData = [];
     }
+    const colorLabelArray = [
+      { key: 0, label: 'Accepted', color: '#009688' },
+      { key: 1, label: 'Tentative', color: '#9868b9' },
+      { key: 2, label: 'Needs Action', color: '#E3999D' },
+      { key: 3, label: 'Outlook Appointment (Accepted or Tentative)', color: '#2D7BC0' },
+      { key: 4, label: 'Outlook Appointment (Not Responded Yet)', color: '#CDE6F7' },
+    ];
 
     return (
       <div>
         <div>
-          <HorizontalAlignment position={'end'}>
-            <StyledRaisedButton
-              onClick={this.handleOpenLoginDialog}
-              disabled={this.props.isOutlookAuthenticated}
-            >
-              <FormattedMessage {...messages.buttonLoginToOutlook} />
-            </StyledRaisedButton>
-          </HorizontalAlignment>
+          <Grid columns="90% 10%">
+            <Cell>
+              <ColorLegend data={colorLabelArray} />
+            </Cell>
+            <Cell>
+              <StyledRaisedButton
+                onClick={this.handleOpenLoginDialog}
+                disabled={this.props.isOutlookAuthenticated}
+              >
+                <FormattedMessage {...messages.buttonLoginToOutlook} />
+              </StyledRaisedButton>
+            </Cell>
+          </Grid>
         </div>
 
         <Calendar

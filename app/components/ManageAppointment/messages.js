@@ -80,7 +80,7 @@ export default defineMessages({
   },
   participantTableHeaderRequired: {
     id: 'ocpui.components.ManageAppointment.manageForm.participantTableHeaderRequired',
-    defaultMessage: 'Required',
+    defaultMessage: 'Attendance',
   },
   noParticipantAdded: {
     id: 'ocpui.components.ManageAppointment.manageForm.noParticipantAdded',
@@ -129,13 +129,13 @@ export default defineMessages({
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentType',
       defaultMessage: 'Appointment Type',
     },
-    appointmentRequired: {
-      id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentRequired',
-      defaultMessage: 'Required',
+    appointmentOriginatorRequired: {
+      id: 'ocpui.components.ManageAppointment.manageForm.hintText.appointmentOriginatorRequired',
+      defaultMessage: 'Originator Attendance',
     },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.status',
-      defaultMessage: 'Status',
+      defaultMessage: 'Appointment Status',
     },
     date: {
       id: 'ocpui.components.ManageAppointment.manageForm.hintText.date',
@@ -159,13 +159,13 @@ export default defineMessages({
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentType',
       defaultMessage: 'Appointment Type',
     },
-    appointmentRequired: {
-      id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentRequired',
-      defaultMessage: 'Creator Required',
+    appointmentOriginatorRequired: {
+      id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.appointmentOriginatorRequired',
+      defaultMessage: 'Originator Attendance',
     },
     status: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.status',
-      defaultMessage: 'Status',
+      defaultMessage: 'Appointment Status',
     },
     date: {
       id: 'ocpui.components.ManageAppointment.manageForm.floatingLabelText.date',
