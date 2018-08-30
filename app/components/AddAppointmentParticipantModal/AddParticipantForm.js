@@ -12,7 +12,9 @@ import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import ServiceTabContent from './ServiceTabContent';
+import { mapToParticipantReference, mapToPractitionerParticipantReference } from './helpers';
 import messages from './messages';
+
 
 class AddParticipantForm extends React.Component {
   constructor(props) {
@@ -27,11 +29,11 @@ class AddParticipantForm extends React.Component {
   }
 
   handleAddParticipants(formValue) {
-    const locationParticipant = formValue.location;
-    const serviceParticipant = formValue.service;
-    const practitionerParticipant = formValue.practitioner;
-    // const participantAttendance = formValue.attendance;
-    const participants = Array.of(locationParticipant, serviceParticipant, practitionerParticipant);
+    const { healthcareServices, locations, practitioners, participantAttendance } = this.props;
+    const serviceParticipant = mapToParticipantReference(formValue.service, healthcareServices);
+    const locationParticipant = mapToParticipantReference(formValue.location, locations);
+    const practitionerParticipant = mapToPractitionerParticipantReference(formValue.practitioner, formValue.attendance, practitioners, participantAttendance);
+    const participants = Array.of(serviceParticipant, locationParticipant, practitionerParticipant);
     const fieldName = this.props.arrayHelpers.name;
     this.props.arrayHelpers.form.setFieldValue(fieldName, participants);
     this.props.onCloseDialog();
