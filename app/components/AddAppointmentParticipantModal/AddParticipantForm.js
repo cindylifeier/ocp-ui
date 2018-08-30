@@ -98,7 +98,7 @@ class AddParticipantForm extends React.Component {
         <Formik
           onSubmit={(values) => this.handleAddParticipants(values)}
           validationSchema={defineValidationSchema()}
-          render={({ isSubmitting, dirty, isValid, resetForm }) => (
+          render={({ isSubmitting, dirty, isValid, values, resetForm }) => (
             <Form>
               <AppBar position="sticky" color="default">
                 <Tabs
@@ -118,16 +118,16 @@ class AddParticipantForm extends React.Component {
                 </Tabs>
               </AppBar>
               {tabIndex === 0 &&
-              <ServiceTabContent {...serviceTabProps} />
+              <ServiceTabContent formValues={values} {...serviceTabProps} />
               }
               {tabIndex === 1 &&
-              <ServiceTabContent {...serviceTabProps} />
+              <ServiceTabContent formValues={values} {...serviceTabProps} />
               }
               {tabIndex === 2 &&
-              <ServiceTabContent {...serviceTabProps} />
+              <ServiceTabContent formValues={values} {...serviceTabProps} />
               }
               {tabIndex === 3 &&
-              <ServiceTabContent {...serviceTabProps} />
+              <ServiceTabContent formValues={values} {...serviceTabProps} />
               }
               <InfoSection margin="20px 0 0 0">
                 <Grid columns={4}>

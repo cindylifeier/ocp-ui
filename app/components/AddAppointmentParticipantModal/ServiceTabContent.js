@@ -5,10 +5,12 @@ import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
 import SelectField from 'components/SelectField';
+import { checkFieldSelected } from './helpers';
 import messages from './messages';
 
 function ServiceTabContent(props) {
   const {
+    formValues,
     healthcareServices,
     locations,
     practitioners,
@@ -41,6 +43,7 @@ function ServiceTabContent(props) {
           fullWidth
           name="location"
           onChange={(location) => onGetAvailablePractitioners(location)}
+          disabled={checkFieldSelected(formValues, 'service')}
           hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
         >
@@ -57,6 +60,7 @@ function ServiceTabContent(props) {
         <SelectField
           fullWidth
           name="practitioner"
+          disabled={checkFieldSelected(formValues, 'location')}
           hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
         >
@@ -74,6 +78,7 @@ function ServiceTabContent(props) {
           <SelectField
             fullWidth
             name="attendance"
+            disabled={checkFieldSelected(formValues, 'practitioner')}
             hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
             floatingLabelText={
               <FormattedMessage {...messages.floatingLabelText.selectPractitionerAttendance} />}
@@ -93,6 +98,7 @@ function ServiceTabContent(props) {
 }
 
 ServiceTabContent.propTypes = {
+  formValues: PropTypes.object,
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
