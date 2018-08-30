@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   title: {
     id: 'ocpui.containers.ManageUserRegistration.title',
-    defaultMessage: 'Manage User Registration',
+    defaultMessage: 'Manage User Setting',
   },
 });

@@ -150,8 +150,8 @@ class ManageAppointmentForm extends React.Component {
               <SelectField
                 fullWidth
                 name="creatorRequired"
-                hintText={<FormattedMessage {...messages.hintText.appointmentRequired} />}
-                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentRequired} />}
+                hintText={<FormattedMessage {...messages.hintText.appointmentOriginatorRequired} />}
+                floatingLabelText={<FormattedMessage {...messages.floatingLabelText.appointmentOriginatorRequired} />}
               >
                 {appointmentParticipantRequired && appointmentParticipantRequired.map((entry) =>
                   (<MenuItem

@@ -1,9 +1,13 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  cannotEditOutlookAppointment: {
+    id: 'ocpui.containers.AppointmentsCalendar.cannotEditOutlookAppointment',
+    defaultMessage: 'This is an Outlook calendar event. You cannot edit it.',
+  },
   cannotEdit: {
     id: 'ocpui.containers.AppointmentsCalendar.cannotEdit',
-    defaultMessage: 'This is an Outlook calendar event. You cannot edit it.',
+    defaultMessage: 'You do not have the necessary permission to edit this appointment',
   },
   confirmEdit: {
     id: 'ocpui.containers.AppointmentsCalendar.confirmEdit',

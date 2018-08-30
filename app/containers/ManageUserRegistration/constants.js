@@ -22,6 +22,10 @@ export const SAVE_USER = 'ocpui/ManageUserRegistration/SAVE_USER';
 export const SAVE_USER_SUCCESS = 'ocpui/ManageUserRegistration/SAVE_USER_SUCCESS';
 export const SAVE_USER_ERROR = 'ocpui/ManageUserRegistration/SAVE_USER_ERROR';
 
+export const REMOVE_USER = 'ocpui/ManageUserRegistration/REMOVE_USER';
+export const REMOVE_USER_SUCCESS = 'ocpui/ManageUserRegistration/REMOVE_USER_SUCCESS';
+export const REMOVE_USER_ERROR = 'ocpui/ManageUserRegistration/REMOVE_USER_ERROR';
+
 
 /**
 *  Other constants

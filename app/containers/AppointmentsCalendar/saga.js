@@ -21,13 +21,13 @@ import { GET_APPOINTMENTS, GET_OUTLOOK_APPOINTMENTS, LOGIN_OUTLOOK } from './con
 function getErrorMessage(err) {
   let errorMessage = '';
   if (err && err.message === 'Failed to fetch') {
-    errorMessage = 'Failed to retrieve the appointment list. Server is offline.';
+    errorMessage = 'Failed to retrieve the calendar appointment list. Server is offline.';
   } else if (err && err.response && err.response.status === 404) {
-    errorMessage = 'No appointments to show.';
+    errorMessage = 'No calendar appointments to show.';
   } else if (err && err.response && err.response.status === 500) {
-    errorMessage = 'Failed to retrieve the appointment list. Unknown server error.';
+    errorMessage = 'Failed to retrieve the calendar appointment list. Unknown server error.';
   } else {
-    errorMessage = 'Failed to retrieve the appointment list. Unknown error.';
+    errorMessage = 'Failed to retrieve the calendar appointment list. Unknown error.';
   }
   return errorMessage;
 }

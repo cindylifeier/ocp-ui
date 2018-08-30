@@ -94,13 +94,18 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
 
             if (appointment.isOutlookAppointment) {
               newStyle.color = 'black';
-              newStyle.backgroundColor = '#CDE6F7';
+              newStyle.backgroundColor = '#2D7BC0';
               if (appointment.myResponse === 'NoResponseReceived') {
-                newStyle.backgroundColor = '#2D7BC0';
+                newStyle.backgroundColor = '#CDE6F7';
               }
             }
             if (!appointment.isOutlookAppointment && appointment.myResponse === 'needs-action') {
-              newStyle.backgroundColor = '#9FE3CB';
+              newStyle.backgroundColor = '#E3999D';
+              newStyle.color = 'black';
+            }
+
+            if (!appointment.isOutlookAppointment && appointment.myResponse === 'tentative') {
+              newStyle.backgroundColor = '#9868b9';
               newStyle.color = 'black';
             }
 

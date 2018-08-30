@@ -112,4 +112,12 @@ export default defineMessages({
     id: 'ocpui.components.ManageUser.manageForm.saveButton',
     defaultMessage: 'Save',
   },
+  confirmRemoveUserTitle: {
+    id: 'ocpui.components.ManageUser.manageForm.saveButton',
+    defaultMessage: 'Remove user',
+  },
+  confirmRemoveUserMessage: {
+    id: 'ocpui.components.ManageUser.manageForm.saveButton',
+    defaultMessage: 'This user will be deleted from the system and will not be able to login.',
+  },
 });

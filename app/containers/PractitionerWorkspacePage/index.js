@@ -117,9 +117,9 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           activeItemIndex: 0,
           height: 100,
           content: [{
-            title: 'LOCATIONS',
+            title: 'Patients',
             type: 'component',
-            componentName: 'locations',
+            componentName: 'patients',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -134,9 +134,9 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           width: 50,
           height: 100,
           content: [{
-            title: 'Practitioners / Resources',
+            title: 'LOCATIONS',
             type: 'component',
-            componentName: 'practitioners',
+            componentName: 'locations',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -158,9 +158,9 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           activeItemIndex: 0,
           height: 100,
           content: [{
-            title: 'Healthcare Services',
+            title: 'Practitioners / Resources',
             type: 'component',
-            componentName: 'healthcareServices',
+            componentName: 'practitioners',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -174,9 +174,9 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
           title: '',
           activeItemIndex: 0,
           content: [{
-            title: 'Patients',
+            title: 'Healthcare Services',
             type: 'component',
-            componentName: 'patients',
+            componentName: 'healthcareServices',
             isClosable: true,
             reorderEnabled: true,
           },
@@ -197,42 +197,11 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         content: [
           {
             type: 'row',
-            content: [{
-              type: 'column',
-              content: [{
-                type: 'stack',
-                content: [
-                  {
-                    title: 'TO DO',
-                    type: 'component',
-                    componentName: 'toDos',
-                    isClosable: true,
-                    reorderEnabled: true,
-                  },
-                  {
-                    title: 'Upcoming tasks',
-                    type: 'component',
-                    componentName: 'upcomingTasks',
-                    isClosable: true,
-                    reorderEnabled: true,
-                  },
-                ],
-              }],
-            }, {
-              title: 'Upcoming Appointments',
-              type: 'component',
-              componentName: 'upcomingAppointments',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-            ],
-          }, {
-            type: 'row',
             content: [
               {
-                title: 'CALENDAR',
+                title: 'PATIENTS',
                 type: 'component',
-                componentName: 'calendar',
+                componentName: 'patients',
                 isClosable: true,
                 reorderEnabled: true,
               },
@@ -241,9 +210,41 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             type: 'row',
             content: [
               {
-                title: 'PATIENTS',
+                type: 'column',
+                content: [{
+                  type: 'stack',
+                  content: [
+                    {
+                      title: 'TO DO',
+                      type: 'component',
+                      componentName: 'toDos',
+                      isClosable: true,
+                      reorderEnabled: true,
+                    },
+                    {
+                      title: 'Upcoming tasks',
+                      type: 'component',
+                      componentName: 'upcomingTasks',
+                      isClosable: true,
+                      reorderEnabled: true,
+                    },
+                  ],
+                }],
+              }, {
+                title: 'Upcoming Appointments',
                 type: 'component',
-                componentName: 'patients',
+                componentName: 'upcomingAppointments',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                title: 'CALENDAR',
+                type: 'component',
+                componentName: 'calendar',
                 isClosable: true,
                 reorderEnabled: true,
               },
@@ -262,42 +263,11 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
         content: [
           {
             type: 'row',
-            content: [{
-              type: 'column',
-              content: [{
-                type: 'stack',
-                content: [
-                  {
-                    title: 'TO DO',
-                    type: 'component',
-                    componentName: 'toDos',
-                    isClosable: true,
-                    reorderEnabled: true,
-                  },
-                  {
-                    title: 'Upcoming tasks',
-                    type: 'component',
-                    componentName: 'upcomingTasks',
-                    isClosable: true,
-                    reorderEnabled: true,
-                  },
-                ],
-              }],
-            }, {
-              title: 'Upcoming Appointments',
-              type: 'component',
-              componentName: 'upcomingAppointments',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-            ],
-          }, {
-            type: 'row',
             content: [
               {
-                title: 'CALENDAR',
+                title: 'PATIENTS',
                 type: 'component',
-                componentName: 'calendar',
+                componentName: 'patients',
                 isClosable: true,
                 reorderEnabled: true,
               },
@@ -306,9 +276,41 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
             type: 'row',
             content: [
               {
-                title: 'PATIENTS',
+                type: 'column',
+                content: [{
+                  type: 'stack',
+                  content: [
+                    {
+                      title: 'TO DO',
+                      type: 'component',
+                      componentName: 'toDos',
+                      isClosable: true,
+                      reorderEnabled: true,
+                    },
+                    {
+                      title: 'Upcoming tasks',
+                      type: 'component',
+                      componentName: 'upcomingTasks',
+                      isClosable: true,
+                      reorderEnabled: true,
+                    },
+                  ],
+                }],
+              }, {
+                title: 'Upcoming Appointments',
                 type: 'component',
-                componentName: 'patients',
+                componentName: 'upcomingAppointments',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                title: 'CALENDAR',
+                type: 'component',
+                componentName: 'calendar',
                 isClosable: true,
                 reorderEnabled: true,
               },
@@ -322,53 +324,68 @@ export class PractitionerWorkspacePage extends React.Component { // eslint-disab
   static
   pcpLayout = {
     ...baseLayout,
-    content: [{
-      type: 'column',
-      content: [
-        {
-          type: 'row',
-          content: [
-            {
-              title: 'MY TO DO',
-              type: 'component',
-              componentName: 'toDos',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Patient\'s Tasks',
-              type: 'component',
-              componentName: 'tasks',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'Upcoming Appointments',
-              type: 'component',
-              componentName: 'upcomingAppointments',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-          ],
-        }, {
-          type: 'row',
-          height: 60,
-          content: [
-            {
-              title: 'CALENDAR',
-              type: 'component',
-              componentName: 'calendar',
-              isClosable: true,
-              reorderEnabled: true,
-            }, {
-              title: 'PATIENTS',
-              type: 'component',
-              componentName: 'patients',
-              isClosable: true,
-              reorderEnabled: true,
-            },
-          ],
-        },
-      ],
-    }],
+    content: [
+      {
+        type: 'column',
+        content: [
+          {
+            type: 'row',
+            content: [
+              {
+                title: 'PATIENTS',
+                type: 'component',
+                componentName: 'patients',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                type: 'column',
+                content: [{
+                  type: 'stack',
+                  content: [
+                    {
+                      title: 'TO DO',
+                      type: 'component',
+                      componentName: 'toDos',
+                      isClosable: true,
+                      reorderEnabled: true,
+                    },
+                    {
+                      title: 'Patient\'s Tasks',
+                      type: 'component',
+                      componentName: 'tasks',
+                      isClosable: true,
+                      reorderEnabled: true,
+                    },
+                  ],
+                }],
+              }, {
+                title: 'Upcoming Appointments',
+                type: 'component',
+                componentName: 'upcomingAppointments',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          }, {
+            type: 'row',
+            content: [
+              {
+                title: 'CALENDAR',
+                type: 'component',
+                componentName: 'calendar',
+                isClosable: true,
+                reorderEnabled: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
   };
 
   static

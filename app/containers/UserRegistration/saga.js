@@ -5,9 +5,9 @@ import { SEARCH_RESOURCES } from './constants';
 import { searchResourcesSuccess, searchResourcesError } from './actions';
 import { getErrorDetail, searchResources } from './api';
 
-export function* searchResourcesSaga({ searchType, searchValue, resourceType, includeInactive, currentPage }) {
+export function* searchResourcesSaga({ searchType, searchValue, resourceType, includeInactive, currentPage, organization }) {
   try {
-    const resources = yield call(searchResources, searchType, searchValue, resourceType, includeInactive, currentPage);
+    const resources = yield call(searchResources, searchType, searchValue, resourceType, includeInactive, currentPage, organization);
     yield put(searchResourcesSuccess(resources));
   } catch (error) {
     yield put(searchResourcesError(getErrorDetail(error)));
