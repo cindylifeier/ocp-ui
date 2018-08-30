@@ -27,7 +27,6 @@ import {
 } from 'containers/App/lookupSelectors';
 import { getReferenceTypeFromReference } from 'containers/App/helpers';
 import { removeAppointmentParticipant } from 'containers/SearchAppointmentParticipant/actions';
-import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
 import ManageAppointment from 'components/ManageAppointment';
 import Page from 'components/Page';
@@ -88,8 +87,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     if (appointmentId) {
       merge(appointmentFormData, { appointmentId });
     }
-    // Add selected participants to form data
-    const selectedParticipants = this.props.selectedParticipants;
 
     // Add Appointment Type
     const { appointmentType } = appointmentFormData;
@@ -99,7 +96,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
       appType.push(selectedType);
       merge(appointmentFormData, { appointmentType: appType }); // Adding the field as object
     }
-    merge(appointmentFormData, { participants: selectedParticipants });
     this.props.saveAppointment(appointmentFormData, () => actions.setSubmitting(false));
   }
 
@@ -164,7 +160,6 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
           removeParticipant={this.handleRemoveParticipant}
           handleOpen={this.handleOpen}
         />
-        <SearchAppointmentParticipant open={this.state.open} handleDialogClose={this.handleDialogClose} />
       </Page>
     );
   }

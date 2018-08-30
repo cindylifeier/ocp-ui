@@ -1,33 +1,32 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { Form } from 'formik';
+import MenuItem from 'material-ui/MenuItem';
+import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
+
+import { mapToPatientName } from 'utils/PatientUtils';
+import Util from 'utils/Util';
+import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import ManageAppointmentFormGrid from 'components/ManageAppointment/ManageAppointmentFormGrid';
 import SelectField from 'components/SelectField';
 import GoBackButton from 'components/GoBackButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import ErrorText from 'components/ErrorText';
-import { Form } from 'formik';
-import MenuItem from 'material-ui/MenuItem';
-import uniqueId from 'lodash/uniqueId';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-import { mapToPatientName } from 'utils/PatientUtils';
-import Util from 'utils/Util';
+import ManageAppointmentFormGrid from './ManageAppointmentFormGrid';
 import messages from './messages';
-import SelectedParticipants from './SelectedParticipants';
 
 class ManageAppointmentForm extends React.Component {
-
   constructor(props) {
     super(props);
     this.startDateTime = null;
     this.endDateTime = null;
     this.state = {
-      // open: false,
       isEndDateBeforeStartDate: false,
     };
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
@@ -85,19 +84,9 @@ class ManageAppointmentForm extends React.Component {
       appointmentStatuses,
       selectedParticipants,
       initialSelectedParticipants,
-      removeParticipant,
       patient,
       appointmentParticipantRequired,
-      getReferenceTypeFromReference,
-      handleDialogOpen,
     } = this.props;
-    const selectedParticipantsProps = {
-      handleDialogOpen,
-      selectedParticipants,
-      removeParticipant,
-      getReferenceTypeFromReference,
-    };
-
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
@@ -150,7 +139,7 @@ class ManageAppointmentForm extends React.Component {
               </SelectField>
             </Cell>
             <Cell area="addParticipant">
-              <SelectedParticipants {...selectedParticipantsProps} />
+              <SearchAppointmentParticipant />
             </Cell>
             <Cell area="date">
               <DatePicker
@@ -242,8 +231,6 @@ ManageAppointmentForm.propTypes = {
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
   editMode: PropTypes.bool.isRequired,
-  getReferenceTypeFromReference: PropTypes.func.isRequired,
-  removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
@@ -257,7 +244,6 @@ ManageAppointmentForm.propTypes = {
   appointmentStatuses: PropTypes.array,
   appointment: PropTypes.object,
   appointmentParticipantRequired: PropTypes.array,
-  handleDialogOpen: PropTypes.func,
 };
 
 export default ManageAppointmentForm;

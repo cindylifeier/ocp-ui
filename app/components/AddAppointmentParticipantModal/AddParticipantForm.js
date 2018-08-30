@@ -19,17 +19,26 @@ class AddParticipantForm extends React.Component {
     super(props);
     this.state = { tabIndex: 0 };
     this.handleTabChange = this.handleTabChange.bind(this);
+    this.handleAddParticipants = this.handleAddParticipants.bind(this);
   }
 
   handleTabChange(event, index) {
     this.setState({ tabIndex: index });
   }
 
+  handleAddParticipants(formValue) {
+    const locationParticipant = formValue.location;
+    const serviceParticipant = formValue.service;
+    const practitionerParticipant = formValue.practitioner;
+    // const participantAttendance = formValue.attendance;
+    const participants = Array.of(locationParticipant, serviceParticipant, practitionerParticipant);
+    const fieldName = this.props.arrayHelpers.name;
+    this.props.arrayHelpers.form.setFieldValue(fieldName, participants);
+    this.props.onCloseDialog();
+  }
+
   render() {
     const {
-      initialValues,
-      onAddParticipant,
-      onRemoveParticipant,
       onCloseDialog,
       healthcareServices,
       locations,
@@ -83,13 +92,7 @@ class AddParticipantForm extends React.Component {
     return (
       <div>
         <Formik
-          onSubmit={(values) => {
-            if (initialValues) {
-              onRemoveParticipant(initialValues.index);
-            }
-            onAddParticipant(values);
-            onCloseDialog();
-          }}
+          onSubmit={(values) => this.handleAddParticipants(values)}
           validationSchema={defineValidationSchema()}
           render={({ isSubmitting, dirty, isValid, resetForm }) => (
             <Form>
@@ -141,13 +144,15 @@ class AddParticipantForm extends React.Component {
 }
 
 AddParticipantForm.propTypes = {
-  onAddParticipant: PropTypes.func.isRequired,
-  onRemoveParticipant: PropTypes.func.isRequired,
+  arrayHelpers: PropTypes.shape({
+    form: PropTypes.shape({
+      setFieldValue: PropTypes.func.isRequired,
+    }).isRequired,
+    name: PropTypes.string.isRequired,
+    push: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+  }).isRequired,
   onCloseDialog: PropTypes.func.isRequired,
-  initialValues: PropTypes.shape({
-    index: PropTypes.number.isRequired,
-    participant: PropTypes.array.isRequired,
-  }),
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array.isRequired,
   practitioners: PropTypes.array.isRequired,

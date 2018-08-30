@@ -23,7 +23,7 @@ import {
 import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { getLogicalIdFromReference } from 'containers/App/helpers';
-import AddParticipantOrServiceDialog from 'components/AddParticipantOrServiceDialog';
+import AddAppointmentParticipantModal from 'components/AddAppointmentParticipantModal';
 import {
   addAppointmentParticipants,
   getCareTeamReferences,
@@ -130,30 +130,19 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
   render() {
     const {
-      open,
-      handleDialogClose,
       healthcareServices,
       locations,
       practitioners,
-      careTeams,
       appointmentParticipantRequired,
     } = this.props;
 
-    const addParticipantOrServiceProps = {
-      open,
-      handleDialogClose,
-      healthcareServices,
-      locations,
-      careTeams,
-      practitioners,
-      appointmentParticipantRequired,
-      handleAddParticipant: this.handleAddParticipant,
-      handleSelectLocation: this.handleSelectLocation,
-      handleSelectPractitioner: this.handleSelectPractitioner,
-    };
-
     return (
-      <AddParticipantOrServiceDialog {...addParticipantOrServiceProps} />
+      <AddAppointmentParticipantModal
+        healthcareServices={healthcareServices}
+        locations={locations}
+        practitioners={practitioners}
+        participantAttendance={appointmentParticipantRequired}
+      />
     );
   }
 }
@@ -163,14 +152,12 @@ SearchAppointmentParticipant.propTypes = {
   addParticipants: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
   handleClose: PropTypes.func,
-  open: PropTypes.bool.isRequired,
   patient: PropTypes.object,
   healthcareServices: PropTypes.array,
   locations: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
   practitioners: PropTypes.array,
   careTeams: PropTypes.array,
-  handleDialogClose: PropTypes.func,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
   getCareTeamReferences: PropTypes.func.isRequired,

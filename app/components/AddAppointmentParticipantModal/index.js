@@ -63,9 +63,7 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
                 </DialogTitle>
                 <DialogContent>
                   <AddParticipantForm
-                    initialValues={this.state.editingParticipant}
-                    onAddParticipant={arrayHelpers.push}
-                    onRemoveParticipant={arrayHelpers.remove}
+                    arrayHelpers={arrayHelpers}
                     onCloseDialog={this.handleCloseDialog}
                     locations={locations}
                     healthcareServices={healthcareServices}
