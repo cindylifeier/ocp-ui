@@ -9,16 +9,15 @@ import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import yup from 'yup';
 
 import Util from 'utils/Util';
-import yup from 'yup';
 import ManageAppointmentForm from './ManageAppointmentForm';
 import messages from './messages';
 
 function ManageAppointment(props) {
   const {
     patient,
-    careTeams,
     appointment,
     editMode,
     appointmentStatuses,
@@ -27,32 +26,19 @@ function ManageAppointment(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
-    healthcareServices,
-    locations,
-    practitioners,
-    handleSelectPractitioner,
-    handleSelectLocation,
     appointmentParticipantRequired,
-    handleAddParticipant,
     getReferenceTypeFromReference,
     handleDialogOpen,
   } = props;
   const propsFromContainer = {
     patient,
     editMode,
-    careTeams,
     appointmentStatuses,
     appointmentTypes,
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
-    healthcareServices,
-    locations,
-    practitioners,
-    handleSelectLocation,
-    handleSelectPractitioner,
     appointmentParticipantRequired,
-    handleAddParticipant,
     getReferenceTypeFromReference,
     handleDialogOpen,
   };
@@ -69,6 +55,7 @@ function ManageAppointment(props) {
   function padHourOrMinute(timeEntry) {
     return parseInt(timeEntry, 10) <= 9 ? '0'.concat(timeEntry) : timeEntry;
   }
+
   function convertDateTimeArrayToTime(dateArray) {
     let timeStr = '';
     if (dateArray && dateArray.length >= 4) {
@@ -139,11 +126,8 @@ function ManageAppointment(props) {
 }
 
 ManageAppointment.propTypes = {
-  handleSelectLocation: PropTypes.func.isRequired,
   handleDialogOpen: PropTypes.func.isRequired,
   getReferenceTypeFromReference: PropTypes.func.isRequired,
-  handleAddParticipant: PropTypes.func,
-  handleSelectPractitioner: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
@@ -155,12 +139,8 @@ ManageAppointment.propTypes = {
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
   selectedParticipants: PropTypes.array,
-  healthcareServices: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
-  locations: PropTypes.array,
-  practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
-  careTeams: PropTypes.array,
 };
 
 export default ManageAppointment;

@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
-import isEqual from 'lodash/isEqual';
 import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
@@ -31,7 +30,6 @@ import {
   getHealthcareServiceReferences,
   getLocationReferences,
   getPractitionerReferences,
-  initializeSearchAppointmentParticipant,
 } from './actions';
 import {
   makeSelectCareTeamReferences,
@@ -60,22 +58,12 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     const { organization, patient } = this.props;
 
     this.props.getLookups();
-    this.props.initializeSearchParticipant([]);
     if (organization) {
       this.props.getHealthcareServiceReferences(organization.logicalId);
     }
 
     if (patient) {
       this.props.getCareTeamReferences(patient.id);
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const { initialSelectedParticipants } = this.props;
-    const { initialSelectedParticipants: newInitialSelectedParticipants } = nextProps;
-    if (!isEqual(initialSelectedParticipants, newInitialSelectedParticipants) && !this.state.initializeParticipant) {
-      this.setState({ initializeParticipant: true });
-      this.props.initializeSearchParticipant(newInitialSelectedParticipants);
     }
   }
 
@@ -172,12 +160,10 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
 
 SearchAppointmentParticipant.propTypes = {
-  initializeSearchParticipant: PropTypes.func.isRequired,
   addParticipants: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
   handleClose: PropTypes.func,
   open: PropTypes.bool.isRequired,
-  initialSelectedParticipants: PropTypes.array,
   patient: PropTypes.object,
   healthcareServices: PropTypes.array,
   locations: PropTypes.array,
@@ -206,7 +192,6 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_PARTICIPANT_TYPE, APPOINTMENT_PARTICIPATION_STATUS, APPOINTMENT_PARTICIPATION_TYPE, APPOINTMENT_PARTICIPANT_REQUIRED])),
     addParticipants: (participant) => dispatch(addAppointmentParticipants(participant)),
-    initializeSearchParticipant: (initialSelectedParticipants) => dispatch(initializeSearchAppointmentParticipant(initialSelectedParticipants)),
     getHealthcareServiceReferences: (organizationId) => dispatch(getHealthcareServiceReferences(organizationId)),
     getCareTeamReferences: (patientId) => dispatch(getCareTeamReferences(patientId)),
     getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
