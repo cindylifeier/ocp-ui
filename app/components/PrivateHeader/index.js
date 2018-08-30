@@ -8,6 +8,7 @@ import AccountBox from '@material-ui/icons/AccountBox';
 import StyledText from 'components/StyledText';
 
 import StyledToolbar from 'components/StyledToolbar';
+import OrganizationSlider from 'components/OrganizationSlider';
 import {
   BENEFITS_SPECIALIST_ROLE_CODE,
   BENEFITS_SPECIALIST_ROLE_DISPLAY,
@@ -31,6 +32,7 @@ import {
 import ChangePassword from 'containers/ChangePassword';
 import Logout from 'containers/Logout';
 import ShowHideWrapper from 'containers/ShowHideWrapper';
+import { flattenOrganizationData } from 'containers/Organizations/helpers';
 import isUndefined from 'lodash/isUndefined';
 import Menu, { MenuItem } from 'material-ui-next/Menu';
 import FlatButton from 'material-ui/FlatButton';
@@ -51,11 +53,14 @@ class PrivateHeader extends React.Component {
     this.state = {
       anchorEl: null,
       openDrawer: false,
+      organizationDrawerOpen: false,
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleClose = this.handleClose.bind(this);
     this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
     this.handleDrawerClose = this.handleDrawerClose.bind(this);
+    this.handleOrganizationDrawerOpen = this.handleOrganizationDrawerOpen.bind(this);
+    this.handleOrganizationDrawerClose = this.handleOrganizationDrawerClose.bind(this);
   }
 
   getUserProfileName() {
@@ -139,6 +144,14 @@ class PrivateHeader extends React.Component {
     this.setState({ openDrawer: false });
   }
 
+  handleOrganizationDrawerOpen() {
+    this.setState({ organizationDrawerOpen: true });
+  }
+
+  handleOrganizationDrawerClose() {
+    this.setState({ organizationDrawerOpen: false });
+  }
+
   render() {
     const { anchorEl, openDrawer } = this.state;
     return (
@@ -179,7 +192,7 @@ class PrivateHeader extends React.Component {
           onClose={this.handleClose}
         >
           <ShowHideWrapper allowedRoles={[ORGANIZATION_ADMIN_ROLE_CODE]}>
-            <MenuItem>
+            <MenuItem onClick={this.handleOrganizationDrawerOpen}>
               <FormattedMessage {...messages.organizationDetails} />
             </MenuItem>
           </ShowHideWrapper>
@@ -196,6 +209,15 @@ class PrivateHeader extends React.Component {
         </Menu>
         {openDrawer &&
         <ChangePassword drawerOpen={openDrawer} onCloseDrawer={this.handleDrawerClose} />
+        }
+        {
+          this.props.organization &&
+          <OrganizationSlider
+            open={this.state.organizationDrawerOpen}
+            onClose={this.handleOrganizationDrawerClose}
+            organization={this.props.organization}
+            flattenOrganizationData={flattenOrganizationData}
+          />
         }
       </StyledToolbar>
     );
@@ -214,6 +236,7 @@ PrivateHeader.propTypes = {
       orgId: PropTypes.string,
     }),
   }),
+  organization: PropTypes.object,
 };
 
 export default PrivateHeader;
