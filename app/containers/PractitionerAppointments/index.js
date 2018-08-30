@@ -9,6 +9,7 @@ import AppointmentTable from 'components/AppointmentTable';
 import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
+import ConfirmPatientModal from 'components/ConfirmPatientModal';
 import FilterSection from 'components/FilterSection';
 import InfoSection from 'components/InfoSection';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -42,7 +43,6 @@ import { ASC, DESC } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
-import ConfirmPatientModal from '../../components/ConfirmPatientModal';
 import {
   acceptPractitionerAppointment,
   cancelPractitionerAppointment,
