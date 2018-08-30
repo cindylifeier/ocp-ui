@@ -25,7 +25,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
-import { mapToOrganizationNameWithRole } from './helpers';
+import { mapToOrganizationNameWithRole, getRoleByOrganization } from './helpers';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 import OrganizationSelectForm from './OrganizationSelectForm';
@@ -146,7 +146,7 @@ class PractitionerTable extends React.Component {
                     <TableRowColumn>{address}</TableRowColumn> : null
                   }
                   {manageUserEnabled ?
-                    <TableRowColumn>{mapToOrganizationNameWithRole(practitioner.practitionerRoles)}</TableRowColumn> : null
+                    <TableRowColumn>{organization === undefined ? mapToOrganizationNameWithRole(practitioner.practitionerRoles) : getRoleByOrganization(practitioner.practitionerRoles, organization)}</TableRowColumn> : null
                   }
                   <TableRowColumn>{contact}</TableRowColumn>
                   <TableRowColumn>
