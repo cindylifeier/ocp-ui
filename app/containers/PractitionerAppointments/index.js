@@ -10,7 +10,6 @@ import Card from 'components/Card';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import CheckboxFilterGrid from 'components/CheckboxFilterGrid';
 import FilterSection from 'components/FilterSection';
-import HorizontalAlignment from 'components/HorizontalAlignment';
 import InfoSection from 'components/InfoSection';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import { PanelToolbar } from 'components/PanelToolbar';
@@ -18,8 +17,6 @@ import RecordsRange from 'components/RecordsRange';
 import RefreshIndicatorLoading from 'components/RefreshIndicatorLoading';
 import StatusCheckbox from 'components/StatusCheckbox';
 import SizedStickyDiv from 'components/StickyDiv/SizedStickyDiv';
-import StyledDialog from 'components/StyledDialog';
-import StyledRaisedButton from 'components/StyledRaisedButton';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   APPOINTMENT_STATUS,
@@ -27,14 +24,12 @@ import {
   DEFAULT_START_PAGE_NUMBER,
   MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
-  PATIENTS_URL,
 } from 'containers/App/constants';
 import { getPatient } from 'containers/App/contextActions';
 import { makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 import isEmpty from 'lodash/isEmpty';
 import orderBy from 'lodash/orderBy';
-import { DialogContent, DialogTitle } from 'material-ui-next';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -42,11 +37,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
-import { Cell, Grid } from 'styled-css-grid';
+import { Cell } from 'styled-css-grid';
 import { ASC, DESC } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import Util from 'utils/Util';
+import ConfirmPatientModal from '../../components/ConfirmPatientModal';
 import {
   acceptPractitionerAppointment,
   cancelPractitionerAppointment,
@@ -67,8 +63,7 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
       panelHeight: 0,
       filterHeight: 0,
       confirmViewPatientDetailsModalOpen: false,
-      patientId: '',
-      patientPageURL: '',
+      patient: null,
       columnToSort: '',
       sortDirection: DESC,
     };
@@ -107,11 +102,11 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
     this.props.getUpcomingAppointments({ pageNumber: page });
   }
 
-  handlePatientNameClick(patientId) {
-    const patientSpecificUrl = `${PATIENTS_URL}/${patientId}`;
-    this.setState({ patientPageURL: patientSpecificUrl });
-    this.setState({ patientId });
-    this.setState({ confirmViewPatientDetailsModalOpen: true });
+  handlePatientNameClick(patient) {
+    this.setState({
+      patient,
+      confirmViewPatientDetailsModalOpen: true,
+    });
   }
 
   handleCloseViewPatientDetailsDialog() {
@@ -256,44 +251,16 @@ export class PractitionerAppointments extends React.Component { // eslint-disabl
                 totalElements={data.totalElements}
                 currentPageSize={data.currentPageSize}
               />
+              {this.state.patient &&
+              <ConfirmPatientModal
+                patient={this.state.patient}
+                isPatientModalOpen={this.state.confirmViewPatientDetailsModalOpen}
+                onPatientModalClose={this.handleCloseViewPatientDetailsDialog}
+              />}
             </CenterAlign>
           </InfoSection>
           }
         </Card>
-
-        <div>
-          <StyledDialog
-            open={this.state.confirmViewPatientDetailsModalOpen}
-            fullWidth
-          >
-            <DialogTitle>
-              <FormattedMessage {...messages.dialogTitleOpenEvent} />
-            </DialogTitle>
-            <DialogContent>
-              <Grid columns={1} alignContent="space-between">
-                <Cell>
-                  <FormattedMessage {...messages.confirmNavigation} />
-                </Cell>
-                <Cell>
-                  <HorizontalAlignment position={'end'}>
-                    <Grid columns={2} alignContent="space-between">
-                      <StyledRaisedButton
-                        onClick={this.navigateToPatientDetailsPage}
-                      >
-                        <FormattedMessage {...messages.dialogButtonLabelOK} />
-                      </StyledRaisedButton>
-                      <StyledRaisedButton
-                        onClick={this.handleCloseViewPatientDetailsDialog}
-                      >
-                        <FormattedMessage {...messages.dialogButtonLabelCancel} />
-                      </StyledRaisedButton>
-                    </Grid>
-                  </HorizontalAlignment>
-                </Cell>
-              </Grid>
-            </DialogContent>
-          </StyledDialog>
-        </div>
       </div>
     );
   }

@@ -176,7 +176,7 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
             >
               <TableRowColumn>{getMyResponseIcon(appointment)}</TableRowColumn>
               {practitionerWorkspace &&
-              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
+              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patient)}>{appointment.patientName}</TableRowColumn>
               }
               {isExpanded &&
               <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
