@@ -47,7 +47,7 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
   }
 
   render() {
-    const { healthcareServices, locations, participantAttendance, practitioners } = this.props;
+    const { onGetAvailableLocations, onGetAvailablePractitioners, healthcareServices, locations, participantAttendance, practitioners } = this.props;
     return (
       <div>
         <StyledRaisedButton onClick={this.handleOpenDialog}>
@@ -69,6 +69,8 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
                     healthcareServices={healthcareServices}
                     practitioners={practitioners}
                     participantAttendance={participantAttendance}
+                    onGetAvailableLocations={onGetAvailableLocations}
+                    onGetAvailablePractitioners={onGetAvailablePractitioners}
                   />
                 </DialogContent>
               </StyledDialog>
@@ -82,9 +84,11 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
 
 AddAppointmentParticipantModal.propTypes = {
   healthcareServices: PropTypes.array.isRequired,
-  locations: PropTypes.array.isRequired,
-  practitioners: PropTypes.array.isRequired,
+  locations: PropTypes.array,
+  practitioners: PropTypes.array,
   participantAttendance: PropTypes.array.isRequired,
+  onGetAvailableLocations: PropTypes.func.isRequired,
+  onGetAvailablePractitioners: PropTypes.func.isRequired,
 };
 
 export default AddAppointmentParticipantModal;

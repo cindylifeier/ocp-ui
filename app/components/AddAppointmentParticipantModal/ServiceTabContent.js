@@ -13,6 +13,8 @@ function ServiceTabContent(props) {
     locations,
     practitioners,
     participantAttendance,
+    onGetAvailableLocations,
+    onGetAvailablePractitioners,
   } = props;
 
   return (
@@ -21,6 +23,7 @@ function ServiceTabContent(props) {
         <SelectField
           fullWidth
           name="service"
+          onChange={(service) => onGetAvailableLocations(service)}
           hintText={<FormattedMessage {...messages.hintText.selectService} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
         >
@@ -37,6 +40,7 @@ function ServiceTabContent(props) {
         <SelectField
           fullWidth
           name="location"
+          onChange={(location) => onGetAvailablePractitioners(location)}
           hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
         >
@@ -89,10 +93,12 @@ function ServiceTabContent(props) {
 }
 
 ServiceTabContent.propTypes = {
-  healthcareServices: PropTypes.array,
+  healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
-  participantAttendance: PropTypes.array,
+  participantAttendance: PropTypes.array.isRequired,
+  onGetAvailableLocations: PropTypes.func.isRequired,
+  onGetAvailablePractitioners: PropTypes.func.isRequired,
 };
 
 export default ServiceTabContent;

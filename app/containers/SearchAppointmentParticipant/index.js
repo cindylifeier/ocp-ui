@@ -50,8 +50,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     };
     this.handleAddParticipant = this.handleAddParticipant.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
-    this.handleSelectLocation = this.handleSelectLocation.bind(this);
-    this.handleSelectPractitioner = this.handleSelectPractitioner.bind(this);
+    this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
+    this.handleGetAvailablePractitioners = this.handleGetAvailablePractitioners.bind(this);
   }
 
   componentDidMount() {
@@ -114,14 +114,14 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     this.props.handleClose();
   }
 
-  handleSelectLocation(healtcareServiceRefrence) {
-    const healthcareServiceId = getLogicalIdFromReference(healtcareServiceRefrence);
+  handleGetAvailableLocations(healthcareServiceReference) {
+    const healthcareServiceId = getLogicalIdFromReference(healthcareServiceReference);
     if (healthcareServiceId) {
       this.props.getLocationReferences(healthcareServiceId);
     }
   }
 
-  handleSelectPractitioner(locationReference) {
+  handleGetAvailablePractitioners(locationReference) {
     const locationId = getLogicalIdFromReference(locationReference);
     if (locationId) {
       this.props.getPractitionerReferences(this.props.organization.logicalId, locationId);
@@ -137,11 +137,14 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     } = this.props;
 
     return (
+      !isEmpty(healthcareServices) &&
       <AddAppointmentParticipantModal
         healthcareServices={healthcareServices}
         locations={locations}
         practitioners={practitioners}
         participantAttendance={appointmentParticipantRequired}
+        onGetAvailableLocations={this.handleGetAvailableLocations}
+        onGetAvailablePractitioners={this.handleGetAvailablePractitioners}
       />
     );
   }
