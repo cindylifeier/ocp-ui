@@ -118,16 +118,16 @@ class AddParticipantForm extends React.Component {
                 </Tabs>
               </AppBar>
               {tabIndex === 0 &&
-              <ServiceTabContent formValues={values} {...serviceTabProps} />
+              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
               }
               {tabIndex === 1 &&
-              <ServiceTabContent formValues={values} {...serviceTabProps} />
+              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
               }
               {tabIndex === 2 &&
-              <ServiceTabContent formValues={values} {...serviceTabProps} />
+              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
               }
               {tabIndex === 3 &&
-              <ServiceTabContent formValues={values} {...serviceTabProps} />
+              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
               }
               <InfoSection margin="20px 0 0 0">
                 <Grid columns={4}>

@@ -11,6 +11,7 @@ import messages from './messages';
 function ServiceTabContent(props) {
   const {
     formValues,
+    resetForm,
     healthcareServices,
     locations,
     practitioners,
@@ -25,7 +26,10 @@ function ServiceTabContent(props) {
         <SelectField
           fullWidth
           name="service"
-          onChange={(service) => onGetAvailableLocations(service)}
+          onChange={(service) => {
+            resetForm({ service });
+            onGetAvailableLocations(service);
+          }}
           hintText={<FormattedMessage {...messages.hintText.selectService} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
         >
@@ -42,7 +46,13 @@ function ServiceTabContent(props) {
         <SelectField
           fullWidth
           name="location"
-          onChange={(location) => onGetAvailablePractitioners(location)}
+          onChange={(location) => {
+            resetForm({
+              service: formValues.service,
+              location,
+            });
+            onGetAvailablePractitioners(location);
+          }}
           disabled={checkFieldSelected(formValues, 'service')}
           hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectLocation} />}
@@ -60,6 +70,13 @@ function ServiceTabContent(props) {
         <SelectField
           fullWidth
           name="practitioner"
+          onChange={(practitioner) => {
+            resetForm({
+              service: formValues.service,
+              location: formValues.location,
+              practitioner,
+            });
+          }}
           disabled={checkFieldSelected(formValues, 'location')}
           hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectPractitioner} />}
@@ -99,6 +116,7 @@ function ServiceTabContent(props) {
 
 ServiceTabContent.propTypes = {
   formValues: PropTypes.object,
+  resetForm: PropTypes.func,
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
