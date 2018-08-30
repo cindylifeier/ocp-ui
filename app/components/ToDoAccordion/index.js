@@ -69,7 +69,7 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
     const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
     const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
     const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
-    const addCommuncationUrl = `${communicationBaseUrl}?patientId=${patientId}&toDoId=${toDoLogicalId}`;
+    const addCommuncationUrl = `${communicationBaseUrl}?patientId=${patientId}&toDoLogicalId=${toDoLogicalId}`;
     const menuItems = [
       {
         primaryText: <FormattedMessage {...messages.editToDo} />,

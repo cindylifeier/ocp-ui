@@ -15,7 +15,7 @@ import { FormattedMessage } from 'react-intl';
 import { getPatientName } from 'utils/PatientUtils';
 import Util from 'utils/Util';
 import yup from 'yup';
-import { APPOINTMENT, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
+import { APPOINTMENT, TODO, PATIENT, PRACTITIONER, TASK, TEXT_AREA_MAX_LENGTH, TEXT_AREA_MIN_LENGTH } from './constants';
 import ManageCommunicationForm from './ManageCommunicationForm';
 import messages from './messages';
 
@@ -35,6 +35,7 @@ function ManageCommunication(props) {
     selectedTask,
     selectedAppointment,
     datePickerMode,
+    selectedToDo,
   } = props;
   const propsFromContainer = {
     communicationStatus,
@@ -50,7 +51,7 @@ function ManageCommunication(props) {
   const textAreaMinLength = TEXT_AREA_MIN_LENGTH;
 
 
-  function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories, episodeOfCareList) {
+  function setInitialValues(currentCommunication, patient, currentPractitioner, task, appointment, categories, episodeOfCareList, toDo) {
     let subjectData = null;
     let senderData = null;
     let communicationData = null;
@@ -89,12 +90,15 @@ function ManageCommunication(props) {
 
     if (isEmpty(currentCommunication) && !isEmpty(task)) {
       topicData = merge(
-        mapToTopicFromTask(task),
+        mapToTopicFromEntity(task),
       );
-    }
-    if (isEmpty(currentCommunication) && !isEmpty(appointment)) {
+    } else if (isEmpty(currentCommunication) && !isEmpty(appointment)) {
       topicData = merge(
-        mapToTopicFromAppointment(appointment),
+        mapToTopicFromEntity(appointment),
+      );
+    } else if (isEmpty(currentCommunication) && !isEmpty(toDo)) {
+      topicData = merge(
+        mapToTopicFromEntity(toDo),
       );
     }
 
@@ -137,18 +141,10 @@ function ManageCommunication(props) {
     return fieldObject;
   }
 
-  function mapToTopicFromTask(task) {
+  function mapToTopicFromEntity(entity) {
     const fieldObject = { topic: '' };
-    if (task && task.description) {
-      fieldObject.topic = Util.setEmptyStringWhenUndefined(task.description);
-    }
-    return fieldObject;
-  }
-
-  function mapToTopicFromAppointment(appointment) {
-    const fieldObject = { topic: '' };
-    if (appointment && appointment.description) {
-      fieldObject.topic = Util.setEmptyStringWhenUndefined(appointment.description);
+    if (entity && entity.description) {
+      fieldObject.topic = Util.setEmptyStringWhenUndefined(entity.description);
     }
     return fieldObject;
   }
@@ -163,7 +159,8 @@ function ManageCommunication(props) {
                               currentPractitioner,
                               task,
                               appointment,
-                              sentTime) {
+                              sentTime,
+                              toDo) {
     const {
       statusCode,
       categoryDisplay,
@@ -205,6 +202,8 @@ function ManageCommunication(props) {
       currentCommunication.topic = getTopicReference(task, TASK);
     } else if (appointment) {
       currentCommunication.topic = getTopicReference(appointment, APPOINTMENT);
+    } else if (toDo) {
+      currentCommunication.topic = getTopicReference(toDo, TODO);
     }
     return currentCommunication;
   }
@@ -237,6 +236,8 @@ function ManageCommunication(props) {
       referenceObject = referenceName.concat('/').concat(object.id);
     } else if (object.logicalId && referenceName) {
       referenceObject = referenceName.concat('/').concat(object.logicalId);
+    } else if (object.logicalId && referenceName) {
+      referenceObject = referenceName.concat('/').concat(object.logicalId);
     }
     return referenceObject;
   }
@@ -267,7 +268,7 @@ function ManageCommunication(props) {
   return (
     <Formik
       isInitialValid={editMode}
-      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment, communicationCategories, episodeOfCares)}
+      initialValues={setInitialValues(communication, selectedPatient, practitioner, selectedTask, selectedAppointment, communicationCategories, episodeOfCares, selectedToDo)}
       enableReinitialize
       onSubmit={(values, actions) => {
         actions.setSubmitting(false);
@@ -284,6 +285,7 @@ function ManageCommunication(props) {
           selectedTask,
           selectedAppointment,
           sentDateTime,
+          selectedToDo,
         );
         onSave(communicationToBeSubmitted, actions);
       }}
@@ -322,6 +324,7 @@ ManageCommunication.propTypes = {
   practitioner: PropTypes.object,
   editMode: PropTypes.bool,
   selectedTask: PropTypes.object,
+  selectedToDo: PropTypes.object,
   selectedAppointment: PropTypes.object,
   datePickerMode: PropTypes.object.isRequired,
 };

@@ -33,10 +33,12 @@ import { createStructuredSelector } from 'reselect';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { getPractitionerIdByRole } from 'containers/App/helpers';
+import { makeSelectPatientToDos } from 'containers/PatientToDos/selectors';
 import { createCommunication, getEpisodeOfCares, getPractitioner, updateCommunication } from './actions';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
+
 
 export class ManageCommunicationPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -97,6 +99,7 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
       tasks,
       appointments,
       practitioner,
+      toDos,
     } = this.props;
     const logicalId = match.params.id;
     const editMode = !isUndefined(match.params.id);
@@ -114,6 +117,14 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
       const appointmentId = queryObj.appointmentId;
       selectedAppointment = find(appointments.data.elements, { logicalId: appointmentId });
     }
+
+    let selectedToDo = null;
+    if (location && location.search && toDos) {
+      const queryObj = queryString.parse(location.search);
+      const toDoLogicalId = queryObj.toDoLogicalId;
+      selectedToDo = find(toDos, { logicalId: toDoLogicalId });
+    }
+
     const datePickerMode = DATE_PICKER_MODE;
     const manageCommunicationProps = {
       communicationStatus,
@@ -127,6 +138,7 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
       editMode,
       selectedTask,
       selectedAppointment,
+      selectedToDo,
     };
     return (
       <Page>
@@ -172,6 +184,7 @@ ManageCommunicationPage.propTypes = {
   updateCommunication: PropTypes.func.isRequired,
   removeSelectedRecipient: PropTypes.func.isRequired,
   communicationStatus: PropTypes.array.isRequired,
+  toDos: PropTypes.array,
   episodeOfCares: PropTypes.array.isRequired,
   communicationCategories: PropTypes.array.isRequired,
   communicationNotDoneReasons: PropTypes.array.isRequired,
@@ -198,6 +211,7 @@ const mapStateToProps = createStructuredSelector({
   appointments: makeSelectPatientAppointments(),
   user: makeSelectUser(),
   organization: makeSelectOrganization(),
+  toDos: makeSelectPatientToDos(),
 });
 
 function mapDispatchToProps(dispatch) {
