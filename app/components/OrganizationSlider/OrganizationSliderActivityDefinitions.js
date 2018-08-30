@@ -15,7 +15,7 @@ import PanelSection from 'components/PanelSection';
 import messages from './messages';
 
 
-function OrganizationSliderActivityDefinitions() {
+function OrganizationSliderActivityDefinitions(props) {
   return (
     <PanelSection>
       <ControlledAccordion
@@ -26,7 +26,7 @@ function OrganizationSliderActivityDefinitions() {
         }
         expandIcon={
           <StyledTooltip title={<FormattedMessage {...messages.addNew} />}>
-            <StyledIconButton component={Link} to={'/ocp-ui/manage-activity-definition'} disableIconHover>
+            <StyledIconButton onClick={props.onClose} component={Link} to={'/ocp-ui/manage-activity-definition'} disableIconHover>
               <AddCircleIcon color={teal['500']} />
             </StyledIconButton>
           </StyledTooltip>
@@ -41,14 +41,7 @@ function OrganizationSliderActivityDefinitions() {
 }
 
 OrganizationSliderActivityDefinitions.propTypes = {
-  organization: PropTypes.shape({
-    logicalId: PropTypes.string.isRequired,
-    identifiers: PropTypes.string,
-    active: PropTypes.bool,
-    name: PropTypes.string.isRequired,
-    addresses: PropTypes.string,
-    telecoms: PropTypes.string,
-  }).isRequired,
+  onClose: PropTypes.func,
 };
 
 export default OrganizationSliderActivityDefinitions;

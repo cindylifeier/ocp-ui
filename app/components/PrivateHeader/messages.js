@@ -14,4 +14,8 @@ export default defineMessages({
     id: 'ocpui.containers.PrivateHeader.changePasswordMenuItem',
     defaultMessage: 'Change Password',
   },
+  organizationDetails: {
+    id: 'ocpui.containers.PrivateHeader.organizationDetails',
+    defaultMessage: 'Organization Details',
+  },
 });
