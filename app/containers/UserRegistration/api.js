@@ -16,6 +16,7 @@ export function searchResources(searchType, searchValue, resourceType, showInact
       size: DEFAULT_PAGE_SIZE,
       page,
       showAll: false,
+      showUser: true,
       organization,
     }) : queryString({
       searchType,
@@ -24,6 +25,7 @@ export function searchResources(searchType, searchValue, resourceType, showInact
       size: DEFAULT_PAGE_SIZE,
       page,
       showAll: false,
+      showUser: true,
     });
     requestURL = `${basePractitionerEndpoint}/search${params}`;
   } else {
