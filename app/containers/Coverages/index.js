@@ -15,6 +15,7 @@ import {
   DEFAULT_START_PAGE_NUMBER,
   FM_STATUS,
   ORGANIZATION_ADMIN_ROLE_CODE,
+  PATIENT_ROLE_CODE,
   POLICYHOLDER_RELATIONSHIP,
 } from 'containers/App/constants';
 import { getSubscriberOptions } from 'containers/App/contextActions';
@@ -109,7 +110,7 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
       <div>
         <PanelToolbar
           {...addNewItem}
-          allowedAddNewItemRoles={[CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, BENEFITS_SPECIALIST_ROLE_CODE]}
+          allowedAddNewItemRoles={[CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, BENEFITS_SPECIALIST_ROLE_CODE, PATIENT_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
