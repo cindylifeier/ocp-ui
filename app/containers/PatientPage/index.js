@@ -110,7 +110,7 @@ export const orgAdminStateMetadata =
               reorderEnabled: true,
             },
             {
-              title: 'Patient\'s Coverage',
+              title: 'Patient\'s Insurance/Benefits',
               type: 'component',
               componentName: 'coverage',
               isClosable: true,
@@ -216,7 +216,7 @@ export const defaultRoleStateMetadata =
               reorderEnabled: true,
             },
             {
-              title: 'Patient\'s Coverage',
+              title: 'Patient\'s Insurance/Benefits',
               type: 'component',
               componentName: 'coverage',
               isClosable: true,

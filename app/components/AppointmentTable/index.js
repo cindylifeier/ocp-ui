@@ -13,10 +13,10 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import find from 'lodash/find';
 import Done from 'material-ui/svg-icons/action/done';
-import NotInterested from 'material-ui/svg-icons/av/not-interested';
 import HelpOutline from 'material-ui/svg-icons/action/help-outline';
 import HighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
+import NotInterested from 'material-ui/svg-icons/av/not-interested';
 import DownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import UpArrow from 'material-ui/svg-icons/navigation/arrow-drop-up';
 import PropTypes from 'prop-types';
@@ -170,12 +170,13 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
                 <AppointmentExpansionRowDetails
                   participants={appointment.participant}
                   appointmentType={appointmentType.display}
+                  locationObject={appointment.location}
                 />
               }
             >
               <TableRowColumn>{getMyResponseIcon(appointment)}</TableRowColumn>
               {practitionerWorkspace &&
-              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patientId)}>{appointment.patientName}</TableRowColumn>
+              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patient)}>{appointment.patientName}</TableRowColumn>
               }
               {isExpanded &&
               <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>

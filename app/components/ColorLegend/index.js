@@ -20,7 +20,6 @@ function ColorLegend(props) {
           <StyledChip
             key={item.key}
             label={upperFirst(item.label)}
-            backgroundColor={'white'}
             avatar={
               <Avatar>
                 <FiberManualRecord color={item.color} />

@@ -12,7 +12,7 @@ export default defineMessages({
   },
   coverage: {
     id: 'ocpui.components.CoverageTable.Coverage',
-    defaultMessage: 'Coverage',
+    defaultMessage: 'Coverage Type',
   },
   ID: {
     id: 'ocpui.components.CoverageTable.ID',
