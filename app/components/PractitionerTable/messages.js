@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'ocpui.components.PractitionerTable.TableColumnHeader.Address',
     defaultMessage: 'Address',
   },
+  tableColumnHeaderRole: {
+    id: 'ocpui.components.PractitionerTable.TableColumnHeader.role',
+    defaultMessage: 'Permission Group',
+  },
   tableColumnHeaderTelecom: {
     id: 'ocpui.components.PractitionerTable.TableColumnHeader.Telecom',
     defaultMessage: 'Contact Detail(s)',

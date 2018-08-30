@@ -25,6 +25,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
+import { mapToOrganizationNameWithRole } from './helpers';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 import OrganizationSelectForm from './OrganizationSelectForm';
@@ -91,8 +92,11 @@ class PractitionerTable extends React.Component {
             <TableHeader columns={columns} relativeTop={relativeTop}>
               <TableHeaderColumn />
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnFullName} /></TableHeaderColumn>
-              {isExpanded &&
+              {!manageUserEnabled && isExpanded &&
               <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderAddress} /></TableHeaderColumn>
+              }
+              {manageUserEnabled &&
+              <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderRole} /></TableHeaderColumn>
               }
               <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
@@ -138,8 +142,11 @@ class PractitionerTable extends React.Component {
                   onClick={() => setSelectedPractitioner && setSelectedPractitioner(practitioner)}
                 >
                   <TableRowColumn>{renderFullName(name)}</TableRowColumn>
-                  {isExpanded ?
+                  {!manageUserEnabled && isExpanded ?
                     <TableRowColumn>{address}</TableRowColumn> : null
+                  }
+                  {manageUserEnabled ?
+                    <TableRowColumn>{mapToOrganizationNameWithRole(practitioner.practitionerRoles)}</TableRowColumn> : null
                   }
                   <TableRowColumn>{contact}</TableRowColumn>
                   <TableRowColumn>
