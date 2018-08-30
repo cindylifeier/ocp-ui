@@ -64,17 +64,23 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
       patientName,
       toDoLogicalId,
       columns,
+      communicationBaseUrl,
     } = this.props;
     const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
     const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
     const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
-    const menuItems = [{
-      primaryText: <FormattedMessage {...messages.editToDo} />,
-      linkTo: `${editTodoUrl}`,
-    }, {
-      primaryText: <FormattedMessage {...messages.cancelToDo} />,
-      onClick: () => openDialog(toDoLogicalId),
-    }];
+    const addCommuncationUrl = `${communicationBaseUrl}?patientId=${patientId}&toDoId=${toDoLogicalId}`;
+    const menuItems = [
+      {
+        primaryText: <FormattedMessage {...messages.editToDo} />,
+        linkTo: `${editTodoUrl}`,
+      }, {
+        primaryText: <FormattedMessage {...messages.addCommunication} />,
+        linkTo: `${addCommuncationUrl}`,
+      }, {
+        primaryText: <FormattedMessage {...messages.cancelToDo} />,
+        onClick: () => openDialog(toDoLogicalId),
+      }];
     return (
       <Padding bottom={5}>
         <ExpansionPanel expanded={this.state.expansionPanelOpen} >
@@ -132,6 +138,7 @@ ToDoAccordion.propTypes = {
   toDoLogicalId: PropTypes.string,
   isPractitioner: PropTypes.bool.isRequired,
   taskBaseUrl: PropTypes.string,
+  communicationBaseUrl: PropTypes.string,
   patientId: PropTypes.string,
   description: PropTypes.string,
   dueDate: PropTypes.string,

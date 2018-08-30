@@ -15,7 +15,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import {
   CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
-  DATE_RANGE,
+  DATE_RANGE, MANAGE_COMMUNICATION_URL,
   MANAGE_TASK_URL,
   ORGANIZATION_ADMIN_ROLE_CODE,
   TO_DO_DEFINITION,
@@ -155,6 +155,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
             toDos={toDos}
             patientId={patientId}
             taskBaseUrl={MANAGE_TASK_URL}
+            communicationBaseUrl={MANAGE_COMMUNICATION_URL}
             openDialog={this.handleOpenDialog}
           />
         </div>

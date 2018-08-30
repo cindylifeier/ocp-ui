@@ -15,7 +15,7 @@ import {
 } from 'components/ToDoList/constants';
 
 function ToDoList(props) {
-  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner, openDialog, size } = props;
+  const { toDos, taskBaseUrl, patientId, isPatient, isPractitioner, openDialog, size, communicationBaseUrl } = props;
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
   return (
@@ -36,6 +36,7 @@ function ToDoList(props) {
                 patientId={patientId}
                 openDialog={openDialog}
                 patientName={toDo.beneficiary.display}
+                communicationBaseUrl={communicationBaseUrl}
                 dueDate={toDo.executionPeriod && toDo.executionPeriod.end}
               >
               </ToDoAccordion>)
@@ -52,6 +53,7 @@ ToDoList.propTypes = {
   toDos: PropTypes.array.isRequired,
   patientId: PropTypes.string,
   taskBaseUrl: PropTypes.string,
+  communicationBaseUrl: PropTypes.string,
   isPatient: PropTypes.bool,
   isPractitioner: PropTypes.bool,
   openDialog: PropTypes.func,

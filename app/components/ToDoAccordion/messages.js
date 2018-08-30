@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'ocpui.components.ToDoAccordion.editToDo',
     defaultMessage: 'Edit',
   },
+  addCommunication: {
+    id: 'ocpui.components.ToDoAccordion.addCommunication',
+    defaultMessage: 'Add Communication',
+  },
   cancelToDo: {
     id: 'ocpui.components.ToDoAccordion.cancelToDo',
     defaultMessage: 'Cancel',
