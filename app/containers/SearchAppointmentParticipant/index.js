@@ -9,7 +9,6 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import isEmpty from 'lodash/isEmpty';
-import find from 'lodash/find';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -32,7 +31,6 @@ import {
   getPractitionerReferences,
 } from './actions';
 import {
-  makeSelectCareTeamReferences,
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
@@ -46,9 +44,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     super(props);
     this.state = {
       open: false,
-      initializeParticipant: false,
     };
-    this.handleAddParticipant = this.handleAddParticipant.bind(this);
     this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
     this.handleGetAvailablePractitioners = this.handleGetAvailablePractitioners.bind(this);
@@ -64,48 +60,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
     if (patient) {
       this.props.getCareTeamReferences(patient.id);
-    }
-  }
-
-  findObject(entries, selectedParticipant, key, value) {
-    const searckObject = {};
-    searckObject[key] = selectedParticipant[value];
-    return selectedParticipant && selectedParticipant[value] && find(entries, searckObject);
-  }
-
-  handleAddParticipant(selectedParticipant) {
-    const { healthcareServices, locations, appointmentParticipantRequired, practitioners, careTeams } = this.props;
-
-    const participantList = [];
-
-    const service = this.findObject(healthcareServices, selectedParticipant, 'reference', 'service');
-    if (!isEmpty(service)) {
-      participantList.push(service);
-    }
-
-    const location = this.findObject(locations, selectedParticipant, 'reference', 'location');
-    if (!isEmpty(location)) {
-      participantList.push(location);
-    }
-    const practitioner = this.findObject(practitioners, selectedParticipant, 'reference', 'practitioner');
-    if (!isEmpty(practitioner)) {
-      participantList.push(practitioner);
-    }
-
-    const careTeam = this.findObject(careTeams, selectedParticipant, 'reference', 'careTeam');
-    if (!isEmpty(careTeam)) {
-      participantList.push(careTeam);
-    }
-
-    const required = this.findObject(appointmentParticipantRequired, selectedParticipant, 'code', 'required');
-
-    if (practitioner && required) {
-      practitioner.participantRequiredDisplay = required.display;
-      practitioner.participantRequiredSystem = required.system;
-    }
-
-    if (participantList.length > 0) {
-      this.props.addParticipants(participantList);
     }
   }
 
@@ -130,6 +84,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
   render() {
     const {
+      formErrors,
+      participants,
       healthcareServices,
       locations,
       practitioners,
@@ -139,6 +95,8 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
     return (
       !isEmpty(healthcareServices) &&
       <AddAppointmentParticipantModal
+        errors={formErrors}
+        participants={participants}
         healthcareServices={healthcareServices}
         locations={locations}
         practitioners={practitioners}
@@ -152,7 +110,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
 
 SearchAppointmentParticipant.propTypes = {
-  addParticipants: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
   handleClose: PropTypes.func,
   patient: PropTypes.object,
@@ -160,12 +117,19 @@ SearchAppointmentParticipant.propTypes = {
   locations: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
   practitioners: PropTypes.array,
-  careTeams: PropTypes.array,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
   getCareTeamReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
   organization: PropTypes.object.isRequired,
+  formErrors: PropTypes.object,
+  participants: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string,
+    participantRequiredCode: PropTypes.string,
+    participantStatusCode: PropTypes.string,
+    participationTypeCode: PropTypes.string,
+    reference: PropTypes.string,
+  })),
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -175,7 +139,6 @@ const mapStateToProps = createStructuredSelector({
   locations: makeSelectLocationReferences(),
   practitioners: makeSelectPractitionerReferences(),
   appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
-  careTeams: makeSelectCareTeamReferences(),
 });
 
 function mapDispatchToProps(dispatch) {

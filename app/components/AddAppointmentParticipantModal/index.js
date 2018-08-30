@@ -13,6 +13,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledDialog from 'components/StyledDialog';
 import AddParticipantForm from './AddParticipantForm';
+import AddedParticipantsTable from './AddedParticipantsTable';
 import messages from './messages';
 
 
@@ -47,7 +48,7 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
   }
 
   render() {
-    const { onGetAvailableLocations, onGetAvailablePractitioners, healthcareServices, locations, participantAttendance, practitioners } = this.props;
+    const { errors, participants, onGetAvailableLocations, onGetAvailablePractitioners, healthcareServices, locations, participantAttendance, practitioners } = this.props;
     return (
       <div>
         <StyledRaisedButton onClick={this.handleOpenDialog}>
@@ -74,6 +75,11 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
                   />
                 </DialogContent>
               </StyledDialog>
+              <AddedParticipantsTable
+                arrayHelpers={arrayHelpers}
+                participants={participants}
+                errors={errors}
+              />
             </div>
           )}
         />
@@ -83,6 +89,14 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
 }
 
 AddAppointmentParticipantModal.propTypes = {
+  errors: PropTypes.object,
+  participants: PropTypes.arrayOf(PropTypes.shape({
+    display: PropTypes.string,
+    participantRequiredCode: PropTypes.string,
+    participantStatusCode: PropTypes.string,
+    participationTypeCode: PropTypes.string,
+    reference: PropTypes.string,
+  })),
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,

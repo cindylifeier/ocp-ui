@@ -76,16 +76,10 @@ class ManageAppointmentForm extends React.Component {
   render() {
     const today = new Date();
     const {
-      isSubmitting,
-      dirty,
-      isValid,
-      editMode,
-      appointmentTypes,
-      appointmentStatuses,
-      selectedParticipants,
-      initialSelectedParticipants,
-      patient,
-      appointmentParticipantRequired,
+      isSubmitting, dirty, isValid, errors, values,
+      editMode, appointmentTypes, appointmentStatuses,
+      selectedParticipants, initialSelectedParticipants,
+      patient, appointmentParticipantRequired,
     } = this.props;
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
@@ -139,7 +133,7 @@ class ManageAppointmentForm extends React.Component {
               </SelectField>
             </Cell>
             <Cell area="addParticipant">
-              <SearchAppointmentParticipant />
+              <SearchAppointmentParticipant participants={values.participants} formErrors={errors} />
             </Cell>
             <Cell area="date">
               <DatePicker
@@ -230,6 +224,8 @@ ManageAppointmentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   editMode: PropTypes.bool.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,

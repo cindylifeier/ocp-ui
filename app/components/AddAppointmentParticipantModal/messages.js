@@ -80,4 +80,34 @@ export default defineMessages({
       defaultMessage: 'Attendance',
     },
   },
+  addedParticipantsTable: {
+    tableHeaderName: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderName',
+      defaultMessage: 'Name',
+    },
+    tableHeaderType: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderType',
+      defaultMessage: 'Type',
+    },
+    tableHeaderParticipationType: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderParticipationType',
+      defaultMessage: 'Participation Type',
+    },
+    tableHeaderAttendance: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderAttendance',
+      defaultMessage: 'Attendance',
+    },
+    tableHeaderStatus: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderStatus',
+      defaultMessage: 'Status',
+    },
+    tableHeaderAction: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderAction',
+      defaultMessage: 'Action',
+    },
+    removeParticipantBtn: {
+      id: 'ocpui.components.addedParticipantsTable.removeParticipantBtn',
+      defaultMessage: 'Remove',
+    },
+  },
 });
