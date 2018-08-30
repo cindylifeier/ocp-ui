@@ -40,7 +40,7 @@ export default defineMessages({
   },
   noCoverageReason: {
     id: 'ocpui.components.CoverageTable.noCoverageReason',
-    defaultMessage: 'No coverage found.',
+    defaultMessage: 'No insurance/benefits found.',
   },
 
 });
