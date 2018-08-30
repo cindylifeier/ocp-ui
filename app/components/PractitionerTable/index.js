@@ -14,6 +14,7 @@ import { DialogContent, DialogTitle } from 'material-ui-next/Dialog';
 import sizeMeHOC from 'utils/SizeMeUtils';
 import RecordsRange from 'components/RecordsRange';
 import StyledDialog from 'components/StyledDialog';
+import StyledText from 'components/StyledText';
 import { MANAGE_PRACTITIONER_URL, MANAGE_USER_REGISTRATION } from 'containers/App/constants';
 import CenterAlignedUltimatePagination from 'components/CenterAlignedUltimatePagination';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -25,7 +26,7 @@ import TableRowColumn from 'components/TableRowColumn';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import PractitionerExpansionRowDetails from './PractitionerExpansionRowDetails';
-import { mapToOrganizationNameWithRole, getRoleByOrganization } from './helpers';
+import { getRoleByOrganization, mapToOrganizationNameWithRole } from './helpers';
 import messages from './messages';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_PANEL_WIDTH } from './constants';
 import OrganizationSelectForm from './OrganizationSelectForm';
@@ -98,7 +99,9 @@ class PractitionerTable extends React.Component {
               {manageUserEnabled &&
               <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderRole} /></TableHeaderColumn>
               }
+              {(!manageUserEnabled || (manageUserEnabled && isExpanded)) &&
               <TableHeaderColumn> <FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
+              }
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnStatus} /></TableHeaderColumn>
               {isExpanded &&
               <TableHeaderColumn><FormattedMessage {...messages.tableHeaderColumnIdentifier} /></TableHeaderColumn>
@@ -146,9 +149,15 @@ class PractitionerTable extends React.Component {
                     <TableRowColumn>{address}</TableRowColumn> : null
                   }
                   {manageUserEnabled ?
-                    <TableRowColumn>{organization === undefined ? mapToOrganizationNameWithRole(practitioner.practitionerRoles) : getRoleByOrganization(practitioner.practitionerRoles, organization)}</TableRowColumn> : null
+                    <TableRowColumn>
+                      <StyledText>
+                        {organization === undefined ? mapToOrganizationNameWithRole(practitioner.practitionerRoles) : getRoleByOrganization(practitioner.practitionerRoles, organization)}
+                      </StyledText>
+                    </TableRowColumn> : null
                   }
+                  {(!manageUserEnabled || (manageUserEnabled && isExpanded)) &&
                   <TableRowColumn>{contact}</TableRowColumn>
+                  }
                   <TableRowColumn>
                     {active ?
                       <FormattedMessage {...messages.active} /> :
