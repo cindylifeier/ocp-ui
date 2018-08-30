@@ -102,10 +102,10 @@ export class ManageCommunicationPage extends React.Component { // eslint-disable
     const editMode = !isUndefined(match.params.id);
     const communication = find(communications.data.elements, { logicalId });
     let selectedTask = null;
-    if (location && location.search && tasks && tasks.data && tasks.data.elements) {
+    if (location && location.search && tasks && tasks.data) {
       const queryObj = queryString.parse(location.search);
       const taskId = queryObj.taskId;
-      selectedTask = find(tasks.data.elements, { logicalId: taskId });
+      selectedTask = find(tasks.data, { logicalId: taskId });
     }
 
     let selectedAppointment = null;
