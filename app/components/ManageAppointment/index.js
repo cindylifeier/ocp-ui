@@ -23,24 +23,14 @@ function ManageAppointment(props) {
     appointmentStatuses,
     appointmentTypes,
     onSave,
-    selectedParticipants,
-    initialSelectedParticipants,
-    removeParticipant,
     appointmentParticipantRequired,
-    getReferenceTypeFromReference,
-    handleDialogOpen,
   } = props;
   const propsFromContainer = {
     patient,
     editMode,
     appointmentStatuses,
     appointmentTypes,
-    selectedParticipants,
-    initialSelectedParticipants,
-    removeParticipant,
     appointmentParticipantRequired,
-    getReferenceTypeFromReference,
-    handleDialogOpen,
   };
 
   function setAppointmentTime(timeStr, dateStr) {
@@ -126,9 +116,6 @@ function ManageAppointment(props) {
 }
 
 ManageAppointment.propTypes = {
-  handleDialogOpen: PropTypes.func.isRequired,
-  getReferenceTypeFromReference: PropTypes.func.isRequired,
-  removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
   patient: PropTypes.shape({
@@ -138,10 +125,7 @@ ManageAppointment.propTypes = {
   appointment: PropTypes.object,
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
-  selectedParticipants: PropTypes.array,
-  initialSelectedParticipants: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
 };
 
 export default ManageAppointment;
-

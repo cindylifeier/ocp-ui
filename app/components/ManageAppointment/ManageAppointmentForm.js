@@ -7,7 +7,6 @@ import { Cell, Grid } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 
 import { mapToPatientName } from 'utils/PatientUtils';
-import Util from 'utils/Util';
 import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
@@ -78,7 +77,6 @@ class ManageAppointmentForm extends React.Component {
     const {
       isSubmitting, dirty, isValid, errors, values,
       editMode, appointmentTypes, appointmentStatuses,
-      selectedParticipants, initialSelectedParticipants,
       patient, appointmentParticipantRequired,
     } = this.props;
 
@@ -203,7 +201,7 @@ class ManageAppointmentForm extends React.Component {
                   <StyledRaisedButton
                     fullWidth
                     type="submit"
-                    disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || this.state.isEndDateBeforeStartDate}
+                    disabled={!dirty || isSubmitting || !isValid || this.state.isEndDateBeforeStartDate}
                   >
                     Save
                   </StyledRaisedButton>
@@ -231,8 +229,6 @@ ManageAppointmentForm.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
-  selectedParticipants: PropTypes.array,
-  initialSelectedParticipants: PropTypes.array,
   appointmentTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -243,13 +239,3 @@ ManageAppointmentForm.propTypes = {
 };
 
 export default ManageAppointmentForm;
-
-function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
-  let isDirty = dirty;
-  const identityOfArray = 'reference';
-  if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
-    isDirty = true;
-  }
-
-  return isDirty;
-}

@@ -25,33 +25,20 @@ import {
   makeSelectAppointmentStatuses,
   makeSelectAppointmentTypes,
 } from 'containers/App/lookupSelectors';
-import { getReferenceTypeFromReference } from 'containers/App/helpers';
-import { removeAppointmentParticipant } from 'containers/SearchAppointmentParticipant/actions';
-import { makeSelectSelectedAppointmentParticipants } from 'containers/SearchAppointmentParticipant/selectors';
-import ManageAppointment from 'components/ManageAppointment';
 import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
+import ManageAppointment from 'components/ManageAppointment';
 import { getAppointment, initializeManageAppointment, saveAppointment } from './actions';
 import { makeSelectAppointment } from './selectors';
-import { mapToEditParticipants } from './api';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 
 
 export class ManageAppointmentPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
-
   constructor(props) {
     super(props);
-    this.state = {
-      name: '',
-      member: '',
-      open: false,
-    };
     this.handleSave = this.handleSave.bind(this);
-    this.handleRemoveParticipant = this.handleRemoveParticipant.bind(this);
-    this.handleDialogOpen = this.handleDialogOpen.bind(this);
-    this.handleDialogClose = this.handleDialogClose.bind(this);
   }
 
   componentDidMount() {
@@ -99,46 +86,27 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
     this.props.saveAppointment(appointmentFormData, () => actions.setSubmitting(false));
   }
 
-  handleRemoveParticipant(participant) {
-    this.props.removeParticipant(participant);
-  }
-
-  handleDialogOpen() {
-    this.setState({ open: true });
-  }
-
-  handleDialogClose() {
-    this.setState({ open: false });
-  }
-
   render() {
     const {
       match,
       patient,
       appointmentStatuses,
       appointmentTypes,
-      selectedParticipants,
       selectedAppointment,
       appointmentParticipantRequired,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
     let appointment = null;
-    let initialSelectedParticipants = [];
     if (editMode && selectedAppointment) {
       appointment = selectedAppointment;
-      initialSelectedParticipants = mapToEditParticipants(appointment.participant);
     }
 
     const manageAppointmentProps = {
-      handleDialogOpen: this.handleDialogOpen,
       patient,
       appointment,
       editMode,
       appointmentStatuses,
       appointmentTypes,
-      selectedParticipants,
-      initialSelectedParticipants,
-      getReferenceTypeFromReference,
       appointmentParticipantRequired,
     };
 
@@ -154,12 +122,7 @@ export class ManageAppointmentPage extends React.Component { // eslint-disable-l
             : <FormattedMessage {...messages.createTitle} />}
           subtitle={<FormattedMessage {...messages.generalInfoTitle} />}
         />
-        <ManageAppointment
-          {...manageAppointmentProps}
-          onSave={this.handleSave}
-          removeParticipant={this.handleRemoveParticipant}
-          handleOpen={this.handleOpen}
-        />
+        <ManageAppointment{...manageAppointmentProps} onSave={this.handleSave} />
       </Page>
     );
   }
@@ -170,11 +133,9 @@ ManageAppointmentPage.propTypes = {
   getLookups: PropTypes.func.isRequired,
   getAppointment: PropTypes.func.isRequired,
   saveAppointment: PropTypes.func.isRequired,
-  selectedParticipants: PropTypes.array,
   patient: PropTypes.object,
   user: PropTypes.object,
   initializeManageAppointment: PropTypes.func.isRequired,
-  removeParticipant: PropTypes.func.isRequired,
   appointmentStatuses: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     system: PropTypes.string.isRequired,
@@ -190,12 +151,11 @@ ManageAppointmentPage.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
+  patient: makeSelectPatient(),
+  selectedAppointment: makeSelectAppointment(),
   appointmentStatuses: makeSelectAppointmentStatuses(),
   appointmentTypes: makeSelectAppointmentTypes(),
-  patient: makeSelectPatient(),
-  user: makeSelectUser(),
-  selectedParticipants: makeSelectSelectedAppointmentParticipants(),
-  selectedAppointment: makeSelectAppointment(),
   appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
 });
 
@@ -204,7 +164,6 @@ function mapDispatchToProps(dispatch) {
     initializeManageAppointment: () => dispatch(initializeManageAppointment()),
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_STATUS, APPOINTMENT_TYPE, APPOINTMENT_PARTICIPANT_REQUIRED])),
     saveAppointment: (appointmentFormData, handleSubmitting) => dispatch(saveAppointment(appointmentFormData, handleSubmitting)),
-    removeParticipant: (participant) => dispatch(removeAppointmentParticipant(participant)),
     getAppointment: (appointmentId) => dispatch(getAppointment(appointmentId)),
   };
 }
