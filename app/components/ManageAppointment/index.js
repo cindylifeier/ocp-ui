@@ -13,7 +13,9 @@ import yup from 'yup';
 
 import Util from 'utils/Util';
 import ManageAppointmentForm from './ManageAppointmentForm';
+import { convertDateTimeArrayToTime, mapToEditParticipants, setAppointmentTime } from './helpers';
 import messages from './messages';
+
 
 function ManageAppointment(props) {
   const {
@@ -33,42 +35,21 @@ function ManageAppointment(props) {
     appointmentParticipantRequired,
   };
 
-  function setAppointmentTime(timeStr, dateStr) {
-    const timeArray = timeStr && timeStr.split(':');
-    const appointmentDate = new Date(dateStr);
-    if (timeArray.length > 0) {
-      appointmentDate.setHours(timeArray[0], timeArray[1]);
-    }
-    return appointmentDate;
-  }
-
-  function padHourOrMinute(timeEntry) {
-    return parseInt(timeEntry, 10) <= 9 ? '0'.concat(timeEntry) : timeEntry;
-  }
-
-  function convertDateTimeArrayToTime(dateArray) {
-    let timeStr = '';
-    if (dateArray && dateArray.length >= 4) {
-      const hh = padHourOrMinute(dateArray[3]);
-      const mm = padHourOrMinute(dateArray[4]);
-      timeStr = `${hh}:${mm}`;
-    }
-    return timeStr;
-  }
-
   function setFormData() {
+    const { creatorRequired, description, typeCode, appointmentDate, statusCode, start, end, participant } = appointment;
     let formData = null;
     if (!isEmpty(appointment)) {
       formData = {
-        creatorRequired: appointment.creatorRequired,
+        creatorRequired,
         selectedPatient: patient,
-        description: appointment.description,
-        appointmentType: appointment.typeCode,
-        date: appointment.appointmentDate && new Date(appointment.appointmentDate),
-        status: appointment.statusCode,
-        startTime: convertDateTimeArrayToTime(appointment.start),
-        endTime: convertDateTimeArrayToTime(appointment.end),
-        appointmentStatus: appointment.statusCode,
+        description,
+        appointmentType: typeCode,
+        date: appointmentDate && new Date(appointmentDate),
+        status: statusCode,
+        startTime: convertDateTimeArrayToTime(start),
+        endTime: convertDateTimeArrayToTime(end),
+        appointmentStatus: statusCode,
+        participants: mapToEditParticipants(participant),
       };
     }
     return Util.pickByIdentity(formData);
@@ -124,7 +105,15 @@ ManageAppointment.propTypes = {
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
-  appointment: PropTypes.object,
+  appointment: PropTypes.shape({
+    creatorRequired: PropTypes.string,
+    description: PropTypes.string,
+    typeCode: PropTypes.string,
+    appointmentDate: PropTypes.string,
+    statusCode: PropTypes.string,
+    start: PropTypes.array,
+    end: PropTypes.array,
+  }),
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
   appointmentParticipantRequired: PropTypes.array,
