@@ -22,9 +22,9 @@ import {
   TENTATIVE_PATIENT_APPOINTMENT,
   TENTATIVE_PATIENT_APPOINTMENT_ERROR,
   TENTATIVE_PATIENT_APPOINTMENT_SUCCESS,
-  GET_COMMUNICATIONS_BY_APPOINTMENT,
-  GET_COMMUNICATIONS_BY_APPOINTMENT_SUCCESS,
-  GET_COMMUNICATIONS_BY_APPOINTMENT_ERROR,
+  GET_APPOINTMENT_RELATED_COMMUNICATIONS,
+  GET_APPOINTMENT_RELATED_COMMUNICATIONS_SUCCESS,
+  GET_APPOINTMENT_RELATED_COMMUNICATIONS_ERROR,
 } from './constants';
 
 export function initializePatientAppointments() {
@@ -143,9 +143,9 @@ export function tentativePatientAppointmentError(error) {
   };
 }
 
-export function getCommunicationsByAppointment(patient, appointmentId, pageNumber) {
+export function getAppointmentRelatedCommunications(patient, appointmentId, pageNumber) {
   return {
-    type: GET_COMMUNICATIONS_BY_APPOINTMENT,
+    type: GET_APPOINTMENT_RELATED_COMMUNICATIONS,
     patient,
     pageNumber,
     appointmentId,
@@ -153,17 +153,17 @@ export function getCommunicationsByAppointment(patient, appointmentId, pageNumbe
 }
 
 
-export function getCommunicationsByAppointmentSuccess(communications) {
+export function getAppointmentRelatedCommunicationsSuccess(communications) {
   return {
-    type: GET_COMMUNICATIONS_BY_APPOINTMENT_SUCCESS,
+    type: GET_APPOINTMENT_RELATED_COMMUNICATIONS_SUCCESS,
     communications,
   };
 }
 
 
-export function getCommunicationsByAppointmentError(error) {
+export function getAppointmentRelatedCommunicationsError(error) {
   return {
-    type: GET_COMMUNICATIONS_BY_APPOINTMENT_ERROR,
+    type: GET_APPOINTMENT_RELATED_COMMUNICATIONS_ERROR,
     error,
   };
 }

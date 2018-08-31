@@ -13,8 +13,8 @@ import {
   getPatientAppointmentsSuccess,
   tentativePatientAppointmentError,
   tentativePatientAppointmentSuccess,
-  getCommunicationsByAppointmentSuccess,
-  getCommunicationsByAppointmentError,
+  getAppointmentRelatedCommunicationsSuccess,
+  getAppointmentRelatedCommunications,
 } from './actions';
 import getPatientAppointmentsApi, {
   acceptAppointment,
@@ -28,7 +28,7 @@ import {
   DECLINE_PATIENT_APPOINTMENT,
   GET_PATIENT_APPOINTMENTS,
   TENTATIVE_PATIENT_APPOINTMENT,
-  GET_COMMUNICATIONS_BY_APPOINTMENT,
+  GET_APPOINTMENT_RELATED_COMMUNICATIONS,
 } from './constants';
 
 function getErrorMessage(err) {
@@ -90,10 +90,10 @@ export function* getPatientAppointmentsSaga({ query: { showPastAppointments, pag
 export function* getCommunicationsByAppointmentSaga({ patient, appointmentId, pageNumber }) {
   try {
     const communications = yield call(getCommunicationsByAppointment, patient, appointmentId, pageNumber, 'Appointment');
-    yield put(getCommunicationsByAppointmentSuccess(communications));
+    yield put(getAppointmentRelatedCommunicationsSuccess(communications));
   } catch (err) {
     const errMsg = getErrorMessage(err);
-    yield put(getCommunicationsByAppointmentError(err));
+    yield put(getAppointmentRelatedCommunications(err));
     yield put(showNotification(errMsg));
   }
 }
@@ -292,7 +292,7 @@ export function* watchTentativelyAcceptPatientAppointmentSagaSaga() {
 }
 
 export function* watchGetCommunicationsByAppointmentSaga() {
-  yield takeLatest(GET_COMMUNICATIONS_BY_APPOINTMENT, getCommunicationsByAppointmentSaga);
+  yield takeLatest(GET_APPOINTMENT_RELATED_COMMUNICATIONS, getCommunicationsByAppointmentSaga);
 }
 
 // Individual exports for testing

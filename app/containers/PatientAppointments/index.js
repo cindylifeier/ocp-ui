@@ -52,7 +52,7 @@ import {
   declinePatientAppointment,
   getPatientAppointments,
   tentativePatientAppointment,
-  getCommunicationsByAppointment,
+  getAppointmentRelatedCommunications,
 } from './actions';
 import messages from './messages';
 import reducer from './reducer';
@@ -119,7 +119,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
   handleAppointmentRowClick(appointment) {
     const { patient } = this.props;
-    this.props.getCommunicationsByAppointment(patient.id, appointment.logicalId, DEFAULT_START_PAGE_NUMBER);
+    this.props.getAppointmentRelatedCommunications(patient.id, appointment.logicalId, DEFAULT_START_PAGE_NUMBER);
     this.setState({ open: true });
   }
 
@@ -274,7 +274,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
 PatientAppointments.propTypes = {
   getUpcomingAppointments: PropTypes.func.isRequired,
-  getCommunicationsByAppointment: PropTypes.func.isRequired,
+  getAppointmentRelatedCommunications: PropTypes.func.isRequired,
   getLookupData: PropTypes.func.isRequired,
   appointmentTypes: PropTypes.array,
   appointmentStatuses: PropTypes.array,
@@ -315,7 +315,7 @@ function mapDispatchToProps(dispatch) {
     acceptAppointment: (id, query) => dispatch(acceptPatientAppointment(id, query)),
     declineAppointment: (id, query) => dispatch(declinePatientAppointment(id, query)),
     tentativeAppointment: (id, query) => dispatch(tentativePatientAppointment(id, query)),
-    getCommunicationsByAppointment: (patient, appointmentId, pageNumber) => dispatch(getCommunicationsByAppointment(patient, appointmentId, pageNumber)),
+    getAppointmentRelatedCommunications: (patient, appointmentId, pageNumber) => dispatch(getAppointmentRelatedCommunications(patient, appointmentId, pageNumber)),
   };
 }
 
