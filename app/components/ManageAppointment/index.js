@@ -104,6 +104,8 @@ function ManageAppointment(props) {
               .required((<FormattedMessage {...messages.validation.required} />)),
             description: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
+            participants: yup.string()
+              .required((<FormattedMessage {...messages.noParticipantAdded} />)),
           })
           }
           render={(formikProps) => <ManageAppointmentForm {...formikProps} {...propsFromContainer} />}
