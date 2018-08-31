@@ -49,7 +49,7 @@ function LocationExpansionRowDetails({ location, physicalType }) {
         <Cell>
           <TextLabelGroup
             label={<FormattedMessage {...messages.tableColumnHeaderLocationType} />}
-            text={physicalType}
+            text={physicalType.display}
           />
         </Cell>
       </Grid>
@@ -59,7 +59,7 @@ function LocationExpansionRowDetails({ location, physicalType }) {
 
 LocationExpansionRowDetails.propTypes = {
   location: PropTypes.object,
-  physicalType: PropTypes.string,
+  physicalType: PropTypes.object,
 };
 
 export default LocationExpansionRowDetails;

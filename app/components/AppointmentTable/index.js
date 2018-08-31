@@ -12,7 +12,7 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import find from 'lodash/find';
-import ActionCheckCircle from 'material-ui/svg-icons/action/check-circle';
+import Done from 'material-ui/svg-icons/action/done';
 import NotInterested from 'material-ui/svg-icons/av/not-interested';
 import HelpOutline from 'material-ui/svg-icons/action/help-outline';
 import HighlightOff from 'material-ui/svg-icons/action/highlight-off';
@@ -55,16 +55,16 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
 
   function getMyResponseIcon(appointment) {
     if (appointment.requesterParticipationStatusCode === 'accepted') {
-      return <ActionCheckCircle />;
+      return <Done color="#009688" />;
     }
     if (appointment.requesterParticipationStatusCode === 'declined') {
-      return <HighlightOff />;
+      return <HighlightOff color="#d86344" />;
     }
     if (appointment.requesterParticipationStatusCode === 'tentative') {
-      return <HelpOutline />;
+      return <HelpOutline color="#9868b9" />;
     }
     if (appointment.requesterParticipationStatusCode === 'needs-action') {
-      return <AlertErrorOutline />;
+      return <AlertErrorOutline color="#ff3300" />;
     }
     return <NotInterested />;
   }
