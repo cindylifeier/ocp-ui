@@ -96,6 +96,25 @@ class AddParticipantForm extends React.Component {
       }
     }
 
+    function renderParticipantDetailsForm(values, resetForm, setFieldTouched) {
+      switch (tabIndex) {
+        case 0:
+          return (<div>Inside Organization</div>);
+        case 1:
+          return (<div>Inside Organization</div>);
+        case 2:
+          return (<div>Inside Organization</div>);
+        default:
+          return (
+            <ServiceTabContent
+              formValues={values}
+              resetForm={resetForm}
+              setFieldTouched={setFieldTouched}
+              {...serviceTabProps}
+            />);
+      }
+    }
+
     return (
       <div>
         <Formik
@@ -120,23 +139,7 @@ class AddParticipantForm extends React.Component {
                   <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
                 </Tabs>
               </AppBar>
-              {tabIndex === 0 &&
-              <div>Inside Organization</div>
-              }
-              {tabIndex === 1 &&
-              <div>Out of Organization</div>
-              }
-              {tabIndex === 2 &&
-              <div>Location</div>
-              }
-              {tabIndex === 3 &&
-              <ServiceTabContent
-                formValues={values}
-                resetForm={resetForm}
-                setFieldTouched={setFieldTouched}
-                {...serviceTabProps}
-              />
-              }
+              {renderParticipantDetailsForm(values, resetForm, setFieldTouched)}
               <InfoSection margin="20px 0 0 0">
                 <Grid columns={4}>
                   <StyledRaisedButton type="submit" disabled={isEmpty(touched) || !isEmpty(errors)}>
