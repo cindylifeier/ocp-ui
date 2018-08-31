@@ -20,6 +20,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import {
   CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
+  DEFAULT_START_PAGE_NUMBER,
   MANAGE_COMMUNICATION_URL,
   MANAGE_TASK_URL,
   ORGANIZATION_ADMIN_ROLE_CODE,
@@ -50,11 +51,16 @@ import { Cell, Grid } from 'styled-css-grid';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
 import { mapToPatientName } from 'utils/PatientUtils';
-import { cancelTask, getTasks, initializeTasks } from './actions';
+import CommunicationsTableDialog from 'components/CommunicationsTableDialog';
+import { cancelTask, getTasks, initializeTasks, getTaskRelatedCommunications } from './actions';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import makeSelectTasks from './selectors';
+import {
+  makeSelectTasks,
+  makeSelectTaskRelatedCommunications,
+} from './selectors';
+
 
 export class Tasks extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -64,11 +70,14 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
       filterHeight: 0,
       isPatientModalOpen: false,
       isExpanded: false,
+      open: false,
     };
     this.cancelTask = this.cancelTask.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
     this.handleStatusListChange = this.handleStatusListChange.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleTaskRowClick = this.handleTaskRowClick.bind(this);
     this.onSize = this.onSize.bind(this);
     this.PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
   }
@@ -95,6 +104,20 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   onSize(size) {
     const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
     this.setState({ isExpanded });
+  }
+
+  handleDialogClose() {
+    this.setState({ open: false });
+  }
+
+  handleCommunicationPageClick(page) {
+    console.log(page);
+  }
+
+  handleTaskRowClick(task) {
+    const { patient } = this.props;
+    this.props.getTaskRelatedCommunications(patient.id, task.logicalId, DEFAULT_START_PAGE_NUMBER);
+    this.setState({ open: true });
   }
 
   handleStatusListChange(code, checked) {
@@ -147,7 +170,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   }
 
   render() {
-    const { tasks: { loading, data, statusList }, patient, user, taskStatus } = this.props;
+    const { tasks: { loading, data, statusList }, patient, user, taskStatus, communications } = this.props;
     let taskList = data;
     if (!isEmpty(data)) {
       taskList = data.filter((task) => task.description !== TO_DO_DEFINITION);
@@ -217,10 +240,20 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
               onSize={this.onSize}
               isExpanded={this.state.isExpanded}
               isPatient={isPatient}
+              onTaskClick={this.handleTaskRowClick}
             />
           </CenterAlign>
         </div>
         }
+        <CommunicationsTableDialog
+          isLoading={false}
+          open={this.state.open}
+          handleDialogClose={this.handleDialogClose}
+          data={communications}
+          selectedPatient={patient}
+          handleChangePage={this.handleCommunicationPageClick}
+          manageCommunicationBaseUrl={MANAGE_COMMUNICATION_URL}
+        ></CommunicationsTableDialog>
       </Card>
     );
   }
@@ -237,7 +270,9 @@ Tasks.propTypes = {
   patient: PropTypes.object,
   user: PropTypes.object,
   taskStatus: PropTypes.array,
+  communications: PropTypes.object,
   getLookups: PropTypes.func.isRequired,
+  getTaskRelatedCommunications: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -245,6 +280,7 @@ const mapStateToProps = createStructuredSelector({
   patient: makeSelectPatient(),
   user: makeSelectUser(),
   taskStatus: makeSelectTaskStatuses(),
+  communications: makeSelectTaskRelatedCommunications(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -253,6 +289,7 @@ function mapDispatchToProps(dispatch) {
     getTasks: (practitionerId, patientId, statusList) => dispatch(getTasks(practitionerId, patientId, statusList)),
     initializeTasks: () => dispatch(initializeTasks()),
     cancelTask: (id) => dispatch(cancelTask(id)),
+    getTaskRelatedCommunications: (patient, taskId, pageNumber) => dispatch(getTaskRelatedCommunications(patient, taskId, pageNumber)),
   };
 }
 
