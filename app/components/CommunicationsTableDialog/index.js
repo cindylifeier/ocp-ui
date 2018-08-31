@@ -8,6 +8,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import WideDialog from 'components/WideDialog';
+// import Dialog from 'material-ui-next/es/Dialog/Dialog';
 import DialogHeader from 'components/DialogHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import CommunicationsTable from 'components/CommunicationsTable';

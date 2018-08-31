@@ -1,6 +1,7 @@
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { getCommunicationsByAppointment } from 'utils/CommunicationUtils';
 import {
   acceptPatientAppointmentError,
   acceptPatientAppointmentSuccess,
@@ -20,7 +21,6 @@ import getPatientAppointmentsApi, {
   cancelAppointment,
   declineAppointment,
   tentativelyAcceptAppointment,
-  getCommunicationsByAppointment,
 } from './api';
 import {
   ACCEPT_PATIENT_APPOINTMENT,
@@ -89,7 +89,7 @@ export function* getPatientAppointmentsSaga({ query: { showPastAppointments, pag
 
 export function* getCommunicationsByAppointmentSaga({ patient, appointmentId, pageNumber }) {
   try {
-    const communications = yield call(getCommunicationsByAppointment, patient, appointmentId, pageNumber);
+    const communications = yield call(getCommunicationsByAppointment, patient, appointmentId, pageNumber, 'Appointment');
     yield put(getCommunicationsByAppointmentSuccess(communications));
   } catch (err) {
     const errMsg = getErrorMessage(err);

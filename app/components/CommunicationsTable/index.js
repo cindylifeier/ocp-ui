@@ -36,7 +36,7 @@ function CommunicationsTable(props) {
   return (
     <div>
       {loading && <RefreshIndicatorLoading />}
-      {(!loading && data.elements &&
+      {(!loading && data && data.elements &&
         data.elements.length > 0 ?
           <div>
             <Table>

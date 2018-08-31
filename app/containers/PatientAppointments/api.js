@@ -1,6 +1,6 @@
 import { DEFAULT_PAGE_SIZE } from 'containers/App/constants';
 import { isUndefined } from 'lodash';
-import { BASE_APPOINTMENTS_API_URL, BASE_COMMUNICATIONS_API_URL, getEndpoint } from 'utils/endpointService';
+import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import queryString from 'utils/queryString';
 import request from 'utils/request';
 
@@ -16,21 +16,6 @@ export default function getPatientAppointmentsApi(query) {
   const requestURL = `${baseEndpoint}/search${params}`;
   return request(requestURL);
 }
-
-
-export function getCommunicationsByAppointment(patient, appointmentId, pageNumber) {
-  const q = {
-    patient,
-    topic: appointmentId,
-    resourceType: 'Appointment',
-    pageNumber,
-  };
-  const params = queryString(q);
-  const baseEndpoint = getEndpoint(BASE_COMMUNICATIONS_API_URL);
-  const requestURL = `${baseEndpoint}${params}`;
-  return request(requestURL);
-}
-
 
 export function cancelAppointment(id) {
   const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
