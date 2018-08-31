@@ -1,14 +1,15 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import isEmpty from 'lodash/isEmpty';
 import { goBack } from 'react-router-redux';
+import isEmpty from 'lodash/isEmpty';
+
 import { showNotification } from 'containers/Notification/actions';
-import { GET_HEALTHCARE_SERVICE_REFERENCES, GET_LOCATION_REFERENCES, GET_PRACTITIONER_REFERENCES } from './constants';
 import { getHealthcareService, getLocationReferences, getPractitionerReferences } from './api';
 import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
   getPractitionerReferencesSuccess,
 } from './actions';
+import { GET_HEALTHCARE_SERVICE_REFERENCES, GET_LOCATION_REFERENCES, GET_PRACTITIONER_REFERENCES } from './constants';
 
 function* getHealthcareServiceSaga({ organizationId }) {
   try {

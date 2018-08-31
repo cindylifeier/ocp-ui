@@ -1,34 +1,40 @@
 import { createSelector } from 'reselect';
 
 /**
- * Direct selector to the searchAppointmentParticipant state domain
+ * Direct selector to the addAppointmentParticipant state domain
  */
-const selectSearchAppointmentParticipantDomain = (state) => state.get('searchAppointmentParticipant');
+const selectAddAppointmentParticipantDomain = (state) => state.get('addAppointmentParticipant');
 
 /**
  * Other specific selectors
  */
 const makeSelectHealthcareServiceReferences = () => createSelector(
-  selectSearchAppointmentParticipantDomain,
+  selectAddAppointmentParticipantDomain,
   (subState) => subState && subState.get('healthcareServices'),
 );
 
 const makeSelectLocationReferences = () => createSelector(
-  selectSearchAppointmentParticipantDomain,
+  selectAddAppointmentParticipantDomain,
   (subState) => subState && subState.get('locations'),
 );
 
 const makeSelectPractitionerReferences = () => createSelector(
-  selectSearchAppointmentParticipantDomain,
+  selectAddAppointmentParticipantDomain,
   (subState) => subState && subState.get('practitioners'),
 );
 
 /**
- * Default selector used by SearchAppointmentParticipant
+ * Default selector used by AddAppointmentParticipant
  */
 
+const makeSelectAddAppointmentParticipant = () => createSelector(
+  selectAddAppointmentParticipantDomain,
+  (substate) => substate.toJS(),
+);
+
+export default makeSelectAddAppointmentParticipant;
 export {
-  selectSearchAppointmentParticipantDomain,
+  selectAddAppointmentParticipantDomain,
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,

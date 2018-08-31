@@ -1,21 +1,22 @@
 /**
  *
- * SearchAppointmentParticipant
+ * AddAppointmentParticipant
  *
  */
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_PARTICIPANT_REQUIRED } from 'containers/App/constants';
-import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
 import { getLogicalIdFromReference } from 'containers/App/helpers';
 import AddAppointmentParticipantModal from 'components/AddAppointmentParticipantModal';
 import { getHealthcareServiceReferences, getLocationReferences, getPractitionerReferences } from './actions';
@@ -27,8 +28,7 @@ import {
 import reducer from './reducer';
 import saga from './saga';
 
-
-export class SearchAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
+export class AddAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
     this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
@@ -37,7 +37,6 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
 
   componentDidMount() {
     const { organization } = this.props;
-
     this.props.getLookups();
     if (organization) {
       this.props.getHealthcareServiceReferences(organization.logicalId);
@@ -65,7 +64,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
       healthcareServices,
       locations,
       practitioners,
-      appointmentParticipantRequired,
+      appointmentParticipantAttendance,
     } = this.props;
 
     return (
@@ -76,7 +75,7 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
         healthcareServices={healthcareServices}
         locations={locations}
         practitioners={practitioners}
-        participantAttendance={appointmentParticipantRequired}
+        participantAttendance={appointmentParticipantAttendance}
         onGetAvailableLocations={this.handleGetAvailableLocations}
         onGetAvailablePractitioners={this.handleGetAvailablePractitioners}
       />
@@ -84,11 +83,11 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
   }
 }
 
-SearchAppointmentParticipant.propTypes = {
+AddAppointmentParticipant.propTypes = {
   getLookups: PropTypes.func.isRequired,
   healthcareServices: PropTypes.array,
   locations: PropTypes.array,
-  appointmentParticipantRequired: PropTypes.array,
+  appointmentParticipantAttendance: PropTypes.array,
   practitioners: PropTypes.array,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
@@ -109,7 +108,7 @@ const mapStateToProps = createStructuredSelector({
   healthcareServices: makeSelectHealthcareServiceReferences(),
   locations: makeSelectLocationReferences(),
   practitioners: makeSelectPractitionerReferences(),
-  appointmentParticipantRequired: makeSelectAppointmentParticipationRequired(),
+  appointmentParticipantAttendance: makeSelectAppointmentParticipationRequired(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -121,13 +120,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+
 const withConnect = connect(mapStateToProps, mapDispatchToProps);
 
-const withReducer = injectReducer({ key: 'searchAppointmentParticipant', reducer });
-const withSaga = injectSaga({ key: 'searchAppointmentParticipant', saga });
+const withReducer = injectReducer({ key: 'addAppointmentParticipant', reducer });
+const withSaga = injectSaga({ key: 'addAppointmentParticipant', saga });
 
 export default compose(
   withReducer,
   withSaga,
   withConnect,
-)(SearchAppointmentParticipant);
+)(AddAppointmentParticipant);

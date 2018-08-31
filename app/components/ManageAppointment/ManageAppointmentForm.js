@@ -7,7 +7,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
 
 import { mapToPatientName } from 'utils/PatientUtils';
-import SearchAppointmentParticipant from 'containers/SearchAppointmentParticipant';
+import AddAppointmentParticipant from 'containers/AddAppointmentParticipant';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
@@ -131,7 +131,7 @@ class ManageAppointmentForm extends React.Component {
               </SelectField>
             </Cell>
             <Cell area="addParticipant">
-              <SearchAppointmentParticipant participants={values.participants} formErrors={errors} />
+              <AddAppointmentParticipant participants={values.participants} formErrors={errors} />
             </Cell>
             <Cell area="date">
               <DatePicker

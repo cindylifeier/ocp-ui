@@ -1,6 +1,6 @@
 /*
  *
- * SearchAppointmentParticipant reducer
+ * AddAppointmentParticipant reducer
  *
  */
 
@@ -17,7 +17,7 @@ const initialState = fromJS({
   practitioners: null,
 });
 
-function searchAppointmentParticipantReducer(state = initialState, action) {
+function addAppointmentParticipantReducer(state = initialState, action) {
   switch (action.type) {
     case GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS:
       return state
@@ -33,4 +33,4 @@ function searchAppointmentParticipantReducer(state = initialState, action) {
   }
 }
 
-export default searchAppointmentParticipantReducer;
+export default addAppointmentParticipantReducer;

@@ -1,6 +1,6 @@
 /*
  *
- * SearchAppointmentParticipant actions
+ * AddAppointmentParticipant actions
  *
  */
 
