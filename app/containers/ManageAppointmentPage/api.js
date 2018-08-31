@@ -1,10 +1,9 @@
-import { isEmpty } from 'lodash';
+import isEmpty from 'lodash/isEmpty';
 import find from 'lodash/find';
 import isUndefined from 'lodash/isUndefined';
-import {
-  BASE_APPOINTMENTS_API_URL,
-  getEndpoint } from 'utils/endpointService';
+import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
 import request from 'utils/request';
+
 const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
 const headers = {
   'Content-Type': 'application/json',
@@ -122,23 +121,6 @@ function mapToBffParticipants(participants) {
   return [];
 }
 
-export function mapToEditParticipants(participants) {
-  if (!isEmpty(participants)) {
-    return participants
-      .map((participant) => ({
-        display: participant.actorName,
-        participationTypeCode: participant.participationTypeCode,
-        participationTypeDisplay: participant.participationTypeDisplay,
-        participantRequiredCode: participant.participantRequiredCode,
-        participationStatusCode: participant.participationStatusCode,
-        participationStatusDisplay: participant.participationStatusDisplay,
-        participantRequiredDisplay: participant.participantRequiredDisplay,
-        reference: participant.actorReference,
-      }));
-  }
-  return [];
-}
-
 function toDoubleChars(number) {
   if (number < 10) {
     return `0${number}`;
@@ -164,4 +146,3 @@ function getDateTimeString(date, time) {
   const minutes = toDoubleChars(new Date(time).getMinutes());
   return `${appointmentDateString}T${hours}:${minutes}:00.00`;
 }
-
