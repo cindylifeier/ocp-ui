@@ -1,9 +1,6 @@
 import * as queryString from 'query-string';
 import request from 'utils/request';
-import {
-  BASE_PARTICIPANTS_API_URL,
-  BASE_APPOINTMENTS_API_URL,
-  getEndpoint } from 'utils/endpointService';
+import { BASE_APPOINTMENTS_API_URL, BASE_PARTICIPANTS_API_URL, getEndpoint } from 'utils/endpointService';
 
 export function searchAppointmentParticipant(value, member, patientId) {
   const baseEndpoint = getEndpoint(BASE_PARTICIPANTS_API_URL);
@@ -21,7 +18,10 @@ export function getHealthcareService(organizationId) {
 }
 
 export function getLocationReferences(healthcareServiceId) {
-  const stringifiedParams = queryString.stringify({ resourceType: 'healthcareservice', resourceValue: healthcareServiceId });
+  const stringifiedParams = queryString.stringify({
+    resourceType: 'healthcareservice',
+    resourceValue: healthcareServiceId,
+  });
   const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
   const requestURL = `${appointmentBaseEndpoint}/location-references?${stringifiedParams}`;
   return request(requestURL);
@@ -33,12 +33,3 @@ export function getPractitionerReferences(organizationId, locationId) {
   const requestURL = `${appointmentBaseEndpoint}/practitioner-references?${stringifiedParams}`;
   return request(requestURL);
 }
-
-
-export function getCareTeamReferences(patientId) {
-  const stringifiedParams = queryString.stringify({ resourceType: 'patient', resourceValue: patientId });
-  const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
-  const requestURL = `${appointmentBaseEndpoint}/practitioner-references?${stringifiedParams}`;
-  return request(requestURL);
-}
-

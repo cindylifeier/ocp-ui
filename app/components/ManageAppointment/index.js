@@ -36,9 +36,9 @@ function ManageAppointment(props) {
   };
 
   function setFormData() {
-    const { creatorRequired, description, typeCode, appointmentDate, statusCode, start, end, participant } = appointment;
     let formData = null;
     if (!isEmpty(appointment)) {
+      const { creatorRequired, description, typeCode, appointmentDate, statusCode, start, end, participant } = appointment;
       formData = {
         creatorRequired,
         selectedPatient: patient,

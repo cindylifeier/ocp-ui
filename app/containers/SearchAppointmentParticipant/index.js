@@ -13,23 +13,12 @@ import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
-import {
-  APPOINTMENT_PARTICIPANT_REQUIRED,
-  APPOINTMENT_PARTICIPANT_TYPE,
-  APPOINTMENT_PARTICIPATION_STATUS,
-  APPOINTMENT_PARTICIPATION_TYPE,
-} from 'containers/App/constants';
+import { APPOINTMENT_PARTICIPANT_REQUIRED } from 'containers/App/constants';
 import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
-import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
+import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { getLogicalIdFromReference } from 'containers/App/helpers';
 import AddAppointmentParticipantModal from 'components/AddAppointmentParticipantModal';
-import {
-  addAppointmentParticipants,
-  getCareTeamReferences,
-  getHealthcareServiceReferences,
-  getLocationReferences,
-  getPractitionerReferences,
-} from './actions';
+import { getHealthcareServiceReferences, getLocationReferences, getPractitionerReferences } from './actions';
 import {
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
@@ -42,30 +31,17 @@ import saga from './saga';
 export class SearchAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
-    this.state = {
-      open: false,
-    };
-    this.handleDialogClose = this.handleDialogClose.bind(this);
     this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
     this.handleGetAvailablePractitioners = this.handleGetAvailablePractitioners.bind(this);
   }
 
   componentDidMount() {
-    const { organization, patient } = this.props;
+    const { organization } = this.props;
 
     this.props.getLookups();
     if (organization) {
       this.props.getHealthcareServiceReferences(organization.logicalId);
     }
-
-    if (patient) {
-      this.props.getCareTeamReferences(patient.id);
-    }
-  }
-
-  handleDialogClose() {
-    this.setState({ open: false });
-    this.props.handleClose();
   }
 
   handleGetAvailableLocations(healthcareServiceReference) {
@@ -108,18 +84,14 @@ export class SearchAppointmentParticipant extends React.Component { // eslint-di
   }
 }
 
-
 SearchAppointmentParticipant.propTypes = {
   getLookups: PropTypes.func.isRequired,
-  handleClose: PropTypes.func,
-  patient: PropTypes.object,
   healthcareServices: PropTypes.array,
   locations: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
   practitioners: PropTypes.array,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
-  getCareTeamReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
   organization: PropTypes.object.isRequired,
   formErrors: PropTypes.object,
@@ -133,7 +105,6 @@ SearchAppointmentParticipant.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  patient: makeSelectPatient(),
   organization: makeSelectOrganization(),
   healthcareServices: makeSelectHealthcareServiceReferences(),
   locations: makeSelectLocationReferences(),
@@ -143,10 +114,8 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    getLookups: () => dispatch(getLookupsAction([APPOINTMENT_PARTICIPANT_TYPE, APPOINTMENT_PARTICIPATION_STATUS, APPOINTMENT_PARTICIPATION_TYPE, APPOINTMENT_PARTICIPANT_REQUIRED])),
-    addParticipants: (participant) => dispatch(addAppointmentParticipants(participant)),
+    getLookups: () => dispatch(getLookupsAction([APPOINTMENT_PARTICIPANT_REQUIRED])),
     getHealthcareServiceReferences: (organizationId) => dispatch(getHealthcareServiceReferences(organizationId)),
-    getCareTeamReferences: (patientId) => dispatch(getCareTeamReferences(patientId)),
     getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
     getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
   };
