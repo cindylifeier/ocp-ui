@@ -65,6 +65,7 @@ function AddEpisodeOfCareForm(props) {
               endDate: yup.date()
                 .required((<FormattedMessage {...messages.validation.required} />))
                 .min(defaultStartDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),
+              careManager: yup.string().required((<FormattedMessage {...messages.validation.required} />)),
             });
           })}
         render={({ isSubmitting, dirty, isValid }) => (

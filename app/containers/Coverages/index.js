@@ -10,6 +10,7 @@ import PanelToolbar from 'components/PanelToolbar';
 import { getLookupsAction } from 'containers/App/actions';
 import {
   BENEFITS_SPECIALIST_ROLE_CODE,
+  CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
   COVERAGE_TYPE,
   DEFAULT_START_PAGE_NUMBER,
@@ -110,7 +111,7 @@ export class Coverages extends React.Component { // eslint-disable-line react/pr
       <div>
         <PanelToolbar
           {...addNewItem}
-          allowedAddNewItemRoles={[CARE_MANAGER_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, BENEFITS_SPECIALIST_ROLE_CODE, PATIENT_ROLE_CODE]}
+          allowedAddNewItemRoles={[CARE_MANAGER_ROLE_CODE, CARE_COORDINATOR_ROLE_CODE, ORGANIZATION_ADMIN_ROLE_CODE, BENEFITS_SPECIALIST_ROLE_CODE, PATIENT_ROLE_CODE]}
           showSearchIcon={false}
           showUploadIcon={false}
           showSettingIcon={false}
