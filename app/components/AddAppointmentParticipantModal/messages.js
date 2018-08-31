@@ -30,8 +30,8 @@ export default defineMessages({
     id: 'ocpui.containers.AddParticipantForm.serviceTabLabel',
     defaultMessage: 'Service',
   },
-  saveButton: {
-    id: 'ocpui.containers.AddParticipantForm.saveButton',
+  addButton: {
+    id: 'ocpui.containers.AddParticipantForm.addButton',
     defaultMessage: 'Add',
   },
   cancelButton: {

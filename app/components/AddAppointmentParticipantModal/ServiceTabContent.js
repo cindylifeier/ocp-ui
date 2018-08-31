@@ -12,6 +12,7 @@ function ServiceTabContent(props) {
   const {
     formValues,
     resetForm,
+    setFieldTouched,
     healthcareServices,
     locations,
     practitioners,
@@ -29,6 +30,7 @@ function ServiceTabContent(props) {
           onChange={(service) => {
             resetForm({ service });
             onGetAvailableLocations(service);
+            setFieldTouched('service', true);
           }}
           hintText={<FormattedMessage {...messages.hintText.selectService} />}
           floatingLabelText={<FormattedMessage {...messages.floatingLabelText.selectService} />}
@@ -52,6 +54,7 @@ function ServiceTabContent(props) {
               location,
             });
             onGetAvailablePractitioners(location);
+            setFieldTouched('location', true);
           }}
           disabled={checkFieldSelected(formValues, 'service')}
           hintText={<FormattedMessage {...messages.hintText.selectLocation} />}
@@ -76,6 +79,7 @@ function ServiceTabContent(props) {
               location: formValues.location,
               practitioner,
             });
+            setFieldTouched('practitioner', true);
           }}
           disabled={checkFieldSelected(formValues, 'location')}
           hintText={<FormattedMessage {...messages.hintText.selectPractitioner} />}
@@ -117,6 +121,7 @@ function ServiceTabContent(props) {
 ServiceTabContent.propTypes = {
   formValues: PropTypes.object,
   resetForm: PropTypes.func,
+  setFieldTouched: PropTypes.func,
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,

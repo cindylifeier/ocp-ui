@@ -7,6 +7,7 @@ import Tabs from 'material-ui-next/Tabs/Tabs';
 import Tab from 'material-ui-next/Tabs/Tab';
 import AppBar from 'material-ui-next/AppBar';
 import { Grid } from 'styled-css-grid';
+import isEmpty from 'lodash/isEmpty';
 
 import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -100,7 +101,7 @@ class AddParticipantForm extends React.Component {
         <Formik
           onSubmit={(values) => this.handleAddParticipants(values)}
           validationSchema={defineValidationSchema()}
-          render={({ isSubmitting, dirty, isValid, values, resetForm }) => (
+          render={({ touched, errors, values, resetForm, setFieldTouched }) => (
             <Form>
               <AppBar position="sticky" color="default">
                 <Tabs
@@ -120,21 +121,26 @@ class AddParticipantForm extends React.Component {
                 </Tabs>
               </AppBar>
               {tabIndex === 0 &&
-              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
+              <div>Inside Organization</div>
               }
               {tabIndex === 1 &&
-              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
+              <div>Out of Organization</div>
               }
               {tabIndex === 2 &&
-              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
+              <div>Location</div>
               }
               {tabIndex === 3 &&
-              <ServiceTabContent resetForm={resetForm} formValues={values} {...serviceTabProps} />
+              <ServiceTabContent
+                formValues={values}
+                resetForm={resetForm}
+                setFieldTouched={setFieldTouched}
+                {...serviceTabProps}
+              />
               }
               <InfoSection margin="20px 0 0 0">
                 <Grid columns={4}>
-                  <StyledRaisedButton type="submit" disabled={!dirty || isSubmitting || !isValid}>
-                    <FormattedMessage {...messages.saveButton} />
+                  <StyledRaisedButton type="submit" disabled={isEmpty(touched) || !isEmpty(errors)}>
+                    <FormattedMessage {...messages.addButton} />
                   </StyledRaisedButton>
                   <StyledFlatButton type="reset" onClick={onCloseDialog}>
                     <FormattedMessage {...messages.cancelButton} />
