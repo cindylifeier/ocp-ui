@@ -12,7 +12,7 @@ export default defineMessages({
   },
   addCoverageDialogTitle: {
     id: 'ocpui.containers.AddCoverageDialog.addCoverageDialogTitle',
-    defaultMessage: 'Coverage',
+    defaultMessage: 'Add New Insurance/Benefit Details',
   },
   saveButton: {
     id: 'ocpui.containers.AddCoverageDialog.saveButton',

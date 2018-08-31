@@ -58,6 +58,7 @@ function OrganizationSliderHeader(props) {
         </Cell>
         <Cell>
           <StyledFlatButton
+            onClick={props.onClose}
             component={Link}
             to={`/ocp-ui/manage-organization/${logicalId}`}
           >
@@ -79,6 +80,7 @@ OrganizationSliderHeader.propTypes = {
     addresses: PropTypes.string,
     telecoms: PropTypes.string,
   }).isRequired,
+  onClose: PropTypes.func,
 };
 
 export default OrganizationSliderHeader;

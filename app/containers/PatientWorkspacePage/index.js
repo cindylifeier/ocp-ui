@@ -100,7 +100,7 @@ export const initialStateMetadata =
               reorderEnabled: true,
             },
             {
-              title: 'Coverage',
+              title: 'Insurance/Benefits',
               type: 'component',
               componentName: 'coverage',
               isClosable: true,

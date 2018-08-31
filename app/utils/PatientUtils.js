@@ -26,7 +26,7 @@ export function mapToPatientAddress(patient) {
     .pop();
 }
 
-function combineAddress(address) {
+export function combineAddress(address) {
   const addressStr = [];
   addressStr.push(address.line1 || '');
   addressStr.push(address.line2 || '');
