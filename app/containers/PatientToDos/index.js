@@ -15,7 +15,7 @@ import { getLookupsAction } from 'containers/App/actions';
 import {
   CARE_COORDINATOR_ROLE_CODE,
   CARE_MANAGER_ROLE_CODE,
-  DATE_RANGE, MANAGE_COMMUNICATION_URL,
+  DATE_RANGE, DEFAULT_START_PAGE_NUMBER, MANAGE_COMMUNICATION_URL,
   MANAGE_TASK_URL,
   ORGANIZATION_ADMIN_ROLE_CODE,
   TO_DO_DEFINITION,
@@ -23,11 +23,15 @@ import {
 import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { getPractitionerIdByRole } from 'containers/App/helpers';
 import { makeSelectToDoFilterDateRanges } from 'containers/App/lookupSelectors';
-import { cancelToDos, getFilterToDos, getPatientToDoMainTask, getPatientToDos } from 'containers/PatientToDos/actions';
+import {
+  cancelToDos, getFilterToDos, getPatientToDoMainTask, getPatientToDos,
+  getToDoRelatedCommunications,
+} from 'containers/PatientToDos/actions';
+import CommunicationsTableDialog from 'components/CommunicationsTableDialog';
 import {
   makeSelectPatientToDoMainTask,
   makeSelectPatientToDos,
-  makeSelectSearchLoading,
+  makeSelectSearchLoading, makeSelectToDoRelatedCommunications,
 } from 'containers/PatientToDos/selectors';
 import isEmpty from 'lodash/isEmpty';
 import Dialog from 'material-ui/Dialog';
@@ -49,12 +53,15 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     super(props);
     this.state = {
       open: false,
+      openCommunicationDialog: false,
       toDoLogicalId: '',
     };
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
     this.handleCancelToDo = this.handleCancelToDo.bind(this);
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleFilter = this.handleFilter.bind(this);
+    this.handleRelatedCommunicationDialogClose = this.handleRelatedCommunicationDialogClose.bind(this);
+    this.handleToDoClick = this.handleToDoClick.bind(this);
   }
 
   componentDidMount() {
@@ -95,6 +102,20 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
     }
   }
 
+  handleRelatedCommunicationDialogClose() {
+    this.setState({ openCommunicationDialog: false });
+  }
+
+  handleCommunicationPageClick(page) {
+    console.log(page);
+  }
+
+  handleToDoClick(toDoLogicalId) {
+    const { selectedPatient } = this.props;
+    this.props.getToDoRelatedCommunications(selectedPatient.id, toDoLogicalId, DEFAULT_START_PAGE_NUMBER);
+    this.setState({ openCommunicationDialog: true });
+  }
+
   handleCloseDialog() {
     this.setState({ open: false });
   }
@@ -110,7 +131,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   }
 
   render() {
-    const { toDos, selectedPatient, loading, toDoMainTask, dateRanges, user } = this.props;
+    const { toDos, selectedPatient, loading, toDoMainTask, dateRanges, user, communications } = this.props;
     const patientId = selectedPatient ? selectedPatient.id : null;
     const toDoMainTaskId = this.getToDoMainTaskId(toDoMainTask);
     const practitionerId = getPractitionerIdByRole(user);
@@ -157,6 +178,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
             taskBaseUrl={MANAGE_TASK_URL}
             communicationBaseUrl={MANAGE_COMMUNICATION_URL}
             openDialog={this.handleOpenDialog}
+            handleToDoClick={this.handleToDoClick}
           />
         </div>
         }
@@ -169,6 +191,15 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
         >
           <FormattedMessage {...messages.dialog.confirmCancellationMessage} />
         </Dialog>
+        <CommunicationsTableDialog
+          isLoading={false}
+          open={this.state.openCommunicationDialog}
+          handleDialogClose={this.handleRelatedCommunicationDialogClose}
+          data={communications}
+          selectedPatient={selectedPatient}
+          handleChangePage={this.handleCommunicationPageClick}
+          manageCommunicationBaseUrl={MANAGE_COMMUNICATION_URL}
+        ></CommunicationsTableDialog>
       </Card>
     );
   }
@@ -177,6 +208,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
 PatientToDos.propTypes = {
   toDos: PropTypes.array.isRequired,
   getPatientToDos: PropTypes.func.isRequired,
+  getToDoRelatedCommunications: PropTypes.func.isRequired,
   getFilterToDos: PropTypes.func.isRequired,
   getLookups: PropTypes.func.isRequired,
   cancelToDos: PropTypes.func.isRequired,
@@ -186,6 +218,7 @@ PatientToDos.propTypes = {
   dateRanges: PropTypes.array.isRequired,
   user: PropTypes.object,
   selectedOrganization: PropTypes.object,
+  communications: PropTypes.object,
   loading: PropTypes.bool.isRequired,
 };
 
@@ -197,6 +230,7 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   selectedOrganization: makeSelectOrganization(),
   dateRanges: makeSelectToDoFilterDateRanges(),
+  communications: makeSelectToDoRelatedCommunications(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -206,6 +240,7 @@ function mapDispatchToProps(dispatch) {
     getFilterToDos: (patientId, practitionerId, definition, dateRange) => dispatch(getFilterToDos(patientId, practitionerId, definition, dateRange)),
     getPatientToDoMainTask: (patientId, organizationId, definition, practitionerId) => dispatch(getPatientToDoMainTask(patientId, organizationId, definition, practitionerId)),
     cancelToDos: (toDoLogicalId) => dispatch(cancelToDos(toDoLogicalId)),
+    getToDoRelatedCommunications: (patient, taskId, pageNumber) => dispatch(getToDoRelatedCommunications(patient, taskId, pageNumber)),
   };
 }
 

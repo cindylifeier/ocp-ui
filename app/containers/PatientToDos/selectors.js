@@ -29,8 +29,15 @@ const makeSelectSearchLoading = () => createSelector(
   (substate) => substate.get('loading'),
 );
 
+
+const makeSelectToDoRelatedCommunications = () => createSelector(
+  selectPatientToDosDomain,
+  (substate) => substate && substate.get('communications') && substate.get('communications').toJS(),
+);
+
 export {
   makeSelectPatientToDos,
   makeSelectPatientToDoMainTask,
   makeSelectSearchLoading,
+  makeSelectToDoRelatedCommunications,
 };

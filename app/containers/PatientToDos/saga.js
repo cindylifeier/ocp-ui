@@ -1,17 +1,22 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
-import { GET_PATIENT_TO_DOS, GET_PATIENT_TO_DO_MAIN_TASK, GET_FILTER_TO_DO, CANCEL_TO_DO } from 'containers/PatientToDos/constants';
+import {
+  GET_PATIENT_TO_DOS, GET_PATIENT_TO_DO_MAIN_TASK, GET_FILTER_TO_DO, CANCEL_TO_DO,
+  GET_TO_DO_RELATED_COMMUNICATIONS,
+} from 'containers/PatientToDos/constants';
 import {
   getPatientToDoError,
   getPatientToDoSuccess,
   getPatientToDoMainTaskError,
   getPatientToDoMainTaskSuccess, getFilterToDoSuccess, getFilterToDoError,
-  cancelToDosError, cancelToDoSuccess,
+  cancelToDosError, cancelToDoSuccess, getToDoRelatedCommunicationsError, getToDoRelatedCommunicationsSuccess,
 } from 'containers/PatientToDos/actions';
+import { getCommunicationsByAppointment } from 'utils/CommunicationUtils';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { showNotification } from 'containers/Notification/actions';
 import { getFilterToDos, getPatientToDos, getToDoMainTask, cancelToDo } from 'containers/PatientToDos/api';
 import messages from './messages';
+
 
 export function* getPatientToDosSaga(action) {
   try {
@@ -57,6 +62,18 @@ export function* cancelToDoSaga(action) {
   }
 }
 
+
+export function* getToDoRelatedCommunicationsSaga({ patient, toDoId, pageNumber }) {
+  try {
+    const communications = yield call(getCommunicationsByAppointment, patient, toDoId, pageNumber, 'ToDo');
+    yield put(getToDoRelatedCommunicationsSuccess(communications));
+  } catch (err) {
+    const error = 'Error in getting To Do related Communications.';
+    yield put(getToDoRelatedCommunicationsError(error));
+    yield put(showNotification(error));
+  }
+}
+
 export function* watchGetPatientToDosSaga() {
   yield takeLatest(GET_PATIENT_TO_DOS, getPatientToDosSaga);
 }
@@ -74,11 +91,16 @@ export function* watchCancelToDoSaga() {
   yield takeLatest(CANCEL_TO_DO, cancelToDoSaga);
 }
 
+export function* watchGetToDoRelatedCommunicationsSaga() {
+  yield takeLatest(GET_TO_DO_RELATED_COMMUNICATIONS, getToDoRelatedCommunicationsSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetPatientToDosSaga(),
     watchGetToDoMainTaskSaga(),
     watchGetFilterToDoSaga(),
     watchCancelToDoSaga(),
+    watchGetToDoRelatedCommunicationsSaga(),
   ]);
 }
