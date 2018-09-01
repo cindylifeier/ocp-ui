@@ -65,6 +65,7 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
       toDoLogicalId,
       columns,
       communicationBaseUrl,
+      handleToDoClick,
     } = this.props;
     const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
     const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
@@ -93,7 +94,7 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                     <ExpandMoreIcon onClick={this.handlePanelOpen} />
                   }
                 </Cell>
-                <Cell>
+                <Cell onClick={() => { handleToDoClick(toDoLogicalId); }}>
                   <strong>
                     {dueDateStr}
                   </strong>
@@ -103,7 +104,7 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                     <strong>{patientNameStr}</strong>
                   </Align>
                 }
-                <Cell>
+                <Cell onClick={() => { handleToDoClick(toDoLogicalId); }} >
                   <Align variant="right">
                     <strong>
                       {this.getStatusWithIcon(status)}
@@ -145,6 +146,7 @@ ToDoAccordion.propTypes = {
   patientName: PropTypes.string,
   status: PropTypes.string.isRequired,
   openDialog: PropTypes.func,
+  handleToDoClick: PropTypes.func,
 };
 
 export default ToDoAccordion;
