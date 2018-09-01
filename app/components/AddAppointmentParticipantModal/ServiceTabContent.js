@@ -4,6 +4,10 @@ import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
+import {
+  HEALTHCARE_SERVICE_RESOURCE_TYPE,
+  LOCATION_RESOURCE_TYPE,
+} from 'containers/AddAppointmentParticipant/constants';
 import SelectField from 'components/SelectField';
 import { checkFieldSelected } from './helpers';
 import messages from './messages';
@@ -29,7 +33,7 @@ function ServiceTabContent(props) {
           name="service"
           onChange={(service) => {
             resetForm({ service });
-            onGetAvailableLocations(service);
+            onGetAvailableLocations(HEALTHCARE_SERVICE_RESOURCE_TYPE, service);
             setFieldTouched('service', true);
           }}
           hintText={<FormattedMessage {...messages.hintText.selectService} />}
@@ -53,7 +57,7 @@ function ServiceTabContent(props) {
               service: formValues.service,
               location,
             });
-            onGetAvailablePractitioners(location);
+            onGetAvailablePractitioners(LOCATION_RESOURCE_TYPE, location);
             setFieldTouched('location', true);
           }}
           disabled={checkFieldSelected(formValues, 'service')}

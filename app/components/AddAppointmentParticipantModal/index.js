@@ -22,11 +22,9 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
     super(props);
     this.state = {
       dialogOpen: false,
-      editingParticipant: null,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
-    this.handleEditParticipant = this.handleEditParticipant.bind(this);
   }
 
   handleOpenDialog() {
@@ -34,17 +32,7 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
   }
 
   handleCloseDialog() {
-    this.setState({
-      dialogOpen: false,
-      editingParticipant: null,
-    });
-  }
-
-  handleEditParticipant(index, participant) {
-    this.setState((prevState) => ({
-      dialogOpen: !prevState.dialogOpen,
-      editingParticipant: { index, participant },
-    }));
+    this.setState({ dialogOpen: false });
   }
 
   render() {

@@ -46,17 +46,17 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     }
   }
 
-  handleGetAvailableLocations(healthcareServiceReference) {
-    const healthcareServiceId = getLogicalIdFromReference(healthcareServiceReference);
-    if (healthcareServiceId) {
-      this.props.getLocationReferences(healthcareServiceId);
+  handleGetAvailableLocations(resourceType, resourceReferenceValue) {
+    const resourceValue = getLogicalIdFromReference(resourceReferenceValue);
+    if (resourceValue) {
+      this.props.getLocationReferences(resourceType, resourceValue);
     }
   }
 
-  handleGetAvailablePractitioners(locationReference) {
-    const locationId = getLogicalIdFromReference(locationReference);
-    if (locationId) {
-      this.props.getPractitionerReferences(this.props.organization.logicalId, locationId);
+  handleGetAvailablePractitioners(resourceType, resourceReferenceValue) {
+    const resourceValue = getLogicalIdFromReference(resourceReferenceValue);
+    if (resourceValue) {
+      this.props.getPractitionerReferences(resourceType, resourceValue);
     }
   }
 
@@ -118,8 +118,8 @@ function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_PARTICIPANT_REQUIRED])),
     getHealthcareServiceReferences: (resourceType, resourceValue) => dispatch(getHealthcareServiceReferences(resourceType, resourceValue)),
-    getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
-    getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
+    getLocationReferences: (resourceType, resourceValue) => dispatch(getLocationReferences(resourceType, resourceValue)),
+    getPractitionerReferences: (resourceType, resourceValue) => dispatch(getPractitionerReferences(resourceType, resourceValue)),
   };
 }
 
