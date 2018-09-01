@@ -27,6 +27,7 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { ORGANIZATION_RESOURCE_TYPE } from './constants';
 
 export class AddAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -39,7 +40,9 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     const { organization } = this.props;
     this.props.getLookups();
     if (organization) {
-      this.props.getHealthcareServiceReferences(organization.logicalId);
+      const resourceType = ORGANIZATION_RESOURCE_TYPE;
+      const resourceValue = organization.logicalId;
+      this.props.getHealthcareServiceReferences(resourceType, resourceValue);
     }
   }
 
@@ -114,7 +117,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_PARTICIPANT_REQUIRED])),
-    getHealthcareServiceReferences: (organizationId) => dispatch(getHealthcareServiceReferences(organizationId)),
+    getHealthcareServiceReferences: (resourceType, resourceValue) => dispatch(getHealthcareServiceReferences(resourceType, resourceValue)),
     getLocationReferences: (healthcareServiceId) => dispatch(getLocationReferences(healthcareServiceId)),
     getPractitionerReferences: (organizationId, locationId) => dispatch(getPractitionerReferences(organizationId, locationId)),
   };

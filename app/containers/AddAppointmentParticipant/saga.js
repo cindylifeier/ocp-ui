@@ -1,9 +1,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
-import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from 'containers/Notification/actions';
-import { getHealthcareService, getLocationReferences, getPractitionerReferences } from './api';
+import { getHealthcareServiceReferences, getLocationReferences, getPractitionerReferences } from './api';
 import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
@@ -11,36 +10,30 @@ import {
 } from './actions';
 import { GET_HEALTHCARE_SERVICE_REFERENCES, GET_LOCATION_REFERENCES, GET_PRACTITIONER_REFERENCES } from './constants';
 
-function* getHealthcareServiceSaga({ organizationId }) {
+function* getHealthcareServiceSaga({ resourceType, resourceValue }) {
   try {
-    if (!isEmpty(organizationId)) {
-      const healthcareServices = yield call(getHealthcareService, organizationId);
-      yield put(getHealthcareServiceReferencesSuccess(healthcareServices));
-    }
+    const healthcareServices = yield call(getHealthcareServiceReferences, resourceType, resourceValue);
+    yield put(getHealthcareServiceReferencesSuccess(healthcareServices));
   } catch (error) {
-    yield put(showNotification('Error in getting Heathcare Service'));
+    yield put(showNotification('Error in getting Healthcare Service'));
     yield put(goBack());
   }
 }
 
-function* getLocationReferencesSaga({ healthcareServiceId }) {
+function* getLocationReferencesSaga({ resourceType, resourceValue }) {
   try {
-    if (healthcareServiceId) {
-      const locations = yield call(getLocationReferences, healthcareServiceId);
-      yield put(getLocationReferencesSuccess(locations));
-    }
+    const locations = yield call(getLocationReferences, resourceType, resourceValue);
+    yield put(getLocationReferencesSuccess(locations));
   } catch (error) {
     yield put(showNotification('Error in getting Locations'));
     yield put(goBack());
   }
 }
 
-function* getPractitionerReferencesSaga({ organizationId, locationId }) {
+function* getPractitionerReferencesSaga({ resourceType, resourceValue }) {
   try {
-    if (!isEmpty(organizationId) && !isEmpty(locationId)) {
-      const practitioners = yield call(getPractitionerReferences, organizationId, locationId);
-      yield put(getPractitionerReferencesSuccess(practitioners));
-    }
+    const practitioners = yield call(getPractitionerReferences, resourceType, resourceValue);
+    yield put(getPractitionerReferencesSuccess(practitioners));
   } catch (error) {
     yield put(showNotification('Error in getting practitioners'));
     yield put(goBack());

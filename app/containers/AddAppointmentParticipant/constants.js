@@ -21,3 +21,6 @@ export const GET_PRACTITIONER_REFERENCES_SUCCESS = 'ocpui/AddAppointmentParticip
  *  Other constants
  *
  */
+export const ORGANIZATION_RESOURCE_TYPE = 'organization';
+export const LOCATION_RESOURCE_TYPE = 'location';
+export const HEALTHCARE_SERVICE_RESOURCE_TYPE = 'healthcareservice';

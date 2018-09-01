@@ -1,27 +1,24 @@
-import * as queryString from 'query-string';
+import queryString from 'utils/queryString';
 import request from 'utils/request';
 import { BASE_APPOINTMENTS_API_URL, getEndpoint } from 'utils/endpointService';
 
-export function getHealthcareService(organizationId) {
-  const stringifiedParams = queryString.stringify({ resourceType: 'organization', resourceValue: organizationId });
+export function getHealthcareServiceReferences(resourceType, resourceValue) {
+  const queryParams = queryString({ resourceType, resourceValue });
   const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
-  const requestURL = `${appointmentBaseEndpoint}/healthcare-service-references?${stringifiedParams}`;
+  const requestURL = `${appointmentBaseEndpoint}/healthcare-service-references${queryParams}`;
   return request(requestURL);
 }
 
-export function getLocationReferences(healthcareServiceId) {
-  const stringifiedParams = queryString.stringify({
-    resourceType: 'healthcareservice',
-    resourceValue: healthcareServiceId,
-  });
+export function getLocationReferences(resourceType, resourceValue) {
+  const queryParams = queryString({ resourceType, resourceValue });
   const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
-  const requestURL = `${appointmentBaseEndpoint}/location-references?${stringifiedParams}`;
+  const requestURL = `${appointmentBaseEndpoint}/location-references${queryParams}`;
   return request(requestURL);
 }
 
-export function getPractitionerReferences(organizationId, locationId) {
-  const stringifiedParams = queryString.stringify({ resourceType: 'location', resourceValue: locationId });
+export function getPractitionerReferences(resourceType, resourceValue) {
+  const queryParams = queryString({ resourceType, resourceValue });
   const appointmentBaseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
-  const requestURL = `${appointmentBaseEndpoint}/practitioner-references?${stringifiedParams}`;
+  const requestURL = `${appointmentBaseEndpoint}/practitioner-references${queryParams}`;
   return request(requestURL);
 }

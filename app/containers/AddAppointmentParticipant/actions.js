@@ -13,10 +13,11 @@ import {
   GET_PRACTITIONER_REFERENCES_SUCCESS,
 } from './constants';
 
-export function getHealthcareServiceReferences(organizationId) {
+export function getHealthcareServiceReferences(resourceType, resourceValue) {
   return {
     type: GET_HEALTHCARE_SERVICE_REFERENCES,
-    organizationId,
+    resourceType,
+    resourceValue,
   };
 }
 
@@ -27,10 +28,11 @@ export function getHealthcareServiceReferencesSuccess(healthcareServices) {
   };
 }
 
-export function getLocationReferences(healthcareServiceId) {
+export function getLocationReferences(resourceType, resourceValue) {
   return {
     type: GET_LOCATION_REFERENCES,
-    healthcareServiceId,
+    resourceType,
+    resourceValue,
   };
 }
 
@@ -41,11 +43,11 @@ export function getLocationReferencesSuccess(locations) {
   };
 }
 
-export function getPractitionerReferences(organizationId, locationId) {
+export function getPractitionerReferences(resourceType, resourceValue) {
   return {
     type: GET_PRACTITIONER_REFERENCES,
-    organizationId,
-    locationId,
+    resourceType,
+    resourceValue,
   };
 }
 
