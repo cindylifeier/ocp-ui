@@ -68,25 +68,35 @@ class AddParticipantForm extends React.Component {
     function defineValidationSchema() {
       const inOrgFormValidationSchema = yup.object().shape({
         practitioner: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+          .required(<FormattedMessage {...messages.validation.required} />),
         attendance: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+          .required(<FormattedMessage {...messages.validation.required} />),
       });
       const outOfOrgFormValidationSchema = yup.object().shape({
         practitioner: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+          .required(<FormattedMessage {...messages.validation.required} />),
         attendance: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+          .required(<FormattedMessage {...messages.validation.required} />),
       });
-      const locationFormValidationSchema = yup.object().shape({
-        location: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+      const locationFormValidationSchema = yup.lazy((values) => {
+        if (isEmpty(values.practitioner)) {
+          return yup.object().shape({
+            location: yup.string()
+              .required(<FormattedMessage {...messages.validation.required} />),
+          });
+        }
+        return yup.object().shape({
+          location: yup.string()
+            .required(<FormattedMessage {...messages.validation.required} />),
+          attendance: yup.string()
+            .required(<FormattedMessage {...messages.validation.required} />),
+        });
       });
       const serviceFormValidationSchema = yup.object().shape({
         service: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+          .required(<FormattedMessage {...messages.validation.required} />),
         location: yup.string()
-          .required((<FormattedMessage {...messages.validation.required} />)),
+          .required(<FormattedMessage {...messages.validation.required} />),
       });
       switch (tabIndex) {
         case 0:
