@@ -13,6 +13,7 @@ import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import InsideOrgTabContent from './InsideOrgTabContent';
+import LocationTabContent from './LocationTabContent';
 import ServiceTabContent from './ServiceTabContent';
 import { mapToParticipantReference, mapToPractitionerParticipantReference } from './helpers';
 import messages from './messages';
@@ -113,7 +114,14 @@ class AddParticipantForm extends React.Component {
         case 1:
           return (<div>Inside Organization</div>);
         case 2:
-          return (<div>Inside Organization</div>);
+          return (
+            <LocationTabContent
+              formValues={values}
+              resetForm={resetForm}
+              setFieldTouched={setFieldTouched}
+              {...tabProps}
+            />
+          );
         default:
           return (
             <ServiceTabContent

@@ -43,8 +43,9 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     if (organization) {
       const resourceType = ORGANIZATION_RESOURCE_TYPE;
       const resourceValue = organization.logicalId;
-      this.props.getHealthcareServiceReferences(resourceType, resourceValue);
       this.props.getPractitionerReferences(resourceType, resourceValue);
+      this.props.getLocationReferences(resourceType, resourceValue);
+      this.props.getHealthcareServiceReferences(resourceType, resourceValue);
     }
   }
 
@@ -80,7 +81,7 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     } = this.props;
 
     return (
-      (!isEmpty(healthcareServices) || !isEmpty(practitioners)) &&
+      (!isEmpty(healthcareServices) || !isEmpty(practitioners) || !isEmpty(locations)) &&
       <AddAppointmentParticipantModal
         errors={formErrors}
         participants={participants}
