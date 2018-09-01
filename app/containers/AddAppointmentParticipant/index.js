@@ -33,6 +33,7 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
   constructor(props) {
     super(props);
     this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
+    this.handleGetAvailableHealthcareServices = this.handleGetAvailableHealthcareServices.bind(this);
     this.handleGetAvailablePractitioners = this.handleGetAvailablePractitioners.bind(this);
   }
 
@@ -50,6 +51,13 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     const resourceValue = getLogicalIdFromReference(resourceReferenceValue);
     if (resourceValue) {
       this.props.getLocationReferences(resourceType, resourceValue);
+    }
+  }
+
+  handleGetAvailableHealthcareServices(resourceType, resourceReferenceValue) {
+    const resourceValue = getLogicalIdFromReference(resourceReferenceValue);
+    if (resourceValue) {
+      this.props.getHealthcareServiceReferences(resourceType, resourceValue);
     }
   }
 
@@ -80,6 +88,7 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
         practitioners={practitioners}
         participantAttendance={appointmentParticipantAttendance}
         onGetAvailableLocations={this.handleGetAvailableLocations}
+        onGetAvailableHealthcareServices={this.handleGetAvailableHealthcareServices}
         onGetAvailablePractitioners={this.handleGetAvailablePractitioners}
       />
     );
