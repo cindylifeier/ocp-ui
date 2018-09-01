@@ -12,6 +12,7 @@ import isEmpty from 'lodash/isEmpty';
 import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
+import InsideOrgTabContent from './InsideOrgTabContent';
 import ServiceTabContent from './ServiceTabContent';
 import { mapToParticipantReference, mapToPractitionerParticipantReference } from './helpers';
 import messages from './messages';
@@ -48,16 +49,18 @@ class AddParticipantForm extends React.Component {
       practitioners,
       participantAttendance,
       onGetAvailableLocations,
+      onGetAvailableHealthcareServices,
       onGetAvailablePractitioners,
     } = this.props;
     const { tabIndex } = this.state;
 
-    const serviceTabProps = {
+    const tabProps = {
       healthcareServices,
       locations,
       practitioners,
       participantAttendance,
       onGetAvailableLocations,
+      onGetAvailableHealthcareServices,
       onGetAvailablePractitioners,
     };
 
@@ -99,7 +102,14 @@ class AddParticipantForm extends React.Component {
     function renderParticipantDetailsForm(values, resetForm, setFieldTouched) {
       switch (tabIndex) {
         case 0:
-          return (<div>Inside Organization</div>);
+          return (
+            <InsideOrgTabContent
+              formValues={values}
+              resetForm={resetForm}
+              setFieldTouched={setFieldTouched}
+              {...tabProps}
+            />
+          );
         case 1:
           return (<div>Inside Organization</div>);
         case 2:
@@ -110,8 +120,9 @@ class AddParticipantForm extends React.Component {
               formValues={values}
               resetForm={resetForm}
               setFieldTouched={setFieldTouched}
-              {...serviceTabProps}
-            />);
+              {...tabProps}
+            />
+          );
       }
     }
 
@@ -173,6 +184,7 @@ AddParticipantForm.propTypes = {
   practitioners: PropTypes.array,
   participantAttendance: PropTypes.array.isRequired,
   onGetAvailableLocations: PropTypes.func.isRequired,
+  onGetAvailableHealthcareServices: PropTypes.func.isRequired,
   onGetAvailablePractitioners: PropTypes.func.isRequired,
 };
 
