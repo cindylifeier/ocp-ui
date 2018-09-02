@@ -36,14 +36,14 @@ function AddedParticipantsTable(props) {
       <CustomErrorText>{errors.participants}</CustomErrorText>
       }
       {participants && participants.map((participant, index) => {
-        const { display, reference, participationTypeDisplay, participantRequiredDisplay, participationStatusDisplay } = participant;
+        const { display, reference, participationTypeDisplay, participantRequiredDisplay, participantStatusDisplay } = participant;
         return (
           <TableRow key={uniqueId()} columns={tableColumns}>
             <TableRowColumn>{display}</TableRowColumn>
             <TableRowColumn>{reference && reference.split('/')[0]}</TableRowColumn>
             <TableRowColumn>{upperFirst(participationTypeDisplay)}</TableRowColumn>
             <TableRowColumn>{participantRequiredDisplay}</TableRowColumn>
-            <TableRowColumn>{participationStatusDisplay}</TableRowColumn>
+            <TableRowColumn>{participantStatusDisplay}</TableRowColumn>
             <TableRowColumn>
               <StyledRaisedButton onClick={() => arrayHelpers.remove(index)}>
                 <FormattedMessage {...messages.addedParticipantsTable.removeParticipantBtn} />
