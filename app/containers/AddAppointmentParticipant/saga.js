@@ -12,13 +12,13 @@ import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
   getPractitionerReferencesSuccess,
-  searchParticipantSuccess,
+  searchParticipantReferencesSuccess,
 } from './actions';
 import {
   GET_HEALTHCARE_SERVICE_REFERENCES,
   GET_LOCATION_REFERENCES,
   GET_PRACTITIONER_REFERENCES,
-  SEARCH_PARTICIPANT,
+  SEARCH_PARTICIPANT_REFERENCES,
 } from './constants';
 
 function* getHealthcareServiceSaga({ resourceType, resourceValue }) {
@@ -54,7 +54,7 @@ function* getPractitionerReferencesSaga({ resourceType, resourceValue }) {
 function* searchParticipantReferencesSaga({ searchType, searchValue, organizationId, currentPage }) {
   try {
     const participants = yield call(searchParticipantReferences, searchType, searchValue, organizationId, currentPage);
-    yield put(searchParticipantSuccess(participants));
+    yield put(searchParticipantReferencesSuccess(participants));
   } catch (error) {
     yield put(showNotification('Error in searching practitioners'));
     yield put(goBack());
@@ -74,7 +74,7 @@ function* watchGetPractitionerReferencesSaga() {
 }
 
 function* watchSearchParticipantReferencesSaga() {
-  yield takeLatest(SEARCH_PARTICIPANT, searchParticipantReferencesSaga);
+  yield takeLatest(SEARCH_PARTICIPANT_REFERENCES, searchParticipantReferencesSaga);
 }
 
 export default function* rootSaga() {

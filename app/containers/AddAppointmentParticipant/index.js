@@ -14,16 +14,22 @@ import isEmpty from 'lodash/isEmpty';
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
-import { APPOINTMENT_PARTICIPANT_REQUIRED } from 'containers/App/constants';
+import { APPOINTMENT_PARTICIPANT_REQUIRED, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
 import { makeSelectOrganization } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
 import { getLogicalIdFromReference } from 'containers/App/helpers';
 import AddAppointmentParticipantModal from 'components/AddAppointmentParticipantModal';
-import { getHealthcareServiceReferences, getLocationReferences, getPractitionerReferences } from './actions';
+import {
+  getHealthcareServiceReferences,
+  getLocationReferences,
+  getPractitionerReferences,
+  searchParticipantReferences,
+} from './actions';
 import {
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
+  makeSelectSearchPraticipantReferences,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -35,6 +41,7 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
     this.handleGetAvailableHealthcareServices = this.handleGetAvailableHealthcareServices.bind(this);
     this.handleGetAvailablePractitioners = this.handleGetAvailablePractitioners.bind(this);
+    this.handleSearchParticipantReferences = this.handleSearchParticipantReferences.bind(this);
   }
 
   componentDidMount() {
@@ -70,6 +77,12 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     }
   }
 
+  handleSearchParticipantReferences(searchType, searchValue) {
+    const { organization } = this.props;
+    const organizationId = organization.logicalId;
+    this.props.searchParticipantReferences(searchType, searchValue, organizationId, DEFAULT_START_PAGE_NUMBER);
+  }
+
   render() {
     const {
       formErrors,
@@ -77,6 +90,7 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
       healthcareServices,
       locations,
       practitioners,
+      participantReferences,
       appointmentParticipantAttendance,
     } = this.props;
 
@@ -88,10 +102,12 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
         healthcareServices={healthcareServices}
         locations={locations}
         practitioners={practitioners}
+        participantReferences={participantReferences}
         participantAttendance={appointmentParticipantAttendance}
         onGetAvailableLocations={this.handleGetAvailableLocations}
         onGetAvailableHealthcareServices={this.handleGetAvailableHealthcareServices}
         onGetAvailablePractitioners={this.handleGetAvailablePractitioners}
+        onSearchParticipantReferences={this.handleSearchParticipantReferences}
       />
     );
   }
@@ -103,9 +119,16 @@ AddAppointmentParticipant.propTypes = {
   locations: PropTypes.array,
   appointmentParticipantAttendance: PropTypes.array,
   practitioners: PropTypes.array,
+  participantReferences: PropTypes.arrayOf(PropTypes.shape({
+    loading: PropTypes.bool.isRequired,
+    currentPage: PropTypes.number.isRequired,
+    totalNumberOfPages: PropTypes.number.isRequired,
+    data: PropTypes.array,
+  })),
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
+  searchParticipantReferences: PropTypes.func.isRequired,
   organization: PropTypes.object.isRequired,
   formErrors: PropTypes.object,
   participants: PropTypes.arrayOf(PropTypes.shape({
@@ -122,6 +145,7 @@ const mapStateToProps = createStructuredSelector({
   healthcareServices: makeSelectHealthcareServiceReferences(),
   locations: makeSelectLocationReferences(),
   practitioners: makeSelectPractitionerReferences(),
+  participantReferences: makeSelectSearchPraticipantReferences(),
   appointmentParticipantAttendance: makeSelectAppointmentParticipationRequired(),
 });
 
@@ -131,6 +155,7 @@ function mapDispatchToProps(dispatch) {
     getHealthcareServiceReferences: (resourceType, resourceValue) => dispatch(getHealthcareServiceReferences(resourceType, resourceValue)),
     getLocationReferences: (resourceType, resourceValue) => dispatch(getLocationReferences(resourceType, resourceValue)),
     getPractitionerReferences: (resourceType, resourceValue) => dispatch(getPractitionerReferences(resourceType, resourceValue)),
+    searchParticipantReferences: (searchType, searchValue, organizationId, currentPage) => dispatch(searchParticipantReferences(searchType, searchValue, organizationId, currentPage)),
   };
 }
 

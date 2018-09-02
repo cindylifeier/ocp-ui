@@ -15,9 +15,9 @@ export const GET_LOCATION_REFERENCES = 'ocpui/AddAppointmentParticipant/GET_LOCA
 export const GET_LOCATION_REFERENCES_SUCCESS = 'ocpui/AddAppointmentParticipant/GET_LOCATION_REFERENCES_SUCCESS';
 export const GET_PRACTITIONER_REFERENCES = 'ocpui/AddAppointmentParticipant/GET_PRACTITIONER_REFERENCES';
 export const GET_PRACTITIONER_REFERENCES_SUCCESS = 'ocpui/AddAppointmentParticipant/GET_PRACTITIONER_REFERENCES_SUCCESS';
-export const SEARCH_PARTICIPANT = 'ocpui/AddAppointmentParticipant/SEARCH_PARTICIPANT';
-export const SEARCH_PARTICIPANT_SUCCESS = 'ocpui/AddAppointmentParticipant/SEARCH_PARTICIPANT_SUCCESS';
-export const SEARCH_PARTICIPANT_ERROR = 'ocpui/AddAppointmentParticipant/SEARCH_PARTICIPANT_ERROR';
+export const SEARCH_PARTICIPANT_REFERENCES = 'ocpui/AddAppointmentParticipant/SEARCH_PARTICIPANT_REFERENCES';
+export const SEARCH_PARTICIPANT_REFERENCES_SUCCESS = 'ocpui/AddAppointmentParticipant/SEARCH_PARTICIPANT_REFERENCES_SUCCESS';
+export const SEARCH_PARTICIPANT_REFERENCES_ERROR = 'ocpui/AddAppointmentParticipant/SEARCH_PARTICIPANT_REFERENCES_ERROR';
 
 /**
  *  Other constants

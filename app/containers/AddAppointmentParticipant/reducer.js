@@ -9,7 +9,7 @@ import {
   GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
-  SEARCH_PARTICIPANT_SUCCESS,
+  SEARCH_PARTICIPANT_REFERENCES_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
@@ -36,7 +36,7 @@ function addAppointmentParticipantReducer(state = initialState, action) {
     case GET_PRACTITIONER_REFERENCES_SUCCESS:
       return state
         .set('practitioners', action.practitioners);
-    case SEARCH_PARTICIPANT_SUCCESS:
+    case SEARCH_PARTICIPANT_REFERENCES_SUCCESS:
       return state
         .setIn(['searchParticipants', 'loading'], false)
         .setIn(['searchParticipants', 'data'], fromJS(action.participants.elements))
