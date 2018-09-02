@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
 
 import {
   HEALTHCARE_SERVICE_RESOURCE_TYPE,
@@ -41,7 +42,7 @@ function ServiceTabContent(props) {
         >
           {healthcareServices && healthcareServices.map((service) =>
             (<MenuItem
-              key={service.reference}
+              key={uniqueId()}
               value={service.reference}
               primaryText={service.display}
             />),
@@ -66,7 +67,7 @@ function ServiceTabContent(props) {
         >
           {locations && locations.map((location) =>
             (<MenuItem
-              key={location.reference}
+              key={uniqueId()}
               value={location.reference}
               primaryText={location.display}
             />),
@@ -91,7 +92,7 @@ function ServiceTabContent(props) {
         >
           {practitioners && practitioners.map((entry) =>
             (<MenuItem
-              key={entry.reference}
+              key={uniqueId()}
               value={entry.reference}
               primaryText={entry.display}
             />),
@@ -110,7 +111,7 @@ function ServiceTabContent(props) {
           >
             {participantAttendance && participantAttendance.map((entry) =>
               (<MenuItem
-                key={entry.code}
+                key={uniqueId()}
                 value={entry.code}
                 primaryText={entry.display}
               />),

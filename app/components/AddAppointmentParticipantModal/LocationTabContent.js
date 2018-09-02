@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
 
 import { LOCATION_RESOURCE_TYPE } from 'containers/AddAppointmentParticipant/constants';
 import SelectField from 'components/SelectField';
@@ -39,7 +40,7 @@ function LocationTabContent(props) {
         >
           {locations && locations.map((location) => (
             <MenuItem
-              key={location.reference}
+              key={uniqueId()}
               value={location.reference}
               primaryText={location.display}
             />
@@ -56,7 +57,7 @@ function LocationTabContent(props) {
         >
           {healthcareServices && healthcareServices.map((service) => (
             <MenuItem
-              key={service.reference}
+              key={uniqueId()}
               value={service.reference}
               primaryText={service.display}
             />
@@ -81,7 +82,7 @@ function LocationTabContent(props) {
         >
           {practitioners && practitioners.map((entry) => (
             <MenuItem
-              key={entry.reference}
+              key={uniqueId()}
               value={entry.reference}
               primaryText={entry.display}
             />
@@ -100,7 +101,7 @@ function LocationTabContent(props) {
           >
             {participantAttendance && participantAttendance.map((entry) => (
               <MenuItem
-                key={entry.code}
+                key={uniqueId()}
                 value={entry.code}
                 primaryText={entry.display}
               />
