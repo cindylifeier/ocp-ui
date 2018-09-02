@@ -7,6 +7,13 @@ describe('addAppointmentParticipantReducer', () => {
       healthcareServices: null,
       locations: null,
       practitioners: null,
+      searchParticipants: {
+        loading: false,
+        data: [],
+        currentPage: 0,
+        totalNumberOfPages: 0,
+        error: false,
+      },
     }));
   });
 });

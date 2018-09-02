@@ -23,6 +23,11 @@ const makeSelectPractitionerReferences = () => createSelector(
   (subState) => subState && subState.get('practitioners'),
 );
 
+const makeSelectSearchPraticipantReferences = () => createSelector(
+  selectAddAppointmentParticipantDomain,
+  (subState) => subState && subState.get('searchParticipants'),
+);
+
 /**
  * Default selector used by AddAppointmentParticipant
  */
@@ -38,4 +43,5 @@ export {
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
+  makeSelectSearchPraticipantReferences,
 };

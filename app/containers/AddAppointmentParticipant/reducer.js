@@ -16,10 +16,13 @@ const initialState = fromJS({
   healthcareServices: null,
   locations: null,
   practitioners: null,
-  loading: false,
-  data: null,
-  currentPage: 0,
-  totalNumberOfPages: 0,
+  searchParticipants: {
+    loading: false,
+    data: [],
+    currentPage: 0,
+    totalNumberOfPages: 0,
+    error: false,
+  },
 });
 
 function addAppointmentParticipantReducer(state = initialState, action) {
@@ -35,12 +38,10 @@ function addAppointmentParticipantReducer(state = initialState, action) {
         .set('practitioners', action.practitioners);
     case SEARCH_PARTICIPANT_SUCCESS:
       return state
-        .set('loading', false)
-        .set('data', fromJS(action.participants.elements))
-        .set('totalElements', action.participants.totalElements)
-        .set('currentPageSize', action.participants.currentPageSize)
-        .set('totalNumberOfPages', action.participants.totalNumberOfPages)
-        .set('currentPage', action.participants.currentPage);
+        .setIn(['searchParticipants', 'loading'], false)
+        .setIn(['searchParticipants', 'data'], fromJS(action.participants.elements))
+        .setIn(['searchParticipants', 'totalNumberOfPages'], action.participants.totalNumberOfPages)
+        .setIn(['searchParticipants', 'currentPage'], action.participants.currentPage);
     default:
       return state;
   }
