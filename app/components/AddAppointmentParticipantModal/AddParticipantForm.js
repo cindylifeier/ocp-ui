@@ -8,6 +8,7 @@ import Tab from 'material-ui-next/Tabs/Tab';
 import AppBar from 'material-ui-next/AppBar';
 import { Grid } from 'styled-css-grid';
 import isEmpty from 'lodash/isEmpty';
+import compact from 'lodash/compact';
 
 import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -38,7 +39,8 @@ class AddParticipantForm extends React.Component {
     const practitionerParticipant = mapToPractitionerParticipantReference(formValue.practitioner, formValue.attendance, practitioners, participantAttendance);
     const participants = Array.of(serviceParticipant, locationParticipant, practitionerParticipant);
     const fieldName = this.props.arrayHelpers.name;
-    this.props.arrayHelpers.form.setFieldValue(fieldName, participants);
+    // Remove all falsey values from array
+    this.props.arrayHelpers.form.setFieldValue(fieldName, compact(participants));
     this.props.onCloseDialog();
   }
 
