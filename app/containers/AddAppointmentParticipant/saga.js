@@ -2,13 +2,24 @@ import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 
 import { showNotification } from 'containers/Notification/actions';
-import { getHealthcareServiceReferences, getLocationReferences, getPractitionerReferences } from './api';
+import {
+  getHealthcareServiceReferences,
+  getLocationReferences,
+  getPractitionerReferences,
+  searchParticipantReferences,
+} from './api';
 import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
   getPractitionerReferencesSuccess,
+  searchParticipantSuccess,
 } from './actions';
-import { GET_HEALTHCARE_SERVICE_REFERENCES, GET_LOCATION_REFERENCES, GET_PRACTITIONER_REFERENCES } from './constants';
+import {
+  GET_HEALTHCARE_SERVICE_REFERENCES,
+  GET_LOCATION_REFERENCES,
+  GET_PRACTITIONER_REFERENCES,
+  SEARCH_PARTICIPANT,
+} from './constants';
 
 function* getHealthcareServiceSaga({ resourceType, resourceValue }) {
   try {
@@ -40,6 +51,16 @@ function* getPractitionerReferencesSaga({ resourceType, resourceValue }) {
   }
 }
 
+function* searchParticipantReferencesSaga({ searchType, searchValue, organizationId, currentPage }) {
+  try {
+    const participants = yield call(searchParticipantReferences, searchType, searchValue, organizationId, currentPage);
+    yield put(searchParticipantSuccess(participants));
+  } catch (error) {
+    yield put(showNotification('Error in searching practitioners'));
+    yield put(goBack());
+  }
+}
+
 function* watchGetHealthcareServiceSaga() {
   yield takeLatest(GET_HEALTHCARE_SERVICE_REFERENCES, getHealthcareServiceSaga);
 }
@@ -52,10 +73,15 @@ function* watchGetPractitionerReferencesSaga() {
   yield takeLatest(GET_PRACTITIONER_REFERENCES, getPractitionerReferencesSaga);
 }
 
+function* watchSearchParticipantReferencesSaga() {
+  yield takeLatest(SEARCH_PARTICIPANT, searchParticipantReferencesSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetHealthcareServiceSaga(),
     watchGetLocationReferencesSaga(),
     watchGetPractitionerReferencesSaga(),
+    watchSearchParticipantReferencesSaga(),
   ]);
 }

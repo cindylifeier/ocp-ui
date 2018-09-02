@@ -22,3 +22,15 @@ export function getPractitionerReferences(resourceType, resourceValue) {
   const requestURL = `${appointmentBaseEndpoint}/practitioner-references${queryParams}`;
   return request(requestURL);
 }
+
+export function searchParticipantReferences(searchType, searchValue, organization, page) {
+  const baseEndpoint = getEndpoint(BASE_APPOINTMENTS_API_URL);
+  const params = queryString({
+    participantType: searchType,
+    searchTerms: searchValue,
+    organization,
+    page,
+  });
+  const requestURL = `${baseEndpoint}/participant-references/search${params}`;
+  return request(requestURL);
+}
