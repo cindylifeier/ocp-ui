@@ -11,6 +11,9 @@ import {
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
+  SEARCH_PARTICIPANT,
+  SEARCH_PARTICIPANT_ERROR,
+  SEARCH_PARTICIPANT_SUCCESS,
 } from './constants';
 
 export function getHealthcareServiceReferences(resourceType, resourceValue) {
@@ -55,5 +58,29 @@ export function getPractitionerReferencesSuccess(practitioners) {
   return {
     type: GET_PRACTITIONER_REFERENCES_SUCCESS,
     practitioners,
+  };
+}
+
+export function searchParticipant(searchType, searchValue, organizationId, currentPage) {
+  return {
+    type: SEARCH_PARTICIPANT,
+    searchType,
+    searchValue,
+    organizationId,
+    currentPage,
+  };
+}
+
+export function searchParticipantSuccess(participants) {
+  return {
+    type: SEARCH_PARTICIPANT_SUCCESS,
+    participants,
+  };
+}
+
+export function searchParticipantError(error) {
+  return {
+    type: SEARCH_PARTICIPANT_ERROR,
+    error,
   };
 }
