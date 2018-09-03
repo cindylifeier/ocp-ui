@@ -140,6 +140,12 @@ function CommunicationsTable(props) {
   );
 }
 
+
+CommunicationsTable.defaultProps = {
+  relativeTop: 0,
+};
+
+
 CommunicationsTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   communicationsData: PropTypes.shape({
@@ -155,7 +161,7 @@ CommunicationsTable.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       elements: PropTypes.array,
-    }).isRequired,
+    }),
   }).isRequired,
   handleChangePage: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,

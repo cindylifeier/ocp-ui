@@ -94,7 +94,13 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                     <ExpandMoreIcon onClick={this.handlePanelOpen} />
                   }
                 </Cell>
-                <Cell onClick={() => { handleToDoClick(toDoLogicalId); }}>
+                <Cell
+                  onClick={() => {
+                    if (handleToDoClick) {
+                      handleToDoClick(toDoLogicalId);
+                    }
+                  }}
+                >
                   <strong>
                     {dueDateStr}
                   </strong>
@@ -104,7 +110,13 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                     <strong>{patientNameStr}</strong>
                   </Align>
                 }
-                <Cell onClick={() => { handleToDoClick(toDoLogicalId); }} >
+                <Cell
+                  onClick={() => {
+                    if (handleToDoClick) {
+                      handleToDoClick(toDoLogicalId);
+                    }
+                  }}
+                >
                   <Align variant="right">
                     <strong>
                       {this.getStatusWithIcon(status)}
