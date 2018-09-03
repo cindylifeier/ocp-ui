@@ -183,11 +183,11 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
               <TableRowColumn
                 textDecorationLine="underline"
                 onClick={() => {
-                onAppointmentClick(appointment);
-                handlePatientNameClick(appointment.patient);
-              }}
-                >
-              {appointment.patientName}
+                  onAppointmentClick(appointment);
+                  handlePatientNameClick(appointment.patient);
+                }}
+              >
+                {appointment.patientName}
                 </TableRowColumn>
               }
               {isExpanded &&
