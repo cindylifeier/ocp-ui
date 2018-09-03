@@ -119,12 +119,12 @@ AddAppointmentParticipant.propTypes = {
   locations: PropTypes.array,
   appointmentParticipantAttendance: PropTypes.array,
   practitioners: PropTypes.array,
-  participantReferences: PropTypes.arrayOf(PropTypes.shape({
-    loading: PropTypes.bool.isRequired,
-    currentPage: PropTypes.number.isRequired,
-    totalNumberOfPages: PropTypes.number.isRequired,
+  participantReferences: PropTypes.shape({
+    loading: PropTypes.bool,
+    currentPage: PropTypes.number,
+    totalNumberOfPages: PropTypes.number,
     data: PropTypes.array,
-  })),
+  }),
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,

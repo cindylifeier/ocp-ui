@@ -50,10 +50,12 @@ class AddParticipantForm extends React.Component {
       healthcareServices,
       locations,
       practitioners,
+      participantReferences,
       participantAttendance,
       onGetAvailableLocations,
       onGetAvailableHealthcareServices,
       onGetAvailablePractitioners,
+      onSearchParticipantReferences,
     } = this.props;
     const { tabIndex } = this.state;
 
@@ -61,10 +63,12 @@ class AddParticipantForm extends React.Component {
       healthcareServices,
       locations,
       practitioners,
+      participantReferences,
       participantAttendance,
       onGetAvailableLocations,
       onGetAvailableHealthcareServices,
       onGetAvailablePractitioners,
+      onSearchParticipantReferences,
     };
 
     function defineValidationSchema() {
@@ -202,10 +206,17 @@ AddParticipantForm.propTypes = {
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
+  participantReferences: PropTypes.shape({
+    loading: PropTypes.bool,
+    currentPage: PropTypes.number,
+    totalNumberOfPages: PropTypes.number,
+    data: PropTypes.array,
+  }),
   participantAttendance: PropTypes.array.isRequired,
   onGetAvailableLocations: PropTypes.func.isRequired,
   onGetAvailableHealthcareServices: PropTypes.func.isRequired,
   onGetAvailablePractitioners: PropTypes.func.isRequired,
+  onSearchParticipantReferences: PropTypes.func.isRequired,
 };
 
 export default AddParticipantForm;

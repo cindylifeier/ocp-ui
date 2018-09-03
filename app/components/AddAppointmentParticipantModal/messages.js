@@ -38,6 +38,14 @@ export default defineMessages({
     id: 'ocpui.containers.AddParticipantForm.cancelButton',
     defaultMessage: 'Cancel',
   },
+  menuItemPractitioner: {
+    id: 'ocpui.components.AddParticipantForm.hintText.menuItemPractitioner',
+    defaultMessage: 'Practitioner',
+  },
+  menuItemRelatedPerson: {
+    id: 'ocpui.components.AddParticipantForm.hintText.menuItemRelatedPerson',
+    defaultMessage: 'Related Person',
+  },
   validation: {
     required: {
       id: 'ocpui.components.AddParticipantForm.validation.required',
@@ -61,6 +69,14 @@ export default defineMessages({
       id: 'ocpui.components.AddParticipantForm.hintText.selectPractitionerAttendance',
       defaultMessage: 'Attendance',
     },
+    participantName: {
+      id: 'ocpui.components.AddParticipantForm.hintText.participantName',
+      defaultMessage: 'Name',
+    },
+    participantType: {
+      id: 'ocpui.components.AddParticipantForm.hintText.participantType',
+      defaultMessage: 'Type',
+    },
   },
   floatingLabelText: {
     selectService: {
@@ -78,6 +94,14 @@ export default defineMessages({
     selectPractitionerAttendance: {
       id: 'ocpui.components.AddParticipantForm.floatingLabelText.selectPractitionerAttendance',
       defaultMessage: 'Attendance',
+    },
+    participantName: {
+      id: 'ocpui.components.AddParticipantForm.floatingLabelText.participantName',
+      defaultMessage: 'Name',
+    },
+    participantType: {
+      id: 'ocpui.components.AddParticipantForm.floatingLabelText.participantType',
+      defaultMessage: 'Type',
     },
   },
   addedParticipantsTable: {

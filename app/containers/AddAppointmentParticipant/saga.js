@@ -57,7 +57,6 @@ function* searchParticipantReferencesSaga({ searchType, searchValue, organizatio
     yield put(searchParticipantReferencesSuccess(participants));
   } catch (error) {
     yield put(showNotification('Error in searching practitioners'));
-    yield put(goBack());
   }
 }
 

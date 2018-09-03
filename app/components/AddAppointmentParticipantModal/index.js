@@ -36,7 +36,10 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
   }
 
   render() {
-    const { errors, participants, onGetAvailableLocations, onGetAvailableHealthcareServices, onGetAvailablePractitioners, healthcareServices, locations, participantAttendance, practitioners } = this.props;
+    const {
+      errors, participants, healthcareServices, locations, participantAttendance, practitioners, participantReferences,
+      onGetAvailableLocations, onGetAvailableHealthcareServices, onGetAvailablePractitioners, onSearchParticipantReferences,
+    } = this.props;
     return (
       <div>
         <StyledRaisedButton onClick={this.handleOpenDialog}>
@@ -57,10 +60,12 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
                     locations={locations}
                     healthcareServices={healthcareServices}
                     practitioners={practitioners}
+                    participantReferences={participantReferences}
                     participantAttendance={participantAttendance}
                     onGetAvailableLocations={onGetAvailableLocations}
                     onGetAvailableHealthcareServices={onGetAvailableHealthcareServices}
                     onGetAvailablePractitioners={onGetAvailablePractitioners}
+                    onSearchParticipantReferences={onSearchParticipantReferences}
                   />
                 </DialogContent>
               </StyledDialog>
@@ -89,10 +94,17 @@ AddAppointmentParticipantModal.propTypes = {
   healthcareServices: PropTypes.array.isRequired,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
+  participantReferences: PropTypes.shape({
+    loading: PropTypes.bool,
+    currentPage: PropTypes.number,
+    totalNumberOfPages: PropTypes.number,
+    data: PropTypes.array,
+  }),
   participantAttendance: PropTypes.array.isRequired,
   onGetAvailableLocations: PropTypes.func.isRequired,
   onGetAvailableHealthcareServices: PropTypes.func.isRequired,
   onGetAvailablePractitioners: PropTypes.func.isRequired,
+  onSearchParticipantReferences: PropTypes.func.isRequired,
 };
 
 export default AddAppointmentParticipantModal;
