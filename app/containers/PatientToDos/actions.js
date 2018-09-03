@@ -8,7 +8,8 @@ import {
   GET_PATIENT_TO_DOS, GET_PATIENT_TO_DOS_ERROR, GET_PATIENT_TO_DOS_SUCCESS, GET_PATIENT_TO_DO_MAIN_TASK,
   GET_PATIENT_TO_DO_MAIN_TASK_ERROR,
   GET_PATIENT_TO_DO_MAIN_TASK_SUCCESS, GET_FILTER_TO_DO, GET_FILTER_TO_DO_SUCCESS, GET_FILTER_TO_DO_ERROR,
-  CANCEL_TO_DO_SUCCESS, CANCEL_TO_DO, CANCEL_TO_DO_ERROR,
+  CANCEL_TO_DO_SUCCESS, CANCEL_TO_DO, CANCEL_TO_DO_ERROR, GET_TO_DO_RELATED_COMMUNICATIONS,
+  GET_TO_DO_RELATED_COMMUNICATIONS_SUCCESS, GET_TO_DO_RELATED_COMMUNICATIONS_ERROR,
 } from 'containers/PatientToDos/constants';
 
 export function getPatientToDos(patientId, practitionerId, definition) {
@@ -107,3 +108,30 @@ export function getFilterToDoError(error) {
     error,
   };
 }
+
+
+export function getToDoRelatedCommunications(patient, toDoId, pageNumber) {
+  return {
+    type: GET_TO_DO_RELATED_COMMUNICATIONS,
+    patient,
+    pageNumber,
+    toDoId,
+  };
+}
+
+
+export function getToDoRelatedCommunicationsSuccess(communications) {
+  return {
+    type: GET_TO_DO_RELATED_COMMUNICATIONS_SUCCESS,
+    communications,
+  };
+}
+
+
+export function getToDoRelatedCommunicationsError(error) {
+  return {
+    type: GET_TO_DO_RELATED_COMMUNICATIONS_ERROR,
+    error,
+  };
+}
+

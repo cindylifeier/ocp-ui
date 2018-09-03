@@ -36,29 +36,34 @@ function CommunicationsTable(props) {
   return (
     <div>
       {loading && <RefreshIndicatorLoading />}
-      {(!loading && data.elements &&
+      {(!loading && data && data.elements &&
         data.elements.length > 0 ?
           <div>
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
                 <TableHeaderColumn />
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreator} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
                 }
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactNote} /></TableHeaderColumn>
+                }
+                {isExpanded &&
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactDuration} /></TableHeaderColumn>
+                }
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCategory} /></TableHeaderColumn>
                 }
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTopic} /></TableHeaderColumn>
                 }
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderContactMethod} /></TableHeaderColumn>
-                }
-                {isExpanded &&
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderReason} /></TableHeaderColumn>
-                }
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
               </TableHeader>
               {!isEmpty(data.elements) && data.elements.map((communication) => {
                 const menuItems = [{
@@ -68,7 +73,17 @@ function CommunicationsTable(props) {
                     search: `?patientId=${selectedPatient.id}`,
                   },
                 }];
-                const { statusValue, categoryValue, context, mediumValue, notDoneReasonValue, sent, lastUpdated } = communication;
+                const {
+                  statusValue,
+                  categoryValue,
+                  context,
+                  mediumValue,
+                  sent,
+                  lastUpdated,
+                  sender,
+                  note,
+                  duration,
+                } = communication;
 
                 return (
                   <ExpansionTableRow
@@ -79,21 +94,25 @@ function CommunicationsTable(props) {
                     tabIndex="0"
                   >
                     <TableRowColumn>{ sent }</TableRowColumn>
+                    <TableRowColumn>{ sender && sender.display }</TableRowColumn>
                     {isExpanded &&
                     <TableRowColumn>{ lastUpdated }</TableRowColumn>
                     }
                     <TableRowColumn>{statusValue}</TableRowColumn>
                     {isExpanded &&
+                    <TableRowColumn>{mediumValue}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{note}</TableRowColumn>
+                    }
+                    {isExpanded &&
+                    <TableRowColumn>{duration}</TableRowColumn>
+                    }
+                    {isExpanded &&
                     <TableRowColumn>{categoryValue}</TableRowColumn>
                     }
                     {isExpanded &&
                     <TableRowColumn> {context && context.display}</TableRowColumn>
-                    }
-                    {isExpanded &&
-                    <TableRowColumn>{mediumValue}</TableRowColumn>
-                    }
-                    {isExpanded &&
-                    <TableRowColumn>{notDoneReasonValue}</TableRowColumn>
                     }
                     <TableRowColumn>
                       <NavigationIconMenu menuItems={menuItems} />
@@ -121,6 +140,12 @@ function CommunicationsTable(props) {
   );
 }
 
+
+CommunicationsTable.defaultProps = {
+  relativeTop: 0,
+};
+
+
 CommunicationsTable.propTypes = {
   relativeTop: PropTypes.number.isRequired,
   communicationsData: PropTypes.shape({
@@ -136,7 +161,7 @@ CommunicationsTable.propTypes = {
       currentPageSize: PropTypes.number,
       totalElements: PropTypes.number,
       elements: PropTypes.array,
-    }).isRequired,
+    }),
   }).isRequired,
   handleChangePage: PropTypes.func.isRequired,
   size: PropTypes.object.isRequired,

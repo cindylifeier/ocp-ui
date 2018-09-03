@@ -7,6 +7,9 @@ describe('tasksReducer', () => {
       loading: false,
       data: {},
       statusList: [],
+      communicationLoading: false,
+      communicationError: false,
+      communications: null,
     }));
   });
 });

@@ -27,7 +27,7 @@ import {
   MANAGE_APPOINTMENT_URL,
   MANAGE_COMMUNICATION_URL,
 } from 'containers/App/constants';
-import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentStatuses, makeSelectAppointmentTypes } from 'containers/App/lookupSelectors';
 
 import { makeSelectLocation } from 'containers/App/selectors';
@@ -44,6 +44,7 @@ import { Cell } from 'styled-css-grid';
 import { ASC, DESC } from 'utils/constants';
 import injectReducer from 'utils/injectReducer';
 import injectSaga from 'utils/injectSaga';
+import CommunicationsTableDialog from 'components/CommunicationsTableDialog/index';
 import Util from 'utils/Util';
 import {
   acceptPatientAppointment,
@@ -51,11 +52,17 @@ import {
   declinePatientAppointment,
   getPatientAppointments,
   tentativePatientAppointment,
+  getAppointmentRelatedCommunications,
 } from './actions';
 import messages from './messages';
 import reducer from './reducer';
 import saga from './saga';
-import { makeSelectPatientAppointments, makeSelectShowPastAppointments } from './selectors';
+import {
+  makeSelectPatientAppointments,
+  makeSelectShowPastAppointments,
+  makeSelectCommunicationsByAppointment,
+} from './selectors';
+
 
 export class PatientAppointments extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -63,6 +70,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.state = {
       panelHeight: 0,
       filterHeight: 0,
+      open: false,
       columnToSort: '',
       sortDirection: DESC,
     };
@@ -75,6 +83,9 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.tentativeAppointment = this.tentativeAppointment.bind(this);
     this.handlePanelResize = this.handlePanelResize.bind(this);
     this.handleFilterResize = this.handleFilterResize.bind(this);
+    this.handleAppointmentRowClick = this.handleAppointmentRowClick.bind(this);
+    this.handleDialogClose = this.handleDialogClose.bind(this);
+    this.handleCommunicationPageClick = this.handleCommunicationPageClick.bind(this);
   }
 
   componentDidMount() {
@@ -97,9 +108,24 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
     this.props.getUpcomingAppointments({ pageNumber: page });
   }
 
+  handleCommunicationPageClick(page) {
+    // TODO handle pagination
+    console.log(page);
+  }
+
   handleSort(columnName) {
     this.setState({ columnToSort: columnName });
     this.setState({ sortDirection: this.state.columnToSort === columnName ? Util.invertSortDirection(this.state.sortDirection) : ASC });
+  }
+
+  handleAppointmentRowClick(appointment) {
+    const { patient } = this.props;
+    this.props.getAppointmentRelatedCommunications(patient.id, appointment.logicalId, DEFAULT_START_PAGE_NUMBER);
+    this.setState({ open: true });
+  }
+
+  handleDialogClose() {
+    this.setState({ open: false });
   }
 
   handleCheck(event, checked) {
@@ -148,7 +174,9 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
   render() {
     const communicationBaseUrl = MANAGE_COMMUNICATION_URL;
     const manageAppointmentUrl = MANAGE_APPOINTMENT_URL;
-    const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses } = this.props;
+    const { patientAppointments: { loading, data }, appointmentTypes, appointmentStatuses, communications, patient } = this.props;
+    // console.log(communications);
+    // console.log(patient);
     const patientId = this.props.patient ? this.props.patient.id : null;
     const showPastAppFilter = true;
     const addNewItem = {
@@ -212,6 +240,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
                 handleSort={this.handleSort}
                 columnToSort={this.state.columnToSort}
                 sortDirection={this.state.sortDirection}
+                onAppointmentClick={this.handleAppointmentRowClick}
               />
               <CenterAlignedUltimatePagination
                 currentPage={data.currentPage}
@@ -228,6 +257,17 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
             }
           </ContentSection>
         </Card>
+
+        <CommunicationsTableDialog
+          isLoading={false}
+          open={this.state.open}
+          handleDialogClose={this.handleDialogClose}
+          data={communications}
+          selectedPatient={patient}
+          handleChangePage={this.handleCommunicationPageClick}
+          manageCommunicationBaseUrl={communicationBaseUrl}
+        ></CommunicationsTableDialog>
+
       </div>
     );
   }
@@ -235,6 +275,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
 
 PatientAppointments.propTypes = {
   getUpcomingAppointments: PropTypes.func.isRequired,
+  getAppointmentRelatedCommunications: PropTypes.func.isRequired,
   getLookupData: PropTypes.func.isRequired,
   appointmentTypes: PropTypes.array,
   appointmentStatuses: PropTypes.array,
@@ -252,6 +293,7 @@ PatientAppointments.propTypes = {
   location: PropTypes.object.isRequired,
   user: PropTypes.object,
   showPastAppointments: PropTypes.bool,
+  communications: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -262,6 +304,8 @@ const mapStateToProps = createStructuredSelector({
   showPastAppointments: makeSelectShowPastAppointments(),
   patient: makeSelectPatient(),
   location: makeSelectLocation(),
+  organization: makeSelectOrganization(),
+  communications: makeSelectCommunicationsByAppointment(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -272,6 +316,7 @@ function mapDispatchToProps(dispatch) {
     acceptAppointment: (id, query) => dispatch(acceptPatientAppointment(id, query)),
     declineAppointment: (id, query) => dispatch(declinePatientAppointment(id, query)),
     tentativeAppointment: (id, query) => dispatch(tentativePatientAppointment(id, query)),
+    getAppointmentRelatedCommunications: (patient, appointmentId, pageNumber) => dispatch(getAppointmentRelatedCommunications(patient, appointmentId, pageNumber)),
   };
 }
 

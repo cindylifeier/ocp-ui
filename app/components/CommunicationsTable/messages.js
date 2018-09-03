@@ -10,6 +10,14 @@ export default defineMessages({
     id: 'ocpui.components.communicationTable.columnHeaderTimeSent',
     defaultMessage: 'Time Sent',
   },
+  columnHeaderCreator: {
+    id: 'ocpui.components.communicationTable.columnHeaderCreator',
+    defaultMessage: 'Creator',
+  },
+  columnHeaderAction: {
+    id: 'ocpui.components.communicationTable.columnHeaderAction',
+    defaultMessage: 'Action',
+  },
   columnHeaderLastUpdated: {
     id: 'ocpui.components.communicationTable.columnHeaderLastUpdated',
     defaultMessage: 'Last Updated',
@@ -21,6 +29,14 @@ export default defineMessages({
   columnHeaderContactMethod: {
     id: 'ocpui.components.communicationTable.columnHeaderContactMethod',
     defaultMessage: 'Contact Type',
+  },
+  columnHeaderContactNote: {
+    id: 'ocpui.components.communicationTable.columnHeaderContactNote',
+    defaultMessage: 'Note',
+  },
+  columnHeaderContactDuration: {
+    id: 'ocpui.components.communicationTable.columnHeaderContactDuration',
+    defaultMessage: 'Duration',
   },
   columnHeaderTopic: {
     id: 'ocpui.components.communicationTable.columnHeaderTopic',

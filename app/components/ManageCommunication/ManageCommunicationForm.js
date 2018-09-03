@@ -57,7 +57,7 @@ function ManageCommunicationForm(props) {
           <Grid columns="2fr 2fr" gap="">
             <Cell>
               <TextField
-                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.sender} />}
+                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.creator} />}
                 fullWidth
                 name="sender"
                 disabled
@@ -91,12 +91,65 @@ function ManageCommunicationForm(props) {
                 floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.context} />}
                 fullWidth
                 name="episodeOfCareCode"
-                disabled
               />
             </Cell>
           </Grid>
         </FormCell>
         <FormCell top={4} left={1} width={6}>
+          <Grid columns="3fr 3fr" gap="">
+            <Cell>
+              <TextField
+                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.subject} />}
+                fullWidth
+                name="subject"
+                disabled
+              />
+            </Cell>
+            <Cell>
+              <Padding top={25}>
+                <AutoSuggestionField
+                  name="mediumCode"
+                  isRequired
+                  placeholder={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
+                  suggestions={mediumSuggestions}
+                  {...props}
+                />
+              </Padding>
+            </Cell>
+          </Grid>
+        </FormCell>
+        <FormCell top={5} left={1} width={6}>
+          <TextField
+            floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.payloadContent} />}
+            fullWidth
+            name="payloadContent"
+            multiLine
+            rows={2}
+            rowsMax={8}
+          />
+        </FormCell>
+        <FormCell top={6} left={1} width={4}>
+          <Grid columns="2fr 2fr" gap="">
+            <Cell>
+              <TextField
+                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.duration} />}
+                fullWidth
+                name="duration"
+              />
+            </Cell>
+          </Grid>
+        </FormCell>
+        <FormCell top={7} left={1} width={6}>
+          <TextField
+            floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.note} />}
+            fullWidth
+            name="note"
+            multiLine
+            rows={2}
+            rowsMax={8}
+          />
+        </FormCell>
+        <FormCell top={8} left={1} width={6}>
           <Grid columns="3fr 3fr" gap="">
             <Cell>
               <Padding top={35}>
@@ -119,51 +172,7 @@ function ManageCommunicationForm(props) {
             </SelectField>
           </Grid>
         </FormCell>
-        <FormCell top={5} left={1} width={6}>
-          <Grid columns="3fr 3fr" gap="">
-            <Cell>
-              <TextField
-                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.subject} />}
-                fullWidth
-                name="subject"
-                disabled
-              />
-            </Cell>
-            <Cell>
-              <Padding top={'25'}>
-                <AutoSuggestionField
-                  name="mediumCode"
-                  isRequired
-                  placeholder={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
-                  suggestions={mediumSuggestions}
-                  {...props}
-                />
-              </Padding>
-            </Cell>
-          </Grid>
-        </FormCell>
-        <FormCell top={6} left={1} width={6}>
-          <TextField
-            floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.payloadContent} />}
-            fullWidth
-            name="payloadContent"
-            multiLine
-            rows={2}
-            rowsMax={8}
-          />
-        </FormCell>
-        <FormCell top={7} left={1} width={6}>
-          <TextField
-            floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.note} />}
-            fullWidth
-            name="note"
-            multiLine
-            rows={2}
-            rowsMax={8}
-          />
-        </FormCell>
-
-        <FormCell top={8} left={1} width={2}>
+        <FormCell top={9} left={1} width={2}>
           <Grid columns="1fr 1fr" gap="6vw">
             <Cell>
               <StyledRaisedButton
