@@ -7,8 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import WideDialog from 'components/WideDialog';
-// import Dialog from 'material-ui-next/es/Dialog/Dialog';
+import StyledDialog from 'components/StyledDialog';
 import DialogHeader from 'components/DialogHeader';
 import StyledFlatButton from 'components/StyledFlatButton';
 import CommunicationsTable from 'components/CommunicationsTable';
@@ -39,7 +38,9 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
 
     return (
       <div>
-        <WideDialog
+        <StyledDialog
+          maxWidth="md"
+          fullWidth
           modal
           open={open}
           autoScrollBodyContent
@@ -56,7 +57,7 @@ class CommunicationsTableDialog extends React.Component { // eslint-disable-line
               </StyledFlatButton>
             </Cell>
           </Grid>
-        </WideDialog>
+        </StyledDialog>
       </div>
     );
   }
