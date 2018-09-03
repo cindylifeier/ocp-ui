@@ -12,11 +12,11 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import find from 'lodash/find';
-import ActionCheckCircle from 'material-ui/svg-icons/action/check-circle';
-import NotInterested from 'material-ui/svg-icons/av/not-interested';
+import Done from 'material-ui/svg-icons/action/done';
 import HelpOutline from 'material-ui/svg-icons/action/help-outline';
 import HighlightOff from 'material-ui/svg-icons/action/highlight-off';
 import AlertErrorOutline from 'material-ui/svg-icons/alert/error-outline';
+import NotInterested from 'material-ui/svg-icons/av/not-interested';
 import DownArrow from 'material-ui/svg-icons/navigation/arrow-drop-down';
 import UpArrow from 'material-ui/svg-icons/navigation/arrow-drop-up';
 import PropTypes from 'prop-types';
@@ -55,16 +55,16 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
 
   function getMyResponseIcon(appointment) {
     if (appointment.requesterParticipationStatusCode === 'accepted') {
-      return <ActionCheckCircle />;
+      return <Done color="#009688" />;
     }
     if (appointment.requesterParticipationStatusCode === 'declined') {
-      return <HighlightOff />;
+      return <HighlightOff color="#d86344" />;
     }
     if (appointment.requesterParticipationStatusCode === 'tentative') {
-      return <HelpOutline />;
+      return <HelpOutline color="#9868b9" />;
     }
     if (appointment.requesterParticipationStatusCode === 'needs-action') {
-      return <AlertErrorOutline />;
+      return <AlertErrorOutline color="#ff3300" />;
     }
     return <NotInterested />;
   }
@@ -169,6 +169,7 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
               expansionTableRowDetails={
                 <AppointmentExpansionRowDetails
                   participants={appointment.participant}
+                  locationObject={appointment.location}
                   appointmentType={appointmentType && appointmentType.display}
                 />
               }
@@ -182,12 +183,12 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
               <TableRowColumn
                 textDecorationLine="underline"
                 onClick={() => {
-                  onAppointmentClick(appointment);
-                  handlePatientNameClick(appointment.patientId);
-                }}
-              >
-                {appointment.patientName}
-              </TableRowColumn>
+                onAppointmentClick(appointment);
+                handlePatientNameClick(appointment.patient);
+              }}
+                >
+              {appointment.patientName}
+                </TableRowColumn>
               }
               {isExpanded &&
               <TableRowColumn

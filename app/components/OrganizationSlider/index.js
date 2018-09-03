@@ -40,10 +40,10 @@ function OrganizationSlider(props) {
           </StyledTooltip>
         </HorizontalAlignment>
         <Padding left={10} right={10}>
-          <OrganizationSliderHeader organization={flattenedOrganization} />
-          <OrganizationSliderServices organization={flattenedOrganization} />
-          <OrganizationSliderLocations organization={flattenedOrganization} />
-          <OrganizationSliderActivityDefinitions organization={flattenedOrganization} />
+          <OrganizationSliderHeader organization={flattenedOrganization} onClose={onClose} />
+          <OrganizationSliderServices organization={flattenedOrganization} onClose={onClose} />
+          <OrganizationSliderLocations organization={flattenedOrganization} onClose={onClose} />
+          <OrganizationSliderActivityDefinitions organization={flattenedOrganization} onClose={onClose} />
         </Padding>
       </StyledDrawer>
     </div>

@@ -17,7 +17,7 @@ import { getLinkUrlByRole } from 'containers/App/helpers';
 import makeSelectAuth from 'containers/App/authSelectors';
 import { LOGIN_URL } from 'containers/App/constants';
 import PrivateLayout from 'components/PrivateLayout';
-import { makeSelectUser } from 'containers/App/contextSelectors';
+import { makeSelectUser, makeSelectOrganization } from 'containers/App/contextSelectors';
 import { makeSelectRehydrated } from 'containers/App/selectors';
 import saga from './saga';
 
@@ -27,7 +27,7 @@ export function Authentication(props) {
     isAuthenticated = false;
     removeToken();
   }
-  const { user, rehydrated, location } = props;
+  const { user, organization, rehydrated, location } = props;
   if (!rehydrated) {
     // do not render until rehydration is complete
     return null;
@@ -37,6 +37,7 @@ export function Authentication(props) {
       // child component will be rendered here
       <PrivateLayout
         user={user}
+        organization={organization}
         getLinkUrlByRole={getLinkUrlByRole}
       >
         {props.children}
@@ -62,6 +63,7 @@ Authentication.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
   }),
   user: PropTypes.object,
+  organization: PropTypes.object,
   rehydrated: PropTypes.bool,
   location: PropTypes.object,
 };
@@ -69,6 +71,7 @@ Authentication.propTypes = {
 const mapStateToProps = createStructuredSelector({
   auth: makeSelectAuth(),
   user: makeSelectUser(),
+  organization: makeSelectOrganization(),
   rehydrated: makeSelectRehydrated(),
 });
 

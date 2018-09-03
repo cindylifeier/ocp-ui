@@ -11,7 +11,7 @@ import Button from 'material-ui-next/Button';
 import common from 'material-ui-next/colors/common';
 import teal from 'material-ui-next/colors/teal';
 
-const StyledRaisedButton = styled(({ marginRight, ...rest }) => (<Button variant="raised" {...rest} />))`
+const StyledRaisedButton = styled(({ marginRight, marginTop, ...rest }) => (<Button variant="raised" {...rest} />))`
   && {
     background-color: ${teal['500']};
     color: ${common.white};
@@ -19,6 +19,7 @@ const StyledRaisedButton = styled(({ marginRight, ...rest }) => (<Button variant
     font-weight: bold;
     text-transform: capitalize;
     margin-right: ${({ marginRight }) => marginRight}px;
+    margin-top: ${({ marginTop }) => marginTop}px;
   }
 
   &&:hover {
@@ -32,9 +33,11 @@ const StyledRaisedButton = styled(({ marginRight, ...rest }) => (<Button variant
 
 StyledRaisedButton.propTypes = {
   marginRight: PropTypes.number,
+  marginTop: PropTypes.number,
 };
 
 StyledRaisedButton.defaultProps = {
+  marginTop: 0,
   marginRight: 0,
 };
 

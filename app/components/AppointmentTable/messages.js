@@ -62,13 +62,29 @@ export default defineMessages({
       id: 'ocpui.components.AppointmentTable.appointmentType',
       defaultMessage: 'Appointment Type',
     },
-    appointmentName: {
-      id: 'ocpui.components.AppointmentTable.appointmentName',
+    serviceType: {
+      id: 'ocpui.components.AppointmentTable.serviceType',
+      defaultMessage: 'Service Type',
+    },
+    serviceCategory: {
+      id: 'ocpui.components.AppointmentTable.serviceCategory',
+      defaultMessage: 'Service Category',
+    },
+    speciality: {
+      id: 'ocpui.components.AppointmentTable.speciality',
+      defaultMessage: 'Speciality',
+    },
+    appointmentParticipantName: {
+      id: 'ocpui.components.AppointmentTable.appointmentParticipantName',
       defaultMessage: 'Name',
     },
     participantType: {
       id: 'ocpui.components.AppointmentTable.participantType',
       defaultMessage: 'Participant Type',
+    },
+    contactDetails: {
+      id: 'ocpui.components.AppointmentTable.contactDetails',
+      defaultMessage: 'Contact Detail(s)',
     },
     participationType: {
       id: 'ocpui.components.AppointmentTable.participationType',

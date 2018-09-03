@@ -36,7 +36,7 @@ function PrivateLayout(props) {
                 />
               </Cell>
               <Cell left={3} top={2}>
-                <PrivateHeader user={props.user} />
+                <PrivateHeader user={props.user} organization={props.organization} />
               </Cell>
             </Grid>
           </Cell>
@@ -55,6 +55,7 @@ PrivateLayout.propTypes = {
   user: PropTypes.shape({
     role: PropTypes.string,
   }).isRequired,
+  organization: PropTypes.object,
   getLinkUrlByRole: PropTypes.func.isRequired,
 };
 

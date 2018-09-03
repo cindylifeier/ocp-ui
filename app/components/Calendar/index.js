@@ -45,6 +45,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
       appointment.myResponse = element.requesterParticipationStatusCode;
       appointment.allParticipantNames = element.participantName;
       appointment.organizerName = element.creatorName;
+      appointment.canEdit = element.canEdit;
       return appointment;
     });
   }
@@ -105,7 +106,7 @@ function Calendar(props) { // eslint-disable-line react/prefer-stateless-functio
             }
 
             if (!appointment.isOutlookAppointment && appointment.myResponse === 'tentative') {
-              newStyle.backgroundColor = '#9FE3CB';
+              newStyle.backgroundColor = '#9868b9';
               newStyle.color = 'black';
             }
 
