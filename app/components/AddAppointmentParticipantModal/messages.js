@@ -38,6 +38,10 @@ export default defineMessages({
     id: 'ocpui.containers.AddParticipantForm.cancelButton',
     defaultMessage: 'Cancel',
   },
+  searchTooltip: {
+    id: 'ocpui.containers.AddParticipantForm.searchTooltip',
+    defaultMessage: 'Search',
+  },
   menuItemPractitioner: {
     id: 'ocpui.components.AddParticipantForm.hintText.menuItemPractitioner',
     defaultMessage: 'Practitioner',

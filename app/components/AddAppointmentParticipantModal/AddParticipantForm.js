@@ -14,6 +14,7 @@ import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
 import InsideOrgTabContent from './InsideOrgTabContent';
+import OutOfOrgTabContent from './OutOfOrgTabContent';
 import LocationTabContent from './LocationTabContent';
 import ServiceTabContent from './ServiceTabContent';
 import { mapToParticipantReference, mapToPractitionerParticipantReference } from './helpers';
@@ -128,7 +129,7 @@ class AddParticipantForm extends React.Component {
             />
           );
         case 1:
-          return (<div>Inside Organization</div>);
+          return (<OutOfOrgTabContent onSearchParticipantReferences={onSearchParticipantReferences} />);
         case 2:
           return (
             <LocationTabContent
