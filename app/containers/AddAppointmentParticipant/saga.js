@@ -1,6 +1,7 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { goBack } from 'react-router-redux';
 
+import { getErrorDetail } from 'containers/App/helpers';
 import { showNotification } from 'containers/Notification/actions';
 import {
   getHealthcareServiceReferences,
@@ -12,6 +13,7 @@ import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
   getPractitionerReferencesSuccess,
+  searchParticipantReferencesError,
   searchParticipantReferencesSuccess,
 } from './actions';
 import {
@@ -56,7 +58,7 @@ function* searchParticipantReferencesSaga({ searchType, searchValue, organizatio
     const participants = yield call(searchParticipantReferences, searchType, searchValue, organizationId, currentPage);
     yield put(searchParticipantReferencesSuccess(participants));
   } catch (error) {
-    yield put(showNotification('Error in searching practitioners'));
+    yield put(searchParticipantReferencesError(getErrorDetail(error)));
   }
 }
 
