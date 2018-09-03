@@ -107,6 +107,7 @@ export class PatientToDos extends React.PureComponent { // eslint-disable-line r
   }
 
   handleCommunicationPageClick(page) {
+    // TODO handle pagination
     console.log(page);
   }
 

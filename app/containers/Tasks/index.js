@@ -111,6 +111,7 @@ export class Tasks extends React.Component { // eslint-disable-line react/prefer
   }
 
   handleCommunicationPageClick(page) {
+    // TODO handle pagination
     console.log(page);
   }
 

@@ -109,6 +109,7 @@ export class PatientAppointments extends React.Component { // eslint-disable-lin
   }
 
   handleCommunicationPageClick(page) {
+    // TODO handle pagination
     console.log(page);
   }
 
