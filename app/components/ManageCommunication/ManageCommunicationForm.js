@@ -106,7 +106,7 @@ function ManageCommunicationForm(props) {
               />
             </Cell>
             <Cell>
-              <Padding top={'25'}>
+              <Padding top={25}>
                 <AutoSuggestionField
                   name="mediumCode"
                   isRequired
