@@ -108,6 +108,32 @@ export default defineMessages({
       defaultMessage: 'Type',
     },
   },
+  searchParticipantsTable: {
+    tableHeaderName: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderName',
+      defaultMessage: 'Name',
+    },
+    tableHeaderNPI: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderNPI',
+      defaultMessage: 'NPI',
+    },
+    tableHeaderAssociatedOrgs: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderAssociatedOrgs',
+      defaultMessage: 'Associated Organization(s)',
+    },
+    tableHeaderAttendance: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderAttendance',
+      defaultMessage: 'Attendance',
+    },
+    tableHeaderAction: {
+      id: 'ocpui.components.addedParticipantsTable.tableHeaderAction',
+      defaultMessage: 'Action',
+    },
+    removeParticipantBtn: {
+      id: 'ocpui.components.addedParticipantsTable.removeParticipantBtn',
+      defaultMessage: 'Remove',
+    },
+  },
   addedParticipantsTable: {
     tableHeaderName: {
       id: 'ocpui.components.addedParticipantsTable.tableHeaderName',
