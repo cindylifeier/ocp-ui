@@ -29,7 +29,7 @@ import {
   makeSelectHealthcareServiceReferences,
   makeSelectLocationReferences,
   makeSelectPractitionerReferences,
-  makeSelectSearchPraticipantReferences,
+  makeSelectSearchParticipantReferences,
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -145,7 +145,7 @@ const mapStateToProps = createStructuredSelector({
   healthcareServices: makeSelectHealthcareServiceReferences(),
   locations: makeSelectLocationReferences(),
   practitioners: makeSelectPractitionerReferences(),
-  participantReferences: makeSelectSearchPraticipantReferences(),
+  participantReferences: makeSelectSearchParticipantReferences(),
   appointmentParticipantAttendance: makeSelectAppointmentParticipationRequired(),
 });
 

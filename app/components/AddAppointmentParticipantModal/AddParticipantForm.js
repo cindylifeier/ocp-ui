@@ -117,38 +117,56 @@ class AddParticipantForm extends React.Component {
       }
     }
 
-    function renderParticipantDetailsForm(values, resetForm, setFieldTouched) {
-      switch (tabIndex) {
-        case 0:
-          return (
-            <InsideOrgTabContent
-              formValues={values}
-              resetForm={resetForm}
-              setFieldTouched={setFieldTouched}
-              {...tabProps}
-            />
-          );
-        case 1:
-          return (<OutOfOrgTabContent onSearchParticipantReferences={onSearchParticipantReferences} />);
-        case 2:
-          return (
-            <LocationTabContent
-              formValues={values}
-              resetForm={resetForm}
-              setFieldTouched={setFieldTouched}
-              {...tabProps}
-            />
-          );
-        default:
-          return (
-            <ServiceTabContent
-              formValues={values}
-              resetForm={resetForm}
-              setFieldTouched={setFieldTouched}
-              {...tabProps}
-            />
-          );
+    function renderParticipantDetailsForm(formikProps) {
+      const { touched, errors, values, resetForm, setFieldTouched } = formikProps;
+
+      function tabContent() {
+        switch (tabIndex) {
+          case 0:
+            return (
+              <InsideOrgTabContent
+                formValues={values}
+                resetForm={resetForm}
+                setFieldTouched={setFieldTouched}
+                {...tabProps}
+              />
+            );
+          case 2:
+            return (
+              <LocationTabContent
+                formValues={values}
+                resetForm={resetForm}
+                setFieldTouched={setFieldTouched}
+                {...tabProps}
+              />
+            );
+          default:
+            return (
+              <ServiceTabContent
+                formValues={values}
+                resetForm={resetForm}
+                setFieldTouched={setFieldTouched}
+                {...tabProps}
+              />
+            );
+        }
       }
+
+      return (
+        <Form>
+          {tabContent()}
+          <InfoSection margin="20px 0 0 0">
+            <Grid columns={4}>
+              <StyledRaisedButton type="submit" disabled={isEmpty(touched) || !isEmpty(errors)}>
+                <FormattedMessage {...messages.addButton} />
+              </StyledRaisedButton>
+              <StyledFlatButton type="reset" onClick={onCloseDialog}>
+                <FormattedMessage {...messages.cancelButton} />
+              </StyledFlatButton>
+            </Grid>
+          </InfoSection>
+        </Form>
+      );
     }
 
     return (
@@ -156,13 +174,13 @@ class AddParticipantForm extends React.Component {
         <Formik
           onSubmit={(values) => this.handleAddParticipants(values)}
           validationSchema={defineValidationSchema()}
-          render={({ touched, errors, values, resetForm, setFieldTouched }) => (
-            <Form>
+          render={(formikProps) => (
+            <div>
               <AppBar position="sticky" color="default">
                 <Tabs
                   value={tabIndex}
                   onChange={(event, index) => {
-                    resetForm();
+                    formikProps.resetForm();
                     this.handleTabChange(event, index);
                   }}
                   indicatorColor="primary"
@@ -175,18 +193,15 @@ class AddParticipantForm extends React.Component {
                   <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
                 </Tabs>
               </AppBar>
-              {renderParticipantDetailsForm(values, resetForm, setFieldTouched)}
-              <InfoSection margin="20px 0 0 0">
-                <Grid columns={4}>
-                  <StyledRaisedButton type="submit" disabled={isEmpty(touched) || !isEmpty(errors)}>
-                    <FormattedMessage {...messages.addButton} />
-                  </StyledRaisedButton>
-                  <StyledFlatButton type="reset" onClick={onCloseDialog}>
-                    <FormattedMessage {...messages.cancelButton} />
-                  </StyledFlatButton>
-                </Grid>
-              </InfoSection>
-            </Form>
+              {tabIndex === 1 ?
+                <OutOfOrgTabContent
+                  onSearchParticipantReferences={onSearchParticipantReferences}
+                  onCloseDialog={onCloseDialog}
+                  {...tabProps}
+                /> :
+                renderParticipantDetailsForm(formikProps)
+              }
+            </div>
           )}
         />
       </div>
