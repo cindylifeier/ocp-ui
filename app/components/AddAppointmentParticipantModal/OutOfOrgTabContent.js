@@ -15,6 +15,7 @@ import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
+import NoResultsFoundText from 'components/NoResultsFoundText';
 import SearchParticipantReferences from './SearchParticipantReferences';
 import messages from './messages';
 
@@ -27,55 +28,58 @@ function OutOfOrgTabContent(props) {
     <div>
       <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
       <LinearProgressIndicator loading={loading} />
-      <Table margin="10px 0">
-        <TableHeader columns={tableColumns}>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderName} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderNPI} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAssociatedOrgs} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAttendance} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
-          </TableHeaderColumn>
-        </TableHeader>
-        {!isEmpty(data) && data.map((participantReference) => {
-          const { display } = participantReference;
-          return (
-            <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>
-                <SelectFieldWithoutOnClick
-                  fullWidth
-                  name="attendance"
-                  hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
-                >
-                  {participantAttendance && participantAttendance.map((entry) =>
-                    (<MenuItem
-                      key={uniqueId()}
-                      value={entry.code}
-                      primaryText={entry.display}
-                    />),
-                  )}
-                </SelectFieldWithoutOnClick>
-              </TableRowColumn>
-              <TableRowColumn>
-                <StyledRaisedButton>
-                  <FormattedMessage {...messages.addButton} />
-                </StyledRaisedButton>
-              </TableRowColumn>
-            </TableRow>
-          );
-        })}
-      </Table>
+      {!loading && isEmpty(data) ?
+        <NoResultsFoundText><FormattedMessage {...messages.noParticipantsFound} /></NoResultsFoundText> :
+        <Table margin="10px 0">
+          <TableHeader columns={tableColumns}>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderName} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderNPI} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAssociatedOrgs} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAttendance} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
+            </TableHeaderColumn>
+          </TableHeader>
+          {data.map((participantReference) => {
+            const { display } = participantReference;
+            return (
+              <TableRow key={uniqueId()} columns={tableColumns}>
+                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>
+                  <SelectFieldWithoutOnClick
+                    fullWidth
+                    name="attendance"
+                    hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
+                  >
+                    {participantAttendance && participantAttendance.map((entry) =>
+                      (<MenuItem
+                        key={uniqueId()}
+                        value={entry.code}
+                        primaryText={entry.display}
+                      />),
+                    )}
+                  </SelectFieldWithoutOnClick>
+                </TableRowColumn>
+                <TableRowColumn>
+                  <StyledRaisedButton>
+                    <FormattedMessage {...messages.addButton} />
+                  </StyledRaisedButton>
+                </TableRowColumn>
+              </TableRow>
+            );
+          })}
+        </Table>
+      }
       <Grid columns={8}>
         <Cell left={8}>
           <StyledFlatButton onClick={onCloseDialog}><FormattedMessage {...messages.cancelButton} /></StyledFlatButton>

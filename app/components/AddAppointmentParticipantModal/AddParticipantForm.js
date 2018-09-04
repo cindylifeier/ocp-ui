@@ -188,7 +188,7 @@ class AddParticipantForm extends React.Component {
                   fullWidth
                 >
                   <Tab label={<FormattedMessage {...messages.inOrgTabLabel} />} />
-                  <Tab label={<FormattedMessage {...messages.outOfOrgTabLabel} />} />
+                  <Tab label={<FormattedMessage {...messages.outOfOrgTabLabel} />} disabled />
                   <Tab label={<FormattedMessage {...messages.locationTabLabel} />} />
                   <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
                 </Tabs>

@@ -133,6 +133,10 @@ export default defineMessages({
       id: 'ocpui.components.addedParticipantsTable.removeParticipantBtn',
       defaultMessage: 'Remove',
     },
+    noParticipantsFound: {
+      id: 'ocpui.components.addedParticipantsTable.noParticipantsFound',
+      defaultMessage: 'No Participant Found',
+    },
   },
   addedParticipantsTable: {
     tableHeaderName: {
