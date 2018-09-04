@@ -51,9 +51,15 @@ function CoverageTable(props) {
               <TableHeaderColumn><FormattedMessage {...messages.period} /></TableHeaderColumn>
               }
               <TableHeaderColumn><FormattedMessage {...messages.subscriber} /></TableHeaderColumn>
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.copay} /></TableHeaderColumn>
+              }
+              {isExpanded &&
+              <TableHeaderColumn><FormattedMessage {...messages.network} /></TableHeaderColumn>
+              }
             </TableHeader>
             {!isEmpty(coverageData.elements) && coverageData.elements.map((coverage) => {
-              const { statusDisplay, beneficiary, subscriber, endDate, startDate, subscriberId, typeDisplay } = coverage;
+              const { statusDisplay, beneficiary, subscriber, endDate, startDate, subscriberId, typeDisplay, groupingPlanDisplay, network } = coverage;
 
               return (
                 <ExpansionTableRow
@@ -75,6 +81,12 @@ function CoverageTable(props) {
                   <TableRowColumn> {startDate} - {endDate} </TableRowColumn>
                   }
                   <TableRowColumn>{subscriber && subscriber.display}</TableRowColumn>
+                  {isExpanded &&
+                  <TableRowColumn> {groupingPlanDisplay} </TableRowColumn>
+                  }
+                  {isExpanded &&
+                  <TableRowColumn> {network} </TableRowColumn>
+                  }
                 </ExpansionTableRow>
               );
             })}
