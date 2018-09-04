@@ -44,7 +44,7 @@ class AddCoverages extends React.Component {
   }
 
   handleEditCoverage(index, coverage) {
-    const { beneficiary, startDate, endDate, relationship, subscriberId, type, status, subscriber } = coverage;
+    const { beneficiary, startDate, endDate, relationship, subscriberId, type, status, subscriber, groupingPlanDisplay, network } = coverage;
     const flattenedCoverage = {
       type,
       subscriberId,
@@ -54,6 +54,8 @@ class AddCoverages extends React.Component {
       endDate: new Date(endDate),
       subscriber: subscriber && subscriber.reference,
       beneficiary: beneficiary && beneficiary.display,
+      groupingPlanDisplay,
+      network,
     };
     this.setState((prevState) => ({
       isCoverageDialogOpen: !prevState.isCoverageDialogOpen,
@@ -94,7 +96,7 @@ class AddCoverages extends React.Component {
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title={<H1> <FormattedMessage {...messages.addCoverageDialogHeader} /> </H1>}
+                  title={<H1><FormattedMessage {...messages.addCoverageDialogHeader} /></H1>}
                   modal={false}
                   open={this.state.isCoverageDialogOpen}
                   onRequestClose={this.handleCloseDialog}
