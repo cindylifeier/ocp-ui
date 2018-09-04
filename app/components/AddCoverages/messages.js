@@ -109,7 +109,7 @@ export default defineMessages({
     },
     copay: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.copay',
-      defaultMessage: 'Oopay',
+      defaultMessage: 'Copay',
     },
     network: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.network',
