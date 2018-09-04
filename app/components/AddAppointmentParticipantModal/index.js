@@ -37,8 +37,9 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
 
   render() {
     const {
-      errors, participants, healthcareServices, locations, participantAttendance, practitioners, participantReferences,
-      onGetAvailableLocations, onGetAvailableHealthcareServices, onGetAvailablePractitioners, onSearchParticipantReferences,
+      errors, participants, healthcareServices, locations, participantAttendance, practitioners,
+      participantReferences, onInitializeParticipantReferences, onGetAvailableLocations,
+      onGetAvailableHealthcareServices, onGetAvailablePractitioners, onSearchParticipantReferences,
     } = this.props;
     return (
       <div>
@@ -62,6 +63,7 @@ class AddAppointmentParticipantModal extends React.Component { // eslint-disable
                     practitioners={practitioners}
                     participantReferences={participantReferences}
                     participantAttendance={participantAttendance}
+                    onInitializeParticipantReferences={onInitializeParticipantReferences}
                     onGetAvailableLocations={onGetAvailableLocations}
                     onGetAvailableHealthcareServices={onGetAvailableHealthcareServices}
                     onGetAvailablePractitioners={onGetAvailablePractitioners}
@@ -101,6 +103,7 @@ AddAppointmentParticipantModal.propTypes = {
     data: PropTypes.array,
   }),
   participantAttendance: PropTypes.array.isRequired,
+  onInitializeParticipantReferences: PropTypes.func.isRequired,
   onGetAvailableLocations: PropTypes.func.isRequired,
   onGetAvailableHealthcareServices: PropTypes.func.isRequired,
   onGetAvailablePractitioners: PropTypes.func.isRequired,

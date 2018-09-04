@@ -13,6 +13,7 @@ import {
   getHealthcareServiceReferencesSuccess,
   getLocationReferencesSuccess,
   getPractitionerReferencesSuccess,
+  initializeParticipantReferencesSuccess,
   searchParticipantReferencesError,
   searchParticipantReferencesSuccess,
 } from './actions';
@@ -20,6 +21,8 @@ import {
   GET_HEALTHCARE_SERVICE_REFERENCES,
   GET_LOCATION_REFERENCES,
   GET_PRACTITIONER_REFERENCES,
+  INITIALIZE_PARTICIPANT_REFERENCES,
+  ORGANIZATION_RESOURCE_TYPE,
   SEARCH_PARTICIPANT_REFERENCES,
 } from './constants';
 
@@ -53,6 +56,18 @@ function* getPractitionerReferencesSaga({ resourceType, resourceValue }) {
   }
 }
 
+function* initializeParticipantReferencesSaga({ resourceValue }) {
+  try {
+    const resourceType = ORGANIZATION_RESOURCE_TYPE;
+    const healthcareServices = yield call(getHealthcareServiceReferences, resourceType, resourceValue);
+    const locations = yield call(getLocationReferences, resourceType, resourceValue);
+    const practitioners = yield call(getPractitionerReferences, resourceType, resourceValue);
+    yield put(initializeParticipantReferencesSuccess(healthcareServices, locations, practitioners));
+  } catch (error) {
+    yield put(showNotification('Error in initializing Participant references'));
+  }
+}
+
 function* searchParticipantReferencesSaga({ searchType, searchValue, organizationId, currentPage }) {
   try {
     const participants = yield call(searchParticipantReferences, searchType, searchValue, organizationId, currentPage);
@@ -74,6 +89,10 @@ function* watchGetPractitionerReferencesSaga() {
   yield takeLatest(GET_PRACTITIONER_REFERENCES, getPractitionerReferencesSaga);
 }
 
+function* watchInitializeParticipantReferencesSagaSaga() {
+  yield takeLatest(INITIALIZE_PARTICIPANT_REFERENCES, initializeParticipantReferencesSaga);
+}
+
 function* watchSearchParticipantReferencesSaga() {
   yield takeLatest(SEARCH_PARTICIPANT_REFERENCES, searchParticipantReferencesSaga);
 }
@@ -83,6 +102,7 @@ export default function* rootSaga() {
     watchGetHealthcareServiceSaga(),
     watchGetLocationReferencesSaga(),
     watchGetPractitionerReferencesSaga(),
+    watchInitializeParticipantReferencesSagaSaga(),
     watchSearchParticipantReferencesSaga(),
   ]);
 }
