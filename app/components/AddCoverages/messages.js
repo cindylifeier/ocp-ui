@@ -8,15 +8,19 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'ocpui.components.AddCoverages.header',
-    defaultMessage: 'Coverage',
+    defaultMessage: 'Insurance/Benefit Details',
   },
   addCoverageButton: {
     id: 'ocpui.components.AddCoverages.addCoverageButton',
-    defaultMessage: 'Add Coverage',
+    defaultMessage: 'Add New Insurance/Benefit Details',
   },
   addCoverageDialogHeader: {
     id: 'ocpui.components.AddCoverages.addCoverageDialogHeader',
-    defaultMessage: 'Add Coverage',
+    defaultMessage: 'Add New Insurance/Benefit Details',
+  },
+  editCoverageDialogHeader: {
+    id: 'ocpui.components.AddCoverages.editCoverageDialogHeader',
+    defaultMessage: 'Edit Insurance/Benefit Details',
   },
   addedCoveragesTable: {
     tableHeaderStatus: {
@@ -25,7 +29,7 @@ export default defineMessages({
     },
     tableHeaderCoverage: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderCoverage',
-      defaultMessage: 'Coverage',
+      defaultMessage: 'Coverage Type',
     },
     id: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.id',
@@ -34,6 +38,14 @@ export default defineMessages({
     tableHeaderPeriod: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderPeriod',
       defaultMessage: 'Period',
+    },
+    tableHeaderCopay: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderCopay',
+      defaultMessage: 'Copay',
+    },
+    tableHeaderNetwork: {
+      id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderNetwork',
+      defaultMessage: 'Network',
     },
     tableHeaderSubscriber: {
       id: 'ocpui.components.AddCoverages.addedCoveragesTable.tableHeaderSubscriber',
@@ -95,6 +107,14 @@ export default defineMessages({
       id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.status',
       defaultMessage: 'Status',
     },
+    copay: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.copay',
+      defaultMessage: 'Oopay',
+    },
+    network: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.network',
+      defaultMessage: 'Network',
+    },
     startDate: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.hintText.startDate',
       defaultMessage: 'Start Date',
@@ -128,6 +148,14 @@ export default defineMessages({
     coverageType: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.coverageType',
       defaultMessage: 'Coverage Type',
+    },
+    copay: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.copay',
+      defaultMessage: 'Copay',
+    },
+    network: {
+      id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.network',
+      defaultMessage: 'Network',
     },
     startDate: {
       id: 'ocpui.components.AddCoverages.addCoveragesForm.floatingLabelText.startDate',

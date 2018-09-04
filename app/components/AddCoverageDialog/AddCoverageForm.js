@@ -31,8 +31,6 @@ function AddCoverageForm(props) {
   function setInitialValues() {
     return {
       beneficiary: getPatientFullName(patient),
-      startDate: today,
-      endDate: today,
     };
   }
   return (
@@ -40,14 +38,16 @@ function AddCoverageForm(props) {
       <Formik
         onSubmit={(values, actions) => {
           const subscriberReference = find(subscriptionOptions, { reference: values.subscriber });
-          const { startDate, endDate, type, status, subscriberId, relationship } = values;
+          const { startDate, endDate, type, status, subscriberId, relationship, groupingPlanDisplay, network } = values;
           const coverageData = {
             subscriber: subscriberReference,
             beneficiary: composePatientReference(patient),
-            startDate: startDate.toLocaleDateString(),
-            endDate: endDate.toLocaleDateString(),
+            startDate: startDate && startDate.toLocaleDateString(),
+            endDate: endDate && endDate.toLocaleDateString(),
             type,
             status,
+            groupingPlanDisplay,
+            network,
             subscriberId,
             relationship,
           };
@@ -152,7 +152,22 @@ function AddCoverageForm(props) {
                   )}
                 </SelectField>
               </Cell>
-
+              <Cell>
+                <TextField
+                  fullWidth
+                  name="groupingPlanDisplay"
+                  hintText={<FormattedMessage {...messages.hintText.copay} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.copay} />}
+                />
+              </Cell>
+              <Cell>
+                <TextField
+                  fullWidth
+                  name="network"
+                  hintText={<FormattedMessage {...messages.hintText.network} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.network} />}
+                />
+              </Cell>
               <Cell>
                 <DatePicker
                   fullWidth

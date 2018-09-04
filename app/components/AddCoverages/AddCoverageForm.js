@@ -57,7 +57,7 @@ function AddCoverageForm(props) {
           if (initialValues) {
             onRemoveCoverage(initialValues.index);
           }
-          const { startDate, endDate, subscriber, type } = values;
+          const { startDate, endDate, subscriber, type, groupingPlanDisplay, network } = values;
           const subscriberData = find(subscriptionOptions, { reference: subscriber });
           const typeData = find(coverageType, { code: type });
           const data = {
@@ -66,6 +66,8 @@ function AddCoverageForm(props) {
             subscriber: subscriberData,
             beneficiary: composePatientReference(patient),
             typeDisplay: typeData && typeData.display,
+            groupingPlanDisplay,
+            network,
           };
           onAddCoverage(merge(values, data));
           handleCloseDialog();
@@ -166,6 +168,22 @@ function AddCoverageForm(props) {
                     <MenuItem key={type.code} value={type.code} primaryText={type.display} />,
                   )}
                 </SelectField>
+              </Cell>
+              <Cell>
+                <TextField
+                  fullWidth
+                  name="groupingPlanDisplay"
+                  hintText={<FormattedMessage {...messages.hintText.copay} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.copay} />}
+                />
+              </Cell>
+              <Cell>
+                <TextField
+                  fullWidth
+                  name="network"
+                  hintText={<FormattedMessage {...messages.hintText.network} />}
+                  floatingLabelText={<FormattedMessage {...messages.floatingLabelText.network} />}
+                />
               </Cell>
               <Cell>
                 <DatePicker
