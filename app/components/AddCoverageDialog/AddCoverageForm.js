@@ -31,8 +31,6 @@ function AddCoverageForm(props) {
   function setInitialValues() {
     return {
       beneficiary: getPatientFullName(patient),
-      startDate: today,
-      endDate: today,
     };
   }
   return (
@@ -44,8 +42,8 @@ function AddCoverageForm(props) {
           const coverageData = {
             subscriber: subscriberReference,
             beneficiary: composePatientReference(patient),
-            startDate: startDate.toLocaleDateString(),
-            endDate: endDate.toLocaleDateString(),
+            startDate: startDate && startDate.toLocaleDateString(),
+            endDate: endDate && endDate.toLocaleDateString(),
             type,
             status,
             subscriberId,
