@@ -9,89 +9,47 @@ import isEmpty from 'lodash/isEmpty';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
+import yup from 'yup';
 
 import Util from 'utils/Util';
-import yup from 'yup';
 import ManageAppointmentForm from './ManageAppointmentForm';
+import { convertDateTimeArrayToTime, mapToEditParticipants, setAppointmentTime } from './helpers';
 import messages from './messages';
+
 
 function ManageAppointment(props) {
   const {
     patient,
-    careTeams,
     appointment,
     editMode,
     appointmentStatuses,
     appointmentTypes,
     onSave,
-    selectedParticipants,
-    initialSelectedParticipants,
-    removeParticipant,
-    healthcareServices,
-    locations,
-    practitioners,
-    handleSelectPractitioner,
-    handleSelectLocation,
     appointmentParticipantRequired,
-    handleAddParticipant,
-    getReferenceTypeFromReference,
-    handleDialogOpen,
   } = props;
   const propsFromContainer = {
     patient,
     editMode,
-    careTeams,
     appointmentStatuses,
     appointmentTypes,
-    selectedParticipants,
-    initialSelectedParticipants,
-    removeParticipant,
-    healthcareServices,
-    locations,
-    practitioners,
-    handleSelectLocation,
-    handleSelectPractitioner,
     appointmentParticipantRequired,
-    handleAddParticipant,
-    getReferenceTypeFromReference,
-    handleDialogOpen,
   };
-
-  function setAppointmentTime(timeStr, dateStr) {
-    const timeArray = timeStr && timeStr.split(':');
-    const appointmentDate = new Date(dateStr);
-    if (timeArray.length > 0) {
-      appointmentDate.setHours(timeArray[0], timeArray[1]);
-    }
-    return appointmentDate;
-  }
-
-  function padHourOrMinute(timeEntry) {
-    return parseInt(timeEntry, 10) <= 9 ? '0'.concat(timeEntry) : timeEntry;
-  }
-  function convertDateTimeArrayToTime(dateArray) {
-    let timeStr = '';
-    if (dateArray && dateArray.length >= 4) {
-      const hh = padHourOrMinute(dateArray[3]);
-      const mm = padHourOrMinute(dateArray[4]);
-      timeStr = `${hh}:${mm}`;
-    }
-    return timeStr;
-  }
 
   function setFormData() {
     let formData = null;
     if (!isEmpty(appointment)) {
+      const { creatorRequired, description, typeCode, appointmentDate, statusCode, start, end, participant } = appointment;
       formData = {
-        creatorRequired: appointment.creatorRequired,
+        creatorRequired,
         selectedPatient: patient,
-        description: appointment.description,
-        appointmentType: appointment.typeCode,
-        date: appointment.appointmentDate && new Date(appointment.appointmentDate),
-        status: appointment.statusCode,
-        startTime: convertDateTimeArrayToTime(appointment.start),
-        endTime: convertDateTimeArrayToTime(appointment.end),
-        appointmentStatus: appointment.statusCode,
+        description,
+        appointmentType: typeCode,
+        date: appointmentDate && new Date(appointmentDate),
+        status: statusCode,
+        startTime: convertDateTimeArrayToTime(start),
+        endTime: convertDateTimeArrayToTime(end),
+        appointmentStatus: statusCode,
+        participants: mapToEditParticipants(participant),
       };
     }
     return Util.pickByIdentity(formData);
@@ -127,6 +85,8 @@ function ManageAppointment(props) {
               .required((<FormattedMessage {...messages.validation.required} />)),
             description: yup.string()
               .required((<FormattedMessage {...messages.validation.required} />)),
+            participants: yup.string()
+              .required((<FormattedMessage {...messages.noParticipantAdded} />)),
           })
           }
           render={(formikProps) => <ManageAppointmentForm {...formikProps} {...propsFromContainer} />}
@@ -139,29 +99,24 @@ function ManageAppointment(props) {
 }
 
 ManageAppointment.propTypes = {
-  handleSelectLocation: PropTypes.func.isRequired,
-  handleDialogOpen: PropTypes.func.isRequired,
-  getReferenceTypeFromReference: PropTypes.func.isRequired,
-  handleAddParticipant: PropTypes.func,
-  handleSelectPractitioner: PropTypes.func.isRequired,
-  removeParticipant: PropTypes.func.isRequired,
   onSave: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
-  appointment: PropTypes.object,
+  appointment: PropTypes.shape({
+    creatorRequired: PropTypes.string,
+    description: PropTypes.string,
+    typeCode: PropTypes.string,
+    appointmentDate: PropTypes.string,
+    statusCode: PropTypes.string,
+    start: PropTypes.array,
+    end: PropTypes.array,
+  }),
   appointmentStatuses: PropTypes.array.isRequired,
   appointmentTypes: PropTypes.array.isRequired,
-  selectedParticipants: PropTypes.array,
-  healthcareServices: PropTypes.array,
-  initialSelectedParticipants: PropTypes.array,
-  locations: PropTypes.array,
-  practitioners: PropTypes.array,
   appointmentParticipantRequired: PropTypes.array,
-  careTeams: PropTypes.array,
 };
 
 export default ManageAppointment;
-

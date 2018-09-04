@@ -1,33 +1,31 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { Form } from 'formik';
+import MenuItem from 'material-ui/MenuItem';
+import { Cell, Grid } from 'styled-css-grid';
+import uniqueId from 'lodash/uniqueId';
+
+import { mapToPatientName } from 'utils/PatientUtils';
+import AddAppointmentParticipant from 'containers/AddAppointmentParticipant';
 import DatePicker from 'components/DatePicker';
 import FormSubtitle from 'components/FormSubtitle';
 import InfoSection from 'components/InfoSection';
 import InlineLabel from 'components/InlineLabel';
-import ManageAppointmentFormGrid from 'components/ManageAppointment/ManageAppointmentFormGrid';
 import SelectField from 'components/SelectField';
 import GoBackButton from 'components/GoBackButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import TextField from 'components/TextField';
 import ErrorText from 'components/ErrorText';
-import { Form } from 'formik';
-import MenuItem from 'material-ui/MenuItem';
-import uniqueId from 'lodash/uniqueId';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-import { mapToPatientName } from 'utils/PatientUtils';
-import Util from 'utils/Util';
+import ManageAppointmentFormGrid from './ManageAppointmentFormGrid';
 import messages from './messages';
-import SelectedParticipants from './SelectedParticipants';
 
 class ManageAppointmentForm extends React.Component {
-
   constructor(props) {
     super(props);
     this.startDateTime = null;
     this.endDateTime = null;
     this.state = {
-      // open: false,
       isEndDateBeforeStartDate: false,
     };
     this.onStartTimeChange = this.onStartTimeChange.bind(this);
@@ -77,26 +75,10 @@ class ManageAppointmentForm extends React.Component {
   render() {
     const today = new Date();
     const {
-      isSubmitting,
-      dirty,
-      isValid,
-      editMode,
-      appointmentTypes,
-      appointmentStatuses,
-      selectedParticipants,
-      initialSelectedParticipants,
-      removeParticipant,
-      patient,
-      appointmentParticipantRequired,
-      getReferenceTypeFromReference,
-      handleDialogOpen,
+      isSubmitting, dirty, isValid, errors, values,
+      editMode, appointmentTypes, appointmentStatuses,
+      patient, appointmentParticipantRequired,
     } = this.props;
-    const selectedParticipantsProps = {
-      selectedParticipants,
-      removeParticipant,
-      getReferenceTypeFromReference,
-    };
-
 
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
@@ -115,20 +97,6 @@ class ManageAppointmentForm extends React.Component {
                 </InlineLabel>
                 <span id={PATIENT_NAME_HTML_ID}>{mapToPatientName(patient)}</span>
               </InfoSection>
-            </Cell>
-            <Cell area="addParticipant">
-              <StyledRaisedButton
-                fullWidth
-                onClick={() => {
-                  handleDialogOpen();
-                }
-                }
-              >
-                <FormattedMessage {...messages.addParticipantBtnLabel} />
-              </StyledRaisedButton>
-            </Cell>
-            <Cell area="selectedParticipants">
-              <SelectedParticipants {...selectedParticipantsProps} />
             </Cell>
             <Cell area="appointmentType">
               <SelectField
@@ -161,6 +129,9 @@ class ManageAppointmentForm extends React.Component {
                   />),
                 )}
               </SelectField>
+            </Cell>
+            <Cell area="addParticipant">
+              <AddAppointmentParticipant participants={values.participants} formErrors={errors} />
             </Cell>
             <Cell area="date">
               <DatePicker
@@ -198,7 +169,6 @@ class ManageAppointmentForm extends React.Component {
                 ''
               }
             </Cell>
-
             <Cell area="description">
               <TextField
                 fullWidth
@@ -207,7 +177,6 @@ class ManageAppointmentForm extends React.Component {
                 floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
               />
             </Cell>
-
             {editMode &&
             <Cell area="appointmentStatus">
               <SelectField
@@ -226,14 +195,13 @@ class ManageAppointmentForm extends React.Component {
               </SelectField>
             </Cell>
             }
-
             <Cell area="buttonGroup">
               <Grid columns={2}>
                 <Cell>
                   <StyledRaisedButton
                     fullWidth
                     type="submit"
-                    disabled={!reCheckFormDirty(dirty, selectedParticipants, initialSelectedParticipants) || isSubmitting || !isValid || this.state.isEndDateBeforeStartDate}
+                    disabled={!dirty || isSubmitting || !isValid || this.state.isEndDateBeforeStartDate}
                   >
                     Save
                   </StyledRaisedButton>
@@ -254,15 +222,13 @@ ManageAppointmentForm.propTypes = {
   isSubmitting: PropTypes.bool.isRequired,
   dirty: PropTypes.bool.isRequired,
   isValid: PropTypes.bool.isRequired,
+  values: PropTypes.object,
+  errors: PropTypes.object,
   editMode: PropTypes.bool.isRequired,
-  getReferenceTypeFromReference: PropTypes.func.isRequired,
-  removeParticipant: PropTypes.func.isRequired,
   patient: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.array.isRequired,
   }),
-  selectedParticipants: PropTypes.array,
-  initialSelectedParticipants: PropTypes.array,
   appointmentTypes: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,
     display: PropTypes.string.isRequired,
@@ -270,17 +236,6 @@ ManageAppointmentForm.propTypes = {
   appointmentStatuses: PropTypes.array,
   appointment: PropTypes.object,
   appointmentParticipantRequired: PropTypes.array,
-  handleDialogOpen: PropTypes.func,
 };
 
 export default ManageAppointmentForm;
-
-function reCheckFormDirty(dirty, selectedParticipants, originalSelectedParticipants) {
-  let isDirty = dirty;
-  const identityOfArray = 'reference';
-  if (!Util.isUnorderedArraysEqual(selectedParticipants, originalSelectedParticipants, identityOfArray)) {
-    isDirty = true;
-  }
-
-  return isDirty;
-}
