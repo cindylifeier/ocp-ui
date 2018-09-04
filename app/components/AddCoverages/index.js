@@ -96,7 +96,7 @@ class AddCoverages extends React.Component {
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title={<H1> isEditMode? <FormattedMessage {...messages.editCoverageDialogHeader} /> : <FormattedMessage {...messages.addCoverageDialogHeader} /> </H1>}
+                  title={<H1><FormattedMessage {...messages.addCoverageDialogHeader} /></H1>}
                   modal={false}
                   open={this.state.isCoverageDialogOpen}
                   onRequestClose={this.handleCloseDialog}
