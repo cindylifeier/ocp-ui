@@ -187,6 +187,7 @@ class ManageUserForm extends React.Component {
               hintText={<FormattedMessage {...messages.hintText.permissionGroup} />}
               floatingLabelText={
                 <FormattedMessage {...messages.floatingLabelText.permissionGroup} />}
+              disabled={resourceType === PATIENT}
             >
               {groups.map((group) => {
                 const displayName = group.displayName.split('.').pop();
