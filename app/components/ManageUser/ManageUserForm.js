@@ -145,7 +145,7 @@ class ManageUserForm extends React.Component {
           {isEditing &&
           <Cell area="removeUser">
             <StyledRaisedButton onClick={() => this.handleOpenRemoveUserModal()}>
-              Remove user
+              Remove User Access
             </StyledRaisedButton>
             <ConfirmationDialog
               dialogOpen={this.state.removeUserModalOpen}
