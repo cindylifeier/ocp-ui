@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import uniqueId from 'lodash/uniqueId';
+import upperFirst from 'lodash/upperFirst';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
@@ -49,8 +50,8 @@ function addedCoveragesTable(props) {
           }];
           return (
             <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{typeDisplay}</TableRowColumn>
-              <TableRowColumn>{status}</TableRowColumn>
+              <TableRowColumn>{upperFirst(typeDisplay)}</TableRowColumn>
+              <TableRowColumn>{upperFirst(status)}</TableRowColumn>
               <TableRowColumn>{subscriberId}</TableRowColumn>
               <TableRowColumn>{beneficiary && beneficiary.display}</TableRowColumn>
               <TableRowColumn>{startDate} - {endDate}</TableRowColumn>
