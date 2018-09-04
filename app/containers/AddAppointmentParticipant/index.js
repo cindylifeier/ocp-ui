@@ -23,6 +23,7 @@ import {
   getHealthcareServiceReferences,
   getLocationReferences,
   getPractitionerReferences,
+  initializeParticipantReferences,
   searchParticipantReferences,
 } from './actions';
 import {
@@ -33,11 +34,11 @@ import {
 } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { ORGANIZATION_RESOURCE_TYPE } from './constants';
 
 export class AddAppointmentParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);
+    this.handleInitializeParticipantReferences = this.handleInitializeParticipantReferences.bind(this);
     this.handleGetAvailableLocations = this.handleGetAvailableLocations.bind(this);
     this.handleGetAvailableHealthcareServices = this.handleGetAvailableHealthcareServices.bind(this);
     this.handleGetAvailablePractitioners = this.handleGetAvailablePractitioners.bind(this);
@@ -45,14 +46,15 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
   }
 
   componentDidMount() {
+    this.handleInitializeParticipantReferences();
+  }
+
+  handleInitializeParticipantReferences() {
     const { organization } = this.props;
     this.props.getLookups();
     if (organization) {
-      const resourceType = ORGANIZATION_RESOURCE_TYPE;
       const resourceValue = organization.logicalId;
-      this.props.getPractitionerReferences(resourceType, resourceValue);
-      this.props.getLocationReferences(resourceType, resourceValue);
-      this.props.getHealthcareServiceReferences(resourceType, resourceValue);
+      this.props.initializeParticipantReferences(resourceValue);
     }
   }
 
@@ -104,6 +106,7 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
         practitioners={practitioners}
         participantReferences={participantReferences}
         participantAttendance={appointmentParticipantAttendance}
+        onInitializeParticipantReferences={this.handleInitializeParticipantReferences}
         onGetAvailableLocations={this.handleGetAvailableLocations}
         onGetAvailableHealthcareServices={this.handleGetAvailableHealthcareServices}
         onGetAvailablePractitioners={this.handleGetAvailablePractitioners}
@@ -125,6 +128,7 @@ AddAppointmentParticipant.propTypes = {
     totalNumberOfPages: PropTypes.number,
     data: PropTypes.array,
   }),
+  initializeParticipantReferences: PropTypes.func.isRequired,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
@@ -152,6 +156,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     getLookups: () => dispatch(getLookupsAction([APPOINTMENT_PARTICIPANT_REQUIRED])),
+    initializeParticipantReferences: (resourceValue) => dispatch(initializeParticipantReferences(resourceValue)),
     getHealthcareServiceReferences: (resourceType, resourceValue) => dispatch(getHealthcareServiceReferences(resourceType, resourceValue)),
     getLocationReferences: (resourceType, resourceValue) => dispatch(getLocationReferences(resourceType, resourceValue)),
     getPractitionerReferences: (resourceType, resourceValue) => dispatch(getPractitionerReferences(resourceType, resourceValue)),

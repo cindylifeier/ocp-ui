@@ -53,6 +53,7 @@ class AddParticipantForm extends React.Component {
       practitioners,
       participantReferences,
       participantAttendance,
+      onInitializeParticipantReferences,
       onGetAvailableLocations,
       onGetAvailableHealthcareServices,
       onGetAvailablePractitioners,
@@ -180,6 +181,7 @@ class AddParticipantForm extends React.Component {
                 <Tabs
                   value={tabIndex}
                   onChange={(event, index) => {
+                    onInitializeParticipantReferences();
                     formikProps.resetForm();
                     this.handleTabChange(event, index);
                   }}
@@ -219,7 +221,7 @@ AddParticipantForm.propTypes = {
     remove: PropTypes.func.isRequired,
   }).isRequired,
   onCloseDialog: PropTypes.func.isRequired,
-  healthcareServices: PropTypes.array.isRequired,
+  healthcareServices: PropTypes.array,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   participantReferences: PropTypes.shape({
@@ -229,6 +231,7 @@ AddParticipantForm.propTypes = {
     data: PropTypes.array,
   }),
   participantAttendance: PropTypes.array.isRequired,
+  onInitializeParticipantReferences: PropTypes.func.isRequired,
   onGetAvailableLocations: PropTypes.func.isRequired,
   onGetAvailableHealthcareServices: PropTypes.func.isRequired,
   onGetAvailablePractitioners: PropTypes.func.isRequired,

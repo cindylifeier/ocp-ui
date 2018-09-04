@@ -9,6 +9,7 @@ import {
   GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS,
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
+  INITIALIZE_PARTICIPANT_REFERENCES_SUCCESS,
   SEARCH_PARTICIPANT_REFERENCES,
   SEARCH_PARTICIPANT_REFERENCES_ERROR,
   SEARCH_PARTICIPANT_REFERENCES_SUCCESS,
@@ -29,6 +30,11 @@ const initialState = fromJS({
 
 function addAppointmentParticipantReducer(state = initialState, action) {
   switch (action.type) {
+    case INITIALIZE_PARTICIPANT_REFERENCES_SUCCESS:
+      return state
+        .set('locations', action.locations)
+        .set('practitioners', action.practitioners)
+        .set('healthcareServices', action.healthcareServices);
     case GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS:
       return state
         .set('healthcareServices', action.healthcareServices);

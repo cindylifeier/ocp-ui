@@ -11,10 +11,36 @@ import {
   GET_LOCATION_REFERENCES_SUCCESS,
   GET_PRACTITIONER_REFERENCES,
   GET_PRACTITIONER_REFERENCES_SUCCESS,
+  INITIALIZE_PARTICIPANT_REFERENCES,
+  INITIALIZE_PARTICIPANT_REFERENCES_ERROR,
+  INITIALIZE_PARTICIPANT_REFERENCES_SUCCESS,
   SEARCH_PARTICIPANT_REFERENCES,
   SEARCH_PARTICIPANT_REFERENCES_ERROR,
   SEARCH_PARTICIPANT_REFERENCES_SUCCESS,
 } from './constants';
+
+export function initializeParticipantReferences(resourceValue) {
+  return {
+    type: INITIALIZE_PARTICIPANT_REFERENCES,
+    resourceValue,
+  };
+}
+
+export function initializeParticipantReferencesSuccess(healthcareServices, locations, practitioners) {
+  return {
+    type: INITIALIZE_PARTICIPANT_REFERENCES_SUCCESS,
+    healthcareServices,
+    locations,
+    practitioners,
+  };
+}
+
+export function initializeParticipantReferencesError(error) {
+  return {
+    type: INITIALIZE_PARTICIPANT_REFERENCES_ERROR,
+    error,
+  };
+}
 
 export function getHealthcareServiceReferences(resourceType, resourceValue) {
   return {
