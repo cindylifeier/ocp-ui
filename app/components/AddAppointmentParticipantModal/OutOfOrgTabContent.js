@@ -29,7 +29,7 @@ function OutOfOrgTabContent(props) {
       <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
       <LinearProgressIndicator loading={loading} />
       {!loading && isEmpty(data) ?
-        <NoResultsFoundText><FormattedMessage {...messages.noParticipantsFound} /></NoResultsFoundText> :
+        <NoResultsFoundText><FormattedMessage {...messages.searchParticipantsTable.noParticipantsFound} /></NoResultsFoundText> :
         <Table margin="10px 0">
           <TableHeader columns={tableColumns}>
             <TableHeaderColumn>

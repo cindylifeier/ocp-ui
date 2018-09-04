@@ -91,7 +91,7 @@ AddAppointmentParticipantModal.propTypes = {
     participationTypeCode: PropTypes.string,
     reference: PropTypes.string,
   })),
-  healthcareServices: PropTypes.array.isRequired,
+  healthcareServices: PropTypes.array,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   participantReferences: PropTypes.shape({

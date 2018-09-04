@@ -219,7 +219,7 @@ AddParticipantForm.propTypes = {
     remove: PropTypes.func.isRequired,
   }).isRequired,
   onCloseDialog: PropTypes.func.isRequired,
-  healthcareServices: PropTypes.array.isRequired,
+  healthcareServices: PropTypes.array,
   locations: PropTypes.array,
   practitioners: PropTypes.array,
   participantReferences: PropTypes.shape({
