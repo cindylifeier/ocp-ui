@@ -4,20 +4,20 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
-import { FieldArray } from 'formik';
+import AddCoverageForm from 'components/AddCoverages/AddCoverageForm';
 
 import FormSubtitle from 'components/FormSubtitle';
 import H1 from 'components/H1';
-import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
-import AddCoverageForm from 'components/AddCoverages/AddCoverageForm';
-import messages from './messages';
+import { FieldArray } from 'formik';
+import teal from 'material-ui-next/colors/teal';
+import Dialog from 'material-ui/Dialog';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import AddedCoverageTable from './AddedCoverageTable';
+import messages from './messages';
 
 
 class AddCoverages extends React.Component {
@@ -26,6 +26,7 @@ class AddCoverages extends React.Component {
     this.state = {
       isCoverageDialogOpen: false,
       editingCoverage: null,
+      isEditMode: false,
     };
     this.handleOpenDialog = this.handleOpenDialog.bind(this);
     this.handleCloseDialog = this.handleCloseDialog.bind(this);
@@ -40,10 +41,12 @@ class AddCoverages extends React.Component {
     this.setState({
       isCoverageDialogOpen: false,
       editingCoverage: null,
+      isEditMode: false,
     });
   }
 
   handleEditCoverage(index, coverage) {
+    this.setState({ isEditMode: true });
     const { beneficiary, startDate, endDate, relationship, subscriberId, type, status, subscriber, groupingPlanDisplay, network } = coverage;
     const flattenedCoverage = {
       type,
@@ -64,8 +67,10 @@ class AddCoverages extends React.Component {
   }
 
   render() {
-    const { errors, coverages, patientName, practitioner,
-      policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions, composePatientReference, patient, getPatientFullName } = this.props;
+    const {
+      errors, coverages, patientName, practitioner,
+      policyHolderRelationship, coverageFmStatus, coverageType, subscriptionOptions, composePatientReference, patient, getPatientFullName,
+    } = this.props;
     const addCoverageFormProps = {
       patientName,
       practitioner,
@@ -96,7 +101,7 @@ class AddCoverages extends React.Component {
             render={(arrayHelpers) => (
               <div>
                 <Dialog
-                  title={<H1><FormattedMessage {...messages.addCoverageDialogHeader} /></H1>}
+                  title={this.state.isEditMode ? <H1><FormattedMessage {...messages.editCoverageDialogHeader} /></H1> : <H1><FormattedMessage {...messages.addCoverageDialogHeader} /></H1>}
                   modal={false}
                   open={this.state.isCoverageDialogOpen}
                   onRequestClose={this.handleCloseDialog}
