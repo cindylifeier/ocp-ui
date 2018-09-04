@@ -34,6 +34,14 @@ export default defineMessages({
     id: 'ocpui.components.CoverageTable.status',
     defaultMessage: 'Status',
   },
+  copay: {
+    id: 'ocpui.components.CoverageTable.copay',
+    defaultMessage: 'Copay',
+  },
+  network: {
+    id: 'ocpui.components.CoverageTable.network',
+    defaultMessage: 'Network',
+  },
   period: {
     id: 'ocpui.components.CoverageTable.period',
     defaultMessage: 'Period',
