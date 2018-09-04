@@ -28,9 +28,9 @@ export default defineMessages({
         id: 'ocpui.containers.ManageCommunication.form.sent',
         defaultMessage: 'Time Sent',
       },
-      sender: {
-        id: 'ocpui.containers.ManageCommunication.form.sender',
-        defaultMessage: 'Sender',
+      creator: {
+        id: 'ocpui.containers.ManageCommunication.form.creator',
+        defaultMessage: 'Creator',
       },
       recipient: {
         id: 'ocpui.containers.ManageCommunication.form.recipient',
@@ -75,6 +75,10 @@ export default defineMessages({
       note: {
         id: 'ocpui.containers.ManageCommunication.form.note',
         defaultMessage: 'Note',
+      },
+      duration: {
+        id: 'ocpui.containers.ManageCommunication.form.duration',
+        defaultMessage: 'Duration',
       },
     },
     addRecipient: {

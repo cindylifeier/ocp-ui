@@ -1,6 +1,7 @@
 import { makeSelectPatient, makeSelectUser } from 'containers/App/contextSelectors';
 import { showNotification } from 'containers/Notification/actions';
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { getCommunicationsByAppointment } from 'utils/CommunicationUtils';
 import {
   acceptPatientAppointmentError,
   acceptPatientAppointmentSuccess,
@@ -12,6 +13,8 @@ import {
   getPatientAppointmentsSuccess,
   tentativePatientAppointmentError,
   tentativePatientAppointmentSuccess,
+  getAppointmentRelatedCommunicationsSuccess,
+  getAppointmentRelatedCommunications,
 } from './actions';
 import getPatientAppointmentsApi, {
   acceptAppointment,
@@ -25,6 +28,7 @@ import {
   DECLINE_PATIENT_APPOINTMENT,
   GET_PATIENT_APPOINTMENTS,
   TENTATIVE_PATIENT_APPOINTMENT,
+  GET_APPOINTMENT_RELATED_COMMUNICATIONS,
 } from './constants';
 
 function getErrorMessage(err) {
@@ -79,6 +83,17 @@ export function* getPatientAppointmentsSaga({ query: { showPastAppointments, pag
   } catch (err) {
     const errMsg = getErrorMessage(err);
     yield put(getPatientAppointmentsError(err));
+    yield put(showNotification(errMsg));
+  }
+}
+
+export function* getCommunicationsByAppointmentSaga({ patient, appointmentId, pageNumber }) {
+  try {
+    const communications = yield call(getCommunicationsByAppointment, patient, appointmentId, pageNumber, 'Appointment');
+    yield put(getAppointmentRelatedCommunicationsSuccess(communications));
+  } catch (err) {
+    const errMsg = getErrorMessage(err);
+    yield put(getAppointmentRelatedCommunications(err));
     yield put(showNotification(errMsg));
   }
 }
@@ -276,6 +291,10 @@ export function* watchTentativelyAcceptPatientAppointmentSagaSaga() {
   yield takeLatest(TENTATIVE_PATIENT_APPOINTMENT, tentativelyAcceptPatientAppointmentSaga);
 }
 
+export function* watchGetCommunicationsByAppointmentSaga() {
+  yield takeLatest(GET_APPOINTMENT_RELATED_COMMUNICATIONS, getCommunicationsByAppointmentSaga);
+}
+
 // Individual exports for testing
 export default function* defaultSaga() {
   yield all([
@@ -284,5 +303,6 @@ export default function* defaultSaga() {
     watchAcceptPatientAppointmentSaga(),
     watchDeclinePatientAppointmentSaga(),
     watchTentativelyAcceptPatientAppointmentSagaSaga(),
+    watchGetCommunicationsByAppointmentSaga(),
   ]);
 }

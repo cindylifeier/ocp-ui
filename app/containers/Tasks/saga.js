@@ -1,10 +1,11 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { showNotification } from 'containers/Notification/actions';
-
+import { getCommunicationsByAppointment } from 'utils/CommunicationUtils';
 import getTasksApi, { cancelTask } from './api';
-import { cancelTaskError, cancelTaskSuccess, getTasksError, getTasksSuccess } from './actions';
-import { CANCEL_TASK, GET_TASKS } from './constants';
-
+import { cancelTaskError, cancelTaskSuccess, getTasksError, getTasksSuccess,
+  getTaskRelatedCommunicationsError, getTaskRelatedCommunicationsSuccess,
+} from './actions';
+import { CANCEL_TASK, GET_TASKS, GET_TASK_RELATED_COMMUNICATIONS } from './constants';
 
 function getErrorMessage(err) {
   let errorMessage = '';
@@ -41,6 +42,18 @@ export function* cancelTaskSaga({ id }) {
   }
 }
 
+
+export function* getTaskRelatedCommunicationsSaga({ patient, taskId, pageNumber }) {
+  try {
+    const communications = yield call(getCommunicationsByAppointment, patient, taskId, pageNumber, 'Task');
+    yield put(getTaskRelatedCommunicationsSuccess(communications));
+  } catch (err) {
+    const errMsg = getErrorMessage(err);
+    yield put(getTaskRelatedCommunicationsError(err));
+    yield put(showNotification(errMsg));
+  }
+}
+
 export function* watchGetTasksSaga() {
   yield takeLatest(GET_TASKS, getTasksSaga);
 }
@@ -49,9 +62,14 @@ export function* watchCancelTaskSaga() {
   yield takeLatest(CANCEL_TASK, cancelTaskSaga);
 }
 
+export function* watchGetTaskRelatedCommunicationsSaga() {
+  yield takeLatest(GET_TASK_RELATED_COMMUNICATIONS, getTaskRelatedCommunicationsSaga);
+}
+
 export default function* rootSaga() {
   yield all([
     watchGetTasksSaga(),
     watchCancelTaskSaga(),
+    watchGetTaskRelatedCommunicationsSaga(),
   ]);
 }

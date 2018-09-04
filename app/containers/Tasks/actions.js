@@ -14,6 +14,9 @@ import {
   SEARCH_TASKS,
   SEARCH_TASKS_SUCCESS,
   INITIALIZE_TASKS,
+  GET_TASK_RELATED_COMMUNICATIONS,
+  GET_TASK_RELATED_COMMUNICATIONS_SUCCESS,
+  GET_TASK_RELATED_COMMUNICATIONS_ERROR,
 } from './constants';
 
 export function initializeTasks() {
@@ -81,3 +84,30 @@ export function cancelTaskError(error) {
     error,
   };
 }
+
+
+export function getTaskRelatedCommunications(patient, taskId, pageNumber) {
+  return {
+    type: GET_TASK_RELATED_COMMUNICATIONS,
+    patient,
+    pageNumber,
+    taskId,
+  };
+}
+
+
+export function getTaskRelatedCommunicationsSuccess(communications) {
+  return {
+    type: GET_TASK_RELATED_COMMUNICATIONS_SUCCESS,
+    communications,
+  };
+}
+
+
+export function getTaskRelatedCommunicationsError(error) {
+  return {
+    type: GET_TASK_RELATED_COMMUNICATIONS_ERROR,
+    error,
+  };
+}
+

@@ -23,35 +23,35 @@ import {
 import TaskExpansionRowDetails from './TaskExpansionRowDetails';
 import messages from './messages';
 
-function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded, isPatient }) {
+function TaskTable({ onTaskClick, elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded, isPatient }) {
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn />
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
-        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
+        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
+        <TableHeaderColumn > <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
         {isExpanded &&
-        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
+        <TableHeaderColumn > <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
+        <TableHeaderColumn > <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
         }
         {!isExpanded ?
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
           :
-          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
+          <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastModified} /></TableHeaderColumn>
+        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderLastModified} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn><FormattedMessage {...messages.subTasks} /></TableHeaderColumn>
+        <TableHeaderColumn ><FormattedMessage {...messages.subTasks} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
         }
-        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
+        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
       </TableHeader>
     );
   }
@@ -88,28 +88,64 @@ function TaskTable({ elements, cancelTask, patientId, communicationBaseUrl, task
         columns={columns}
         expansionTableRowDetails={<TaskExpansionRowDetails task={task} />}
       >
-        <TableRowColumn>{definition && definition.display}</TableRowColumn>
-        <TableRowColumn>{owner && owner.display} </TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{definition && definition.display}</TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{owner && owner.display} </TableRowColumn>
         {isExpanded &&
-        <TableRowColumn>{description}</TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{description}</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{authoredOn}</TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{authoredOn}</TableRowColumn>
         }
         {!isExpanded ?
-          <TableRowColumn>{executionPeriod && executionPeriod.end} </TableRowColumn>
+          <TableRowColumn
+            onClick={() => {
+              onTaskClick(task);
+            }}
+          >{executionPeriod && executionPeriod.end} </TableRowColumn>
           :
-          <TableRowColumn>{executionPeriod && executionPeriod.start}
+          <TableRowColumn
+            onClick={() => {
+              onTaskClick(task);
+            }}
+          >{executionPeriod && executionPeriod.start}
             - {executionPeriod && executionPeriod.end} </TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{lastModified} </TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{lastModified} </TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{remainingSubtasks}/{totalSubtasks} tasks remaining</TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{remainingSubtasks}/{totalSubtasks} tasks remaining</TableRowColumn>
         }
         {isExpanded &&
-        <TableRowColumn>{status && status.display}</TableRowColumn>
+        <TableRowColumn
+          onClick={() => {
+            onTaskClick(task);
+          }}
+        >{status && status.display}</TableRowColumn>
         }
         <TableRowColumn>
           <NavigationIconMenu menuItems={menuItems} />
@@ -130,6 +166,7 @@ TaskTable.propTypes = {
   isExpanded: PropTypes.bool,
   relativeTop: PropTypes.number.isRequired,
   cancelTask: PropTypes.func.isRequired,
+  onTaskClick: PropTypes.func,
   patientId: PropTypes.string.isRequired,
   communicationBaseUrl: PropTypes.string.isRequired,
   taskBaseUrl: PropTypes.string.isRequired,

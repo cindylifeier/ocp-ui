@@ -154,6 +154,7 @@ export class AppointmentsCalendar extends React.Component { // eslint-disable-li
               <StyledRaisedButton
                 onClick={this.handleOpenLoginDialog}
                 disabled={this.props.isOutlookAuthenticated}
+                marginTop={3}
               >
                 <FormattedMessage {...messages.buttonLoginToOutlook} />
               </StyledRaisedButton>

@@ -109,13 +109,13 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
         initialValues={{}}
         onSubmit={(values, actions) => {
           const { roleCode, startDate, endDate } = values;
-          const role = find(this.props.participantRoles, { code: roleCode });
+          const role = (!isUndefined(roleCode) && roleCode !== null) ? find(this.props.participantRoles, { code: roleCode }) : null;
           const smallParticipant = {
             roleCode,
             startDate: (!isUndefined(startDate) && startDate !== null) ? startDate.toLocaleDateString() : null,
             endDate: (!isUndefined(endDate) && endDate !== null) ? endDate.toLocaleDateString() : null,
-            roleDisplay: role.display,
-            roleSystem: role.system,
+            roleDisplay: (role !== null && !isUndefined(role.display) && role.display !== null) ? role.display : null,
+            roleSystem: (role !== null && !isUndefined(role.system) && role.system !== null) ? role.system : null,
             memberId: participant.member.id,
             memberType: participant.member.type,
             name: mapSearchParticipantName(participant),
@@ -130,10 +130,8 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
               startDate = values.startDate;
             }
             return yup.object().shape({
-              roleCode: yup.string()
-                .required((<FormattedMessage {...messages.validation.required} />)),
+              roleCode: yup.string(),
               startDate: yup.date()
-                .required((<FormattedMessage {...messages.validation.required} />))
                 .min(new Date().toLocaleDateString(), (<FormattedMessage {...messages.validation.minStartDate} />)),
               endDate: yup.date()
                 .min(startDate.toLocaleDateString(), (<FormattedMessage {...messages.validation.minEndDate} />)),

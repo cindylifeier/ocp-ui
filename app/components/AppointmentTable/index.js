@@ -35,7 +35,7 @@ import {
 import messages from './messages';
 
 
-function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
+function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, appointmentTypes, cancelAppointment, acceptAppointment, declineAppointment, tentativeAppointment, patientId, communicationBaseUrl, relativeTop, manageAppointmentUrl, size, isPatientWorkspace, isPatientDetailsPage, handleSort, columnToSort, sortDirection, handlePatientNameClick }) { // eslint-disable-line react/prefer-stateless-function
   const isExpanded = size && size.width ? (Math.floor(size.width) > SUMMARY_VIEW_WIDTH) : false;
   const practitionerWorkspace = !isPatientWorkspace && !isPatientDetailsPage;
 
@@ -169,23 +169,57 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
               expansionTableRowDetails={
                 <AppointmentExpansionRowDetails
                   participants={appointment.participant}
-                  appointmentType={appointmentType.display}
                   locationObject={appointment.location}
+                  appointmentType={appointmentType && appointmentType.display}
                 />
               }
             >
-              <TableRowColumn>{getMyResponseIcon(appointment)}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{getMyResponseIcon(appointment)}</TableRowColumn>
               {practitionerWorkspace &&
-              <TableRowColumn textDecorationLine="underline" onClick={() => handlePatientNameClick(appointment.patient)}>{appointment.patientName}</TableRowColumn>
+              <TableRowColumn
+                textDecorationLine="underline"
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                  handlePatientNameClick(appointment.patient);
+                }}
+              >
+                {appointment.patientName}
+                </TableRowColumn>
               }
               {isExpanded &&
-              <TableRowColumn>{mapDisplayFromCode(appointmentTypes, appointment.typeCode)}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >
+                {mapDisplayFromCode(appointmentTypes, appointment.typeCode)}
+              </TableRowColumn>
               }
-              <TableRowColumn>{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
-              <TableRowColumn>{appointment.appointmentDate}</TableRowColumn>
-              <TableRowColumn>{appointment.appointmentDuration}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{mapDisplayFromCode(appointmentStatuses, appointment.statusCode)}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{appointment.appointmentDate}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{appointment.appointmentDuration}</TableRowColumn>
               {isExpanded &&
-              <TableRowColumn>{appointment.description}</TableRowColumn>
+              <TableRowColumn
+                onClick={() => {
+                  onAppointmentClick(appointment);
+                }}
+              >{appointment.description}</TableRowColumn>
               }
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
@@ -200,7 +234,8 @@ function AppointmentTable({ elements, appointmentStatuses, appointmentTypes, can
 
 function mapDisplayFromCode(appointmentLookup, key) {
   if (key) {
-    return find(appointmentLookup, { code: key }).display;
+    const appointment = find(appointmentLookup, { code: key });
+    return appointment && appointment.display;
   }
   return key;
 }
@@ -212,14 +247,16 @@ AppointmentTable.propTypes = {
   appointmentStatuses: PropTypes.array,
   appointmentTypes: PropTypes.array,
   cancelAppointment: PropTypes.func,
+  onAppointmentClick: PropTypes.func,
   acceptAppointment: PropTypes.func,
   declineAppointment: PropTypes.func,
   tentativeAppointment: PropTypes.func,
   communicationBaseUrl: PropTypes.string.isRequired,
   patientId: PropTypes.string,
+  // enableEditAppointment: PropTypes.bool,
   isPatientWorkspace: PropTypes.bool,
   isPatientDetailsPage: PropTypes.bool,
-  manageAppointmentUrl: PropTypes.string.isRequired,
+  manageAppointmentUrl: PropTypes.string,
   handleSort: PropTypes.func,
   columnToSort: PropTypes.string,
   sortDirection: PropTypes.string,
