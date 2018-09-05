@@ -25,9 +25,9 @@ export function mapCareManager(values, practitioners) {
   };
 }
 
-export function checkDuplicateEOC(episodeOfCares, formValue) {
+export function checkDuplicateEOC(episodeOfCares, formValue, editMode) {
   let isDuplicate = false;
-  if (formValue && formValue.status && formValue.type) {
+  if (!editMode && formValue && formValue.status && formValue.type) {
     const { status, type } = formValue;
     const addedStatusesAndTypes = episodeOfCares
       .filter((episodeOfCare) => Util.equalsIgnoreCase(episodeOfCare.status, status) && Util.equalsIgnoreCase(episodeOfCare.type, type));

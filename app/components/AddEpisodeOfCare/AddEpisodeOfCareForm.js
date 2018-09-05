@@ -25,6 +25,7 @@ function AddEpisodeOfCareForm(props) {
     episodeOfCareStatus,
     episodeOfCareType,
     episodeOfCares,
+    editMode,
   } = props;
   const today = new Date();
   return (
@@ -130,7 +131,7 @@ function AddEpisodeOfCareForm(props) {
                 />
               </Cell>
               <Cell width={2}>
-                {checkDuplicateEOC(episodeOfCares, values) &&
+                {checkDuplicateEOC(episodeOfCares, values, editMode) &&
                 <CustomErrorText>
                   <FormattedMessage {...messages.validation.duplicateEOC} />
                 </CustomErrorText>
@@ -141,7 +142,7 @@ function AddEpisodeOfCareForm(props) {
                   <StyledRaisedButton
                     type="submit"
                     fullWidth
-                    disabled={!dirty || isSubmitting || !isValid || checkDuplicateEOC(episodeOfCares, values)}
+                    disabled={!dirty || isSubmitting || !isValid || checkDuplicateEOC(episodeOfCares, values, editMode)}
                   >
                     <FormattedMessage {...messages.saveButton} />
                   </StyledRaisedButton>
@@ -166,6 +167,7 @@ AddEpisodeOfCareForm.propTypes = {
     index: PropTypes.number,
     episodeOfCare: PropTypes.object,
   }),
+  editMode: PropTypes.bool.isRequired,
   episodeOfCares: PropTypes.array,
   practitioners: PropTypes.array,
   episodeOfCareStatus: PropTypes.array,
