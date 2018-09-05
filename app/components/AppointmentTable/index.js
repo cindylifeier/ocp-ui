@@ -183,7 +183,6 @@ function AppointmentTable({ onAppointmentClick, elements, appointmentStatuses, a
               <TableRowColumn
                 textDecorationLine="underline"
                 onClick={() => {
-                  onAppointmentClick(appointment);
                   handlePatientNameClick(appointment.patient);
                 }}
               >
