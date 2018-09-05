@@ -54,4 +54,46 @@ export default defineMessages({
     id: 'ocpui.components.CareTeamTable.cancelButton',
     defaultMessage: 'Cancel',
   },
+  expansionRowDetails: {
+    name: {
+      id: 'ocpui.components.CareTeamTable.name',
+      defaultMessage: 'Name',
+    },
+    category: {
+      id: 'ocpui.components.CareTeamTable.category',
+      defaultMessage: 'Category',
+    },
+    reason: {
+      id: 'ocpui.components.CareTeamTable.reason',
+      defaultMessage: 'Reason',
+    },
+    status: {
+      id: 'ocpui.components.CareTeamTable.status',
+      defaultMessage: 'Status',
+    },
+    startDate: {
+      id: 'ocpui.components.CareTeamTable.startDate',
+      defaultMessage: 'Start Date',
+    },
+    endDate: {
+      id: 'ocpui.components.CareTeamTable.endDate',
+      defaultMessage: 'End Date',
+    },
+    participants: {
+      id: 'ocpui.components.CareTeamTable.participants',
+      defaultMessage: 'Participants:',
+    },
+    participantType: {
+      id: 'ocpui.components.CareTeamTable.participantType',
+      defaultMessage: 'Type',
+    },
+    role: {
+      id: 'ocpui.components.CareTeamTable.role',
+      defaultMessage: 'Role',
+    },
+    noParticipantAdded: {
+      id: 'ocpui.components.CareTeamTable.noParticipantAdded',
+      defaultMessage: 'No participant added',
+    },
+  },
 });
