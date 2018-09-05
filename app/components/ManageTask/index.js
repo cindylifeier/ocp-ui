@@ -69,7 +69,8 @@ function ManageTask(props) {
                 .required((<FormattedMessage {...messages.validation.required} />)),
               taskOwner: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
-              description: yup.string(),
+              description: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
               context: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               authoredOn: yup.date()
