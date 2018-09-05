@@ -79,10 +79,10 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
     }
   }
 
-  handleSearchParticipantReferences(searchType, searchValue) {
+  handleSearchParticipantReferences(searchType, searchValue, actions) {
     const { organization } = this.props;
     const organizationId = organization.logicalId;
-    this.props.searchParticipantReferences(searchType, searchValue, organizationId, DEFAULT_START_PAGE_NUMBER);
+    this.props.searchParticipantReferences(searchType, searchValue, organizationId, DEFAULT_START_PAGE_NUMBER, () => actions.setSubmitting(false));
   }
 
   render() {
@@ -160,7 +160,7 @@ function mapDispatchToProps(dispatch) {
     getHealthcareServiceReferences: (resourceType, resourceValue) => dispatch(getHealthcareServiceReferences(resourceType, resourceValue)),
     getLocationReferences: (resourceType, resourceValue) => dispatch(getLocationReferences(resourceType, resourceValue)),
     getPractitionerReferences: (resourceType, resourceValue) => dispatch(getPractitionerReferences(resourceType, resourceValue)),
-    searchParticipantReferences: (searchType, searchValue, organizationId, currentPage) => dispatch(searchParticipantReferences(searchType, searchValue, organizationId, currentPage)),
+    searchParticipantReferences: (searchType, searchValue, organizationId, currentPage, handleSubmitting) => dispatch(searchParticipantReferences(searchType, searchValue, organizationId, currentPage, handleSubmitting)),
   };
 }
 

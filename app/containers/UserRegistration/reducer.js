@@ -6,13 +6,15 @@
 
 import { fromJS } from 'immutable';
 import {
-  SEARCH_RESOURCES, SEARCH_RESOURCES_ERROR,
-  SEARCH_RESOURCES_SUCCESS, INITIALIZE_USER_REGISTRATION,
+  INITIALIZE_USER_REGISTRATION,
+  SEARCH_RESOURCES,
+  SEARCH_RESOURCES_ERROR,
+  SEARCH_RESOURCES_SUCCESS,
 } from './constants';
 
 const initialState = fromJS({
   loading: false,
-  data: [],
+  data: null,
   currentPage: 0,
   totalNumberOfPages: 0,
   error: false,
