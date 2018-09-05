@@ -50,6 +50,10 @@ export default defineMessages({
     id: 'ocpui.components.AddParticipantForm.hintText.menuItemRelatedPerson',
     defaultMessage: 'Related Person',
   },
+  noResourceAvailable: {
+    id: 'ocpui.components.AddParticipantForm.hintText.noResourceAvailable',
+    defaultMessage: ' This resource is not available at any {resourceMessage}. Please select different resource.',
+  },
   validation: {
     required: {
       id: 'ocpui.components.AddParticipantForm.validation.required',
