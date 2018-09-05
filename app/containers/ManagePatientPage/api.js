@@ -74,7 +74,7 @@ function mapToBackendPatient(patientFormData) {
     organizationId,
     practitionerId,
     coverages,
-    episodeOfCares,
+    episodeOfCares: mapToBackendEpisodeOfCares(episodeOfCares),
   };
 }
 
@@ -85,7 +85,25 @@ function mapToBackendFlags(flags) {
       reference: `Practitioner/${author.id}`,
       display: author.display,
     } : author;
-    return { status, category, logicalId, code, period: { start: flagStart && Util.formatDate(flagStart), end: flagEnd && Util.formatDate(flagEnd) }, author: authorRef };
+    return {
+      status,
+      category,
+      logicalId,
+      code,
+      period: { start: flagStart && Util.formatDate(flagStart), end: flagEnd && Util.formatDate(flagEnd) },
+      author: authorRef,
+    };
+  });
+}
+
+function mapToBackendEpisodeOfCares(episodeOfCares) {
+  return episodeOfCares.map((episodeOfCare) => {
+    const { startDate, endDate } = episodeOfCare;
+    return {
+      ...episodeOfCare,
+      startDate: startDate.toLocaleDateString(),
+      endDate: endDate.toLocaleDateString(),
+    };
   });
 }
 
@@ -102,6 +120,7 @@ export function mapToFrontendPatientForm(patientData) {
   const dob = (birthDate !== undefined && birthDate !== null) ? new Date(birthDate) : null;
   const gender = (genderCode !== undefined && genderCode !== null) ? genderCode.toLowerCase() : null;
   const mappedFlags = mapToFrontendFlags(flags);
+  const mappedEpisodeOfCares = mapToFrontendEpisodeOfCares(episodeOfCares);
   return {
     id,
     firstName,
@@ -116,7 +135,7 @@ export function mapToFrontendPatientForm(patientData) {
     birthSex,
     addresses,
     telecoms,
-    episodeOfCares,
+    episodeOfCares: mappedEpisodeOfCares,
     coverages,
     flags: mappedFlags,
   };
@@ -125,6 +144,25 @@ export function mapToFrontendPatientForm(patientData) {
 function mapToFrontendFlags(flags) {
   return flags.map((flag) => {
     const { status, category, logicalId, code, period, author } = flag;
-    return { status, category, logicalId, code, flagStart: period.start && new Date(period.start), flagEnd: period.end && new Date(period.end), author };
+    return {
+      status,
+      category,
+      logicalId,
+      code,
+      flagStart: period.start && new Date(period.start),
+      flagEnd: period.end && new Date(period.end),
+      author,
+    };
+  });
+}
+
+function mapToFrontendEpisodeOfCares(episodeOfCares) {
+  return episodeOfCares.map((episodeOfCare) => {
+    const { startDate, endDate } = episodeOfCare;
+    return {
+      ...episodeOfCare,
+      startDate: new Date(startDate),
+      endDate: new Date(endDate),
+    };
   });
 }

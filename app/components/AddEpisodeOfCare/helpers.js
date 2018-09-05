@@ -1,16 +1,24 @@
-import isUndefined from 'lodash/isUndefined';
+import find from 'lodash/find';
 
 export function setInitialValue(initialValues) {
   let formValue = null;
   if (initialValues) {
     const episodeOfCare = initialValues.episodeOfCare;
-    const { startDate, endDate } = episodeOfCare;
     formValue = {
       ...episodeOfCare,
-      startDate: !isUndefined(startDate) ? new Date(startDate) : null,
-      endDate: !isUndefined(endDate) ? new Date(endDate) : null,
+      startDate: new Date(episodeOfCare.startDate),
+      endDate: new Date(episodeOfCare.endDate),
       careManager: episodeOfCare.careManager.reference,
     };
   }
   return formValue;
+}
+
+export function mapCareManager(values, practitioners) {
+  const { careManager } = values;
+  const selectedCareManager = find(practitioners, { reference: careManager });
+  return {
+    ...values,
+    careManager: selectedCareManager,
+  };
 }

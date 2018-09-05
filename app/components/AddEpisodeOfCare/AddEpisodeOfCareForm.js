@@ -5,15 +5,13 @@ import { Form, Formik } from 'formik';
 import yup from 'yup';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
-import find from 'lodash/find';
-import merge from 'lodash/merge';
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
 import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import { setInitialValue } from './helpers';
+import { mapCareManager, setInitialValue } from './helpers';
 import messages from './messages';
 
 function AddEpisodeOfCareForm(props) {
@@ -35,17 +33,7 @@ function AddEpisodeOfCareForm(props) {
           if (initialValues) {
             onRemoveEpisodeOfCare(initialValues.index);
           }
-          const { status, startDate, endDate, type, typeDisplay, careManager } = values;
-          const selectedCareManager = find(practitioners, { reference: careManager });
-          const episodeOfCare = {
-            type,
-            typeDisplay,
-            status,
-            startDate: startDate && startDate.toLocaleString(),
-            endDate: endDate && endDate.toLocaleString(),
-            careManager: selectedCareManager,
-          };
-          onAddEpisodeOfCare(merge(values, episodeOfCare));
+          onAddEpisodeOfCare(mapCareManager(values, practitioners));
           handleCloseDialog();
         }}
         validationSchema={() =>

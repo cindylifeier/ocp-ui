@@ -50,8 +50,8 @@ function AddEpisodeOfCareTable(props) {
               <TableRowColumn>{status}</TableRowColumn>
               <TableRowColumn>{find(episodeOfCareType, { code: type }) && (find(episodeOfCareType, { code: type })).display}</TableRowColumn>
               <TableRowColumn>{careManager && careManager.display}</TableRowColumn>
-              <TableRowColumn>{startDate}</TableRowColumn>
-              <TableRowColumn>{endDate}</TableRowColumn>
+              <TableRowColumn>{startDate.toLocaleDateString()}</TableRowColumn>
+              <TableRowColumn>{endDate.toLocaleDateString()}</TableRowColumn>
               <TableRowColumn>
                 <NavigationIconMenu menuItems={menuItems} />
               </TableRowColumn>
