@@ -25,7 +25,7 @@ import messages from './messages';
 const tableColumns = 'repeat(4, 1fr) 110px';
 
 function OutOfOrgTabContent(props) {
-  const { values, onCloseDialog, onSearchParticipantReferences, participantReferences, participantAttendance } = props;
+  const { values, resetForm, onCloseDialog, onSearchParticipantReferences, participantReferences, participantAttendance } = props;
   const { loading, data } = participantReferences;
 
   function checkRequiredValues() {
@@ -33,7 +33,7 @@ function OutOfOrgTabContent(props) {
   }
 
   return (
-    <Form>
+    <div>
       <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
       <LinearProgressIndicator loading={loading} />
       {
@@ -41,55 +41,63 @@ function OutOfOrgTabContent(props) {
         <NoResultsFoundText><FormattedMessage {...messages.searchParticipantsTable.noParticipantsFound} /></NoResultsFoundText>
       }
       {!loading && !isEmpty(data) &&
-      <Table margin="10px 0">
-        <TableHeader columns={tableColumns}>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderName} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderNPI} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAssociatedOrgs} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAttendance} />
-          </TableHeaderColumn>
-          <TableHeaderColumn>
-            <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
-          </TableHeaderColumn>
-        </TableHeader>
-        {data.map((participantReference) => {
-          const { display } = participantReference;
-          return (
-            <TableRow key={uniqueId()} columns={tableColumns}>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>
-                <SelectFieldWithoutOnClick
-                  fullWidth
-                  name="attendance"
-                  hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
-                >
-                  {participantAttendance && participantAttendance.map((entry) =>
-                    (<MenuItem
-                      key={uniqueId()}
-                      value={entry.code}
-                      primaryText={entry.display}
-                    />),
-                  )}
-                </SelectFieldWithoutOnClick>
-              </TableRowColumn>
-              <TableRowColumn>
-                <StyledRaisedButton disabled={checkRequiredValues()}>
-                  <FormattedMessage {...messages.addButton} />
-                </StyledRaisedButton>
-              </TableRowColumn>
-            </TableRow>
-          );
-        })}
-      </Table>
+      <Form>
+        <Table margin="10px 0">
+          <TableHeader columns={tableColumns}>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderName} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderNPI} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAssociatedOrgs} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAttendance} />
+            </TableHeaderColumn>
+            <TableHeaderColumn>
+              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
+            </TableHeaderColumn>
+          </TableHeader>
+          {data.map((participantReference) => {
+            const { display } = participantReference;
+            return (
+              <TableRow key={uniqueId()} columns={tableColumns}>
+                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>
+                  <SelectFieldWithoutOnClick
+                    fullWidth
+                    name="attendance"
+                    onChange={(event, key, newValue) => {
+                      resetForm({
+                        attendance: newValue,
+                        practitioner: participantReference.reference,
+                      });
+                    }}
+                    hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
+                  >
+                    {participantAttendance && participantAttendance.map((entry) =>
+                      (<MenuItem
+                        key={uniqueId()}
+                        value={entry.code}
+                        primaryText={entry.display}
+                      />),
+                    )}
+                  </SelectFieldWithoutOnClick>
+                </TableRowColumn>
+                <TableRowColumn>
+                  <StyledRaisedButton type="submit" disabled={checkRequiredValues()}>
+                    <FormattedMessage {...messages.addButton} />
+                  </StyledRaisedButton>
+                </TableRowColumn>
+              </TableRow>
+            );
+          })}
+        </Table>
+      </Form>
       }
       {!loading && !isEmpty(data) && checkRequiredValues() &&
       <CustomErrorText>Attendance are required</CustomErrorText>
@@ -99,7 +107,7 @@ function OutOfOrgTabContent(props) {
           <StyledFlatButton onClick={onCloseDialog}><FormattedMessage {...messages.cancelButton} /></StyledFlatButton>
         </Cell>
       </Grid>
-    </Form>
+    </div>
   );
 }
 
@@ -112,6 +120,7 @@ OutOfOrgTabContent.propTypes = {
   }),
   values: PropTypes.object,
   participantAttendance: PropTypes.array.isRequired,
+  resetForm: PropTypes.func.isRequired,
   onCloseDialog: PropTypes.func.isRequired,
   onSearchParticipantReferences: PropTypes.func.isRequired,
 };
