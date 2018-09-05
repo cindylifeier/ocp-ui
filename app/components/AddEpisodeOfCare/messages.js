@@ -18,6 +18,10 @@ export default defineMessages({
     id: 'ocpui.components.AddEpisodeOfCare.addEpisodeOFCareDialogHeader',
     defaultMessage: 'Add Episode Of Care',
   },
+  editEpisodeOFCareDialogHeader: {
+    id: 'ocpui.components.AddEpisodeOfCare.editEpisodeOFCareDialogHeader',
+    defaultMessage: 'Edit Episode Of Care',
+  },
   addedCoveragesTable: {
     tableHeaderStatus: {
       id: 'ocpui.components.AddEpisodeOfCare.addedCoveragesTable.tableHeaderStatus',

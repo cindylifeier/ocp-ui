@@ -1,19 +1,17 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FormattedMessage } from 'react-intl';
+import { Form, Formik } from 'formik';
+import yup from 'yup';
+import MenuItem from 'material-ui/MenuItem';
+import { Cell, Grid } from 'styled-css-grid';
+
+import { DATE_PICKER_MODE } from 'containers/App/constants';
 import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-
-
-import { DATE_PICKER_MODE } from 'containers/App/constants';
-import { Form, Formik } from 'formik';
-import find from 'lodash/find';
-import merge from 'lodash/merge';
-import MenuItem from 'material-ui/MenuItem';
-import PropTypes from 'prop-types';
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-import yup from 'yup';
+import { mapCareManager, setInitialValue } from './helpers';
 import messages from './messages';
 
 function AddEpisodeOfCareForm(props) {
@@ -30,23 +28,12 @@ function AddEpisodeOfCareForm(props) {
   return (
     <div>
       <Formik
+        initialValues={setInitialValue(initialValues)}
         onSubmit={(values) => {
           if (initialValues) {
             onRemoveEpisodeOfCare(initialValues.index);
           }
-
-          const { status, startDate, endDate, type, typeDisplay, careManager } = values;
-          const selectedCareManager = find(practitioners, { reference: careManager });
-          const episodeOfCare = {
-            type,
-            typeDisplay,
-            status,
-            startDate: startDate && startDate.toLocaleString(),
-            endDate: endDate && endDate.toLocaleString(),
-            careManager: selectedCareManager,
-          };
-          onAddEpisodeOfCare(merge(values, episodeOfCare));
-
+          onAddEpisodeOfCare(mapCareManager(values, practitioners));
           handleCloseDialog();
         }}
         validationSchema={() =>
@@ -87,7 +74,7 @@ function AddEpisodeOfCareForm(props) {
                   )}
                 </SelectField>
               </Cell>
-              <Cell></Cell>
+              <Cell />
               <Cell>
                 <SelectField
                   fullWidth
@@ -141,15 +128,18 @@ function AddEpisodeOfCareForm(props) {
                 />
               </Cell>
               <Cell>
-                <StyledRaisedButton
-                  type="submit"
-                  disabled={!dirty || isSubmitting || !isValid}
-                >
-                  <FormattedMessage {...messages.saveButton} />
-                </StyledRaisedButton>
-                <StyledFlatButton type="reset" onClick={handleCloseDialog}>
-                  <FormattedMessage {...messages.cancelButton} />
-                </StyledFlatButton>
+                <Grid columns={2}>
+                  <StyledRaisedButton
+                    type="submit"
+                    fullWidth
+                    disabled={!dirty || isSubmitting || !isValid}
+                  >
+                    <FormattedMessage {...messages.saveButton} />
+                  </StyledRaisedButton>
+                  <StyledFlatButton fullWidth type="reset" onClick={handleCloseDialog}>
+                    <FormattedMessage {...messages.cancelButton} />
+                  </StyledFlatButton>
+                </Grid>
               </Cell>
             </Grid>
           </Form>
@@ -165,7 +155,7 @@ AddEpisodeOfCareForm.propTypes = {
   handleCloseDialog: PropTypes.func.isRequired,
   initialValues: PropTypes.shape({
     index: PropTypes.number,
-    flag: PropTypes.object,
+    episodeOfCare: PropTypes.object,
   }),
   practitioners: PropTypes.array,
   episodeOfCareStatus: PropTypes.array,
