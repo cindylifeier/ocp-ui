@@ -81,8 +81,6 @@ class AddParticipantForm extends React.Component {
           .required(<FormattedMessage {...messages.validation.required} />),
       });
       const outOfOrgFormValidationSchema = yup.object().shape({
-        practitioner: yup.string()
-          .required(<FormattedMessage {...messages.validation.required} />),
         attendance: yup.string()
           .required(<FormattedMessage {...messages.validation.required} />),
       });
@@ -190,7 +188,7 @@ class AddParticipantForm extends React.Component {
                   fullWidth
                 >
                   <Tab label={<FormattedMessage {...messages.inOrgTabLabel} />} />
-                  <Tab label={<FormattedMessage {...messages.outOfOrgTabLabel} />} disabled />
+                  <Tab label={<FormattedMessage {...messages.outOfOrgTabLabel} />} />
                   <Tab label={<FormattedMessage {...messages.locationTabLabel} />} />
                   <Tab label={<FormattedMessage {...messages.serviceTabLabel} />} />
                 </Tabs>
@@ -199,6 +197,7 @@ class AddParticipantForm extends React.Component {
                 <OutOfOrgTabContent
                   onSearchParticipantReferences={onSearchParticipantReferences}
                   onCloseDialog={onCloseDialog}
+                  {...formikProps}
                   {...tabProps}
                 /> :
                 renderParticipantDetailsForm(formikProps)

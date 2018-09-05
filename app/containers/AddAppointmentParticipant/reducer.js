@@ -21,7 +21,7 @@ const initialState = fromJS({
   practitioners: null,
   searchParticipants: {
     loading: false,
-    data: [],
+    data: null,
     currentPage: 0,
     totalNumberOfPages: 0,
     error: false,
@@ -34,7 +34,8 @@ function addAppointmentParticipantReducer(state = initialState, action) {
       return state
         .set('locations', action.locations)
         .set('practitioners', action.practitioners)
-        .set('healthcareServices', action.healthcareServices);
+        .set('healthcareServices', action.healthcareServices)
+        .setIn(['searchParticipants', 'data'], fromJS(null));
     case GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS:
       return state
         .set('healthcareServices', action.healthcareServices);

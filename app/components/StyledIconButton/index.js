@@ -60,6 +60,10 @@ const StyledIconButton = styled(({ size, svgIconSize, disableIconHover, ...other
     border-radius: 5px;
     fill: #007979 !important;
   }
+
+  &&:disabled svg {
+    fill: rgba(0, 0, 0, 0.3) !important;
+  }
 `;
 
 StyledIconButton.propTypes = {

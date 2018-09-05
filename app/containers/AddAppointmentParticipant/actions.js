@@ -87,13 +87,14 @@ export function getPractitionerReferencesSuccess(practitioners) {
   };
 }
 
-export function searchParticipantReferences(searchType, searchValue, organizationId, currentPage) {
+export function searchParticipantReferences(searchType, searchValue, organizationId, currentPage, handleSubmitting) {
   return {
     type: SEARCH_PARTICIPANT_REFERENCES,
     searchType,
     searchValue,
     organizationId,
     currentPage,
+    handleSubmitting,
   };
 }
 
