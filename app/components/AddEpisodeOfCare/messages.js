@@ -69,6 +69,10 @@ export default defineMessages({
       id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.validation.minEndDate',
       defaultMessage: 'Flag End date field must be later than flag Start date field',
     },
+    duplicateEOC: {
+      id: 'ocpui.components.AddEpisodeOfCare.addCoverageForm.validation.duplicateEOC',
+      defaultMessage: 'There is an existing active episode of care of the same type.',
+    },
   },
   hintText: {
     careManager: {
