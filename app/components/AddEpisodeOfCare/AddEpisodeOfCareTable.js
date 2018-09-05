@@ -18,7 +18,7 @@ function AddEpisodeOfCareTable(props) {
   const {
     errors,
     arrayHelpers,
-    handleEditEpisodeOfCare,
+    onEditEpisodeOfCare,
     episodeOfCares,
     episodeOfCareType,
   } = props;
@@ -33,20 +33,17 @@ function AddEpisodeOfCareTable(props) {
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderEndDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.addedCoveragesTable.tableHeaderAction} /></TableHeaderColumn>
         </TableHeader>
-        {errors && errors.epidoseOfCare &&
-        <CustomErrorText>{errors.epidoseOfCare}</CustomErrorText>
+        {errors && errors.episodeOfCares &&
+        <CustomErrorText>{errors.episodeOfCares}</CustomErrorText>
         }
         {episodeOfCares && episodeOfCares.map((episodeOfCare, index) => {
-          const { id, managingOrganization, patient, type, status, typeDisplay, startDate, endDate, careManager } = episodeOfCare;
+          const { type, status, startDate, endDate, careManager } = episodeOfCare;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionEdit} />,
-            onClick: () => handleEditEpisodeOfCare(index, episodeOfCare),
+            onClick: () => onEditEpisodeOfCare(index, episodeOfCare),
           }, {
             primaryText: <FormattedMessage {...messages.addedCoveragesTable.tableActionRemove} />,
-            onClick: () => {
-              const enteredInErroEOC = { id, managingOrganization, patient, type, status: ENTERED_IN_ERROR_STATUS, statusDisplay: typeDisplay, startDate, endDate, careManager };
-              arrayHelpers.replace(index, enteredInErroEOC);
-            },
+            onClick: () => arrayHelpers.remove(index),
           }];
           return (status !== ENTERED_IN_ERROR_STATUS &&
             <TableRow key={uniqueId()} columns={tableColumns}>
@@ -65,10 +62,11 @@ function AddEpisodeOfCareTable(props) {
     </div>
   );
 }
+
 AddEpisodeOfCareTable.propTypes = {
   errors: PropTypes.object,
   arrayHelpers: PropTypes.object,
-  handleEditEpisodeOfCare: PropTypes.func,
+  onEditEpisodeOfCare: PropTypes.func.isRequired,
   episodeOfCares: PropTypes.array,
   episodeOfCareType: PropTypes.array,
 };

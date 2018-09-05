@@ -44,23 +44,17 @@ class AddEpisodeOfCare extends React.Component {
   }
 
   handleEditEpisodeOfCare(index, episodeOfCare) {
-    const { startDate, endDate, careManager, type, status } = episodeOfCare;
-    const flattenedEpisodeOfCare = {
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      careManager: careManager.reference,
-      type,
-      status,
-    };
     this.setState((prevState) => ({
       isEpisodeOFCareDialogOpen: !prevState.isEpisodeOFCareDialogOpen,
-      editingEpisodeOfCare: { index, episodeOfCare: flattenedEpisodeOfCare },
+      editingEpisodeOfCare: { index, episodeOfCare },
     }));
   }
 
   render() {
-    const { errors, patientName, practitioners, episodeOfCareType,
-      episodeOfCareStatus, practitioner, episodeOfCares } = this.props;
+    const {
+      errors, patientName, practitioners, episodeOfCareType,
+      episodeOfCareStatus, practitioner, episodeOfCares,
+    } = this.props;
     const addEpisodeOfCareFormProps = {
       patientName,
       practitioners,
@@ -103,7 +97,7 @@ class AddEpisodeOfCare extends React.Component {
                   />
                 </Dialog>
                 <AddEpisodeOfCareTable
-                  handleEditEpisodeOfCare={this.handleEditEpisodeOfCare}
+                  onEditEpisodeOfCare={this.handleEditEpisodeOfCare}
                   arrayHelpers={arrayHelpers}
                   {...addedEpisodeOfCareTableProps}
                 />
