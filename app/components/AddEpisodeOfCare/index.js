@@ -7,17 +7,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
-import Dialog from 'material-ui/Dialog';
 import { FieldArray } from 'formik';
+import { DialogContent, DialogTitle } from 'material-ui-next';
+import teal from 'material-ui-next/colors/teal';
+import isEmpty from 'lodash/isEmpty';
 
 import FormSubtitle from 'components/FormSubtitle';
-import H1 from 'components/H1';
-import teal from 'material-ui-next/colors/teal';
 import AddNewItemButton from 'components/PanelToolbar/AddNewItemButton';
 import StyledAddCircleIcon from 'components/StyledAddCircleIcon';
-import AddEpisodeOfCareForm from 'components/AddEpisodeOfCare/AddEpisodeOfCareForm';
-import messages from './messages';
+import StyledDialog from 'components/StyledDialog';
+import AddEpisodeOfCareForm from './AddEpisodeOfCareForm';
 import AddEpisodeOfCareTable from './AddEpisodeOfCareTable';
+import messages from './messages';
 
 
 class AddEpisodeOfCare extends React.Component {
@@ -44,23 +45,17 @@ class AddEpisodeOfCare extends React.Component {
   }
 
   handleEditEpisodeOfCare(index, episodeOfCare) {
-    const { startDate, endDate, careManager, type, status } = episodeOfCare;
-    const flattenedEpisodeOfCare = {
-      startDate: new Date(startDate),
-      endDate: new Date(endDate),
-      careManager: careManager.reference,
-      type,
-      status,
-    };
     this.setState((prevState) => ({
       isEpisodeOFCareDialogOpen: !prevState.isEpisodeOFCareDialogOpen,
-      editingEpisodeOfCare: { index, episodeOfCare: flattenedEpisodeOfCare },
+      editingEpisodeOfCare: { index, episodeOfCare },
     }));
   }
 
   render() {
-    const { errors, patientName, practitioners, episodeOfCareType,
-      episodeOfCareStatus, practitioner, episodeOfCares } = this.props;
+    const {
+      errors, patientName, practitioners, episodeOfCareType,
+      episodeOfCareStatus, practitioner, episodeOfCares,
+    } = this.props;
     const addEpisodeOfCareFormProps = {
       patientName,
       practitioners,
@@ -87,23 +82,26 @@ class AddEpisodeOfCare extends React.Component {
             name="episodeOfCares"
             render={(arrayHelpers) => (
               <div>
-                <Dialog
-                  title={<H1> <FormattedMessage {...messages.addEpisodeOFCareDialogHeader} /> </H1>}
-                  modal={false}
-                  open={this.state.isEpisodeOFCareDialogOpen}
-                  onRequestClose={this.handleCloseDialog}
-                >
-                  <AddEpisodeOfCareForm
-                    initialValues={this.state.editingEpisodeOfCare}
-                    onAddEpisodeOfCare={arrayHelpers.push}
-                    onRemoveEpisodeOfCare={arrayHelpers.remove}
-                    handleCloseDialog={this.handleCloseDialog}
-                    patientName={patientName}
-                    {...addEpisodeOfCareFormProps}
-                  />
-                </Dialog>
+                <StyledDialog maxWidth="md" fullWidth open={this.state.isEpisodeOFCareDialogOpen}>
+                  <DialogTitle>
+                    {isEmpty(this.state.editingEpisodeOfCare) ?
+                      <FormattedMessage {...messages.addEpisodeOFCareDialogHeader} /> :
+                      <FormattedMessage {...messages.editEpisodeOFCareDialogHeader} />
+                    }
+                  </DialogTitle>
+                  <DialogContent>
+                    <AddEpisodeOfCareForm
+                      initialValues={this.state.editingEpisodeOfCare}
+                      onAddEpisodeOfCare={arrayHelpers.push}
+                      onRemoveEpisodeOfCare={arrayHelpers.remove}
+                      handleCloseDialog={this.handleCloseDialog}
+                      patientName={patientName}
+                      {...addEpisodeOfCareFormProps}
+                    />
+                  </DialogContent>
+                </StyledDialog>
                 <AddEpisodeOfCareTable
-                  handleEditEpisodeOfCare={this.handleEditEpisodeOfCare}
+                  onEditEpisodeOfCare={this.handleEditEpisodeOfCare}
                   arrayHelpers={arrayHelpers}
                   {...addedEpisodeOfCareTableProps}
                 />
