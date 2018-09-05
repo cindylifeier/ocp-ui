@@ -7,6 +7,7 @@ import { Cell, Grid } from 'styled-css-grid';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
+import Util from 'utils/Util';
 import LinearProgressIndicator from 'components/LinearProgressIndicator';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
@@ -79,13 +80,15 @@ function OutOfOrgTabContent(props) {
                     }}
                     hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
                   >
-                    {participantAttendance && participantAttendance.map((entry) =>
-                      (<MenuItem
-                        key={uniqueId()}
-                        value={entry.code}
-                        primaryText={entry.display}
-                      />),
-                    )}
+                    {participantAttendance && participantAttendance
+                      .filter((attendance) => Util.equalsIgnoreCase(attendance.code, 'information-only'))
+                      .map((entry) =>
+                        (<MenuItem
+                          key={uniqueId()}
+                          value={entry.code}
+                          primaryText={entry.display}
+                        />),
+                      )}
                   </SelectFieldWithoutOnClick>
                 </TableRowColumn>
                 <TableRowColumn>

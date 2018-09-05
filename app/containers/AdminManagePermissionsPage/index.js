@@ -5,21 +5,11 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { compose } from 'redux';
-
-import injectSaga from 'utils/injectSaga';
-import injectReducer from 'utils/injectReducer';
 import GoldenLayout from 'components/GoldenLayout';
 import Page from 'components/Page';
 import renderPermissionGroupsComponent from 'containers/PermissionsGroups/render';
 import renderUserRegistration from 'containers/UserRegistration/render';
-import makeSelectAdminManagePermissionsPage from './selectors';
-import reducer from './reducer';
-import saga from './saga';
 
 export const initialStateMetadata =
   {
@@ -110,27 +100,6 @@ export class AdminManagePermissionsPage extends React.Component { // eslint-disa
   }
 }
 
-AdminManagePermissionsPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
+AdminManagePermissionsPage.propTypes = {};
 
-const mapStateToProps = createStructuredSelector({
-  adminmanagepermissionspage: makeSelectAdminManagePermissionsPage(),
-});
-
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-const withConnect = connect(mapStateToProps, mapDispatchToProps);
-
-const withReducer = injectReducer({ key: 'adminManagePermissionsPage', reducer });
-const withSaga = injectSaga({ key: 'adminManagePermissionsPage', saga });
-
-export default compose(
-  withReducer,
-  withSaga,
-  withConnect,
-)(AdminManagePermissionsPage);
+export default AdminManagePermissionsPage;
