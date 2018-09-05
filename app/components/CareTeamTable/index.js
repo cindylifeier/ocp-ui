@@ -4,18 +4,20 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import sizeMeHOC from 'utils/SizeMeUtils';
-import ManageRelatedPersonModal from 'containers/ManageRelatedPersonModal';
+import CareTeamExpansionRowDetails from 'components/CareTeamTable/CareTeamExpansionRowDetails';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
+import ManageRelatedPersonModal from 'containers/ManageRelatedPersonModal';
+import isEmpty from 'lodash/isEmpty';
+import uniqueId from 'lodash/uniqueId';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import sizeMeHOC from 'utils/SizeMeUtils';
 import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS } from './constants';
 import messages from './messages';
 
@@ -46,6 +48,7 @@ class CareTeamTable extends React.Component {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
+        <TableHeaderColumn />
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderName} /></TableHeaderColumn>
         <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
         {isExpanded &&
@@ -81,7 +84,13 @@ class CareTeamTable extends React.Component {
       },
     }];
     return (
-      <TableRow key={id} columns={columns}>
+      <ExpansionTableRow
+        expansionTableRowDetails={<CareTeamExpansionRowDetails careTeam={careTeam} participants={careTeam.participants} />}
+        columns={columns}
+        key={uniqueId()}
+        role="button"
+        tabIndex="0"
+      >
         <TableRowColumn>{name}</TableRowColumn>
         <TableRowColumn>{statusDisplay}</TableRowColumn>
         {isExpanded &&
@@ -107,7 +116,7 @@ class CareTeamTable extends React.Component {
         <TableRowColumn>
           <NavigationIconMenu menuItems={menuItems} />
         </TableRowColumn>
-      </TableRow>
+      </ExpansionTableRow>
     );
   }
 
