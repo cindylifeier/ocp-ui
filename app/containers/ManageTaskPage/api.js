@@ -23,7 +23,7 @@ export function getActivityDefinitions({ practitionerId }) {
 
 export function getEventTypes({ patientId }) {
   const baseEndpoint = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
-  const requestURL = `${baseEndpoint}?patient=${patientId}`;
+  const requestURL = `${baseEndpoint}?patient=${patientId}&status=active`;
   return request(requestURL);
 }
 
