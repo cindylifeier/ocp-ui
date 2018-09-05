@@ -62,6 +62,7 @@ class AddEpisodeOfCare extends React.Component {
       practitioner,
       episodeOfCareStatus,
       episodeOfCareType,
+      episodeOfCares,
     };
     const addedEpisodeOfCareTableProps = {
       errors,

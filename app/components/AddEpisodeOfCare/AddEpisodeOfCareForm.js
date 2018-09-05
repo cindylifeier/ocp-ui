@@ -7,11 +7,12 @@ import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 
 import { DATE_PICKER_MODE } from 'containers/App/constants';
+import CustomErrorText from 'components/CustomErrorText';
 import DatePicker from 'components/DatePicker';
 import SelectField from 'components/SelectField';
 import StyledFlatButton from 'components/StyledFlatButton';
 import StyledRaisedButton from 'components/StyledRaisedButton';
-import { mapCareManager, setInitialValue } from './helpers';
+import { checkDuplicateEOC, mapCareManager, setInitialValue } from './helpers';
 import messages from './messages';
 
 function AddEpisodeOfCareForm(props) {
@@ -23,6 +24,7 @@ function AddEpisodeOfCareForm(props) {
     practitioners,
     episodeOfCareStatus,
     episodeOfCareType,
+    episodeOfCares,
   } = props;
   const today = new Date();
   return (
@@ -55,7 +57,7 @@ function AddEpisodeOfCareForm(props) {
               careManager: yup.string().required((<FormattedMessage {...messages.validation.required} />)),
             });
           })}
-        render={({ isSubmitting, dirty, isValid }) => (
+        render={({ isSubmitting, dirty, isValid, values }) => (
           <Form>
             <Grid columns="repeat(2, 1fr)">
               <Cell>
@@ -127,12 +129,19 @@ function AddEpisodeOfCareForm(props) {
                   floatingLabelText={<FormattedMessage {...messages.floatingLabelText.endDate} />}
                 />
               </Cell>
+              <Cell width={2}>
+                {checkDuplicateEOC(episodeOfCares, values) &&
+                <CustomErrorText>
+                  <FormattedMessage {...messages.validation.duplicateEOC} />
+                </CustomErrorText>
+                }
+              </Cell>
               <Cell>
                 <Grid columns={2}>
                   <StyledRaisedButton
                     type="submit"
                     fullWidth
-                    disabled={!dirty || isSubmitting || !isValid}
+                    disabled={!dirty || isSubmitting || !isValid || checkDuplicateEOC(episodeOfCares, values)}
                   >
                     <FormattedMessage {...messages.saveButton} />
                   </StyledRaisedButton>
@@ -157,6 +166,7 @@ AddEpisodeOfCareForm.propTypes = {
     index: PropTypes.number,
     episodeOfCare: PropTypes.object,
   }),
+  episodeOfCares: PropTypes.array,
   practitioners: PropTypes.array,
   episodeOfCareStatus: PropTypes.array,
   episodeOfCareType: PropTypes.array,

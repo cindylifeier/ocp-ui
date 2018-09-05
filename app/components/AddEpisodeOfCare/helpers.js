@@ -1,4 +1,6 @@
 import find from 'lodash/find';
+import isEmpty from 'lodash/isEmpty';
+import Util from 'utils/Util';
 
 export function setInitialValue(initialValues) {
   let formValue = null;
@@ -21,4 +23,15 @@ export function mapCareManager(values, practitioners) {
     ...values,
     careManager: selectedCareManager,
   };
+}
+
+export function checkDuplicateEOC(episodeOfCares, formValue) {
+  let isDuplicate = false;
+  if (formValue && formValue.status && formValue.type) {
+    const { status, type } = formValue;
+    const addedStatusesAndTypes = episodeOfCares
+      .filter((episodeOfCare) => Util.equalsIgnoreCase(episodeOfCare.status, status) && Util.equalsIgnoreCase(episodeOfCare.type, type));
+    isDuplicate = !isEmpty(addedStatusesAndTypes);
+  }
+  return isDuplicate;
 }
