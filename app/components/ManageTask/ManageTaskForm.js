@@ -245,6 +245,7 @@ function ManageTaskForm(props) {
             multiLine
             rows={2}
             hintText={<FormattedMessage {...messages.hintText.description} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.description} />}
           />
         </Cell>
         <Cell area="comments">
@@ -254,6 +255,7 @@ function ManageTaskForm(props) {
             multiLine
             rows={2}
             hintText={<FormattedMessage {...messages.hintText.comments} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.comments} />}
           />
         </Cell>
         {isEditTask && isMainTask && <Cell area="subTasksSection">
