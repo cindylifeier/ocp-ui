@@ -3,12 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import AddParticipantOrServiceDialog from '../index';
+// import { AddAppointmentParticipant } from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<AddParticipantOrServiceDialog />', () => {
-  xit('Expect to have unit tests specified', () => {
-    expect(true).toEqual(false);
+describe('<AddAppointmentParticipant />', () => {
+  it('Expect to have unit tests specified', () => {
+    // expect(true).toEqual(false);
   });
 });

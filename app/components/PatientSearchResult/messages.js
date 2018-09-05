@@ -46,6 +46,10 @@ export default defineMessages({
     id: 'ocpui.components.PatientSearchResult.mrn',
     defaultMessage: 'MRN',
   },
+  uaaAssignment: {
+    id: 'ocpui.components.PatientSearchResult.uaaAssignment',
+    defaultMessage: 'Organization/UAA Assignment',
+  },
   address: {
     id: 'ocpui.components.PatientSearchResult.address',
     defaultMessage: 'Address',

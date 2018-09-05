@@ -8,12 +8,12 @@ import messages from './messages';
 
 
 function CoverageRowDetails({ coverage }) {
-  const { endDate, startDate, subscriberId, beneficiary } = coverage;
+  const { endDate, startDate, subscriberId, beneficiary, groupingPlanDisplay, network } = coverage;
   const period = `${startDate} - ${endDate}`;
   return (
     <div>
       <InfoSection>
-        <Grid columns={'2fr 1fr 3fr'} justifyContent="space-between">
+        <Grid columns={'1fr 1fr 1fr 1fr 1fr'} justifyContent="space-between">
           <Cell>
             <TextLabelGroup
               label={<FormattedMessage {...messages.beneficiary} />}
@@ -30,6 +30,18 @@ function CoverageRowDetails({ coverage }) {
             <TextLabelGroup
               label={<FormattedMessage {...messages.period} />}
               text={period}
+            />
+          </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.copay} />}
+              text={groupingPlanDisplay}
+            />
+          </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.network} />}
+              text={network}
             />
           </Cell>
         </Grid>

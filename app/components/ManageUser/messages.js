@@ -114,7 +114,7 @@ export default defineMessages({
   },
   confirmRemoveUserTitle: {
     id: 'ocpui.components.ManageUser.manageForm.saveButton',
-    defaultMessage: 'Remove user',
+    defaultMessage: 'Remove User Access',
   },
   confirmRemoveUserMessage: {
     id: 'ocpui.components.ManageUser.manageForm.saveButton',

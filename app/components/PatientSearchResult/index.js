@@ -16,6 +16,7 @@ import {
   MANAGE_TASK_URL,
   MANAGE_USER_REGISTRATION,
 } from 'containers/App/constants';
+import { mapToIdentifiers, mapToName } from 'containers/App/helpers';
 import ExpansionTableRow from 'components/ExpansionTableRow';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import NoResultsFoundText from 'components/NoResultsFoundText';
@@ -24,8 +25,9 @@ import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import LinearProgressIndicator from 'components/LinearProgressIndicator';
-import { EXPANDED_TABLE_COLUMNS, SUMMARIZED_TABLE_COLUMNS, SUMMARY_VIEW_WIDTH } from './constants';
+import { SUMMARY_VIEW_WIDTH } from './constants';
 import PatientExpansionRowDetails from './PatientExpansionRowDetails';
+import { defineTableColumns, mapToPatientUaaAssignment } from './helpers';
 import messages from './messages';
 
 
@@ -74,11 +76,6 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
     const contact = telecoms && telecoms.length > 0 ? mapToTelecoms(telecoms.slice(0, 1)) : '';
     const address = patient && patient.addresses && patient.addresses.length > 0 ? combineAddress(patient.addresses[0]) : '';
 
-    function getFullName(patientData) {
-      const name = patientData && patientData.name && patientData.name.length > 0 ? patientData.name[0] : null;
-      return name != null ? (name.firstName.concat(' ').concat(name.lastName)) : null;
-    }
-
     return (
       <ExpansionTableRow
         expansionTableRowDetails={<PatientExpansionRowDetails patient={flattenPatientData(patient)} />}
@@ -88,11 +85,16 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         tabIndex="0"
       >
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
-          {getFullName(patient)}
+          {mapToName(patient.name)}
         </TableRowColumn>
         {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
           {patient && patient.mrn}
+        </TableRowColumn>
+        }
+        {manageUserEnabled &&
+        <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
+          {mapToPatientUaaAssignment(patient)}
         </TableRowColumn>
         }
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
@@ -121,7 +123,7 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
         </TableRowColumn>
         {isExpanded &&
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
-          {getIdentifiers(patient.identifier)}
+          {mapToIdentifiers(patient.identifier)}
         </TableRowColumn>
         }
         <TableRowColumn onClick={() => ablePatientClick && onPatientClick && onPatientClick(patient)}>
@@ -134,20 +136,9 @@ function displayPatientSearchResult(patients, onPatientClick, onPatientViewDetai
   });
 }
 
-function getIdentifiers(identifier) {
-  return identifier.map(({ systemDisplay, value }) =>
-    (
-      <div key={`patient_id_${systemDisplay}_${value}`}>
-        {systemDisplay}: {value}
-        <br />
-      </div>
-    ),
-  );
-}
-
 function PatientSearchResult({ loading, error, searchResult, onPatientClick, onPatientViewDetailsClick, flattenPatientData, relativeTop, size, mapToTelecoms, combineAddress, usCoreRaces, usCoreEthnicities, manageUserEnabled, showActionButton, ablePatientClick }) {
   const isExpanded = size && size.width && (Math.floor(size.width) > SUMMARY_VIEW_WIDTH);
-  const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
+  const columns = defineTableColumns(isExpanded, manageUserEnabled);
 
   return (
     <div>
@@ -168,6 +159,9 @@ function PatientSearchResult({ loading, error, searchResult, onPatientClick, onP
           <TableHeaderColumn><FormattedMessage {...messages.fullName} /></TableHeaderColumn>
           {isExpanded &&
           <TableHeaderColumn><FormattedMessage {...messages.mrn} /></TableHeaderColumn>
+          }
+          {manageUserEnabled &&
+          <TableHeaderColumn><FormattedMessage {...messages.uaaAssignment} /></TableHeaderColumn>
           }
           <TableHeaderColumn><FormattedMessage {...messages.tableColumnHeaderTelecom} /></TableHeaderColumn>
           {isExpanded &&

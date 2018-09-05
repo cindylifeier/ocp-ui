@@ -3,13 +3,12 @@
 // import Adapter from 'enzyme-adapter-react-15';
 // import 'jest-styled-components';
 
-// import { SearchAppointmentParticipant } from '../index';
+// import AddAppointmentParticipantModal from '../index';
 
 // configure({ adapter: new Adapter() });
 
-describe('<SearchAppointmentParticipant />', () => {
+describe('<AddAppointmentParticipantModal />', () => {
   it('Expect to have unit tests specified', () => {
-    // FIXME: add unit tests
     // expect(true).toEqual(false);
   });
 });

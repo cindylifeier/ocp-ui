@@ -77,6 +77,14 @@ export default defineMessages({
       id: 'ocpui.components.AddCoverageDialog.hintText.coverageType',
       defaultMessage: 'Coverage Type',
     },
+    copay: {
+      id: 'ocpui.components.AddCoverageDialog.hintText.copay',
+      defaultMessage: 'Copay',
+    },
+    network: {
+      id: 'ocpui.components.AddCoverageDialog.hintText.network',
+      defaultMessage: 'Network',
+    },
     startDate: {
       id: 'ocpui.components.AddCoverageDialog.hintText.startDate',
       defaultMessage: 'Start Date',
@@ -110,6 +118,14 @@ export default defineMessages({
     coverageType: {
       id: 'ocpui.components.AddCoverageDialog.floatingLabelText.coverageType',
       defaultMessage: 'Coverage Type',
+    },
+    copay: {
+      id: 'ocpui.components.AddCoverageDialog.floatingLabelText.copay',
+      defaultMessage: 'Copay',
+    },
+    network: {
+      id: 'ocpui.components.AddCoverageDialog.floatingLabelText.network',
+      defaultMessage: 'Network',
     },
     startDate: {
       id: 'ocpui.components.AddCoverageDialog.floatingLabelText.startDate',

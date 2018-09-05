@@ -10,9 +10,11 @@ import yup from 'yup';
 import { Formik } from 'formik';
 import PropTypes from 'prop-types';
 import merge from 'lodash/merge';
+import find from 'lodash/find';
 
 import messages from './messages';
 import ManageUserForm from './ManageUserForm';
+import { PATIENT } from './constants';
 
 
 function ManageUser(props) {
@@ -20,12 +22,13 @@ function ManageUser(props) {
   const { user, groups, onSave, resourceType, uaaUser, organization, handleRemoveUser } = props;
   const isEditing = (uaaUser.length > 0);
   const formData = { user, groups, resourceType, isEditing, uaaUser, handleRemoveUser };
+  const patientGroup = find(groups, { displayName: 'ocp.role.patient' });
   const initialValues = {
     firstName: user.name[0].firstName,
     lastName: user.name[0].lastName,
     username: uaaUser && uaaUser[0] && uaaUser[0].username,
     organization,
-    group: uaaUser && uaaUser[0] && uaaUser[0].groupId,
+    group: (uaaUser && uaaUser[0] && uaaUser[0].groupId) || (resourceType === PATIENT ? patientGroup.id : null),
   };
 
   const createUserValidationScheme = yup.object().shape({

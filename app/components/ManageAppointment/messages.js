@@ -6,17 +6,9 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'ocpui.components.ManageAppointment.header',
-    defaultMessage: 'This is the ManageAppointment component !',
-  },
   title: {
     id: 'ocpui.components.ManageAppointment.title',
     defaultMessage: 'General Information',
-  },
-  addAppointmentForTitle: {
-    id: 'ocpui.components.ManageAppointment.addAppointmentForTitle',
-    defaultMessage: 'Add Appointment for',
   },
   patientName: {
     id: 'ocpui.components.ManageAppointment.patientName',
@@ -25,10 +17,6 @@ export default defineMessages({
   participantTitle: {
     id: 'ocpui.components.ManageAppointment.participantTitle',
     defaultMessage: 'Participant',
-  },
-  addParticipantBtnLabel: {
-    id: 'ocpui.components.ManageAppointment.manageForm.addParticipantBtnLabel',
-    defaultMessage: 'Add Participant or Service',
   },
   removeParticipantBtnLabel: {
     id: 'ocpui.components.ManageAppointment.manageForm.removeParticipantBtnLabel',
