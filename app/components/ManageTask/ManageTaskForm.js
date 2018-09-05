@@ -78,6 +78,7 @@ function ManageTaskForm(props) {
               isRequired
               name="activityDefinition"
               placeholder={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
+              label={<FormattedMessage {...messages.floatingLabelText.activityDefinitions} />}
               suggestions={activityDefinitionSuggestions}
               disabled={isEditTask || !isMainTask}
               {...props}
@@ -113,6 +114,7 @@ function ManageTaskForm(props) {
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.authoredOn} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.authoredOn} />}
           />
         </Cell>
         <Cell area="lastModifiedDate">
@@ -124,6 +126,7 @@ function ManageTaskForm(props) {
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.lastModifiedDate} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastModifiedDate} />}
           />
         </Cell>
         <Cell area="status">
@@ -132,8 +135,10 @@ function ManageTaskForm(props) {
               name="status"
               isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.status} />}
+              label={<FormattedMessage {...messages.floatingLabelText.status} />}
               suggestions={taskStatusSuggestions}
               {...props}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
             />
           </Padding>
         </Cell>
@@ -143,6 +148,7 @@ function ManageTaskForm(props) {
               name="priority"
               isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.priority} />}
+              label={<FormattedMessage {...messages.floatingLabelText.priority} />}
               suggestions={requestPrioritySuggestions}
               {...props}
             />
@@ -154,6 +160,7 @@ function ManageTaskForm(props) {
               name="intent"
               isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.intent} />}
+              label={<FormattedMessage {...messages.floatingLabelText.intent} />}
               suggestions={requestIntentSuggestions}
               {...props}
             />
@@ -166,6 +173,7 @@ function ManageTaskForm(props) {
               name="context"
               isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.episodeOdCare} />}
+              label={<FormattedMessage {...messages.floatingLabelText.episodeOdCare} />}
               suggestions={eventTypeSuggestions}
               {...props}
             />
@@ -178,6 +186,7 @@ function ManageTaskForm(props) {
               name="taskOwner"
               isRequired
               placeholder={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
+              label={<FormattedMessage {...messages.floatingLabelText.taskOwner} />}
               suggestions={practitionersSuggestions}
               {...props}
             />
@@ -189,6 +198,7 @@ function ManageTaskForm(props) {
               isRequired
               name="performerType"
               placeholder={<FormattedMessage {...messages.floatingLabelText.performerType} />}
+              label={<FormattedMessage {...messages.floatingLabelText.performerType} />}
               suggestions={taskPerformerTypeSuggestions}
               {...props}
             />
@@ -215,6 +225,7 @@ function ManageTaskForm(props) {
             name="taskStart"
             mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
           />
         </Cell>
         <Cell area="taskEnd">
@@ -224,6 +235,7 @@ function ManageTaskForm(props) {
             minDate={today}
             mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskEnd} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskEnd} />}
           />
         </Cell>
         <Cell area="description">
@@ -244,7 +256,7 @@ function ManageTaskForm(props) {
             hintText={<FormattedMessage {...messages.hintText.comments} />}
           />
         </Cell>
-        {isMainTask && <Cell area="subTasksSection">
+        {isEditTask && isMainTask && <Cell area="subTasksSection">
           <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
         </Cell>
         }
