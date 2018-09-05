@@ -5,6 +5,8 @@ import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
 import { Cell, Grid } from 'styled-css-grid';
 import uniqueId from 'lodash/uniqueId';
+import filter from 'lodash/filter';
+import isEmpty from 'lodash/isEmpty';
 
 import { mapToPatientName } from 'utils/PatientUtils';
 import AddAppointmentParticipant from 'containers/AddAppointmentParticipant';
@@ -79,7 +81,7 @@ class ManageAppointmentForm extends React.Component {
       editMode, appointmentTypes, appointmentStatuses,
       patient, appointmentParticipantRequired,
     } = this.props;
-
+    const valuedParticipants = filter(values.participants, (participant) => !isEmpty(participant));
     const PATIENT_NAME_HTML_ID = uniqueId('patient_name_');
 
     return (
@@ -131,7 +133,7 @@ class ManageAppointmentForm extends React.Component {
               </SelectField>
             </Cell>
             <Cell area="addParticipant">
-              <AddAppointmentParticipant participants={values.participants} formErrors={errors} />
+              <AddAppointmentParticipant participants={valuedParticipants} formErrors={errors} />
             </Cell>
             <Cell area="date">
               <DatePicker
