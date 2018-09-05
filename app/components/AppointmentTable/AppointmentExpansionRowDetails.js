@@ -34,21 +34,6 @@ function AppointmentExpansionRowDetails({ participants, appointmentType, locatio
               text={appointmentType}
             />
           </Cell>
-          <Cell>
-            <TextLabelGroup
-              label={<FormattedMessage {...messages.expansionRowDetails.serviceCategory} />}
-            />
-          </Cell>
-          <Cell>
-            <TextLabelGroup
-              label={<FormattedMessage {...messages.expansionRowDetails.serviceType} />}
-            />
-          </Cell>
-          <Cell>
-            <TextLabelGroup
-              label={<FormattedMessage {...messages.expansionRowDetails.speciality} />}
-            />
-          </Cell>
         </Grid>
         <Grid columns={'100%'} justifyContent="space-between">
           <Cell>
