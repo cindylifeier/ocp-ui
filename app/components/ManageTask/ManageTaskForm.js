@@ -114,6 +114,7 @@ function ManageTaskForm(props) {
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.authoredOn} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.authoredOn} />}
           />
         </Cell>
         <Cell area="lastModifiedDate">
@@ -125,6 +126,7 @@ function ManageTaskForm(props) {
             minDate={today}
             maxDate={today}
             hintText={<FormattedMessage {...messages.hintText.lastModifiedDate} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.lastModifiedDate} />}
           />
         </Cell>
         <Cell area="status">
@@ -136,6 +138,7 @@ function ManageTaskForm(props) {
               label={<FormattedMessage {...messages.floatingLabelText.status} />}
               suggestions={taskStatusSuggestions}
               {...props}
+              floatingLabelText={<FormattedMessage {...messages.floatingLabelText.status} />}
             />
           </Padding>
         </Cell>
@@ -222,6 +225,7 @@ function ManageTaskForm(props) {
             name="taskStart"
             mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskStart} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskStart} />}
           />
         </Cell>
         <Cell area="taskEnd">
@@ -231,6 +235,7 @@ function ManageTaskForm(props) {
             minDate={today}
             mode={datePickerLandscapeMode}
             hintText={<FormattedMessage {...messages.hintText.taskEnd} />}
+            floatingLabelText={<FormattedMessage {...messages.floatingLabelText.taskEnd} />}
           />
         </Cell>
         <Cell area="description">
@@ -251,7 +256,7 @@ function ManageTaskForm(props) {
             hintText={<FormattedMessage {...messages.hintText.comments} />}
           />
         </Cell>
-        {isMainTask && <Cell area="subTasksSection">
+        {isEditTask && isMainTask && <Cell area="subTasksSection">
           <SubTaskTable elements={subTasks} patientId={patient.id} taskBaseUrl={MANAGE_TASK_URL} />
         </Cell>
         }
