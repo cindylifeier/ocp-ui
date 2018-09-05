@@ -56,6 +56,7 @@ class AddEpisodeOfCare extends React.Component {
       errors, patientName, practitioners, episodeOfCareType,
       episodeOfCareStatus, practitioner, episodeOfCares,
     } = this.props;
+    const editMode = !isEmpty(this.state.editingEpisodeOfCare);
     const addEpisodeOfCareFormProps = {
       patientName,
       practitioners,
@@ -63,6 +64,7 @@ class AddEpisodeOfCare extends React.Component {
       episodeOfCareStatus,
       episodeOfCareType,
       episodeOfCares,
+      editMode,
     };
     const addedEpisodeOfCareTableProps = {
       errors,
@@ -85,9 +87,9 @@ class AddEpisodeOfCare extends React.Component {
               <div>
                 <StyledDialog maxWidth="md" fullWidth open={this.state.isEpisodeOFCareDialogOpen}>
                   <DialogTitle>
-                    {isEmpty(this.state.editingEpisodeOfCare) ?
-                      <FormattedMessage {...messages.addEpisodeOFCareDialogHeader} /> :
-                      <FormattedMessage {...messages.editEpisodeOFCareDialogHeader} />
+                    {editMode ?
+                      <FormattedMessage {...messages.editEpisodeOFCareDialogHeader} /> :
+                      <FormattedMessage {...messages.addEpisodeOFCareDialogHeader} />
                     }
                   </DialogTitle>
                   <DialogContent>
