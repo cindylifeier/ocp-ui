@@ -10,6 +10,7 @@ import { Grid } from 'styled-css-grid';
 import isEmpty from 'lodash/isEmpty';
 import compact from 'lodash/compact';
 
+import CustomErrorText from 'components/CustomErrorText';
 import InfoSection from 'components/InfoSection';
 import StyledRaisedButton from 'components/StyledRaisedButton';
 import StyledFlatButton from 'components/StyledFlatButton';
@@ -151,9 +152,21 @@ class AddParticipantForm extends React.Component {
         }
       }
 
+      function renderNoAvailableResourceMessage(resource, resourceMessage) {
+        return (
+          touched && isEmpty(resource) &&
+          <CustomErrorText>
+            <FormattedMessage {...messages.noResourceAvailable} values={{ resourceMessage }} />
+          </CustomErrorText>
+        );
+      }
+
       return (
         <Form>
           {tabContent()}
+          {renderNoAvailableResourceMessage(healthcareServices, 'healthcare service')}
+          {renderNoAvailableResourceMessage(locations, 'location')}
+          {renderNoAvailableResourceMessage(practitioners, 'practitioner')}
           <InfoSection margin="20px 0 0 0">
             <Grid columns={4}>
               <StyledRaisedButton type="submit" disabled={isEmpty(touched) || !isEmpty(errors)}>
