@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'ocpui.components.ToDoAccordion.todoStatusOverdue',
     defaultMessage: 'Overdue',
   },
+  description: {
+    id: 'ocpui.components.ToDoAccordion.description',
+    defaultMessage: 'Description: ',
+  },
   editToDo: {
     id: 'ocpui.components.ToDoAccordion.editToDo',
     defaultMessage: 'Edit',
