@@ -238,9 +238,10 @@ AddParticipantForm.propTypes = {
   practitioners: PropTypes.array,
   participantReferences: PropTypes.shape({
     loading: PropTypes.bool,
-    currentPage: PropTypes.number,
-    totalNumberOfPages: PropTypes.number,
-    data: PropTypes.array,
+    outsideParticipant: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
   }),
   participantAttendance: PropTypes.array.isRequired,
   onInitializeParticipantReferences: PropTypes.func.isRequired,

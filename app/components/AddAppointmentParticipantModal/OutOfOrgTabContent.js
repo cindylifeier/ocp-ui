@@ -27,7 +27,7 @@ const tableColumns = 'repeat(4, 1fr) 110px';
 
 function OutOfOrgTabContent(props) {
   const { values, resetForm, onCloseDialog, onSearchParticipantReferences, participantReferences, participantAttendance } = props;
-  const { loading, data } = participantReferences;
+  const { loading, outsideParticipant } = participantReferences;
 
   function checkRequiredValues() {
     return checkFieldSelected(values, 'attendance');
@@ -38,10 +38,10 @@ function OutOfOrgTabContent(props) {
       <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
       <LinearProgressIndicator loading={loading} />
       {
-        !loading && data && data.length === 0 &&
+        !loading && outsideParticipant && outsideParticipant.length === 0 &&
         <NoResultsFoundText><FormattedMessage {...messages.searchParticipantsTable.noParticipantsFound} /></NoResultsFoundText>
       }
-      {!loading && !isEmpty(data) &&
+      {!loading && !isEmpty(outsideParticipant) &&
       <Form>
         <Table margin="10px 0">
           <TableHeader columns={tableColumns}>
@@ -61,7 +61,7 @@ function OutOfOrgTabContent(props) {
               <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
             </TableHeaderColumn>
           </TableHeader>
-          {data.map((participantReference) => {
+          {outsideParticipant.map((participantReference) => {
             const { display } = participantReference;
             return (
               <TableRow key={uniqueId()} columns={tableColumns}>
@@ -102,7 +102,7 @@ function OutOfOrgTabContent(props) {
         </Table>
       </Form>
       }
-      {!loading && !isEmpty(data) && checkRequiredValues() &&
+      {!loading && !isEmpty(outsideParticipant) && checkRequiredValues() &&
       <CustomErrorText>Attendance are required</CustomErrorText>
       }
       <Grid columns={8}>
@@ -117,9 +117,10 @@ function OutOfOrgTabContent(props) {
 OutOfOrgTabContent.propTypes = {
   participantReferences: PropTypes.shape({
     loading: PropTypes.bool,
-    currentPage: PropTypes.number,
-    totalNumberOfPages: PropTypes.number,
-    data: PropTypes.array,
+    outsideParticipant: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
   }),
   values: PropTypes.object,
   participantAttendance: PropTypes.array.isRequired,
