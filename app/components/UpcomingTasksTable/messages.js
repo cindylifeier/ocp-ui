@@ -66,4 +66,16 @@ export default defineMessages({
     id: 'ocpui.components.UpcomingTaskTable.expansionDetailsDescription',
     defaultMessage: 'Description',
   },
+  todoStatusUpcoming: {
+    id: 'ocpui.components.ToDoAccordion.todoStatusUpcoming',
+    defaultMessage: 'Upcoming',
+  },
+  todoStatusDueToday: {
+    id: 'ocpui.components.ToDoAccordion.todoStatusDueToday',
+    defaultMessage: 'Due Today',
+  },
+  todoStatusOverdue: {
+    id: 'ocpui.components.ToDoAccordion.todoStatusOverdue',
+    defaultMessage: 'Overdue',
+  },
 });
