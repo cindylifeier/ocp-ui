@@ -34,6 +34,10 @@ export default defineMessages({
     id: 'ocpui.containers.AddParticipantForm.addButton',
     defaultMessage: 'Add',
   },
+  confirmButton: {
+    id: 'ocpui.containers.AddParticipantForm.confirmButton',
+    defaultMessage: 'Confirm',
+  },
   cancelButton: {
     id: 'ocpui.containers.AddParticipantForm.cancelButton',
     defaultMessage: 'Cancel',
