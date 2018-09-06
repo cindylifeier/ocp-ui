@@ -66,6 +66,10 @@ export default defineMessages({
     id: 'ocpui.components.UpcomingTaskTable.expansionDetailsDescription',
     defaultMessage: 'Description',
   },
+  expansionDetailsNumberOfSubtasks: {
+    id: 'ocpui.components.UpcomingTaskTable.expansionDetailsNumberOfSubtasks',
+    defaultMessage: 'Number of Sub Tasks',
+  },
   todoStatusUpcoming: {
     id: 'ocpui.components.ToDoAccordion.todoStatusUpcoming',
     defaultMessage: 'Upcoming',

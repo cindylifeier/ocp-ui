@@ -82,4 +82,8 @@ export default defineMessages({
     id: 'ocpui.components.ToDoAccordion.todoStatusOverdue',
     defaultMessage: 'Overdue',
   },
+  numberOfSubtasks: {
+    id: 'ocpui.components.ToDoAccordion.numberOfSubtasks',
+    defaultMessage: 'Number Of Sub Tasks',
+  },
 });
