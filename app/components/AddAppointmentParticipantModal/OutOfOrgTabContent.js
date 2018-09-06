@@ -116,7 +116,7 @@ class OutOfOrgTabContent extends React.Component {
           </Table>
           }
           {!loading && !isEmpty(outsideParticipants) && checkRequiredValues() &&
-          <CustomErrorText>Attendance are required</CustomErrorText>
+          <CustomErrorText>Attendance is required</CustomErrorText>
           }
           <Grid columns={8}>
             <StyledRaisedButton type="submit" disabled={!this.state.isAddParticipant}>
