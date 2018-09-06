@@ -45,11 +45,12 @@ function addAppointmentParticipantReducer(state = initialState, action) {
         .set('practitioners', action.practitioners);
     case SEARCH_PARTICIPANT_REFERENCES:
       return state
+        .setIn(['searchParticipants', 'error'], false)
         .setIn(['searchParticipants', 'loading'], true);
     case SEARCH_PARTICIPANT_REFERENCES_SUCCESS:
       return state
         .setIn(['searchParticipants', 'loading'], false)
-        .setIn(['searchParticipants', 'outsideParticipant'], fromJS(action.participants.outsideParticipant));
+        .setIn(['searchParticipants', 'outsideParticipant'], fromJS(action.participants));
     case SEARCH_PARTICIPANT_REFERENCES_ERROR:
       return state
         .setIn(['searchParticipants', 'loading'], false)

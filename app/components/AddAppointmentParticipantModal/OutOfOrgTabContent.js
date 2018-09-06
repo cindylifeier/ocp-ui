@@ -20,7 +20,7 @@ import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CustomErrorText from 'components/CustomErrorText';
 import SearchParticipantReferences from './SearchParticipantReferences';
-import { checkFieldSelected } from './helpers';
+import { checkFieldSelected, mapAssociatedOrganizations } from './helpers';
 import messages from './messages';
 
 const tableColumns = 'repeat(4, 1fr) 110px';
@@ -62,12 +62,12 @@ function OutOfOrgTabContent(props) {
             </TableHeaderColumn>
           </TableHeader>
           {outsideParticipant.map((participantReference) => {
-            const { display } = participantReference;
+            const { name, identifierValue, associatedOrganizations } = participantReference;
             return (
               <TableRow key={uniqueId()} columns={tableColumns}>
-                <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>{display}</TableRowColumn>
+                <TableRowColumn>{name}</TableRowColumn>
+                <TableRowColumn>{identifierValue}</TableRowColumn>
+                <TableRowColumn>{mapAssociatedOrganizations(associatedOrganizations)}</TableRowColumn>
                 <TableRowColumn>
                   <SelectFieldWithoutOnClick
                     fullWidth

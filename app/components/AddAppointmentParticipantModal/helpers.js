@@ -1,6 +1,7 @@
 import find from 'lodash/find';
 import has from 'lodash/has';
 import Util from 'utils/Util';
+import { NEW_LINE_CHARACTER } from 'containers/App/constants';
 
 export function checkFieldSelected(formValues, fieldName) {
   return !has(formValues, fieldName);
@@ -24,4 +25,10 @@ export function mapToPractitionerParticipantReference(practitioner, attendance, 
   return {
     ...practitionerReference,
   };
+}
+
+export function mapAssociatedOrganizations(associatedOrganizations) {
+  return associatedOrganizations && associatedOrganizations
+    .map((orgRef) => orgRef.display)
+    .join(NEW_LINE_CHARACTER);
 }
