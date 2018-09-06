@@ -25,7 +25,7 @@ import messages from './messages';
 import UpcomingTasksExpansionRowDetails from './UpcomingTasksExpansionRowDetails';
 
 
-const tableColumns = '50px repeat(6, 1fr) 50px';
+const tableColumns = '50px repeat(7, 1fr) 10px';
 
 // Todo: Fix ViewDetail that is already not working
 
@@ -54,6 +54,7 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTask} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((upcomingTask) => {
           const { logicalId, definition, description, executionPeriod, beneficiary, taskDue } = upcomingTask;
