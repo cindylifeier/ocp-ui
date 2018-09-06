@@ -13,7 +13,6 @@ import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRowColumn from 'components/TableRowColumn';
 import ManageRelatedPersonModal from 'containers/ManageRelatedPersonModal';
 import isEmpty from 'lodash/isEmpty';
-import uniqueId from 'lodash/uniqueId';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -87,7 +86,7 @@ class CareTeamTable extends React.Component {
       <ExpansionTableRow
         expansionTableRowDetails={<CareTeamExpansionRowDetails careTeam={careTeam} participants={careTeam.participants} />}
         columns={columns}
-        key={uniqueId()}
+        key={careTeam.id}
         role="button"
         tabIndex="0"
       >
