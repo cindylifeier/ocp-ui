@@ -4,23 +4,21 @@
  *
  */
 
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import PropTypes from 'prop-types';
-import Section from 'components/Section';
 import FormSubtitle from 'components/FormSubtitle';
-import { Link } from 'react-router-dom';
-import isEmpty from 'lodash/isEmpty';
+import NavigationIconMenu from 'components/NavigationIconMenu';
+import Section from 'components/Section';
 
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
 import TableRow from 'components/TableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { TASK_TABLE_COLUMNS } from './constants';
 import messages from './messages';
-import { MANAGE_TASK_URL, TASK_TABLE_COLUMNS } from './constants';
-import AddSubTaskButton from './AddSubTaskButton';
 
 
 function SubTaskTable({ elements, patientId, taskBaseUrl }) {
@@ -30,13 +28,6 @@ function SubTaskTable({ elements, patientId, taskBaseUrl }) {
         <FormSubtitle margin="1vh 0 0 0">
           <FormattedMessage {...messages.header} />
         </FormSubtitle>
-        <AddSubTaskButton
-          component={Link}
-          to={MANAGE_TASK_URL}
-          disabled
-        >
-          <FormattedMessage {...messages.addSubTaskButton} />
-        </AddSubTaskButton>
         <Table>
           <TableHeader columns={TASK_TABLE_COLUMNS}>
             <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
