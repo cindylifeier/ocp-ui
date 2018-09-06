@@ -1,18 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'formik';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-import { uniqueId } from 'lodash';
-import MenuItem from 'material-ui/MenuItem';
-import FormGrid from 'components/FormGrid';
-import FormCell from 'components/FormCell';
 import Checkbox from 'components/Checkbox';
-import StyledRaisedButton from 'components/StyledRaisedButton';
+import FormCell from 'components/FormCell';
+import FormGrid from 'components/FormGrid';
 import GoBackButton from 'components/GoBackButton';
-import TextField from 'components/TextField';
 import Padding from 'components/Padding/index';
 import SelectField from 'components/SelectField';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
+import { Form } from 'formik';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
 import messages from './messages';
 
 
