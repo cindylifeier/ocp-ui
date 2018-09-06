@@ -70,4 +70,16 @@ export default defineMessages({
     id: 'ocpui.components.TaskTable.cancelTask',
     defaultMessage: 'Cancel',
   },
+  todoStatusUpcoming: {
+    id: 'ocpui.components.ToDoAccordion.todoStatusUpcoming',
+    defaultMessage: 'Upcoming',
+  },
+  todoStatusDueToday: {
+    id: 'ocpui.components.ToDoAccordion.todoStatusDueToday',
+    defaultMessage: 'Due Today',
+  },
+  todoStatusOverdue: {
+    id: 'ocpui.components.ToDoAccordion.todoStatusOverdue',
+    defaultMessage: 'Overdue',
+  },
 });
