@@ -9,7 +9,7 @@ import Dialog from 'material-ui/Dialog';
 
 const WideDialog = styled(Dialog).attrs({
   contentStyle: {
-    width: '70%',
+    width: '85%',
     maxWidth: 'none',
   },
 })('');
