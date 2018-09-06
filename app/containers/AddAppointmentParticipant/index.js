@@ -15,7 +15,7 @@ import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
 import { getLookupsAction } from 'containers/App/actions';
 import { APPOINTMENT_PARTICIPANT_REQUIRED, DEFAULT_START_PAGE_NUMBER } from 'containers/App/constants';
-import { makeSelectOrganization } from 'containers/App/contextSelectors';
+import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
 import { makeSelectAppointmentParticipationRequired } from 'containers/App/lookupSelectors';
 import { getLogicalIdFromReference } from 'containers/App/helpers';
 import AddAppointmentParticipantModal from 'components/AddAppointmentParticipantModal';
@@ -80,9 +80,10 @@ export class AddAppointmentParticipant extends React.Component { // eslint-disab
   }
 
   handleSearchParticipantReferences(searchType, searchValue, actions) {
-    const { organization } = this.props;
+    const { patient, organization } = this.props;
+    const patientId = patient.id;
     const organizationId = organization.logicalId;
-    this.props.searchParticipantReferences(searchType, searchValue, organizationId, DEFAULT_START_PAGE_NUMBER, () => actions.setSubmitting(false));
+    this.props.searchParticipantReferences(searchType, searchValue, patientId, organizationId, DEFAULT_START_PAGE_NUMBER, () => actions.setSubmitting(false));
   }
 
   render() {
@@ -124,15 +125,17 @@ AddAppointmentParticipant.propTypes = {
   practitioners: PropTypes.array,
   participantReferences: PropTypes.shape({
     loading: PropTypes.bool,
-    currentPage: PropTypes.number,
-    totalNumberOfPages: PropTypes.number,
-    data: PropTypes.array,
+    outsideParticipants: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
   }),
   initializeParticipantReferences: PropTypes.func.isRequired,
   getHealthcareServiceReferences: PropTypes.func.isRequired,
   getPractitionerReferences: PropTypes.func.isRequired,
   getLocationReferences: PropTypes.func.isRequired,
   searchParticipantReferences: PropTypes.func.isRequired,
+  patient: PropTypes.object.isRequired,
   organization: PropTypes.object.isRequired,
   formErrors: PropTypes.object,
   participants: PropTypes.arrayOf(PropTypes.shape({
@@ -145,6 +148,7 @@ AddAppointmentParticipant.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
+  patient: makeSelectPatient(),
   organization: makeSelectOrganization(),
   healthcareServices: makeSelectHealthcareServiceReferences(),
   locations: makeSelectLocationReferences(),
@@ -160,7 +164,7 @@ function mapDispatchToProps(dispatch) {
     getHealthcareServiceReferences: (resourceType, resourceValue) => dispatch(getHealthcareServiceReferences(resourceType, resourceValue)),
     getLocationReferences: (resourceType, resourceValue) => dispatch(getLocationReferences(resourceType, resourceValue)),
     getPractitionerReferences: (resourceType, resourceValue) => dispatch(getPractitionerReferences(resourceType, resourceValue)),
-    searchParticipantReferences: (searchType, searchValue, organizationId, currentPage, handleSubmitting) => dispatch(searchParticipantReferences(searchType, searchValue, organizationId, currentPage, handleSubmitting)),
+    searchParticipantReferences: (searchType, searchValue, patientId, organizationId, currentPage, handleSubmitting) => dispatch(searchParticipantReferences(searchType, searchValue, patientId, organizationId, currentPage, handleSubmitting)),
   };
 }
 

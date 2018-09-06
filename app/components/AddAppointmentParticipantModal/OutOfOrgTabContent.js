@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FormattedMessage } from 'react-intl';
 import { Form } from 'formik';
 import MenuItem from 'material-ui/MenuItem';
-import { Cell, Grid } from 'styled-css-grid';
+import { Grid } from 'styled-css-grid';
 import isEmpty from 'lodash/isEmpty';
 import uniqueId from 'lodash/uniqueId';
 
@@ -20,106 +20,123 @@ import SelectFieldWithoutOnClick from 'components/SelectFieldWithoutOnClick';
 import NoResultsFoundText from 'components/NoResultsFoundText';
 import CustomErrorText from 'components/CustomErrorText';
 import SearchParticipantReferences from './SearchParticipantReferences';
-import { checkFieldSelected } from './helpers';
+import { checkFieldSelected, mapAssociatedOrganizations } from './helpers';
 import messages from './messages';
 
 const tableColumns = 'repeat(4, 1fr) 110px';
 
-function OutOfOrgTabContent(props) {
-  const { values, resetForm, onCloseDialog, onSearchParticipantReferences, participantReferences, participantAttendance } = props;
-  const { loading, data } = participantReferences;
-
-  function checkRequiredValues() {
-    return checkFieldSelected(values, 'attendance');
+class OutOfOrgTabContent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isAddParticipant: false };
+    this.handleAddParticipant = this.handleAddParticipant.bind(this);
   }
 
-  return (
-    <div>
-      <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
-      <LinearProgressIndicator loading={loading} />
-      {
-        !loading && data && data.length === 0 &&
-        <NoResultsFoundText><FormattedMessage {...messages.searchParticipantsTable.noParticipantsFound} /></NoResultsFoundText>
-      }
-      {!loading && !isEmpty(data) &&
-      <Form>
-        <Table margin="10px 0">
-          <TableHeader columns={tableColumns}>
-            <TableHeaderColumn>
-              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderName} />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderNPI} />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAssociatedOrgs} />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAttendance} />
-            </TableHeaderColumn>
-            <TableHeaderColumn>
-              <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
-            </TableHeaderColumn>
-          </TableHeader>
-          {data.map((participantReference) => {
-            const { display } = participantReference;
-            return (
-              <TableRow key={uniqueId()} columns={tableColumns}>
-                <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>{display}</TableRowColumn>
-                <TableRowColumn>
-                  <SelectFieldWithoutOnClick
-                    fullWidth
-                    name="attendance"
-                    onChange={(event, key, newValue) => {
-                      resetForm({
-                        attendance: newValue,
-                        practitioner: participantReference.reference,
-                      });
-                    }}
-                    hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
-                  >
-                    {participantAttendance && participantAttendance
-                      .filter((attendance) => Util.equalsIgnoreCase(attendance.code, 'information-only'))
-                      .map((entry) =>
-                        (<MenuItem
-                          key={uniqueId()}
-                          value={entry.code}
-                          primaryText={entry.display}
-                        />),
-                      )}
-                  </SelectFieldWithoutOnClick>
-                </TableRowColumn>
-                <TableRowColumn>
-                  <StyledRaisedButton type="submit" disabled={checkRequiredValues()}>
-                    <FormattedMessage {...messages.addButton} />
-                  </StyledRaisedButton>
-                </TableRowColumn>
-              </TableRow>
-            );
-          })}
-        </Table>
-      </Form>
-      }
-      {!loading && !isEmpty(data) && checkRequiredValues() &&
-      <CustomErrorText>Attendance are required</CustomErrorText>
-      }
-      <Grid columns={8}>
-        <Cell left={8}>
-          <StyledFlatButton onClick={onCloseDialog}><FormattedMessage {...messages.cancelButton} /></StyledFlatButton>
-        </Cell>
-      </Grid>
-    </div>
-  );
+  handleAddParticipant() {
+    this.setState({ isAddParticipant: true });
+  }
+
+  render() {
+    const { values, resetForm, onCloseDialog, onSearchParticipantReferences, participantReferences, participantAttendance } = this.props;
+    const { loading, outsideParticipants } = participantReferences;
+
+    function checkRequiredValues() {
+      return checkFieldSelected(values, 'attendance');
+    }
+
+    return (
+      <div>
+        <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
+        <LinearProgressIndicator loading={loading} />
+        {
+          !loading && outsideParticipants && outsideParticipants.length === 0 &&
+          <NoResultsFoundText><FormattedMessage {...messages.searchParticipantsTable.noParticipantsFound} /></NoResultsFoundText>
+        }
+        <Form>
+          {!loading && !isEmpty(outsideParticipants) &&
+          <Table margin="10px 0">
+            <TableHeader columns={tableColumns}>
+              <TableHeaderColumn>
+                <FormattedMessage {...messages.searchParticipantsTable.tableHeaderName} />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage {...messages.searchParticipantsTable.tableHeaderNPI} />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAssociatedOrgs} />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAttendance} />
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
+              </TableHeaderColumn>
+            </TableHeader>
+            {outsideParticipants.map((participantReference) => {
+              const { name, identifierValue, associatedOrganizations, appointmentParticipantReferenceDto } = participantReference;
+              return (
+                <TableRow key={uniqueId()} columns={tableColumns}>
+                  <TableRowColumn>{name}</TableRowColumn>
+                  <TableRowColumn>{identifierValue}</TableRowColumn>
+                  <TableRowColumn>{mapAssociatedOrganizations(associatedOrganizations)}</TableRowColumn>
+                  <TableRowColumn>
+                    <SelectFieldWithoutOnClick
+                      fullWidth
+                      name="attendance"
+                      hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
+                    >
+                      {participantAttendance && participantAttendance
+                        .filter((attendance) => Util.equalsIgnoreCase(attendance.code, 'information-only'))
+                        .map((entry) =>
+                          (<MenuItem
+                            key={uniqueId()}
+                            value={entry.code}
+                            primaryText={entry.display}
+                          />),
+                        )}
+                    </SelectFieldWithoutOnClick>
+                  </TableRowColumn>
+                  <TableRowColumn>
+                    <StyledRaisedButton
+                      onClick={() => {
+                        resetForm({
+                          attendance: values.attendance,
+                          practitioner: appointmentParticipantReferenceDto.reference,
+                        });
+                        this.handleAddParticipant();
+                      }}
+                      disabled={checkRequiredValues() || this.state.isAddParticipant}
+                    >
+                      <FormattedMessage {...messages.confirmButton} />
+                    </StyledRaisedButton>
+                  </TableRowColumn>
+                </TableRow>
+              );
+            })}
+          </Table>
+          }
+          {!loading && !isEmpty(outsideParticipants) && checkRequiredValues() &&
+          <CustomErrorText>Attendance are required</CustomErrorText>
+          }
+          <Grid columns={8}>
+            <StyledRaisedButton type="submit" disabled={!this.state.isAddParticipant}>
+              <FormattedMessage {...messages.addButton} />
+            </StyledRaisedButton>
+            <StyledFlatButton onClick={onCloseDialog}><FormattedMessage {...messages.cancelButton} /></StyledFlatButton>
+          </Grid>
+        </Form>
+      </div>
+    );
+  }
 }
 
 OutOfOrgTabContent.propTypes = {
   participantReferences: PropTypes.shape({
     loading: PropTypes.bool,
-    currentPage: PropTypes.number,
-    totalNumberOfPages: PropTypes.number,
-    data: PropTypes.array,
+    outsideParticipants: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+    ]),
   }),
   values: PropTypes.object,
   participantAttendance: PropTypes.array.isRequired,

@@ -68,9 +68,9 @@ function* initializeParticipantReferencesSaga({ resourceValue }) {
   }
 }
 
-function* searchParticipantReferencesSaga({ searchType, searchValue, organizationId, currentPage, handleSubmitting }) {
+function* searchParticipantReferencesSaga({ searchType, searchValue, patientId, organizationId, currentPage, handleSubmitting }) {
   try {
-    const participants = yield call(searchParticipantReferences, searchType, searchValue, organizationId, currentPage);
+    const participants = yield call(searchParticipantReferences, searchType, searchValue, patientId, organizationId, currentPage);
     yield put(searchParticipantReferencesSuccess(participants));
     yield call(handleSubmitting);
   } catch (error) {

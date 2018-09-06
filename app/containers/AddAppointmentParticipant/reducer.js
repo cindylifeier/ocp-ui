@@ -21,9 +21,7 @@ const initialState = fromJS({
   practitioners: null,
   searchParticipants: {
     loading: false,
-    data: null,
-    currentPage: 0,
-    totalNumberOfPages: 0,
+    outsideParticipants: null,
     error: false,
   },
 });
@@ -35,7 +33,7 @@ function addAppointmentParticipantReducer(state = initialState, action) {
         .set('locations', action.locations)
         .set('practitioners', action.practitioners)
         .set('healthcareServices', action.healthcareServices)
-        .setIn(['searchParticipants', 'data'], fromJS(null));
+        .setIn(['searchParticipants', 'outsideParticipants'], fromJS(null));
     case GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS:
       return state
         .set('healthcareServices', action.healthcareServices);
@@ -47,19 +45,16 @@ function addAppointmentParticipantReducer(state = initialState, action) {
         .set('practitioners', action.practitioners);
     case SEARCH_PARTICIPANT_REFERENCES:
       return state
+        .setIn(['searchParticipants', 'error'], false)
         .setIn(['searchParticipants', 'loading'], true);
     case SEARCH_PARTICIPANT_REFERENCES_SUCCESS:
       return state
         .setIn(['searchParticipants', 'loading'], false)
-        .setIn(['searchParticipants', 'data'], fromJS(action.participants.elements))
-        .setIn(['searchParticipants', 'totalNumberOfPages'], action.participants.totalNumberOfPages)
-        .setIn(['searchParticipants', 'currentPage'], action.participants.currentPage);
+        .setIn(['searchParticipants', 'outsideParticipants'], fromJS(action.participants));
     case SEARCH_PARTICIPANT_REFERENCES_ERROR:
       return state
         .setIn(['searchParticipants', 'loading'], false)
-        .setIn(['searchParticipants', 'data'], fromJS([]))
-        .setIn(['searchParticipants', 'totalNumberOfPages'], 0)
-        .setIn(['searchParticipants', 'currentPage'], 0)
+        .setIn(['searchParticipants', 'outsideParticipants'], fromJS([]))
         .setIn(['searchParticipants', 'error'], action.error);
     default:
       return state;
