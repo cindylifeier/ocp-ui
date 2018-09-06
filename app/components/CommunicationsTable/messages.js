@@ -10,6 +10,10 @@ export default defineMessages({
     id: 'ocpui.components.communicationTable.columnHeaderTimeSent',
     defaultMessage: 'Time Sent',
   },
+  columnHeaderCommunicationStatus: {
+    id: 'ocpui.components.communicationTable.columnHeaderCommunicationStatus',
+    defaultMessage: 'Communication Status',
+  },
   columnHeaderCreator: {
     id: 'ocpui.components.communicationTable.columnHeaderCreator',
     defaultMessage: 'Creator',
@@ -58,10 +62,30 @@ export default defineMessages({
     id: 'ocpui.containers.communicationsTable.noCommunications',
     defaultMessage: 'No communications found.',
   },
+  occurred: {
+    id: 'ocpui.containers.communicationsTable.occurred',
+    defaultMessage: 'Occurred',
+  },
+  notOccurred: {
+    id: 'ocpui.containers.communicationsTable.notOccurred',
+    defaultMessage: 'Did not occur',
+  },
   expansionRowDetails: {
     message: {
       id: 'ocpui.components.communicationTable.message',
       defaultMessage: 'Message Content',
+    },
+    status: {
+      id: 'ocpui.components.communicationTable.status',
+      defaultMessage: 'Status',
+    },
+    medium: {
+      id: 'ocpui.components.communicationTable.medium',
+      defaultMessage: 'Contact Method',
+    },
+    duration: {
+      id: 'ocpui.components.communicationTable.duration',
+      defaultMessage: 'Duration',
     },
     note: {
       id: 'ocpui.components.communicationTable.note',
