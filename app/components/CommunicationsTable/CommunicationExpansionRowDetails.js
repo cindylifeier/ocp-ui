@@ -1,5 +1,6 @@
 import InfoSection from 'components/InfoSection';
 import TextLabelGroup from 'components/TextLabelGroup';
+import upperFirst from 'lodash/upperFirst';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
@@ -8,19 +9,31 @@ import messages from './messages';
 
 
 function CommunicationExpansionRowDetails({ communication }) {
-  const { payloadContent, note, notDoneReasonValue } = communication;
+  const { payloadContent, note, notDoneReasonValue, statusValue, mediumValue, duration } = communication;
   return (
     <div>
       <InfoSection>
-        <Grid columns={'100%'} justifyContent="space-between">
+        <Grid columns={'30% 30% 30%'} justifyContent="space-between">
           <Cell>
             <TextLabelGroup
               label={<FormattedMessage {...messages.expansionRowDetails.noCommunicatonReason} />}
               text={notDoneReasonValue}
             />
           </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.expansionRowDetails.status} />}
+              text={statusValue}
+            />
+          </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.expansionRowDetails.medium} />}
+              text={upperFirst(mediumValue)}
+            />
+          </Cell>
         </Grid>
-        <Grid columns={'50% 50%'} justifyContent="space-between">
+        <Grid columns={'30% 30% 30%'} justifyContent="space-between">
           <Cell>
             <TextLabelGroup
               label={<FormattedMessage {...messages.expansionRowDetails.message} />}
@@ -31,6 +44,12 @@ function CommunicationExpansionRowDetails({ communication }) {
             <TextLabelGroup
               label={<FormattedMessage {...messages.expansionRowDetails.note} />}
               text={note}
+            />
+          </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.expansionRowDetails.duration} />}
+              text={duration}
             />
           </Cell>
         </Grid>

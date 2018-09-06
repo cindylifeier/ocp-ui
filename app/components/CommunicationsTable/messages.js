@@ -75,6 +75,18 @@ export default defineMessages({
       id: 'ocpui.components.communicationTable.message',
       defaultMessage: 'Message Content',
     },
+    status: {
+      id: 'ocpui.components.communicationTable.status',
+      defaultMessage: 'Status',
+    },
+    medium: {
+      id: 'ocpui.components.communicationTable.medium',
+      defaultMessage: 'Contact Method',
+    },
+    duration: {
+      id: 'ocpui.components.communicationTable.duration',
+      defaultMessage: 'Duration',
+    },
     note: {
       id: 'ocpui.components.communicationTable.note',
       defaultMessage: 'Note',
