@@ -4,61 +4,81 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import sizeMeHOC from 'utils/SizeMeUtils';
+import ActionEvent from '@material-ui/icons/Event';
+import ContentFlag from '@material-ui/icons/Flag';
+import NotificationPriorityHigh from '@material-ui/icons/PriorityHigh';
+import ExpansionTableRow from 'components/ExpansionTableRow';
+import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import NavigationIconMenu from 'components/NavigationIconMenu';
 import {
+  DUE_TODAY,
   EXPANDED_TABLE_COLUMNS,
+  OVER_DUE,
   STATUS_CODE_CANCELLED,
   SUMMARIZED_TABLE_COLUMNS,
+  UPCOMING,
 } from 'components/TaskTable/constants';
-import TaskExpansionRowDetails from './TaskExpansionRowDetails';
+import isEmpty from 'lodash/isEmpty';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import sizeMeHOC from 'utils/SizeMeUtils';
 import messages from './messages';
+import TaskExpansionRowDetails from './TaskExpansionRowDetails';
 
 function TaskTable({ onTaskClick, elements, cancelTask, patientId, communicationBaseUrl, taskBaseUrl, relativeTop, isExpanded, isPatient }) {
+  function getTaskDueWithIcon(statusStr) {
+    let statusElement = null;
+    if (statusStr === UPCOMING) {
+      statusElement = (<div><ContentFlag color="#009688" /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+    } else if (statusStr === OVER_DUE) {
+      statusElement = (
+        <div><NotificationPriorityHigh color="#d86344" /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+    } else if (statusStr === DUE_TODAY) {
+      statusElement = (<div><ActionEvent color="#f4b942" /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
+    }
+    return statusElement;
+  }
+
   function createTableHeaders() {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
     return (
       <TableHeader columns={columns} relativeTop={relativeTop}>
         <TableHeaderColumn />
-        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
-        <TableHeaderColumn > <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
+        <TableHeaderColumn />
+        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderTaskOwner} /></TableHeaderColumn>
         {isExpanded &&
-        <TableHeaderColumn > <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
+        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderDescription} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn > <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
+        <TableHeaderColumn> <FormattedMessage {...messages.columnHeaderCreatedOn} /></TableHeaderColumn>
         }
         {!isExpanded ?
-          <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
           :
-          <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
+          <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskPeriod} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderLastModified} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastModified} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn ><FormattedMessage {...messages.subTasks} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.subTasks} /></TableHeaderColumn>
         }
         {isExpanded &&
-        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderStatus} /></TableHeaderColumn>
         }
-        <TableHeaderColumn ><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
+        <TableHeaderColumn><FormattedMessage {...messages.columnHeaderAction} /></TableHeaderColumn>
       </TableHeader>
     );
   }
 
   function createTableRows(task, isPatientRole) {
     const columns = isExpanded ? EXPANDED_TABLE_COLUMNS : SUMMARIZED_TABLE_COLUMNS;
-    const { logicalId, definition, status, description, authoredOn, executionPeriod, owner, lastModified, remainingSubtasks, totalSubtasks } = task;
+    const { logicalId, definition, status, description, authoredOn, executionPeriod, owner, lastModified, remainingSubtasks, totalSubtasks, taskDue } = task;
     const menuItems = (isPatientRole) ? [] : [{
       primaryText: <FormattedMessage {...messages.editTask} />,
       linkTo: {
@@ -93,6 +113,7 @@ function TaskTable({ onTaskClick, elements, cancelTask, patientId, communication
             onTaskClick(task);
           }}
         >{definition && definition.display}</TableRowColumn>
+        <TableRowColumn>{getTaskDueWithIcon(taskDue)}</TableRowColumn>
         <TableRowColumn
           onClick={() => {
             onTaskClick(task);

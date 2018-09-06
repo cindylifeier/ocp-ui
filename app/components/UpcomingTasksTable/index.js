@@ -4,28 +4,45 @@
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import { FormattedMessage } from 'react-intl';
-import isEmpty from 'lodash/isEmpty';
-import isUndefined from 'lodash/isUndefined';
-
-import Util from 'utils/Util';
+import ActionEvent from '@material-ui/icons/Event';
+import ContentFlag from '@material-ui/icons/Flag';
+import NotificationPriorityHigh from '@material-ui/icons/PriorityHigh';
+import ExpansionTableRow from 'components/ExpansionTableRow';
 import NavigationIconMenu from 'components/NavigationIconMenu';
 import Table from 'components/Table';
 import TableHeader from 'components/TableHeader';
 import TableHeaderColumn from 'components/TableHeaderColumn';
-import ExpansionTableRow from 'components/ExpansionTableRow';
 import TableRowColumn from 'components/TableRowColumn';
-import UpcomingTasksExpansionRowDetails from './UpcomingTasksExpansionRowDetails';
+import isEmpty from 'lodash/isEmpty';
+import isUndefined from 'lodash/isUndefined';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+
+import Util from 'utils/Util';
+import { DUE_TODAY, OVER_DUE, UPCOMING } from '../TaskTable/constants';
 import messages from './messages';
+import UpcomingTasksExpansionRowDetails from './UpcomingTasksExpansionRowDetails';
 
 
-const tableColumns = '50px repeat(5, 1fr) 50px';
+const tableColumns = '50px repeat(6, 1fr) 50px';
 
 // Todo: Fix ViewDetail that is already not working
 
 function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop }) {
+  function getTaskDueWithIcon(statusStr) {
+    let statusElement = null;
+    if (statusStr === UPCOMING) {
+      statusElement = (<div><ContentFlag color="#009688" /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+    } else if (statusStr === OVER_DUE) {
+      statusElement = (
+        <div><NotificationPriorityHigh color="#d86344" /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+    } else if (statusStr === DUE_TODAY) {
+      statusElement = (<div><ActionEvent color="#f4b942" /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
+    }
+    return statusElement;
+  }
+
   return (
     <div>
       <Table>
@@ -33,12 +50,13 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
           <TableHeaderColumn />
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderPatientName} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderActivityType} /></TableHeaderColumn>
+          <TableHeaderColumn />
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTask} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskStartDate} /></TableHeaderColumn>
           <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTaskEndDate} /></TableHeaderColumn>
         </TableHeader>
         {!isEmpty(elements) && elements.map((upcomingTask) => {
-          const { logicalId, definition, description, executionPeriod, beneficiary } = upcomingTask;
+          const { logicalId, definition, description, executionPeriod, beneficiary, taskDue } = upcomingTask;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.viewDetails} />,
             onClick: () => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary)),
@@ -51,6 +69,7 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
             >
               <TableRowColumn>{beneficiary.display}</TableRowColumn>
               <TableRowColumn>{definition.display}</TableRowColumn>
+              <TableRowColumn>{getTaskDueWithIcon(taskDue)}</TableRowColumn>
               <TableRowColumn>{description}</TableRowColumn>
               <TableRowColumn>{executionPeriod.start}</TableRowColumn>
               <TableRowColumn>{executionPeriod.end}</TableRowColumn>
