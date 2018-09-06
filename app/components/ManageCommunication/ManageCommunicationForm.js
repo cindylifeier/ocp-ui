@@ -1,19 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Form } from 'formik';
-import { FormattedMessage } from 'react-intl';
-import { Cell, Grid } from 'styled-css-grid';
-import { uniqueId } from 'lodash';
-import MenuItem from 'material-ui/MenuItem';
-import FormGrid from 'components/FormGrid';
-import FormCell from 'components/FormCell';
 import Checkbox from 'components/Checkbox';
-import StyledRaisedButton from 'components/StyledRaisedButton';
+import FormCell from 'components/FormCell';
+import FormGrid from 'components/FormGrid';
 import GoBackButton from 'components/GoBackButton';
-import TextField from 'components/TextField';
 import Padding from 'components/Padding/index';
 import SelectField from 'components/SelectField';
-import AutoSuggestionField from 'components/AutoSuggestion';
+import StyledRaisedButton from 'components/StyledRaisedButton';
+import TextField from 'components/TextField';
+import { Form } from 'formik';
+import uniqueId from 'lodash/uniqueId';
+import MenuItem from 'material-ui/MenuItem';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
+import { Cell, Grid } from 'styled-css-grid';
 import messages from './messages';
 
 
@@ -30,13 +29,6 @@ function ManageCommunicationForm(props) {
   } = props;
 
   const notDoneFlag = values.notDone;
-
-  const mediumSuggestions = communicationMedia
-    .filter((entry) => (entry.code !== null) && (entry.display !== null))
-    .map((entry) => ({
-      value: entry.code,
-      label: entry.display,
-    }));
 
   function getPatientName(patient) {
     let patientName = '';
@@ -106,15 +98,15 @@ function ManageCommunicationForm(props) {
               />
             </Cell>
             <Cell>
-              <Padding top={25}>
-                <AutoSuggestionField
-                  name="mediumCode"
-                  isRequired
-                  placeholder={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
-                  suggestions={mediumSuggestions}
-                  {...props}
-                />
-              </Padding>
+              <SelectField
+                floatingLabelText={<FormattedMessage {...messages.form.floatingLabelText.medium} />}
+                name="mediumCode"
+                fullWidth
+              >
+                {communicationMedia && communicationMedia.map((communicationMedium) => (
+                  <MenuItem key={uniqueId()} value={communicationMedium.code} primaryText={communicationMedium.display} />
+                ))}
+              </SelectField>
             </Cell>
           </Grid>
         </FormCell>
