@@ -136,7 +136,8 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
           <Divider light />
           <ExpansionPanelDetails>
             <ToDoCardCell top={2} left={1} width={12}>
-              <p>{ description }</p>
+              <FormattedMessage {...messages.description} />
+              <strong>{ description }</strong>
             </ToDoCardCell>
           </ExpansionPanelDetails>
         </ExpansionPanel>
