@@ -27,7 +27,7 @@ const tableColumns = 'repeat(4, 1fr) 110px';
 
 function OutOfOrgTabContent(props) {
   const { values, resetForm, onCloseDialog, onSearchParticipantReferences, participantReferences, participantAttendance } = props;
-  const { loading, outsideParticipant } = participantReferences;
+  const { loading, outsideParticipants } = participantReferences;
 
   function checkRequiredValues() {
     return checkFieldSelected(values, 'attendance');
@@ -38,10 +38,10 @@ function OutOfOrgTabContent(props) {
       <SearchParticipantReferences onSearchParticipantReferences={onSearchParticipantReferences} />
       <LinearProgressIndicator loading={loading} />
       {
-        !loading && outsideParticipant && outsideParticipant.length === 0 &&
+        !loading && outsideParticipants && outsideParticipants.length === 0 &&
         <NoResultsFoundText><FormattedMessage {...messages.searchParticipantsTable.noParticipantsFound} /></NoResultsFoundText>
       }
-      {!loading && !isEmpty(outsideParticipant) &&
+      {!loading && !isEmpty(outsideParticipants) &&
       <Form>
         <Table margin="10px 0">
           <TableHeader columns={tableColumns}>
@@ -61,8 +61,8 @@ function OutOfOrgTabContent(props) {
               <FormattedMessage {...messages.searchParticipantsTable.tableHeaderAction} />
             </TableHeaderColumn>
           </TableHeader>
-          {outsideParticipant.map((participantReference) => {
-            const { name, identifierValue, associatedOrganizations } = participantReference;
+          {outsideParticipants.map((participantReference) => {
+            const { name, identifierValue, associatedOrganizations, appointmentParticipantReferenceDto } = participantReference;
             return (
               <TableRow key={uniqueId()} columns={tableColumns}>
                 <TableRowColumn>{name}</TableRowColumn>
@@ -75,7 +75,7 @@ function OutOfOrgTabContent(props) {
                     onChange={(event, key, newValue) => {
                       resetForm({
                         attendance: newValue,
-                        practitioner: participantReference.reference,
+                        practitioner: appointmentParticipantReferenceDto.reference,
                       });
                     }}
                     hintText={<FormattedMessage {...messages.hintText.selectPractitionerAttendance} />}
@@ -102,7 +102,7 @@ function OutOfOrgTabContent(props) {
         </Table>
       </Form>
       }
-      {!loading && !isEmpty(outsideParticipant) && checkRequiredValues() &&
+      {!loading && !isEmpty(outsideParticipants) && checkRequiredValues() &&
       <CustomErrorText>Attendance are required</CustomErrorText>
       }
       <Grid columns={8}>
@@ -117,7 +117,7 @@ function OutOfOrgTabContent(props) {
 OutOfOrgTabContent.propTypes = {
   participantReferences: PropTypes.shape({
     loading: PropTypes.bool,
-    outsideParticipant: PropTypes.oneOfType([
+    outsideParticipants: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
     ]),

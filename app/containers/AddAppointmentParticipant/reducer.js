@@ -21,7 +21,7 @@ const initialState = fromJS({
   practitioners: null,
   searchParticipants: {
     loading: false,
-    outsideParticipant: null,
+    outsideParticipants: null,
     error: false,
   },
 });
@@ -33,7 +33,7 @@ function addAppointmentParticipantReducer(state = initialState, action) {
         .set('locations', action.locations)
         .set('practitioners', action.practitioners)
         .set('healthcareServices', action.healthcareServices)
-        .setIn(['searchParticipants', 'outsideParticipant'], fromJS(null));
+        .setIn(['searchParticipants', 'outsideParticipants'], fromJS(null));
     case GET_HEALTHCARE_SERVICE_REFERENCES_SUCCESS:
       return state
         .set('healthcareServices', action.healthcareServices);
@@ -50,11 +50,11 @@ function addAppointmentParticipantReducer(state = initialState, action) {
     case SEARCH_PARTICIPANT_REFERENCES_SUCCESS:
       return state
         .setIn(['searchParticipants', 'loading'], false)
-        .setIn(['searchParticipants', 'outsideParticipant'], fromJS(action.participants));
+        .setIn(['searchParticipants', 'outsideParticipants'], fromJS(action.participants));
     case SEARCH_PARTICIPANT_REFERENCES_ERROR:
       return state
         .setIn(['searchParticipants', 'loading'], false)
-        .setIn(['searchParticipants', 'outsideParticipant'], fromJS([]))
+        .setIn(['searchParticipants', 'outsideParticipants'], fromJS([]))
         .setIn(['searchParticipants', 'error'], action.error);
     default:
       return state;

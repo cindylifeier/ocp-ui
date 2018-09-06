@@ -18,7 +18,11 @@ import InsideOrgTabContent from './InsideOrgTabContent';
 import OutOfOrgTabContent from './OutOfOrgTabContent';
 import LocationTabContent from './LocationTabContent';
 import ServiceTabContent from './ServiceTabContent';
-import { mapToParticipantReference, mapToPractitionerParticipantReference } from './helpers';
+import {
+  mapToOutsideParticipantReference,
+  mapToParticipantReference,
+  mapToPractitionerParticipantReference,
+} from './helpers';
 import messages from './messages';
 
 
@@ -35,11 +39,15 @@ class AddParticipantForm extends React.Component {
   }
 
   handleAddParticipants(formValue) {
-    const { healthcareServices, locations, practitioners, participantAttendance } = this.props;
+    const { healthcareServices, locations, practitioners, participantReferences: { outsideParticipants }, participantAttendance } = this.props;
     const serviceParticipant = mapToParticipantReference(formValue.service, healthcareServices);
     const locationParticipant = mapToParticipantReference(formValue.location, locations);
     const practitionerParticipant = mapToPractitionerParticipantReference(formValue.practitioner, formValue.attendance, practitioners, participantAttendance);
-    const participants = Array.of(serviceParticipant, locationParticipant, practitionerParticipant);
+    let participants = Array.of(serviceParticipant, locationParticipant, practitionerParticipant);
+    if (this.state.tabIndex === 1) {
+      const outsideParticipant = mapToOutsideParticipantReference(formValue.practitioner, formValue.attendance, outsideParticipants, participantAttendance);
+      participants = Array.of(outsideParticipant);
+    }
     const fieldName = this.props.arrayHelpers.name;
     // Remove all falsey values from array
     this.props.arrayHelpers.form.setFieldValue(fieldName, compact(participants));

@@ -9,7 +9,7 @@ describe('addAppointmentParticipantReducer', () => {
       practitioners: null,
       searchParticipants: {
         loading: false,
-        outsideParticipant: null,
+        outsideParticipants: null,
         error: false,
       },
     }));

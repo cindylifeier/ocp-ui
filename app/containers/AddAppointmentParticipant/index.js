@@ -125,7 +125,7 @@ AddAppointmentParticipant.propTypes = {
   practitioners: PropTypes.array,
   participantReferences: PropTypes.shape({
     loading: PropTypes.bool,
-    outsideParticipant: PropTypes.oneOfType([
+    outsideParticipants: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
     ]),
