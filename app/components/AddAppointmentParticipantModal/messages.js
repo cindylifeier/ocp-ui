@@ -59,6 +59,10 @@ export default defineMessages({
       id: 'ocpui.components.AddParticipantForm.validation.required',
       defaultMessage: 'Required',
     },
+    minLength: {
+      id: 'ocpui.components.AddParticipantForm.validation.minLength',
+      defaultMessage: 'Minimum {minimumLength} characters',
+    },
   },
   hintText: {
     selectService: {

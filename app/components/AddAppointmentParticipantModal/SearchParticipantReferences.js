@@ -15,6 +15,7 @@ import StyledTooltip from 'components/StyledTooltip';
 import messages from './messages';
 
 function SearchParticipantReferences(props) {
+  const minimumLength = 3;
   return (
     <Formik
       onSubmit={(values, actions) => {
@@ -24,6 +25,15 @@ function SearchParticipantReferences(props) {
       validationSchema={yup.object().shape({
         searchType: yup.string()
           .required((<FormattedMessage {...messages.validation.required} />)),
+        searchValue: yup.string()
+          .when('searchType', {
+            is: 'practitioner',  // alternatively: (val) => val == true
+            then: yup.string()
+              .required((<FormattedMessage {...messages.validation.required} />))
+              .min(minimumLength,
+                (<FormattedMessage {...messages.validation.minLength} values={{ minimumLength }} />)),
+            otherwise: null,
+          }),
       })}
       render={(formikProps) => {
         const { isSubmitting, dirty, isValid } = formikProps;
