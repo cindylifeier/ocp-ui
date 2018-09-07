@@ -74,16 +74,16 @@ export const orgAdminStateMetadata =
               type: 'stack',
               content: [
                 {
-                  title: 'Patient\'s Tasks',
+                  title: 'Patient\'s TO DO',
                   type: 'component',
-                  componentName: 'tasks',
+                  componentName: 'toDos',
                   isClosable: true,
                   reorderEnabled: true,
                 },
                 {
-                  title: 'Patient\'s TO DO',
+                  title: 'Patient\'s Tasks',
                   type: 'component',
-                  componentName: 'toDos',
+                  componentName: 'tasks',
                   isClosable: true,
                   reorderEnabled: true,
                 },
@@ -173,16 +173,16 @@ export const defaultRoleStateMetadata =
               type: 'stack',
               content: [
                 {
-                  title: 'Patient\'s Tasks',
+                  title: 'Patient\'s TO DO',
                   type: 'component',
-                  componentName: 'tasks',
+                  componentName: 'toDos',
                   isClosable: true,
                   reorderEnabled: true,
                 },
                 {
-                  title: 'Patient\'s TO DO',
+                  title: 'Patient\'s Tasks',
                   type: 'component',
-                  componentName: 'toDos',
+                  componentName: 'tasks',
                   isClosable: true,
                   reorderEnabled: true,
                 },
