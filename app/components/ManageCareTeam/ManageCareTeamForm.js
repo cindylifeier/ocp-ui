@@ -36,6 +36,7 @@ function ManageCareTeamForm(props) {
     selectedParticipants,
     initialSelectedParticipants,
     removeParticipant,
+    episodeOfCares,
     patient,
   } = props;
 
@@ -99,13 +100,16 @@ function ManageCareTeamForm(props) {
           </Cell>
           }
           <Cell area="episodeOfCare">
-            <TextField
+            <SelectField
               fullWidth
-              name="episodeOfCare"
-              hintText={<FormattedMessage {...messages.hintText.episodeOfCare} />}
+              name="episodeOfCareCode"
+              hintText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
               floatingLabelText={<FormattedMessage {...messages.floatingLabelText.episodeOfCare} />}
-              disabled
-            />
+            >
+              {episodeOfCares && episodeOfCares.map((episodeOfCare) =>
+                <MenuItem key={episodeOfCare.reference} value={episodeOfCare.reference} primaryText={episodeOfCare.display} />,
+              )}
+            </SelectField>
           </Cell>
           <Cell area="reason">
             <SelectField
@@ -194,6 +198,7 @@ ManageCareTeamForm.propTypes = {
     name: PropTypes.array.isRequired,
   }),
   selectedParticipants: PropTypes.array,
+  episodeOfCares: PropTypes.array,
   initialSelectedParticipants: PropTypes.array,
   careTeamCategories: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.string.isRequired,

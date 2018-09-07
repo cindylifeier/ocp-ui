@@ -5,11 +5,15 @@
  */
 
 import { fromJS } from 'immutable';
-import { GET_CARE_TEAM_SUCCESS, INITIALIZE_MANAGE_CARE_TEAM } from './constants';
+import {
+  GET_CARE_TEAM_SUCCESS,
+  INITIALIZE_MANAGE_CARE_TEAM,
+  GET_EVENT_TYPES_SUCCESS } from './constants';
 
 const initialState = fromJS({
   patient: null,
   careTeam: null,
+  eventTypes: [],
 });
 
 function manageCareTeamPageReducer(state = initialState, action) {
@@ -19,6 +23,9 @@ function manageCareTeamPageReducer(state = initialState, action) {
     case GET_CARE_TEAM_SUCCESS:
       return state
         .set('careTeam', action.careTeam);
+    case GET_EVENT_TYPES_SUCCESS:
+      return state
+        .set('eventTypes', action.eventTypes);
     default:
       return state;
   }

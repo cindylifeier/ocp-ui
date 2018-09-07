@@ -14,7 +14,13 @@ const makeSelectCareTeam = () => createSelector(
   (substate) => substate && substate.get('careTeam'),
 );
 
+const makeSelectEventTypes = () => createSelector(
+  selectManageCareTeamPageDomain,
+  (substate) => substate && substate.get('eventTypes'),
+);
+
 export {
   selectManageCareTeamPageDomain,
   makeSelectCareTeam,
+  makeSelectEventTypes,
 };
