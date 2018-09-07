@@ -1,32 +1,39 @@
-import React from 'react';
+import InfoSection from 'components/InfoSection';
+import TextLabelGroup from 'components/TextLabelGroup';
+import upperFirst from 'lodash/upperFirst';
 import PropTypes from 'prop-types';
+import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
-import Table from 'components/Table';
-import TableHeader from 'components/TableHeader';
-import TableHeaderColumn from 'components/TableHeaderColumn';
-import TableRow from 'components/TableRow';
-import TableRowColumn from 'components/TableRowColumn';
-import InfoSection from 'components/InfoSection';
-import StyledText from 'components/StyledText';
-import TextLabelGroup from 'components/TextLabelGroup';
 import messages from './messages';
 
 
 function CommunicationExpansionRowDetails({ communication }) {
-  const { payloadContent, note, notDoneReasonValue, recipient } = communication;
+  const { payloadContent, note, notDoneReasonValue, statusValue, mediumValue, duration } = communication;
   return (
     <div>
       <InfoSection>
-        <Grid columns={'100%'} justifyContent="space-between">
+        <Grid columns={'30% 30% 30%'} justifyContent="space-between">
           <Cell>
             <TextLabelGroup
               label={<FormattedMessage {...messages.expansionRowDetails.noCommunicatonReason} />}
               text={notDoneReasonValue}
             />
           </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.expansionRowDetails.status} />}
+              text={statusValue}
+            />
+          </Cell>
+          <Cell>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.expansionRowDetails.medium} />}
+              text={upperFirst(mediumValue)}
+            />
+          </Cell>
         </Grid>
-        <Grid columns={'50% 50%'} justifyContent="space-between">
+        <Grid columns={'30% 30% 30%'} justifyContent="space-between">
           <Cell>
             <TextLabelGroup
               label={<FormattedMessage {...messages.expansionRowDetails.message} />}
@@ -39,30 +46,14 @@ function CommunicationExpansionRowDetails({ communication }) {
               text={note}
             />
           </Cell>
-        </Grid>
-        <Grid columns={'100%'} justifyContent="space-between">
           <Cell>
-            <StyledText >
-              {<FormattedMessage {...messages.expansionRowDetails.recipients} />}
-            </StyledText>
+            <TextLabelGroup
+              label={<FormattedMessage {...messages.expansionRowDetails.duration} />}
+              text={duration}
+            />
           </Cell>
         </Grid>
       </InfoSection>
-      <Table>
-        <TableHeader columns={'4fr 4fr'}>
-          <TableHeaderColumn><FormattedMessage {...messages.expansionRowDetails.columnHeaderName} /></TableHeaderColumn>
-          <TableHeaderColumn><FormattedMessage {...messages.expansionRowDetails.columnHeaderRole} /></TableHeaderColumn>
-        </TableHeader>
-        {recipient && recipient.map((entry) => {
-          const { reference, display } = entry;
-          return (
-            <TableRow key={reference} columns={'4fr 4fr'}>
-              <TableRowColumn>{display}</TableRowColumn>
-              <TableRowColumn>{reference}</TableRowColumn>
-            </TableRow>
-          );
-        })}
-      </Table>
     </div>
   );
 }

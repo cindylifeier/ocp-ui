@@ -8,7 +8,7 @@ import TextLabelGroup from 'components/TextLabelGroup';
 import messages from './messages';
 
 function UpcomingTasksExpansionRowDetails({ task }) {
-  const { definition, owner, authoredOn, lastModified, executionPeriod, status, priority, intent, description } = task;
+  const { definition, owner, authoredOn, lastModified, executionPeriod, status, priority, intent, description, totalSubtasks } = task;
   return (
     <InfoSection>
       <Grid columns={'47% 53%'} justifyContent="space-between">
@@ -64,6 +64,12 @@ function UpcomingTasksExpansionRowDetails({ task }) {
           <TextLabelGroup
             label={<FormattedMessage {...messages.expansionDetailsDescription} />}
             text={description}
+          />
+        </Cell>
+        <Cell>
+          <TextLabelGroup
+            label={<FormattedMessage {...messages.expansionDetailsNumberOfSubtasks} />}
+            text={totalSubtasks}
           />
         </Cell>
       </Grid>

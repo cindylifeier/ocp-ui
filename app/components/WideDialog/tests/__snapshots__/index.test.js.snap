@@ -31,7 +31,7 @@ ShallowWrapper {
       "className": "sc-bdVaJa bDWFJH",
       "contentStyle": Object {
         "maxWidth": "none",
-        "width": "70%",
+        "width": "85%",
       },
       "modal": false,
       "open": true,
@@ -65,7 +65,7 @@ ShallowWrapper {
         "className": "sc-bdVaJa bDWFJH",
         "contentStyle": Object {
           "maxWidth": "none",
-          "width": "70%",
+          "width": "85%",
         },
         "modal": false,
         "open": true,

@@ -39,11 +39,11 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
   getStatusWithIcon(statusStr) {
     let statusElement = null;
     if (statusStr === UPCOMING) {
-      statusElement = (<div><ContentFlag /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
+      statusElement = (<div><ContentFlag color="#009688" /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+      statusElement = (<div><NotificationPriorityHigh color="#d86344" /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
     } else if (statusStr === DUE_TODAY) {
-      statusElement = (<div><ActionEvent /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
+      statusElement = (<div><ActionEvent color="#f4b942" /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
     return statusElement;
   }
@@ -136,7 +136,8 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
           <Divider light />
           <ExpansionPanelDetails>
             <ToDoCardCell top={2} left={1} width={12}>
-              <p>{ description }</p>
+              <FormattedMessage {...messages.description} />
+              <strong>{ description }</strong>
             </ToDoCardCell>
           </ExpansionPanelDetails>
         </ExpansionPanel>

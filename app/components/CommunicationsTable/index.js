@@ -42,7 +42,7 @@ function CommunicationsTable(props) {
             <Table>
               <TableHeader columns={columns} relativeTop={props.relativeTop}>
                 <TableHeaderColumn />
-                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderTimeSent} /></TableHeaderColumn>
+                <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCommunicationStatus} /></TableHeaderColumn>
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderCreator} /></TableHeaderColumn>
                 {isExpanded &&
                 <TableHeaderColumn><FormattedMessage {...messages.columnHeaderLastUpdated} /></TableHeaderColumn>
@@ -78,7 +78,7 @@ function CommunicationsTable(props) {
                   categoryValue,
                   context,
                   mediumValue,
-                  sent,
+                  notDone,
                   lastUpdated,
                   sender,
                   note,
@@ -93,7 +93,7 @@ function CommunicationsTable(props) {
                     role="button"
                     tabIndex="0"
                   >
-                    <TableRowColumn>{ sent }</TableRowColumn>
+                    <TableRowColumn>{notDone ? <FormattedMessage {...messages.notOccurred} /> : <FormattedMessage {...messages.occurred} />}</TableRowColumn>
                     <TableRowColumn>{ sender && sender.display }</TableRowColumn>
                     {isExpanded &&
                     <TableRowColumn>{ lastUpdated }</TableRowColumn>

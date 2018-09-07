@@ -43,7 +43,7 @@ describe('<WideDialog />', () => {
       const props = { open: true };
       const expectedProps = {
         contentStyle: {
-          width: '70%',
+          width: '85%',
           maxWidth: 'none',
         },
       };

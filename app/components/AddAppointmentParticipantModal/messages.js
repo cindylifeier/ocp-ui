@@ -34,6 +34,10 @@ export default defineMessages({
     id: 'ocpui.containers.AddParticipantForm.addButton',
     defaultMessage: 'Add',
   },
+  confirmButton: {
+    id: 'ocpui.containers.AddParticipantForm.confirmButton',
+    defaultMessage: 'Confirm',
+  },
   cancelButton: {
     id: 'ocpui.containers.AddParticipantForm.cancelButton',
     defaultMessage: 'Cancel',
@@ -58,6 +62,10 @@ export default defineMessages({
     required: {
       id: 'ocpui.components.AddParticipantForm.validation.required',
       defaultMessage: 'Required',
+    },
+    minLength: {
+      id: 'ocpui.components.AddParticipantForm.validation.minLength',
+      defaultMessage: 'Minimum {minimumLength} characters',
     },
   },
   hintText: {

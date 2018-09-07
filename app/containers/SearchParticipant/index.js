@@ -34,21 +34,23 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { createStructuredSelector } from 'reselect';
 import { Cell, Grid } from 'styled-css-grid';
+import yup from 'yup';
+
 import { mapSearchParticipantName } from 'utils/CareTeamUtils';
 import injectReducer from 'utils/injectReducer';
-
 import injectSaga from 'utils/injectSaga';
-import yup from 'yup';
+import { mapToIdentifiers } from 'containers/App/helpers';
 import { addParticipants, getSearchParticipant, initializeSearchParticipant } from './actions';
 import AddParticipantDialogIconButton from './AddParticipantDialogIconButton';
-import messages from './messages';
 import ParticipantName from './ParticipantName';
 import ParticipantSearchContainer from './ParticipantSearchContainer';
 import reducer from './reducer';
 import saga from './saga';
 import { makeSelectSearchParticipantResults } from './selectors';
+import { mapSearchParticipantAssociatedOrg } from './helpers';
+import messages from './messages';
 
-const COLUMNS = '1fr 2fr 1fr 1fr .5fr';
+const COLUMNS = '.6fr repeat(3, 1fr) .6fr .6fr .5fr';
 
 export class SearchParticipant extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
@@ -86,10 +88,14 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
 
   createSearchResultHeader() {
     return (
-      <Table>
+      <Table margin="10px 0">
         <TableHeader>
           <Grid columns={COLUMNS}>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+            <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderIdentifier} />}</TableHeaderColumn>
+            <TableHeaderColumn>{
+              <FormattedMessage {...messages.participantTableHeaderAssociatedOrg} />}
+            </TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
             <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
@@ -141,13 +147,23 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
           const { isSubmitting, dirty, isValid } = formikProps;
           return (
             <Form>
-              <Table>
+              <Table margin="10px 0">
                 <TableRow key={uniqueId()}>
                   <TableRowColumn>
                     <Grid columns={COLUMNS}>
                       <Cell middle>
                         <ParticipantName>
                           {mapSearchParticipantName(participant)}
+                        </ParticipantName>
+                      </Cell>
+                      <Cell middle>
+                        <ParticipantName>
+                          {mapToIdentifiers(participant.identifiers) || 'N/A'}
+                        </ParticipantName>
+                      </Cell>
+                      <Cell middle>
+                        <ParticipantName>
+                          {mapSearchParticipantAssociatedOrg(participant) || 'N/A'}
                         </ParticipantName>
                       </Cell>
                       <Cell middle>
@@ -206,21 +222,26 @@ export class SearchParticipant extends React.Component { // eslint-disable-line 
   }
 
   createNoSearchResultTable() {
-    return (<Table>
-      <TableHeader>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
-        <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
-      </TableHeader>
-      <TableRow key={uniqueId()}>
-        <TableRowColumn> {<FormattedMessage {...messages.noSearchParticipantResult} />}</TableRowColumn>
-        <TableRowColumn> </TableRowColumn>
-        <TableRowColumn> </TableRowColumn>
-        <TableRowColumn> </TableRowColumn>
-      </TableRow>
-    </Table>);
+    return (
+      <Table margin="10px 0">
+        <TableHeader>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderName} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderIdentifier} />}</TableHeaderColumn>
+          <TableHeaderColumn>{
+            <FormattedMessage {...messages.participantTableHeaderAssociatedOrg} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderRole} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderStartDate} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderEndDate} />}</TableHeaderColumn>
+          <TableHeaderColumn>{<FormattedMessage {...messages.participantTableHeaderAction} />}</TableHeaderColumn>
+        </TableHeader>
+        <TableRow key={uniqueId()}>
+          <TableRowColumn> {<FormattedMessage {...messages.noSearchParticipantResult} />}</TableRowColumn>
+          <TableRowColumn> </TableRowColumn>
+          <TableRowColumn> </TableRowColumn>
+          <TableRowColumn> </TableRowColumn>
+        </TableRow>
+      </Table>
+    );
   }
 
   render() {

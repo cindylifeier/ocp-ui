@@ -1,4 +1,4 @@
-/**
+  /**
  *
  * ManageTask
  *
@@ -66,6 +66,10 @@ function ManageTask(props) {
               activityDefinition: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               authoredOn: yup.date()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              taskOwner: yup.string()
+                .required((<FormattedMessage {...messages.validation.required} />)),
+              context: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
               description: yup.string()
                 .required((<FormattedMessage {...messages.validation.required} />)),
