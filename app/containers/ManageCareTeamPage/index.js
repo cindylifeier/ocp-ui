@@ -31,8 +31,8 @@ import {
   makeSelectCareTeamStatuses,
 } from 'containers/App/lookupSelectors';
 import { makeSelectOrganization, makeSelectPatient } from 'containers/App/contextSelectors';
-import { getCareTeam, initializeManageCareTeam, saveCareTeam } from './actions';
-import { makeSelectCareTeam } from './selectors';
+import { getCareTeam, initializeManageCareTeam, saveCareTeam, getEventTypes } from './actions';
+import { makeSelectCareTeam, makeSelectEventTypes } from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
@@ -55,11 +55,11 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
   componentDidMount() {
     this.props.getLookUpFormData();
     // TODO: refresh patient context?
-    // const queryObj = queryString.parse(this.props.location.search);
-    // const patientId = queryObj.patientId;
-    // if (patientId) {
-    //   this.props.getPatient(patientId);
-    // }
+    const { patient } = this.props;
+    if (patient) {
+      // get episode of cares for the given patient
+      this.props.getEventTypes(patient.id);
+    }
     const careTeamId = this.props.match.params.id;
     if (careTeamId) {
       this.props.getCareTeam(careTeamId);
@@ -129,6 +129,7 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
       careTeamStatuses,
       careTeamReasons,
       selectedParticipants,
+      episodeOfCares,
     } = this.props;
     const editMode = !isUndefined(match.params.id);
 
@@ -148,6 +149,7 @@ export class ManageCareTeamPage extends React.Component { // eslint-disable-line
       careTeamStatuses,
       selectedParticipants,
       initialSelectedParticipants,
+      episodeOfCares,
     };
 
     return (
@@ -191,10 +193,12 @@ ManageCareTeamPage.propTypes = {
   onSaveCareTeam: PropTypes.func.isRequired,
   initializeSearchParticipantResult: PropTypes.func.isRequired,
   removeParticipant: PropTypes.func.isRequired,
+  getEventTypes: PropTypes.func.isRequired,
   careTeamCategories: PropTypes.array,
   careTeamStatuses: PropTypes.array,
   careTeamReasons: PropTypes.array,
   selectedParticipants: PropTypes.array,
+  episodeOfCares: PropTypes.array,
   organization: PropTypes.object,
 };
 
@@ -206,6 +210,7 @@ const mapStateToProps = createStructuredSelector({
   careTeamReasons: makeSelectCareTeamReasons(),
   selectedParticipants: makeSelectSelectedParticipants(),
   organization: makeSelectOrganization(),
+  episodeOfCares: makeSelectEventTypes(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -216,6 +221,7 @@ function mapDispatchToProps(dispatch) {
     onSaveCareTeam: (careTeamFormData, handleSubmitting) => dispatch(saveCareTeam(careTeamFormData, handleSubmitting)),
     removeParticipant: (participant) => dispatch(removeParticipant(participant)),
     initializeSearchParticipantResult: () => dispatch(initializeSearchParticipantResult()),
+    getEventTypes: (patientId) => dispatch(getEventTypes(patientId)),
   };
 }
 
