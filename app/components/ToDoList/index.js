@@ -26,18 +26,14 @@ function ToDoList(props) {
           {!isEmpty(toDos) && toDos.map((toDo) =>
               (<ToDoAccordion
                 key={toDo.logicalId}
+                toDo={toDo}
                 columns={columns}
-                toDoLogicalId={toDo.logicalId}
-                description={toDo.description}
-                status={toDo.taskDue}
                 taskBaseUrl={taskBaseUrl}
                 isPractitioner={isPractitioner}
                 isPatient={isPatient}
                 patientId={patientId}
                 openDialog={openDialog}
-                patientName={toDo.beneficiary.display}
                 communicationBaseUrl={communicationBaseUrl}
-                dueDate={toDo.executionPeriod && toDo.executionPeriod.end}
                 handleToDoClick={handleToDoClick}
               >
               </ToDoAccordion>)

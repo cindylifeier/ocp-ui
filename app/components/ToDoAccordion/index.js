@@ -1,30 +1,29 @@
 /**
-*
-* ToDoAccordion
-*
-*/
+ *
+ * ToDoAccordion
+ *
+ */
 
-import React from 'react';
-import PropTypes from 'prop-types';
-import NotificationPriorityHigh from '@material-ui/icons/PriorityHigh';
 import ActionEvent from '@material-ui/icons/Event';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ContentFlag from '@material-ui/icons/Flag';
+import NotificationPriorityHigh from '@material-ui/icons/PriorityHigh';
+import Align from 'components/Align';
+import InfoSection from 'components/InfoSection';
+import NavigationIconMenu from 'components/NavigationIconMenu';
+import Padding from 'components/Padding';
+import TextLabelGroup from 'components/TextLabelGroup';
+import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/ToDoAccordion/constants';
+import ToDoCardCell from 'components/ToDoCardCell';
 
 import Divider from 'material-ui-next/Divider';
-import { FormattedMessage } from 'react-intl';
 
-import ExpansionPanel, {
-  ExpansionPanelSummary,
-  ExpansionPanelDetails,
-} from 'material-ui-next/ExpansionPanel';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ToDoCardCell from 'components/ToDoCardCell';
+import ExpansionPanel, { ExpansionPanelDetails, ExpansionPanelSummary } from 'material-ui-next/ExpansionPanel';
+import PropTypes from 'prop-types';
+import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import { Cell, Grid } from 'styled-css-grid';
-import Align from 'components/Align';
-import Padding from 'components/Padding';
-import NavigationIconMenu from 'components/NavigationIconMenu';
-import { DUE_TODAY, OVER_DUE, UPCOMING } from 'components/ToDoAccordion/constants';
 import messages from './messages';
 
 class ToDoAccordion extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -41,7 +40,8 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
     if (statusStr === UPCOMING) {
       statusElement = (<div><ContentFlag color="#009688" /><FormattedMessage {...messages.todoStatusUpcoming} /></div>);
     } else if (statusStr === OVER_DUE) {
-      statusElement = (<div><NotificationPriorityHigh color="#d86344" /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
+      statusElement = (
+        <div><NotificationPriorityHigh color="#d86344" /><FormattedMessage {...messages.todoStatusOverdue} /></div>);
     } else if (statusStr === DUE_TODAY) {
       statusElement = (<div><ActionEvent color="#f4b942" /><FormattedMessage {...messages.todoStatusDueToday} /></div>);
     }
@@ -51,26 +51,23 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
   handlePanelOpen() {
     this.setState({ expansionPanelOpen: !this.state.expansionPanelOpen });
   }
+
   render() {
     const {
-      description,
-      status,
+      toDo,
       taskBaseUrl,
       isPractitioner,
       isPatient,
       openDialog,
       patientId,
-      dueDate,
-      patientName,
-      toDoLogicalId,
       columns,
       communicationBaseUrl,
       handleToDoClick,
     } = this.props;
-    const dueDateStr = dueDate ? 'Due '.concat(dueDate) : '';
-    const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? patientName : '';
-    const editTodoUrl = `${taskBaseUrl}/${toDoLogicalId}?patientId=${patientId}&isMainTask=false`;
-    const addCommuncationUrl = `${communicationBaseUrl}?patientId=${patientId}&toDoLogicalId=${toDoLogicalId}`;
+    const dueDateStr = toDo && toDo.executionPeriod && toDo.executionPeriod.end ? 'Due '.concat(toDo.executionPeriod.end) : '';
+    const patientNameStr = ((isPatient && isPractitioner) || isPractitioner) ? (toDo && toDo.beneficiary && toDo.beneficiary.display) : '';
+    const editTodoUrl = `${taskBaseUrl}/${toDo.logicalId}?patientId=${patientId}&isMainTask=false`;
+    const addCommuncationUrl = `${communicationBaseUrl}?patientId=${patientId}&toDoLogicalId=${toDo.logicalId}`;
     const menuItems = [
       {
         primaryText: <FormattedMessage {...messages.editToDo} />,
@@ -80,12 +77,12 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
         linkTo: `${addCommuncationUrl}`,
       }, {
         primaryText: <FormattedMessage {...messages.cancelToDo} />,
-        onClick: () => openDialog(toDoLogicalId),
+        onClick: () => openDialog(toDo.logicalId),
       }];
     return (
       <Padding bottom={5}>
-        <ExpansionPanel expanded={this.state.expansionPanelOpen} >
-          <ExpansionPanelSummary >
+        <ExpansionPanel expanded={this.state.expansionPanelOpen}>
+          <ExpansionPanelSummary>
             <ToDoCardCell top={1} left={1} width={14}>
               <Grid columns={columns} gap="">
                 <Cell>
@@ -97,7 +94,7 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                 <Cell
                   onClick={() => {
                     if (handleToDoClick) {
-                      handleToDoClick(toDoLogicalId);
+                      handleToDoClick(toDo.logicalId);
                     }
                   }}
                 >
@@ -106,39 +103,99 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
                   </strong>
                 </Cell>
                 {!isPatient &&
-                  <Align variant="right">
-                    <strong>{patientNameStr}</strong>
-                  </Align>
+                <Align variant="right">
+                  <strong>{patientNameStr}</strong>
+                </Align>
                 }
                 <Cell
                   onClick={() => {
                     if (handleToDoClick) {
-                      handleToDoClick(toDoLogicalId);
+                      handleToDoClick(toDo.logicalId);
                     }
                   }}
                 >
                   <Align variant="right">
                     <strong>
-                      {this.getStatusWithIcon(status)}
+                      {this.getStatusWithIcon(toDo.taskDue)}
                     </strong>
                   </Align>
                 </Cell>
-                { isPatient &&
-                  <Cell>
-                    <Align variant="right">
-                      <NavigationIconMenu menuItems={menuItems} />
-                    </Align>
-                  </Cell>
-                 }
+                {isPatient &&
+                <Cell>
+                  <Align variant="right">
+                    <NavigationIconMenu menuItems={menuItems} />
+                  </Align>
+                </Cell>
+                }
               </Grid>
             </ToDoCardCell>
           </ExpansionPanelSummary>
           <Divider light />
           <ExpansionPanelDetails>
-            <ToDoCardCell top={2} left={1} width={12}>
-              <FormattedMessage {...messages.description} />
-              <strong>{ description }</strong>
-            </ToDoCardCell>
+            <InfoSection width={'100%'}>
+              <Grid columns={'20% 20% 20% 20% 20%'} justifyContent="space-between">
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.startDate} />}
+                    text={toDo.executionPeriod && toDo.executionPeriod.start}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.endDate} />}
+                    text={toDo.executionPeriod && toDo.executionPeriod.end}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.status} />}
+                    text={toDo.status && toDo.status.display}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.priority} />}
+                    text={toDo.priority && toDo.priority.display}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.purpose} />}
+                    text={toDo.intent && toDo.intent.display}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.taskOwner} />}
+                    text={toDo.owner && toDo.owner.display}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.participation} />}
+                    text={toDo.performerType && toDo.performerType.display}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.episodeOfCare} />}
+                    text={toDo.context && toDo.context.display}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.comments} />}
+                    text={toDo.note}
+                  />
+                </Cell>
+                <Cell>
+                  <TextLabelGroup
+                    label={<FormattedMessage {...messages.description} />}
+                    text={toDo.description}
+                  />
+                </Cell>
+              </Grid>
+            </InfoSection>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Padding>
@@ -149,15 +206,11 @@ class ToDoAccordion extends React.Component { // eslint-disable-line react/prefe
 ToDoAccordion.propTypes = {
   isPatient: PropTypes.bool,
   columns: PropTypes.string,
-  toDoLogicalId: PropTypes.string,
+  toDo: PropTypes.object,
   isPractitioner: PropTypes.bool.isRequired,
   taskBaseUrl: PropTypes.string,
   communicationBaseUrl: PropTypes.string,
   patientId: PropTypes.string,
-  description: PropTypes.string,
-  dueDate: PropTypes.string,
-  patientName: PropTypes.string,
-  status: PropTypes.string.isRequired,
   openDialog: PropTypes.func,
   handleToDoClick: PropTypes.func,
 };

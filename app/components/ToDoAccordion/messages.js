@@ -38,4 +38,48 @@ export default defineMessages({
     id: 'ocpui.components.ToDoAccordion.todoStatusDueToday',
     defaultMessage: 'Due Today',
   },
+  startDate: {
+    id: 'ocpui.components.ToDoAccordion.startDate',
+    defaultMessage: 'Start Date',
+  },
+  endDate: {
+    id: 'ocpui.components.ToDoAccordion.endDate',
+    defaultMessage: 'End Date',
+  },
+  lastModified: {
+    id: 'ocpui.components.ToDoAccordion.lastModified',
+    defaultMessage: 'Last Modified Date',
+  },
+  comments: {
+    id: 'ocpui.components.ToDoAccordion.comments',
+    defaultMessage: 'Comments',
+  },
+  status: {
+    id: 'ocpui.components.ToDoAccordion.status',
+    defaultMessage: 'Status',
+  },
+  priority: {
+    id: 'ocpui.components.ToDoAccordion.priority',
+    defaultMessage: 'Priority',
+  },
+  purpose: {
+    id: 'ocpui.components.ToDoAccordion.purpose',
+    defaultMessage: 'Purpose',
+  },
+  episodeOfCare: {
+    id: 'ocpui.components.ToDoAccordion.episodeOfCare',
+    defaultMessage: 'Episode of Care',
+  },
+  taskOwner: {
+    id: 'ocpui.components.ToDoAccordion.taskOwner',
+    defaultMessage: 'Task Owner',
+  },
+  participation: {
+    id: 'ocpui.components.ToDoAccordion.participation',
+    defaultMessage: 'Participation',
+  },
+  patient: {
+    id: 'ocpui.components.ToDoAccordion.patient',
+    defaultMessage: 'Patient',
+  },
 });
