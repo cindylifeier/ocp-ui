@@ -14,6 +14,7 @@ import { FormattedMessage } from 'react-intl';
 import queryString from 'query-string';
 import merge from 'lodash/merge';
 import pull from 'lodash/pull';
+import isEmpty from 'lodash/isEmpty';
 
 import injectSaga from 'utils/injectSaga';
 import injectReducer from 'utils/injectReducer';
@@ -22,8 +23,8 @@ import Page from 'components/Page';
 import PageHeader from 'components/PageHeader';
 import reducer from './reducer';
 import saga from './saga';
-import { getGroups, getUser, initializeUserRegistration, saveUser, removeUser } from './actions';
-import { makeSelectGroups, makeSelectUser, makeSelectFhirResource } from './selectors';
+import { getGroups, getUser, initializeUserRegistration, removeUser, saveUser } from './actions';
+import { makeSelectFhirResource, makeSelectGroups, makeSelectUser } from './selectors';
 import messages from './messages';
 
 export class ManageUserRegistration extends React.Component { // eslint-disable-line react/prefer-stateless-function
@@ -85,7 +86,10 @@ export class ManageUserRegistration extends React.Component { // eslint-disable-
           <meta name="description" content="Manage user registration" />
         </Helmet>
         <PageHeader
-          title={<FormattedMessage {...messages.title} />}
+          title={isEmpty(uaaUser) ?
+            <FormattedMessage {...messages.manageUserRegistrationTitle} /> :
+            <FormattedMessage {...messages.manageUserSettingTitle} />
+          }
         />
         {user &&
         <ManageUser {...manageUserProps} onSave={this.handleSave} />
