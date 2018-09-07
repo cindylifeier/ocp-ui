@@ -27,7 +27,7 @@ import UpcomingTasksExpansionRowDetails from './UpcomingTasksExpansionRowDetails
 
 const tableColumns = '50px repeat(7, 1fr) 10px';
 
-// Todo: Fix ViewDetail that is already not working
+// Todo: Fix ViewDetail(onPatientViewDetailsClick) that is already not working. Needs patient Object to be sent, not just patient id.
 
 function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop }) {
   function getTaskDueWithIcon(statusStr) {
@@ -60,6 +60,7 @@ function UpcomingTaskTable({ elements, onPatientViewDetailsClick, relativeTop })
           const { logicalId, definition, description, executionPeriod, beneficiary, taskDue } = upcomingTask;
           const menuItems = [{
             primaryText: <FormattedMessage {...messages.viewDetails} />,
+            disabled: true,
             onClick: () => onPatientViewDetailsClick(getPatientIdFromTask(beneficiary)),
           }];
           return (
