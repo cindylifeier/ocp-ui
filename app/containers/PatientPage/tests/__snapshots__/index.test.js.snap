@@ -127,17 +127,17 @@ ShallowWrapper {
                               Object {
                                 "content": Array [
                                   Object {
-                                    "componentName": "tasks",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Patient's Tasks",
-                                    "type": "component",
-                                  },
-                                  Object {
                                     "componentName": "toDos",
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "Patient's TO DO",
+                                    "type": "component",
+                                  },
+                                  Object {
+                                    "componentName": "tasks",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Patient's Tasks",
                                     "type": "component",
                                   },
                                 ],
@@ -352,17 +352,17 @@ ShallowWrapper {
                                 Object {
                                   "content": Array [
                                     Object {
-                                      "componentName": "tasks",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Patient's Tasks",
-                                      "type": "component",
-                                    },
-                                    Object {
                                       "componentName": "toDos",
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "Patient's TO DO",
+                                      "type": "component",
+                                    },
+                                    Object {
+                                      "componentName": "tasks",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's Tasks",
                                       "type": "component",
                                     },
                                   ],
@@ -539,17 +539,17 @@ ShallowWrapper {
                               Object {
                                 "content": Array [
                                   Object {
-                                    "componentName": "tasks",
-                                    "isClosable": true,
-                                    "reorderEnabled": true,
-                                    "title": "Patient's Tasks",
-                                    "type": "component",
-                                  },
-                                  Object {
                                     "componentName": "toDos",
                                     "isClosable": true,
                                     "reorderEnabled": true,
                                     "title": "Patient's TO DO",
+                                    "type": "component",
+                                  },
+                                  Object {
+                                    "componentName": "tasks",
+                                    "isClosable": true,
+                                    "reorderEnabled": true,
+                                    "title": "Patient's Tasks",
                                     "type": "component",
                                   },
                                 ],
@@ -735,17 +735,17 @@ ShallowWrapper {
                                 Object {
                                   "content": Array [
                                     Object {
-                                      "componentName": "tasks",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Patient's Tasks",
-                                      "type": "component",
-                                    },
-                                    Object {
                                       "componentName": "toDos",
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "Patient's TO DO",
+                                      "type": "component",
+                                    },
+                                    Object {
+                                      "componentName": "tasks",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's Tasks",
                                       "type": "component",
                                     },
                                   ],
@@ -960,17 +960,17 @@ ShallowWrapper {
                                   Object {
                                     "content": Array [
                                       Object {
-                                        "componentName": "tasks",
-                                        "isClosable": true,
-                                        "reorderEnabled": true,
-                                        "title": "Patient's Tasks",
-                                        "type": "component",
-                                      },
-                                      Object {
                                         "componentName": "toDos",
                                         "isClosable": true,
                                         "reorderEnabled": true,
                                         "title": "Patient's TO DO",
+                                        "type": "component",
+                                      },
+                                      Object {
+                                        "componentName": "tasks",
+                                        "isClosable": true,
+                                        "reorderEnabled": true,
+                                        "title": "Patient's Tasks",
                                         "type": "component",
                                       },
                                     ],
@@ -1147,17 +1147,17 @@ ShallowWrapper {
                                 Object {
                                   "content": Array [
                                     Object {
-                                      "componentName": "tasks",
-                                      "isClosable": true,
-                                      "reorderEnabled": true,
-                                      "title": "Patient's Tasks",
-                                      "type": "component",
-                                    },
-                                    Object {
                                       "componentName": "toDos",
                                       "isClosable": true,
                                       "reorderEnabled": true,
                                       "title": "Patient's TO DO",
+                                      "type": "component",
+                                    },
+                                    Object {
+                                      "componentName": "tasks",
+                                      "isClosable": true,
+                                      "reorderEnabled": true,
+                                      "title": "Patient's Tasks",
                                       "type": "component",
                                     },
                                   ],
