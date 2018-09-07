@@ -3,10 +3,16 @@ import { goBack } from 'react-router-redux';
 import isEmpty from 'lodash/isEmpty';
 
 import { showNotification } from '../Notification/actions';
-import { GET_CARE_TEAM, SAVE_CARE_TEAM } from './constants';
-import { getCareTeamSuccess } from './actions';
+import { GET_CARE_TEAM, SAVE_CARE_TEAM, GET_EVENT_TYPES } from './constants';
+import { getEventTypesError, getEventTypesSuccess, getCareTeamSuccess } from './actions';
 import makeSelectCareTeams from '../CareTeams/selectors';
-import { determineNotificationForSavingCareTeam, getCareTeam, getCareTeamById, saveCareTeam } from './api';
+import {
+  determineNotificationForSavingCareTeam,
+  getCareTeam,
+  getCareTeamById,
+  saveCareTeam,
+  getEventTypes,
+} from './api';
 
 function getErrorDetail(err) {
   let errorDetail = '';
@@ -49,6 +55,16 @@ function* saveCareTeamSaga(action) {
   }
 }
 
+
+export function* getEventTypesSaga(patientId) {
+  try {
+    const eventTypes = yield call(getEventTypes, patientId);
+    yield put(getEventTypesSuccess(eventTypes));
+  } catch (err) {
+    yield put(getEventTypesError(err));
+  }
+}
+
 function* watchGetCareTeamSaga() {
   yield takeLatest(GET_CARE_TEAM, getCareTeamSaga);
 }
@@ -57,6 +73,9 @@ function* watchManageCareTeamSaga() {
   yield takeLatest(SAVE_CARE_TEAM, saveCareTeamSaga);
 }
 
+export function* watchGetEventTypesSaga() {
+  yield takeLatest(GET_EVENT_TYPES, getEventTypesSaga);
+}
 /**
  * Root saga manages watcher lifecycle
  */
@@ -64,5 +83,6 @@ export default function* rootSaga() {
   yield all([
     watchGetCareTeamSaga(),
     watchManageCareTeamSaga(),
+    watchGetEventTypesSaga(),
   ]);
 }

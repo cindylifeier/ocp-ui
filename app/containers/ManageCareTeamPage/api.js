@@ -2,7 +2,11 @@ import find from 'lodash/find';
 import isEmpty from 'lodash/isEmpty';
 import isUndefined from 'lodash/isUndefined';
 import { mapParticipantName } from '../../utils/CareTeamUtils';
-import { BASE_CARE_TEAMS_API_URL, getEndpoint } from '../../utils/endpointService';
+import {
+  BASE_CARE_TEAMS_API_URL,
+  getEndpoint,
+  BASE_EPISODE_OF_CARES_API_URL,
+} from '../../utils/endpointService';
 import request from '../../utils/request';
 
 const baseEndpoint = getEndpoint(BASE_CARE_TEAMS_API_URL);
@@ -75,7 +79,10 @@ function updateCareTeam(careTeamFormData) {
 
 function mapToBffCareTeam(careTeamData) {
   const {
-    careTeamName, patientId, status, startDate, endDate, participants, managingOrganization, categoryCode, categoryDisplay, categorySystem, reasonCode, reasonDisplay, reasonSystem,
+    careTeamName, patientId, status, startDate, endDate,
+    participants, managingOrganization, categoryCode,
+    categoryDisplay, categorySystem, reasonCode,
+    reasonDisplay, reasonSystem, episodeOfCareCode,
   } = careTeamData;
 
   return {
@@ -91,6 +98,7 @@ function mapToBffCareTeam(careTeamData) {
     reasonCode,
     reasonDisplay,
     reasonSystem,
+    episodeOfCareCode,
     participants: mapToBffParticipants(participants),
   };
 }
@@ -109,4 +117,10 @@ function mapToBffParticipants(participants) {
       }));
   }
   return [];
+}
+
+export function getEventTypes({ patientId }) {
+  const episodeOfCareBaseEndpoint = getEndpoint(BASE_EPISODE_OF_CARES_API_URL);
+  const requestURL = `${episodeOfCareBaseEndpoint}?patient=${patientId}&status=active`;
+  return request(requestURL);
 }
