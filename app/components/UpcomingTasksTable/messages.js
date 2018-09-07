@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   viewDetails: {
     id: 'ocpui.components.UpcomingTaskTable.viewDetails',
-    defaultMessage: 'View Details',
+    defaultMessage: 'View Patient Details',
   },
   columnHeaderPatientName: {
     id: 'ocpui.components.UpcomingTaskTable.columnHeaderPatientName',
